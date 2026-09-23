@@ -84,7 +84,7 @@ function StudentPage() {
             <div className="card-navy p-5">
               <h2 className="font-semibold">Need help with a document?</h2>
               <p className="mt-1 text-xs text-navy-muted">Your counsellor replies within 24 hours.</p>
-              <a href={whatsappLink(`Hi, I need help with my application ${s.applications[0].id}.`)} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm mt-4">Message counsellor</a>
+              <a href={whatsappLink(`Hi, I need help with my application ${s.applications[0]?.id ?? ""}.`)} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm mt-4">Message counsellor</a>
             </div>
             <div className="card-light p-5 text-sm">
               <p className="font-semibold">Account</p>

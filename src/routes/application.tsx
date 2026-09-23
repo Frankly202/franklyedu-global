@@ -4,13 +4,14 @@ import { PageHero, Section } from "@/components/site/Section";
 import { courses, destinations, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-type Search = { university?: string; course?: string };
+
+type Search = { university?: string | undefined; course?: string | undefined };
 const steps = ["Your details", "Study plan", "Documents", "Review"];
 
 export const Route = createFileRoute("/application")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    university: typeof s.university === "string" ? s.university : undefined,
-    course: typeof s.course === "string" ? s.course : undefined,
+    university: typeof s["university"] === "string" ? s["university"] : undefined,
+    course: typeof s["course"] === "string" ? s["course"] : undefined,
   }),
   head: () => pageMeta("Start Your Application", "A guided, step-by-step application form for your chosen university and programme."),
   component: ApplicationPage,
