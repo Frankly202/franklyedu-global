@@ -5,14 +5,27 @@ import { authNav, brand, mainNav } from "@/data/site";
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link to="/" className="flex items-center gap-2" aria-label={`${brand.name} home`}>
-      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-cream font-display text-sm font-bold text-navy">
-        {brand.mark}
-      </span>
-      {!compact && (
-        <span className="font-display text-sm font-bold uppercase tracking-tight text-navy-foreground">
-          {brand.name}
-        </span>
+    <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${brand.name} home`}>
+      {brand.logoImage ? (
+        <img
+          src={brand.logoImage}
+          alt={brand.name}
+          width={compact ? 32 : 36}
+          height={compact ? 32 : 36}
+          className="h-8 w-auto max-h-8 rounded-sm object-contain"
+          loading="eager"
+        />
+      ) : (
+        <>
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-cream font-display text-sm font-bold text-navy">
+            {brand.mark}
+          </span>
+          {!compact && (
+            <span className="font-display text-sm font-bold uppercase tracking-tight text-navy-foreground">
+              {brand.name}
+            </span>
+          )}
+        </>
       )}
     </Link>
   );

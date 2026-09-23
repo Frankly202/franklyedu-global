@@ -78,11 +78,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: brand.name },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: brand.logoImage || "/Logo.JPG" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/svg+xml", href: brand.faviconPath },
+      { rel: "icon", href: brand.faviconPath },
+      { rel: "apple-touch-icon", href: brand.faviconPath },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

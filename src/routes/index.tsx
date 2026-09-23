@@ -28,9 +28,10 @@ function Index() {
         <img
           src={images.hero}
           alt={images.heroAlt}
-          width={1024}
-          height={1280}
-          className="absolute inset-y-0 right-0 h-full w-full object-cover object-[70%_center] opacity-40 md:w-[62%] md:opacity-100"
+          width={images.heroWidth}
+          height={images.heroHeight}
+          fetchPriority="high"
+          className="absolute inset-y-0 right-0 h-full w-full object-cover object-[center_20%] opacity-30 md:w-[56%] md:object-[center_top] md:opacity-100 lg:w-[50%]"
         />
         <div className="absolute inset-0 hero-fade" aria-hidden />
         <div className="container-site relative py-16 sm:py-20 lg:py-24">

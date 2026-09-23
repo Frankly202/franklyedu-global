@@ -2,7 +2,7 @@
  * Central site configuration for FranklyEdu Global.
  * Replace brand assets, navigation labels and contact details here.
  */
-import heroImage from "@/assets/hero-student.jpg";
+import heroImage from "@/assets/background-photo.jpg";
 
 export type AppPath =
   | "/"
@@ -29,16 +29,21 @@ export interface NavItem {
 export const brand = {
   name: "FranklyEdu Global",
   shortName: "FranklyEdu",
-  /** Single-letter mark used in the logo badge. Swap for an <img> later. */
+  /** Fallback single-letter mark if image logo cannot be rendered */
   mark: "F",
   tagline: "Your global study pathway",
-  logoImage: null as string | null,
-  faviconPath: "/favicon.svg",
+  logoImage: "/Logo.JPG",
+  faviconPath: "/Logo.JPG",
+  logoWidth: 1480,
+  logoHeight: 1062,
 };
 
 export const images = {
   hero: heroImage,
-  heroAlt: "International student standing beside a car on a sunny street",
+  heroAlt:
+    "FranklyEdu Global founder Frank with international education and career planning materials",
+  heroWidth: 941,
+  heroHeight: 1672,
 };
 
 export const contact = {

@@ -25,7 +25,7 @@
 
 ### Phase 1: Brand Assets & Visual Foundation
 
-- **Status**: `NOT STARTED`
+- **Status**: `DONE`
 - **Scope**:
   - Replace the current placeholder single-letter "F" mark with the official FranklyEdu Global logo (`public/Logo.JPG`) across Navbar, Footer, and Favicon/Meta.
   - Integrate Frank's new hero/background image (`src/assets/background-photo.jpg`), refining the gradient overlay and color blending to match the Framer visual direction.
