@@ -5,7 +5,11 @@ import { supportServices } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/services")({
-  head: () => pageMeta("Student Services", "Intake planning, admissions, visa, dependent and application support — explained step by step."),
+  head: () =>
+    pageMeta(
+      "Student Services",
+      "Intake planning, admissions, visa, dependent and application support — explained step by step.",
+    ),
   component: ServicesPage,
 });
 
@@ -17,7 +21,9 @@ function ServicesPage() {
         title="Support for every part of your next step."
         subtitle="Straightforward guidance from your shortlist to your arrival plans — with every requirement clearly explained."
       >
-        <Link to="/application" className="btn btn-primary">Start your application</Link>
+        <Link to="/application" className="btn btn-primary">
+          Start your application
+        </Link>
       </PageHero>
       <Section>
         <div className="grid gap-4 md:grid-cols-2">
@@ -28,7 +34,10 @@ function ServicesPage() {
               <p className="mt-2 text-sm text-navy-muted">{s.description}</p>
               <ul className="mt-4 space-y-1.5 text-sm">
                 {s.details.map((d) => (
-                  <li key={d} className="flex gap-2"><span className="text-sky-soft">✓</span>{d}</li>
+                  <li key={d} className="flex gap-2">
+                    <span className="text-sky-soft">✓</span>
+                    {d}
+                  </li>
                 ))}
               </ul>
             </article>

@@ -46,8 +46,7 @@ export const contact = {
   phone: "+90 533 000 0000",
   /** Digits only, international format — used to build the WhatsApp link. */
   whatsappNumber: "905330000000",
-  whatsappDefaultMessage:
-    "Hello FranklyEdu Global, I'd like guidance on studying abroad.",
+  whatsappDefaultMessage: "Hello FranklyEdu Global, I'd like guidance on studying abroad.",
   address: "Famagusta, North Cyprus",
   hours: "Mon – Sat, 09:00 – 18:00 (UTC+3)",
   social: {

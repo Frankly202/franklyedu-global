@@ -5,8 +5,6 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { destinations, subjects, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-
-
 type Search = { country?: string | undefined; subject?: string | undefined };
 
 export const Route = createFileRoute("/universities")({
@@ -44,10 +42,16 @@ function UniversitiesPage() {
             <select
               className="field"
               value={country ?? ""}
-              onChange={(e) => navigate({ search: (p) => ({ ...p, country: e.target.value || undefined }) })}
+              onChange={(e) =>
+                navigate({ search: (p) => ({ ...p, country: e.target.value || undefined }) })
+              }
             >
               <option value="">All destinations</option>
-              {destinations.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>)}
+              {destinations.map((d) => (
+                <option key={d.slug} value={d.slug}>
+                  {d.name}
+                </option>
+              ))}
             </select>
           </label>
           <label className="grid gap-1">
@@ -55,13 +59,21 @@ function UniversitiesPage() {
             <select
               className="field"
               value={subject ?? ""}
-              onChange={(e) => navigate({ search: (p) => ({ ...p, subject: e.target.value || undefined }) })}
+              onChange={(e) =>
+                navigate({ search: (p) => ({ ...p, subject: e.target.value || undefined }) })
+              }
             >
               <option value="">All subjects</option>
-              {subjects.map((s) => <option key={s} value={s}>{s}</option>)}
+              {subjects.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
             </select>
           </label>
-          <Link to="/universities" search={{}} className="btn btn-outline-dark">Clear</Link>
+          <Link to="/universities" search={{}} className="btn btn-outline-dark">
+            Clear
+          </Link>
         </div>
 
         <p className="mb-5 text-sm text-muted-foreground">
@@ -70,12 +82,16 @@ function UniversitiesPage() {
 
         {results.length ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {results.map((u) => <UniversityCard key={u.slug} u={u} />)}
+            {results.map((u) => (
+              <UniversityCard key={u.slug} u={u} />
+            ))}
           </div>
         ) : (
           <div className="card-light p-10 text-center">
             <h2 className="text-lg font-semibold">No listings match yet</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Try a different destination or subject, or message us for tailored options.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Try a different destination or subject, or message us for tailored options.
+            </p>
           </div>
         )}
       </Section>

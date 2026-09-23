@@ -44,8 +44,8 @@ function Index() {
               future abroad.
             </h1>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-navy-muted sm:text-base">
-              Explore destinations, compare courses, understand tuition and scholarships, and start your application with
-              clear guidance from {brand.name}.
+              Explore destinations, compare courses, understand tuition and scholarships, and start
+              your application with clear guidance from {brand.name}.
             </p>
 
             <form
@@ -59,29 +59,54 @@ function Index() {
               }}
             >
               <label className="grid gap-1">
-                <span className="eyebrow text-[0.58rem] text-muted-foreground">Study destination</span>
-                <select value={country} onChange={(e) => setCountry(e.target.value)} className="field py-2 text-xs">
+                <span className="eyebrow text-[0.58rem] text-muted-foreground">
+                  Study destination
+                </span>
+                <select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="field py-2 text-xs"
+                >
                   <option value="">Germany, UK, Canada…</option>
                   {destinations.map((d) => (
-                    <option key={d.slug} value={d.slug}>{d.name}</option>
+                    <option key={d.slug} value={d.slug}>
+                      {d.name}
+                    </option>
                   ))}
                 </select>
               </label>
               <label className="grid gap-1">
-                <span className="eyebrow text-[0.58rem] text-muted-foreground">Course or subject</span>
-                <select value={subject} onChange={(e) => setSubject(e.target.value)} className="field py-2 text-xs">
+                <span className="eyebrow text-[0.58rem] text-muted-foreground">
+                  Course or subject
+                </span>
+                <select
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  className="field py-2 text-xs"
+                >
                   <option value="">Business, Engineering, Health…</option>
                   {subjects.map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
                   ))}
                 </select>
               </label>
-              <button type="submit" className="btn btn-primary">Find Universities</button>
+              <button type="submit" className="btn btn-primary">
+                Find Universities
+              </button>
             </form>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/application" className="btn btn-primary">Start Your Application</Link>
-              <a href={whatsappLink()} target="_blank" rel="noreferrer" className="btn btn-outline-light">
+              <Link to="/application" className="btn btn-primary">
+                Start Your Application
+              </Link>
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-outline-light"
+              >
                 Chat on WhatsApp
               </a>
             </div>
@@ -114,7 +139,13 @@ function Index() {
         <SectionHeading
           tone="dark"
           eyebrow="Universities & courses"
-          title={<>A catalogue ready for<br />verified opportunities.</>}
+          title={
+            <>
+              A catalogue ready for
+              <br />
+              verified opportunities.
+            </>
+          }
           subtitle="We only publish details once they are confirmed. These editable templates are ready for your verified university, programme, fee, and scholarship information."
         />
         <div className="grid gap-4 md:grid-cols-3">
@@ -123,7 +154,9 @@ function Index() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <Link to="/universities" className="btn btn-outline-light">Browse all universities</Link>
+          <Link to="/universities" className="btn btn-outline-light">
+            Browse all universities
+          </Link>
         </div>
       </Section>
 
@@ -131,13 +164,23 @@ function Index() {
       <Section>
         <SectionHeading
           eyebrow="Student support"
-          title={<>Support for every<br />part of your next step.</>}
+          title={
+            <>
+              Support for every
+              <br />
+              part of your next step.
+            </>
+          }
           subtitle="Straightforward guidance from your shortlist to your arrival plans — with every requirement clearly explained."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {supportServices.map((s) => (
             <Link key={s.slug} to="/services" hash={s.slug} className="group">
-              <InfoCard title={s.title} description={s.description} className="h-full transition-transform group-hover:-translate-y-0.5" />
+              <InfoCard
+                title={s.title}
+                description={s.description}
+                className="h-full transition-transform group-hover:-translate-y-0.5"
+              />
             </Link>
           ))}
         </div>

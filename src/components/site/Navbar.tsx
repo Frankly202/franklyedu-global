@@ -76,10 +76,18 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <Link to={authNav.login.to} onClick={() => setOpen(false)} className="btn btn-outline-light">
+              <Link
+                to={authNav.login.to}
+                onClick={() => setOpen(false)}
+                className="btn btn-outline-light"
+              >
                 {authNav.login.label}
               </Link>
-              <Link to={authNav.signup.to} onClick={() => setOpen(false)} className="btn btn-primary">
+              <Link
+                to={authNav.signup.to}
+                onClick={() => setOpen(false)}
+                className="btn btn-primary"
+              >
                 {authNav.signup.label}
               </Link>
             </div>

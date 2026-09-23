@@ -6,15 +6,25 @@ import { brand } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
-  head: () => pageMeta("About", "FranklyEdu Global gives students frank, verified guidance on studying abroad."),
+  head: () =>
+    pageMeta(
+      "About",
+      "FranklyEdu Global gives students frank, verified guidance on studying abroad.",
+    ),
   component: AboutPage,
 });
 
 function AboutPage() {
   return (
     <>
-      <PageHero eyebrow={`About ${brand.shortName}`} title="Frank guidance for global study." subtitle={aboutContent.mission}>
-        <Link to="/contact" className="btn btn-primary">Get in touch</Link>
+      <PageHero
+        eyebrow={`About ${brand.shortName}`}
+        title="Frank guidance for global study."
+        subtitle={aboutContent.mission}
+      >
+        <Link to="/contact" className="btn btn-primary">
+          Get in touch
+        </Link>
       </PageHero>
       <Section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

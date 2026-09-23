@@ -4,7 +4,6 @@ import { PageHero, Section } from "@/components/site/Section";
 import { courses, destinations, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-
 type Search = { university?: string | undefined; course?: string | undefined };
 const steps = ["Your details", "Study plan", "Documents", "Review"];
 
@@ -13,14 +12,20 @@ export const Route = createFileRoute("/application")({
     university: typeof s["university"] === "string" ? s["university"] : undefined,
     course: typeof s["course"] === "string" ? s["course"] : undefined,
   }),
-  head: () => pageMeta("Start Your Application", "A guided, step-by-step application form for your chosen university and programme."),
+  head: () =>
+    pageMeta(
+      "Start Your Application",
+      "A guided, step-by-step application form for your chosen university and programme.",
+    ),
   component: ApplicationPage,
 });
 
 function ApplicationPage() {
   const search = Route.useSearch();
   const presetCourse = courses.find((c) => c.slug === search.course);
-  const presetUni = universities.find((u) => u.slug === (search.university ?? presetCourse?.universitySlug));
+  const presetUni = universities.find(
+    (u) => u.slug === (search.university ?? presetCourse?.universitySlug),
+  );
 
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
@@ -35,18 +40,27 @@ function ApplicationPage() {
     intake: "",
     level: presetCourse?.level ?? "",
   });
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }));
+  const set =
+    (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+      setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const uniOptions = universities.filter((u) => !form.destination || u.countrySlug === form.destination);
-  const courseOptions = courses.filter((c) => !form.university || c.universitySlug === form.university);
+  const uniOptions = universities.filter(
+    (u) => !form.destination || u.countrySlug === form.destination,
+  );
+  const courseOptions = courses.filter(
+    (c) => !form.university || c.universitySlug === form.university,
+  );
 
   return (
     <>
       <PageHero
         eyebrow="Application"
         title="Start your application."
-        subtitle={presetUni ? `Applying to ${presetUni.name}${presetCourse ? ` — ${presetCourse.title}` : ""}.` : "Four short steps. You can come back and finish later once accounts are connected."}
+        subtitle={
+          presetUni
+            ? `Applying to ${presetUni.name}${presetCourse ? ` — ${presetCourse.title}` : ""}.`
+            : "Four short steps. You can come back and finish later once accounts are connected."
+        }
       />
       <Section>
         <div className="mx-auto max-w-3xl">
@@ -54,7 +68,11 @@ function ApplicationPage() {
             {steps.map((s, i) => (
               <li key={s} className="text-center">
                 <div className={`h-1.5 rounded-full ${i <= step ? "bg-sky" : "bg-border"}`} />
-                <p className={`mt-2 text-[0.7rem] font-medium sm:text-xs ${i === step ? "text-navy" : "text-muted-foreground"}`}>{s}</p>
+                <p
+                  className={`mt-2 text-[0.7rem] font-medium sm:text-xs ${i === step ? "text-navy" : "text-muted-foreground"}`}
+                >
+                  {s}
+                </p>
               </li>
             ))}
           </ol>
@@ -71,10 +89,24 @@ function ApplicationPage() {
               <div className="py-8 text-center">
                 <p className="eyebrow text-sky">Prototype</p>
                 <h2 className="mt-2 text-2xl font-bold">Application saved locally</h2>
-                <p className="mt-2 text-sm text-muted-foreground">Nothing was submitted yet — this flow is ready to connect to your application system.</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Nothing was submitted yet — this flow is ready to connect to your application
+                  system.
+                </p>
                 <div className="mt-6 flex justify-center gap-2">
-                  <Link to="/student" className="btn btn-primary">Go to student dashboard</Link>
-                  <button type="button" className="btn btn-outline-dark" onClick={() => { setDone(false); setStep(0); }}>Start over</button>
+                  <Link to="/student" className="btn btn-primary">
+                    Go to student dashboard
+                  </Link>
+                  <button
+                    type="button"
+                    className="btn btn-outline-dark"
+                    onClick={() => {
+                      setDone(false);
+                      setStep(0);
+                    }}
+                  >
+                    Start over
+                  </button>
                 </div>
               </div>
             ) : (
@@ -83,26 +115,66 @@ function ApplicationPage() {
 
                 {step === 0 && (
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    <input className="field" placeholder="Full name" value={form.name} onChange={set("name")} required />
-                    <input className="field" type="email" placeholder="Email address" value={form.email} onChange={set("email")} required />
-                    <input className="field" placeholder="Phone / WhatsApp number" value={form.phone} onChange={set("phone")} />
-                    <input className="field" placeholder="Nationality" value={form.nationality} onChange={set("nationality")} />
+                    <input
+                      className="field"
+                      placeholder="Full name"
+                      value={form.name}
+                      onChange={set("name")}
+                      required
+                    />
+                    <input
+                      className="field"
+                      type="email"
+                      placeholder="Email address"
+                      value={form.email}
+                      onChange={set("email")}
+                      required
+                    />
+                    <input
+                      className="field"
+                      placeholder="Phone / WhatsApp number"
+                      value={form.phone}
+                      onChange={set("phone")}
+                    />
+                    <input
+                      className="field"
+                      placeholder="Nationality"
+                      value={form.nationality}
+                      onChange={set("nationality")}
+                    />
                   </div>
                 )}
 
                 {step === 1 && (
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    <select className="field" value={form.destination} onChange={set("destination")} required>
+                    <select
+                      className="field"
+                      value={form.destination}
+                      onChange={set("destination")}
+                      required
+                    >
                       <option value="">Study destination</option>
-                      {destinations.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>)}
+                      {destinations.map((d) => (
+                        <option key={d.slug} value={d.slug}>
+                          {d.name}
+                        </option>
+                      ))}
                     </select>
                     <select className="field" value={form.university} onChange={set("university")}>
                       <option value="">University (optional)</option>
-                      {uniOptions.map((u) => <option key={u.slug} value={u.slug}>{u.name}</option>)}
+                      {uniOptions.map((u) => (
+                        <option key={u.slug} value={u.slug}>
+                          {u.name}
+                        </option>
+                      ))}
                     </select>
                     <select className="field" value={form.course} onChange={set("course")}>
                       <option value="">Programme (optional)</option>
-                      {courseOptions.map((c) => <option key={c.slug} value={c.slug}>{c.title}</option>)}
+                      {courseOptions.map((c) => (
+                        <option key={c.slug} value={c.slug}>
+                          {c.title}
+                        </option>
+                      ))}
                     </select>
                     <select className="field" value={form.intake} onChange={set("intake")} required>
                       <option value="">Preferred intake</option>
@@ -115,13 +187,26 @@ function ApplicationPage() {
 
                 {step === 2 && (
                   <div className="mt-5 grid gap-3">
-                    {["Passport copy", "Academic transcripts", "English proficiency proof", "Statement of purpose"].map((d) => (
-                      <label key={d} className="flex items-center justify-between gap-4 rounded-lg border border-border p-3 text-sm">
+                    {[
+                      "Passport copy",
+                      "Academic transcripts",
+                      "English proficiency proof",
+                      "Statement of purpose",
+                    ].map((d) => (
+                      <label
+                        key={d}
+                        className="flex items-center justify-between gap-4 rounded-lg border border-border p-3 text-sm"
+                      >
                         <span>{d}</span>
-                        <input type="file" className="max-w-[10rem] text-xs text-muted-foreground" />
+                        <input
+                          type="file"
+                          className="max-w-[10rem] text-xs text-muted-foreground"
+                        />
                       </label>
                     ))}
-                    <p className="text-xs text-muted-foreground">Uploads are not stored in this prototype.</p>
+                    <p className="text-xs text-muted-foreground">
+                      Uploads are not stored in this prototype.
+                    </p>
                   </div>
                 )}
 
@@ -146,7 +231,12 @@ function ApplicationPage() {
                 )}
 
                 <div className="mt-6 flex items-center justify-between">
-                  <button type="button" className="btn btn-outline-dark" disabled={step === 0} onClick={() => setStep(step - 1)}>
+                  <button
+                    type="button"
+                    className="btn btn-outline-dark"
+                    disabled={step === 0}
+                    onClick={() => setStep(step - 1)}
+                  >
                     Back
                   </button>
                   <button type="submit" className="btn btn-primary">

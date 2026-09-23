@@ -6,7 +6,11 @@ import { whatsappLink } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/scholarships")({
-  head: () => pageMeta("Scholarships", "Discover verified scholarship pathways by destination, level and deadline."),
+  head: () =>
+    pageMeta(
+      "Scholarships",
+      "Discover verified scholarship pathways by destination, level and deadline.",
+    ),
   component: ScholarshipsPage,
 });
 
@@ -27,13 +31,31 @@ function ScholarshipsPage() {
               <p className="mt-1 text-xs text-muted-foreground">{s.provider}</p>
               <p className="mt-3 text-sm">{s.summary}</p>
               <dl className="mt-4 grid grid-cols-3 gap-2 text-xs">
-                <div><dt className="text-muted-foreground">Amount</dt><dd className="font-medium">{s.amount}</dd></div>
-                <div><dt className="text-muted-foreground">Level</dt><dd className="font-medium">{s.level}</dd></div>
-                <div><dt className="text-muted-foreground">Deadline</dt><dd className="font-medium">{s.deadline}</dd></div>
+                <div>
+                  <dt className="text-muted-foreground">Amount</dt>
+                  <dd className="font-medium">{s.amount}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Level</dt>
+                  <dd className="font-medium">{s.level}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Deadline</dt>
+                  <dd className="font-medium">{s.deadline}</dd>
+                </div>
               </dl>
               <div className="mt-auto flex gap-2 pt-5">
-                <Link to="/application" className="btn btn-primary btn-sm">Apply with support</Link>
-                <a href={whatsappLink(`Hi, I'd like to know if I'm eligible for ${s.name}.`)} target="_blank" rel="noreferrer" className="btn btn-outline-dark btn-sm">Check eligibility</a>
+                <Link to="/application" className="btn btn-primary btn-sm">
+                  Apply with support
+                </Link>
+                <a
+                  href={whatsappLink(`Hi, I'd like to know if I'm eligible for ${s.name}.`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-outline-dark btn-sm"
+                >
+                  Check eligibility
+                </a>
               </div>
             </article>
           ))}

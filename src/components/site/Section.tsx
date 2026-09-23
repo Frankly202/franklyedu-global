@@ -42,11 +42,22 @@ export function SectionHeading({
   align?: "center" | "left";
 }) {
   return (
-    <div className={cn("mb-10 max-w-2xl", align === "center" ? "mx-auto text-center" : "text-left")}>
-      {eyebrow && <p className={cn("eyebrow mb-3", tone === "dark" ? "text-sky-soft" : "text-sky")}>{eyebrow}</p>}
+    <div
+      className={cn("mb-10 max-w-2xl", align === "center" ? "mx-auto text-center" : "text-left")}
+    >
+      {eyebrow && (
+        <p className={cn("eyebrow mb-3", tone === "dark" ? "text-sky-soft" : "text-sky")}>
+          {eyebrow}
+        </p>
+      )}
       <h2 className="text-3xl font-bold leading-tight sm:text-4xl">{title}</h2>
       {subtitle && (
-        <p className={cn("mt-4 text-sm leading-relaxed sm:text-base", tone === "dark" ? "text-navy-muted" : "text-muted-foreground")}>
+        <p
+          className={cn(
+            "mt-4 text-sm leading-relaxed sm:text-base",
+            tone === "dark" ? "text-navy-muted" : "text-muted-foreground",
+          )}
+        >
           {subtitle}
         </p>
       )}
@@ -70,7 +81,9 @@ export function PageHero({
       <div className="container-site max-w-3xl">
         {eyebrow && <p className="eyebrow mb-3 text-sky-soft">{eyebrow}</p>}
         <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl">{title}</h1>
-        {subtitle && <p className="mt-5 max-w-xl text-base leading-relaxed text-navy-muted">{subtitle}</p>}
+        {subtitle && (
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-navy-muted">{subtitle}</p>
+        )}
         {children && <div className="mt-8">{children}</div>}
       </div>
     </section>

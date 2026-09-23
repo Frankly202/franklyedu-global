@@ -16,7 +16,12 @@ export function Footer() {
             <a href={`mailto:${contact.email}`} className="block hover:text-navy-foreground">
               {contact.email}
             </a>
-            <a href={whatsappLink()} target="_blank" rel="noreferrer" className="block hover:text-navy-foreground">
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noreferrer"
+              className="block hover:text-navy-foreground"
+            >
               WhatsApp {contact.phone}
             </a>
           </div>
@@ -28,7 +33,10 @@ export function Footer() {
             <ul className="space-y-2">
               {group.items.map((item) => (
                 <li key={item.to + item.label}>
-                  <Link to={item.to} className="text-sm text-navy-muted transition-colors hover:text-navy-foreground">
+                  <Link
+                    to={item.to}
+                    className="text-sm text-navy-muted transition-colors hover:text-navy-foreground"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -39,7 +47,9 @@ export function Footer() {
       </div>
       <div className="border-t border-navy-border">
         <div className="container-site flex flex-col gap-2 py-5 text-xs text-navy-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {brand.name}. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} {brand.name}. All rights reserved.
+          </p>
           <p>Listings marked “template” are placeholders pending verification.</p>
         </div>
       </div>
