@@ -4,7 +4,8 @@ import { PageHero, Section } from "@/components/site/Section";
 import { courses, destinations, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-type Search = { university?: string | undefined; course?: string };
+
+type Search = { university?: string | undefined; course?: string | undefined };
 const steps = ["Your details", "Study plan", "Documents", "Review"];
 
 export const Route = createFileRoute("/application")({

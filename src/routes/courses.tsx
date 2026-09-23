@@ -5,7 +5,8 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { courses, subjects, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-type Search = { university?: string | undefined; subject?: string | undefined; level?: string };
+
+type Search = { university?: string | undefined; subject?: string | undefined; level?: string | undefined };
 const levels = ["Foundation", "Bachelor's", "Master's", "PhD"];
 
 export const Route = createFileRoute("/courses")({
