@@ -5,14 +5,14 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { courses, subjects, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-type Search = { university?: string; subject?: string; level?: string };
+type Search = { university?: string | undefined; subject?: string | undefined; level?: string };
 const levels = ["Foundation", "Bachelor's", "Master's", "PhD"];
 
 export const Route = createFileRoute("/courses")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    university: typeof s.university === "string" ? s.university : undefined,
-    subject: typeof s.subject === "string" ? s.subject : undefined,
-    level: typeof s.level === "string" ? s.level : undefined,
+    university: typeof s["university"] === "string" ? s["university"] : undefined,
+    subject: typeof s["subject"] === "string" ? s["subject"] : undefined,
+    level: typeof s["level"] === "string" ? s["level"] : undefined,
   }),
   head: () => pageMeta("Courses", "Compare English-taught programmes by level, subject and university, with duration, tuition and intake."),
   component: CoursesPage,

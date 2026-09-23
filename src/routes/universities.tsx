@@ -5,12 +5,12 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { destinations, subjects, universities } from "@/data/content";
 import { pageMeta } from "@/lib/seo";
 
-type Search = { country?: string; subject?: string };
+type Search = { country?: string | undefined; subject?: string };
 
 export const Route = createFileRoute("/universities")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    country: typeof s.country === "string" ? s.country : undefined,
-    subject: typeof s.subject === "string" ? s.subject : undefined,
+    country: typeof s["country"] === "string" ? s["country"] : undefined,
+    subject: typeof s["subject"] === "string" ? s["subject"] : undefined,
   }),
   head: () =>
     pageMeta(
