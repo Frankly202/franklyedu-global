@@ -19,6 +19,7 @@ function ContactPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Contact" }]}
         eyebrow="Contact"
         title="Let’s talk about your next step."
         subtitle="Reach us on WhatsApp for the fastest reply, or send a message below."

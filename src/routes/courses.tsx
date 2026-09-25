@@ -41,6 +41,7 @@ function CoursesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Courses" }]}
         eyebrow="Courses"
         title={uni ? `Programmes at ${uni.name}` : "Compare programmes."}
         subtitle="Search by subject and level. Tuition and intake details are shown where verified."

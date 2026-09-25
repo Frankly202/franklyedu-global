@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { MessageCircle, Menu, X, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { authNav, brand, mainNav } from "@/data/site";
+import { authNav, brand, contact, mainNav, whatsappLink } from "@/data/site";
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
@@ -38,80 +38,225 @@ export function Logo({ compact = false }: { compact?: boolean }) {
   );
 }
 
+// Grouped sections for mobile drawer clarity
+const mobileNavGroups = [
+  {
+    title: "Study Pathways",
+    items: [
+      {
+        label: "Universities",
+        to: "/universities" as const,
+        desc: "Explore partner campuses & tuition",
+      },
+      { label: "Courses", to: "/courses" as const, desc: "Compare English-taught programmes" },
+      {
+        label: "Destinations",
+        to: "/countries" as const,
+        desc: "Compare countries, visas & intakes",
+      },
+      {
+        label: "Scholarships",
+        to: "/scholarships" as const,
+        desc: "Verified funding & tuition discounts",
+      },
+    ],
+  },
+  {
+    title: "Services & Living",
+    items: [
+      {
+        label: "Student Services",
+        to: "/services" as const,
+        desc: "Intake planning, visa & arrival support",
+      },
+      {
+        label: "Marketplace",
+        to: "/marketplace" as const,
+        desc: "Student essentials & trusted community listings",
+      },
+      {
+        label: "Accommodation",
+        to: "/accommodation" as const,
+        desc: "Dorms & apartments near campus",
+      },
+      { label: "Real Estate", to: "/real-estate" as const, desc: "Property purchases & rentals" },
+    ],
+  },
+  {
+    title: "Company",
+    items: [
+      {
+        label: "About FranklyEdu",
+        to: "/about" as const,
+        desc: "Our mission, team & verified guidance",
+      },
+      { label: "Contact & Office", to: "/contact" as const, desc: "Message our advisory team" },
+    ],
+  },
+];
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
+
+  // Desktop navigation excludes redundant "Home" since the Logo already links to "/"
+  const desktopNavItems = mainNav.filter((item) => item.to !== "/");
 
   return (
     <header className="sticky top-0 z-50 bg-navy-deep/95 text-navy-foreground backdrop-blur supports-[backdrop-filter]:bg-navy-deep/85">
       <div className="container-site flex h-16 items-center justify-between gap-3 lg:gap-4">
         <Logo />
 
-        <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Main">
-          {mainNav.map((item) => (
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-0.5 xl:gap-1.5 lg:flex" aria-label="Main">
+          {desktopNavItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              activeOptions={{ exact: item.to === "/" }}
-              className="rounded-md px-2 py-1.5 text-[13px] text-navy-muted transition-colors hover:text-navy-foreground xl:px-2.5 xl:text-sm"
-              activeProps={{ className: "text-navy-foreground font-medium" }}
+              className="rounded-md px-2 py-1.5 text-[13px] font-medium text-navy-muted transition-colors hover:text-navy-foreground xl:px-2.5 xl:text-sm"
+              activeProps={{ className: "text-navy-foreground font-semibold bg-navy-soft/60" }}
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <Link to={authNav.login.to} className="btn btn-outline-light btn-sm">
-            {authNav.login.label}
-          </Link>
-          <Link to={authNav.signup.to} className="btn btn-primary btn-sm">
-            {authNav.signup.label}
+        {/* Desktop Primary Actions: Start Application & WhatsApp prioritized */}
+        <div className="hidden items-center gap-2 xl:gap-2.5 lg:flex">
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-outline-light btn-sm flex items-center gap-1.5 border-emerald-500/40 text-emerald-300 transition-colors hover:border-emerald-400 hover:bg-emerald-500/10"
+            title="Chat with FranklyEdu Global on WhatsApp"
+          >
+            <MessageCircle className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+            <span className="hidden xl:inline">WhatsApp</span>
+          </a>
+          <Link
+            to="/application"
+            className="btn btn-primary btn-sm flex items-center gap-1 whitespace-nowrap shadow-sm"
+          >
+            <span>Start Application</span>
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
-        <button
-          type="button"
-          className="grid h-10 w-10 place-items-center rounded-md text-navy-foreground lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Mobile Header Quick Actions */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noreferrer"
+            className="grid h-9 w-9 place-items-center rounded-md border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 transition-colors hover:bg-emerald-500/20"
+            aria-label="Chat on WhatsApp"
+            title="Chat on WhatsApp"
+          >
+            <MessageCircle className="h-4 w-4" />
+          </a>
+          <Link
+            to="/application"
+            className="btn btn-primary btn-sm px-3 py-1.5 text-xs font-semibold sm:text-sm"
+          >
+            Apply
+          </Link>
+          <button
+            type="button"
+            className="grid h-9 w-9 place-items-center rounded-md text-navy-foreground hover:bg-navy-soft"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
+      {/* Mobile Drawer */}
       {open && (
-        <div className="border-t border-navy-border bg-navy-deep lg:hidden">
-          <nav className="container-site grid gap-1 py-4" aria-label="Mobile">
-            {mainNav.map((item) => (
+        <div className="border-t border-navy-border bg-navy-deep/98 max-h-[calc(100vh-4rem)] overflow-y-auto lg:hidden">
+          <div className="container-site py-5">
+            {/* Primary Action Buttons in Mobile Drawer */}
+            <div className="grid gap-2.5 sm:grid-cols-2">
               <Link
-                key={item.to}
-                to={item.to}
-                activeOptions={{ exact: item.to === "/" }}
+                to="/application"
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2.5 text-[15px] font-medium text-navy-muted hover:bg-navy-soft hover:text-navy-foreground"
-                activeProps={{ className: "bg-navy-soft text-navy-foreground" }}
+                className="btn btn-primary flex w-full items-center justify-center gap-2 py-3 text-[15px] font-semibold shadow-md"
               >
-                {item.label}
+                <span>Start Application</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
-            ))}
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <Link
-                to={authNav.login.to}
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noreferrer"
                 onClick={() => setOpen(false)}
-                className="btn btn-outline-light"
+                className="btn btn-outline-light flex w-full items-center justify-center gap-2 border-emerald-500/40 py-2.5 text-[15px] font-semibold text-emerald-300 hover:bg-emerald-500/10"
               >
-                {authNav.login.label}
-              </Link>
-              <Link
-                to={authNav.signup.to}
-                onClick={() => setOpen(false)}
-                className="btn btn-primary"
-              >
-                {authNav.signup.label}
-              </Link>
+                <MessageCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+                <span>Chat on WhatsApp</span>
+              </a>
             </div>
-          </nav>
+
+            {/* Categorized Navigation Groups */}
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              {mobileNavGroups.map((group) => (
+                <div key={group.title} className="space-y-2">
+                  <p className="eyebrow text-sky-soft text-xs">{group.title}</p>
+                  <div className="grid gap-1">
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        onClick={() => setOpen(false)}
+                        className="rounded-lg p-2.5 transition-colors hover:bg-navy-soft"
+                        activeProps={{ className: "bg-navy-soft text-navy-foreground" }}
+                      >
+                        <p className="text-[15px] font-medium text-navy-foreground">{item.label}</p>
+                        <p className="text-xs text-navy-muted">{item.desc}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Secondary Student Account Access & Direct Contact */}
+            <div className="mt-6 border-t border-navy-border/60 pt-5">
+              <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-navy-muted">
+                <div className="flex items-center gap-4">
+                  <Link
+                    to="/student"
+                    onClick={() => setOpen(false)}
+                    className="font-medium text-sky-soft hover:underline"
+                  >
+                    Student Dashboard Preview →
+                  </Link>
+                </div>
+                <div className="flex items-center gap-3 text-xs">
+                  <Link
+                    to={authNav.login.to}
+                    onClick={() => setOpen(false)}
+                    className="hover:text-navy-foreground"
+                  >
+                    {authNav.login.label}
+                  </Link>
+                  <span>·</span>
+                  <Link
+                    to={authNav.signup.to}
+                    onClick={() => setOpen(false)}
+                    className="hover:text-navy-foreground"
+                  >
+                    {authNav.signup.label}
+                  </Link>
+                </div>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-1 text-xs text-navy-muted sm:flex-row sm:justify-between">
+                <p>📍 {contact.address}</p>
+                <p>🕒 {contact.hours}</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </header>

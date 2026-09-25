@@ -18,6 +18,7 @@ function AboutPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "About" }]}
         eyebrow={`About ${brand.shortName}`}
         title="Frank guidance for global study."
         subtitle={aboutContent.mission}

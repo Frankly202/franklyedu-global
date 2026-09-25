@@ -24,6 +24,7 @@ function MarketplacePage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Marketplace" }]}
         eyebrow="Marketplace"
         title="Everything you need to settle in."
         subtitle="Housing, essentials and trusted services from the FranklyEdu community."

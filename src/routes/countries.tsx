@@ -17,6 +17,7 @@ function CountriesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Destinations" }]}
         eyebrow="Study destinations"
         title="Choose where your degree takes you."
         subtitle="Each destination has different intakes, budgets and post-study options. Compare them side by side before you shortlist."

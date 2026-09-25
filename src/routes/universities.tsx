@@ -31,6 +31,7 @@ function UniversitiesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Universities" }]}
         eyebrow="Universities"
         title="Find the right university."
         subtitle="Filter by destination and subject. Every listing shows the details students ask about most — tuition, intake, application fee and scholarships."

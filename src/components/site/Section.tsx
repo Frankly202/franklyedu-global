@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import type { BreadcrumbItem } from "./Breadcrumbs";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 type Tone = "light" | "dark";
 
@@ -64,27 +66,31 @@ export function SectionHeading({
     </div>
   );
 }
-
 export function PageHero({
   eyebrow,
   title,
   subtitle,
   children,
+  breadcrumbs,
 }: {
   eyebrow?: string;
   title: ReactNode;
   subtitle?: string;
   children?: ReactNode;
+  breadcrumbs?: BreadcrumbItem[];
 }) {
   return (
-    <section className="bg-navy-deep py-16 text-navy-foreground sm:py-20">
+    <section className="bg-navy-deep py-14 text-navy-foreground sm:py-18">
       <div className="container-site max-w-3xl">
+        {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
         {eyebrow && <p className="eyebrow mb-3 text-sky-soft">{eyebrow}</p>}
         <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl">{title}</h1>
         {subtitle && (
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-navy-muted">{subtitle}</p>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-navy-muted sm:text-lg">
+            {subtitle}
+          </p>
         )}
-        {children && <div className="mt-8">{children}</div>}
+        {children && <div className="mt-7">{children}</div>}
       </div>
     </section>
   );

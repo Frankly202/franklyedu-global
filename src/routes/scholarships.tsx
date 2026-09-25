@@ -18,6 +18,7 @@ function ScholarshipsPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Scholarships" }]}
         eyebrow="Scholarships"
         title="Funding that fits your plan."
         subtitle="We list scholarships only once amounts and eligibility are confirmed. Items marked template are placeholders."

@@ -18,6 +18,7 @@ function RealEstatePage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Marketplace", to: "/marketplace" }, { label: "Real Estate" }]}
         eyebrow="Real estate"
         title="Property for students, families and investors."
         subtitle="Curated listings with title-deed status and rental potential clearly stated."

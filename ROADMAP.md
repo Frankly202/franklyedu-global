@@ -42,7 +42,7 @@
 
 ### Phase 2: Core Pages & Navigation
 
-- **Status**: `NOT STARTED`
+- **Status**: `DONE`
 - **Scope**:
   - Refine desktop navigation bar and mobile drawer menu for maximum clarity and brand impact.
   - Align primary header actions with MVP goals: prioritize "Start Application" and "Chat on WhatsApp" over dead login/signup placeholders.

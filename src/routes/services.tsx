@@ -17,6 +17,7 @@ function ServicesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Services" }]}
         eyebrow="Student support"
         title="Support for every part of your next step."
         subtitle="Straightforward guidance from your shortlist to your arrival plans — with every requirement clearly explained."

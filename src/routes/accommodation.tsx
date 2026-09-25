@@ -18,6 +18,7 @@ function AccommodationPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Marketplace", to: "/marketplace" }, { label: "Accommodation" }]}
         eyebrow="Accommodation"
         title="A place to live before you land."
         subtitle="Verified student housing options with transparent monthly costs and move-in dates."

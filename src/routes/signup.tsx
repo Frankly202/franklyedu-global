@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/signup")({
@@ -13,12 +14,15 @@ export const Route = createFileRoute("/signup")({
 function SignupPage() {
   const navigate = useNavigate();
   return (
-    <section className="bg-navy-deep py-16 text-navy-foreground sm:py-24">
-      <div className="container-site max-w-2xl text-center">
-        <h1 className="text-4xl font-bold sm:text-5xl">Start your global study journey</h1>
-        <p className="mt-4 text-navy-muted">
-          Create your profile when you’re ready to save opportunities and begin an application.
-        </p>
+    <section className="bg-navy-deep py-14 text-navy-foreground sm:py-20">
+      <div className="container-site max-w-2xl">
+        <Breadcrumbs items={[{ label: "Sign Up" }]} />
+        <div className="text-center">
+          <h1 className="text-4xl font-bold sm:text-5xl">Start your global study journey</h1>
+          <p className="mt-4 text-navy-muted">
+            Create your profile when you’re ready to save opportunities and begin an application.
+          </p>
+        </div>
       </div>
       <form
         className="container-site mt-12 max-w-md"

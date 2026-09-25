@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { brand } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 
@@ -14,12 +15,15 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   return (
-    <section className="bg-navy-deep py-16 text-navy-foreground sm:py-24">
-      <div className="container-site max-w-2xl text-center">
-        <h1 className="text-4xl font-bold sm:text-5xl">Welcome back</h1>
-        <p className="mt-4 text-navy-muted">
-          Student account access will be connected here when the application system is ready.
-        </p>
+    <section className="bg-navy-deep py-14 text-navy-foreground sm:py-20">
+      <div className="container-site max-w-2xl">
+        <Breadcrumbs items={[{ label: "Login" }]} />
+        <div className="text-center">
+          <h1 className="text-4xl font-bold sm:text-5xl">Welcome back</h1>
+          <p className="mt-4 text-navy-muted">
+            Student account access will be connected here when the application system is ready.
+          </p>
+        </div>
       </div>
       <form
         className="container-site mt-12 max-w-md"

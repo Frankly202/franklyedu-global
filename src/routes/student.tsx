@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Section } from "@/components/site/Section";
 import { mockStudent, universities } from "@/data/content";
 import { whatsappLink } from "@/data/site";
@@ -21,19 +22,22 @@ function StudentPage() {
   return (
     <>
       <section className="bg-navy-deep py-10 text-navy-foreground">
-        <div className="container-site grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-          <div className="min-w-0">
-            <p className="eyebrow text-gold">Preview — mock data</p>
-            <h1 className="mt-1 truncate text-2xl font-bold sm:text-3xl">
-              Hello, {s.name.split(" ")[0]}
-            </h1>
-            <p className="text-sm text-navy-muted">
-              Target intake: {s.targetIntake} · {s.nationality}
-            </p>
+        <div className="container-site">
+          <Breadcrumbs items={[{ label: "Student Preview" }]} />
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+            <div className="min-w-0">
+              <p className="eyebrow text-gold">Preview — mock data</p>
+              <h1 className="mt-1 truncate text-2xl font-bold sm:text-3xl">
+                Hello, {s.name.split(" ")[0]}
+              </h1>
+              <p className="text-sm text-navy-muted">
+                Target intake: {s.targetIntake} · {s.nationality}
+              </p>
+            </div>
+            <Link to="/application" className="btn btn-primary btn-sm shrink-0">
+              New application
+            </Link>
           </div>
-          <Link to="/application" className="btn btn-primary btn-sm shrink-0">
-            New application
-          </Link>
         </div>
       </section>
 
