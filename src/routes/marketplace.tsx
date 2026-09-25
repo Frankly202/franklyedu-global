@@ -68,15 +68,15 @@ function MarketplacePage() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((m) => (
-            <article key={m.slug} className="card-light flex flex-col p-5">
-              <span className="self-start rounded-full bg-muted px-2.5 py-0.5 text-[0.65rem] font-semibold">
+            <article key={m.slug} className="card-light flex flex-col p-5 sm:p-6">
+              <span className="self-start rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-navy">
                 {m.category}
               </span>
-              <h3 className="mt-3 text-base font-semibold">{m.title}</h3>
-              <p className="mt-1 text-xs text-muted-foreground">{m.location}</p>
-              <p className="mt-2 text-sm">{m.description}</p>
+              <h3 className="mt-3 text-lg font-semibold">{m.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{m.location}</p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/80">{m.description}</p>
               <div className="mt-auto flex items-center justify-between pt-5">
-                <span className="font-display text-lg font-bold">{m.price}</span>
+                <span className="font-display text-xl font-bold">{m.price}</span>
                 <a
                   href={whatsappLink(`Hi, I'm interested in "${m.title}" on the marketplace.`)}
                   target="_blank"

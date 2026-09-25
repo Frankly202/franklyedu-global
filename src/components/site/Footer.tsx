@@ -8,10 +8,10 @@ export function Footer() {
       <div className="container-site grid gap-10 py-14 md:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div className="space-y-4">
           <Logo />
-          <p className="max-w-xs text-sm leading-relaxed text-navy-muted">
+          <p className="max-w-xs text-sm leading-relaxed text-navy-muted sm:text-[15px]">
             Clear guidance for students choosing where — and how — to study abroad.
           </p>
-          <div className="space-y-1 text-sm text-navy-muted">
+          <div className="space-y-1.5 text-sm text-navy-muted sm:text-[15px]">
             <p>{contact.address}</p>
             <a href={`mailto:${contact.email}`} className="block hover:text-navy-foreground">
               {contact.email}
@@ -30,12 +30,12 @@ export function Footer() {
         {footerNav.map((group) => (
           <div key={group.title}>
             <h3 className="eyebrow mb-3 text-sky-soft">{group.title}</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {group.items.map((item) => (
                 <li key={item.to + item.label}>
                   <Link
                     to={item.to}
-                    className="text-sm text-navy-muted transition-colors hover:text-navy-foreground"
+                    className="text-sm text-navy-muted transition-colors hover:text-navy-foreground sm:text-[15px]"
                   >
                     {item.label}
                   </Link>
@@ -46,7 +46,7 @@ export function Footer() {
         ))}
       </div>
       <div className="border-t border-navy-border">
-        <div className="container-site flex flex-col gap-2 py-5 text-xs text-navy-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-site flex flex-col gap-2 py-5 text-[13px] text-navy-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>

@@ -38,7 +38,7 @@ function UniversitiesPage() {
       <Section>
         <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.6rem] text-muted-foreground">Destination</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">Destination</span>
             <select
               className="field"
               value={country ?? ""}
@@ -55,7 +55,7 @@ function UniversitiesPage() {
             </select>
           </label>
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.6rem] text-muted-foreground">Subject</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">Subject</span>
             <select
               className="field"
               value={subject ?? ""}

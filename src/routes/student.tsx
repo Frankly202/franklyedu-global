@@ -47,11 +47,11 @@ function StudentPage() {
                   <article key={a.id} className="card-light p-5">
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <p className="text-xs text-muted-foreground">{a.id}</p>
-                        <h3 className="font-semibold">{a.programme}</h3>
-                        <p className="text-xs text-muted-foreground">{a.university}</p>
+                        <p className="text-xs font-mono text-muted-foreground">{a.id}</p>
+                        <h3 className="text-base font-semibold">{a.programme}</h3>
+                        <p className="text-sm text-muted-foreground">{a.university}</p>
                       </div>
-                      <span className="rounded-full bg-navy px-2.5 py-1 text-[0.65rem] font-semibold text-navy-foreground">
+                      <span className="rounded-full bg-navy px-2.5 py-1 text-xs font-semibold text-navy-foreground">
                         {a.status}
                       </span>
                     </div>
@@ -61,7 +61,7 @@ function StudentPage() {
                         style={{ width: `${a.progress}%` }}
                       />
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground">{a.progress}% complete</p>
+                    <p className="mt-1.5 text-xs text-muted-foreground">{a.progress}% complete</p>
                   </article>
                 ))}
               </div>
@@ -77,9 +77,9 @@ function StudentPage() {
                     search={{ university: u.slug }}
                     className="card-navy p-4 transition-transform hover:-translate-y-0.5"
                   >
-                    <p className="eyebrow text-[0.58rem] text-sky-soft">{u.country}</p>
+                    <p className="eyebrow text-[0.7rem] text-sky-soft">{u.country}</p>
                     <p className="mt-1 text-sm font-semibold leading-snug">{u.name}</p>
-                    <p className="mt-2 text-xs text-navy-muted">{u.intake}</p>
+                    <p className="mt-2 text-[13px] text-navy-muted">{u.intake}</p>
                   </Link>
                 ))}
               </div>
@@ -90,7 +90,7 @@ function StudentPage() {
             <div className="card-light p-5">
               <div className="flex items-center justify-between">
                 <h2 className="font-semibold">Document checklist</h2>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-sm font-medium text-muted-foreground">
                   {doneCount}/{s.checklist.length}
                 </span>
               </div>
@@ -98,7 +98,7 @@ function StudentPage() {
                 {s.checklist.map((c) => (
                   <li key={c.item} className="flex items-center gap-2">
                     <span
-                      className={`grid h-4 w-4 place-items-center rounded-full text-[0.6rem] ${c.done ? "bg-sky text-sky-foreground" : "border border-border"}`}
+                      className={`grid h-4 w-4 place-items-center rounded-full text-xs ${c.done ? "bg-sky text-sky-foreground" : "border border-border"}`}
                     >
                       {c.done ? "✓" : ""}
                     </span>
@@ -111,7 +111,7 @@ function StudentPage() {
             </div>
             <div className="card-navy p-5">
               <h2 className="font-semibold">Need help with a document?</h2>
-              <p className="mt-1 text-xs text-navy-muted">
+              <p className="mt-1 text-sm text-navy-muted">
                 Your counsellor replies within 24 hours.
               </p>
               <a

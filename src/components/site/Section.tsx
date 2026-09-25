@@ -54,7 +54,7 @@ export function SectionHeading({
       {subtitle && (
         <p
           className={cn(
-            "mt-4 text-sm leading-relaxed sm:text-base",
+            "mt-4 text-base leading-relaxed sm:text-lg",
             tone === "dark" ? "text-navy-muted" : "text-muted-foreground",
           )}
         >
@@ -82,7 +82,7 @@ export function PageHero({
         {eyebrow && <p className="eyebrow mb-3 text-sky-soft">{eyebrow}</p>}
         <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl">{title}</h1>
         {subtitle && (
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-navy-muted">{subtitle}</p>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-navy-muted">{subtitle}</p>
         )}
         {children && <div className="mt-8">{children}</div>}
       </div>
@@ -102,9 +102,9 @@ export function InfoCard({
   className?: string;
 }) {
   return (
-    <div className={cn("card-navy flex flex-col gap-2 p-5", className)}>
-      <h3 className="text-base font-semibold">{title}</h3>
-      <p className="text-xs leading-relaxed text-navy-muted">{description}</p>
+    <div className={cn("card-navy flex flex-col gap-2 p-5 sm:p-6", className)}>
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="text-sm leading-relaxed text-navy-muted">{description}</p>
       {footer && <div className="mt-auto pt-3">{footer}</div>}
     </div>
   );
@@ -113,8 +113,8 @@ export function InfoCard({
 export function Spec({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="eyebrow text-[0.6rem] text-navy-muted">{label}</dt>
-      <dd className="text-xs">{value}</dd>
+      <dt className="eyebrow text-[0.7rem] text-navy-muted">{label}</dt>
+      <dd className="text-sm font-medium">{value}</dd>
     </div>
   );
 }

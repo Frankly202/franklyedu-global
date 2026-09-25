@@ -25,12 +25,12 @@ function ScholarshipsPage() {
       <Section>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {scholarships.map((s) => (
-            <article key={s.slug} className="card-light flex flex-col p-5">
-              <p className="eyebrow text-[0.6rem] text-sky">{s.country}</p>
-              <h2 className="mt-2 text-lg font-semibold leading-snug">{s.name}</h2>
-              <p className="mt-1 text-xs text-muted-foreground">{s.provider}</p>
-              <p className="mt-3 text-sm">{s.summary}</p>
-              <dl className="mt-4 grid grid-cols-3 gap-2 text-xs">
+            <article key={s.slug} className="card-light flex flex-col p-5 sm:p-6">
+              <p className="eyebrow text-[0.7rem] text-sky">{s.country}</p>
+              <h2 className="mt-2 text-xl font-semibold leading-snug">{s.name}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{s.provider}</p>
+              <p className="mt-3 text-sm leading-relaxed">{s.summary}</p>
+              <dl className="mt-4 grid grid-cols-3 gap-2 text-[13px]">
                 <div>
                   <dt className="text-muted-foreground">Amount</dt>
                   <dd className="font-medium">{s.amount}</dd>

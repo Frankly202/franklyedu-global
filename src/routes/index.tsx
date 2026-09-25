@@ -44,13 +44,13 @@ function Index() {
               <br />
               future abroad.
             </h1>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-navy-muted sm:text-base">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-navy-muted sm:text-lg">
               Explore destinations, compare courses, understand tuition and scholarships, and start
               your application with clear guidance from {brand.name}.
             </p>
 
             <form
-              className="mt-7 grid gap-3 rounded-xl border-2 border-cream bg-cream p-3 text-navy shadow-panel sm:grid-cols-[1fr_1fr_auto] sm:items-end"
+              className="mt-7 grid gap-3 rounded-xl border-2 border-cream bg-cream p-3.5 text-navy shadow-panel sm:grid-cols-[1fr_1fr_auto] sm:items-end"
               onSubmit={(e) => {
                 e.preventDefault();
                 navigate({
@@ -60,13 +60,13 @@ function Index() {
               }}
             >
               <label className="grid gap-1">
-                <span className="eyebrow text-[0.58rem] text-muted-foreground">
+                <span className="eyebrow text-[0.7rem] text-muted-foreground">
                   Study destination
                 </span>
                 <select
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="field py-2 text-xs"
+                  className="field py-2.5 text-sm"
                 >
                   <option value="">Germany, UK, Canada…</option>
                   {destinations.map((d) => (
@@ -77,13 +77,13 @@ function Index() {
                 </select>
               </label>
               <label className="grid gap-1">
-                <span className="eyebrow text-[0.58rem] text-muted-foreground">
+                <span className="eyebrow text-[0.7rem] text-muted-foreground">
                   Course or subject
                 </span>
                 <select
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="field py-2 text-xs"
+                  className="field py-2.5 text-sm"
                 >
                   <option value="">Business, Engineering, Health…</option>
                   {subjects.map((s) => (

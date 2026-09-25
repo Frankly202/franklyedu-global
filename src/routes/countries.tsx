@@ -36,14 +36,14 @@ function CountriesPage() {
                   </li>
                 ))}
               </ul>
-              <dl className="mt-5 grid grid-cols-2 gap-3 rounded-lg bg-navy/60 p-4 text-xs">
+              <dl className="mt-5 grid grid-cols-2 gap-3 rounded-lg bg-navy/60 p-4 text-sm">
                 <div>
-                  <dt className="eyebrow text-[0.58rem] text-navy-muted">Intakes</dt>
-                  <dd className="mt-1">{d.intakes}</dd>
+                  <dt className="eyebrow text-[0.7rem] text-navy-muted">Intakes</dt>
+                  <dd className="mt-1 font-medium">{d.intakes}</dd>
                 </div>
                 <div>
-                  <dt className="eyebrow text-[0.58rem] text-navy-muted">Tuition range</dt>
-                  <dd className="mt-1">{d.tuitionRange}</dd>
+                  <dt className="eyebrow text-[0.7rem] text-navy-muted">Tuition range</dt>
+                  <dd className="mt-1 font-medium">{d.tuitionRange}</dd>
                 </div>
               </dl>
               <div className="mt-5 flex flex-wrap gap-2">

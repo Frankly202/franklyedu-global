@@ -48,7 +48,7 @@ function CoursesPage() {
       <Section>
         <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-end">
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.6rem] text-muted-foreground">Subject</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">Subject</span>
             <select
               className="field"
               value={subject ?? ""}
@@ -65,7 +65,7 @@ function CoursesPage() {
             </select>
           </label>
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.6rem] text-muted-foreground">Level</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">Level</span>
             <select
               className="field"
               value={level ?? ""}
@@ -82,7 +82,7 @@ function CoursesPage() {
             </select>
           </label>
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.6rem] text-muted-foreground">University</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">University</span>
             <select
               className="field"
               value={university ?? ""}

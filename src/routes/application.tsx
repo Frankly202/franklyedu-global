@@ -69,7 +69,7 @@ function ApplicationPage() {
               <li key={s} className="text-center">
                 <div className={`h-1.5 rounded-full ${i <= step ? "bg-sky" : "bg-border"}`} />
                 <p
-                  className={`mt-2 text-[0.7rem] font-medium sm:text-xs ${i === step ? "text-navy" : "text-muted-foreground"}`}
+                  className={`mt-2 text-xs font-medium sm:text-sm ${i === step ? "text-navy" : "text-muted-foreground"}`}
                 >
                   {s}
                 </p>

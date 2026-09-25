@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Defines custom theme values and tokens in Tailwind CSS v4."
+    },
+    {
+      "name": "@utility",
+      "description": "Defines custom utility classes in Tailwind CSS v4."
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Defines custom variant selectors in Tailwind CSS v4."
+    },
+    {
+      "name": "@source",
+      "description": "Specifies source files or directories for Tailwind CSS v4 content scanning."
+    },
+    {
+      "name": "@variant",
+      "description": "Applies a variant to a block of styles in Tailwind CSS v4."
+    }
+  ]
+}
