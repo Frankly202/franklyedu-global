@@ -27,7 +27,7 @@ function MarketplacePage() {
         breadcrumbs={[{ label: "Marketplace" }]}
         eyebrow="Marketplace"
         title="Everything you need to settle in."
-        subtitle="Housing, essentials and trusted services from the FranklyEdu community."
+        subtitle="Housing, essentials and trusted services from the Frankedu community."
       />
       <Section>
         <div className="mb-10 grid gap-4 md:grid-cols-2">

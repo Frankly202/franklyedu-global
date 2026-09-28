@@ -34,7 +34,7 @@ function UniversitiesPage() {
         breadcrumbs={[{ label: "Universities" }]}
         eyebrow="Universities"
         title="Find the right university."
-        subtitle="Filter by destination and subject. Every listing shows the details students ask about most — tuition, intake, application fee and scholarships."
+        subtitle="Filter by destination and subject. Confirmed partner institutions include Final International University (FIU). Additional destination applications are arranged through our education network."
       />
       <Section>
         <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
@@ -89,9 +89,10 @@ function UniversitiesPage() {
           </div>
         ) : (
           <div className="card-light p-10 text-center">
-            <h2 className="text-lg font-semibold">No listings match yet</h2>
+            <h2 className="text-lg font-semibold">Inquire for this destination</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Try a different destination or subject, or message us for tailored options.
+              We guide admissions across all 9 supported destinations through our education network.
+              Message us on WhatsApp for tailored options.
             </p>
           </div>
         )}

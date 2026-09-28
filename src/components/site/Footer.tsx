@@ -24,6 +24,38 @@ export function Footer() {
             >
               WhatsApp {contact.phone}
             </a>
+            <div className="flex items-center gap-3 pt-1 text-xs">
+              {contact.social.tiktok && (
+                <a
+                  href={contact.social.tiktok}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-navy-foreground"
+                >
+                  TikTok
+                </a>
+              )}
+              {contact.social.facebook && (
+                <a
+                  href={contact.social.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-navy-foreground"
+                >
+                  Facebook
+                </a>
+              )}
+              {contact.social.instagram && (
+                <a
+                  href={contact.social.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-navy-foreground"
+                >
+                  Instagram
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
@@ -50,7 +82,9 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
-          <p>Listings marked “template” are placeholders pending verification.</p>
+          <p>
+            Confirmed partner listings. Additional destinations available via our education network.
+          </p>
         </div>
       </div>
     </footer>

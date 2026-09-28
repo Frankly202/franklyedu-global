@@ -6,10 +6,7 @@ import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
-    pageMeta(
-      "Contact",
-      "Message FranklyEdu Global on WhatsApp or email to plan your study pathway.",
-    ),
+    pageMeta("Contact", "Message Frankedu Global on WhatsApp or email to plan your study pathway."),
   component: ContactPage,
 });
 
@@ -30,7 +27,9 @@ function ContactPage() {
             <div className="card-navy p-6">
               <p className="eyebrow text-sky-soft">WhatsApp</p>
               <p className="mt-2 font-display text-xl font-bold">{contact.phone}</p>
-              <p className="mt-1 text-xs text-navy-muted">{contact.hours}</p>
+              {contact.hours ? (
+                <p className="mt-1 text-xs text-navy-muted">{contact.hours}</p>
+              ) : null}
               <a
                 href={whatsappLink()}
                 target="_blank"
@@ -47,6 +46,39 @@ function ContactPage() {
               </a>
               <p className="eyebrow mt-4 text-sky">Office</p>
               <p className="mt-1">{contact.address}</p>
+              <p className="eyebrow mt-4 text-sky">Social Channels</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {contact.social.tiktok && (
+                  <a
+                    href={contact.social.tiktok}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-sky-soft hover:text-navy"
+                  >
+                    TikTok
+                  </a>
+                )}
+                {contact.social.facebook && (
+                  <a
+                    href={contact.social.facebook}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-sky-soft hover:text-navy"
+                  >
+                    Facebook
+                  </a>
+                )}
+                {contact.social.instagram && (
+                  <a
+                    href={contact.social.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-sky-soft hover:text-navy"
+                  >
+                    Instagram
+                  </a>
+                )}
+              </div>
             </div>
           </div>
 

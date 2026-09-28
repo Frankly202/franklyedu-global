@@ -8,8 +8,8 @@ import { pageMeta } from "@/lib/seo";
 export const Route = createFileRoute("/real-estate")({
   head: () =>
     pageMeta(
-      "Real Estate",
-      "Buy or rent property in North Cyprus — including student investment apartments and family homes.",
+      "Real Estate & Property Investment",
+      "Property acquisition and investment opportunities across North Cyprus, the UK, and selected Dubai/UAE markets.",
     ),
   component: RealEstatePage,
 });
@@ -19,9 +19,9 @@ function RealEstatePage() {
     <>
       <PageHero
         breadcrumbs={[{ label: "Marketplace", to: "/marketplace" }, { label: "Real Estate" }]}
-        eyebrow="Real estate"
-        title="Property for students, families and investors."
-        subtitle="Curated listings with title-deed status and rental potential clearly stated."
+        eyebrow="Property & Investment"
+        title="Property for families, buyers and investors."
+        subtitle="Curated opportunities across North Cyprus, the UK, and selected Dubai/UAE markets. Student accommodation is managed separately."
       >
         <Link to="/marketplace" className="btn btn-outline-light">
           Back to marketplace

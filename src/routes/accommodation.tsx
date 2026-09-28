@@ -21,7 +21,7 @@ function AccommodationPage() {
         breadcrumbs={[{ label: "Marketplace", to: "/marketplace" }, { label: "Accommodation" }]}
         eyebrow="Accommodation"
         title="A place to live before you land."
-        subtitle="Verified student housing options with transparent monthly costs and move-in dates."
+        subtitle="Verified student housing options near campus, managed separately from property investments."
       >
         <Link to="/marketplace" className="btn btn-outline-light">
           Back to marketplace

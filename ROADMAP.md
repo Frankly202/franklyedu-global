@@ -72,12 +72,17 @@
 
 ### Phase 3: Content, Data & Imagery
 
-- **Status**: `NOT STARTED`
+- **Status**: `IN PROGRESS` (Phase 3A Verified Content & Data: `DONE`; Phase 3B Imagery & Media Assets: `PENDING`)
 - **Scope**:
-  - Replace "Template — verify before publishing" labels with verified partner institution information and representative destination copy in [`src/data/content.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/content.ts).
-  - Add genuine photography and visual cards for Accommodation, Real Estate, and Marketplace listings (replacing blank CSS gradient placeholders).
-  - Update official office contact details, international WhatsApp numbers, phone lines, email addresses, and operating hours in [`src/data/site.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/site.ts).
-  - Verify course tuition estimates, intake dates (January/September), and scholarship details for accuracy.
+  - **Phase 3A: Verified Content & Data (`DONE`)**:
+    - Centralized brand configuration updated to official Frankedu Global naming, tagline (_"Your Future • Our Priority"_), phone/WhatsApp (+90 548 850 4146), email (`emmanuel@frankedu-global.com`), and office address (`Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus`).
+    - Verified social media channels configured (TikTok, Facebook, Instagram) in [`src/data/site.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/site.ts); unconfirmed channels and operating hours left unconfigured pending supply.
+    - Updated verified destination countries (9 core destinations: Cyprus/North Cyprus, UK, Canada, Germany, Poland, Finland, Netherlands, Australia, China) with network advisory notice in [`src/data/content.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/content.ts).
+    - Verified Final International University (FIU) recruitment relationship, up to 100% scholarship opportunities, and verified property market advisory (North Cyprus residential, off-plan & investment; UK residential & investment; Dubai/UAE selected investment opportunities).
+    - Unverified course catalogues, specific course fees, and founder role titles strictly excised; student portal flagged as prototype demonstration preview.
+  - **Phase 3B: Imagery & Media Assets (`PENDING`)**:
+    - Add genuine photography and visual cards for Accommodation, Real Estate, and Marketplace listings (replacing CSS gradient placeholders).
+    - Incorporate official imagery once supplied by management.
 - **Expected Outcome**:
   - High-trust, professional presentation with genuine media assets and verified study abroad pathways.
 - **Validation Gate**:

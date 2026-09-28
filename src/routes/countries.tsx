@@ -20,7 +20,7 @@ function CountriesPage() {
         breadcrumbs={[{ label: "Destinations" }]}
         eyebrow="Study destinations"
         title="Choose where your degree takes you."
-        subtitle="Each destination has different intakes, budgets and post-study options. Compare them side by side before you shortlist."
+        subtitle="Compare key study destinations side by side. Additional destinations worldwide may also be available through our global education network."
       />
       <Section>
         <div className="grid gap-5 md:grid-cols-2">

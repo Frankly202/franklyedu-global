@@ -1,5 +1,5 @@
 /**
- * Central site configuration for FranklyEdu Global.
+ * Central site configuration for Frankedu Global.
  * Replace brand assets, navigation labels and contact details here.
  */
 import heroImage from "@/assets/background-photo.jpg";
@@ -27,11 +27,11 @@ export interface NavItem {
 }
 
 export const brand = {
-  name: "FranklyEdu Global",
-  shortName: "FranklyEdu",
+  name: "Frankedu Global",
+  shortName: "Frankedu",
   /** Fallback single-letter mark if image logo cannot be rendered */
   mark: "F",
-  tagline: "Your global study pathway",
+  tagline: "Your Future • Our Priority",
   logoImage: "/Logo.JPG",
   faviconPath: "/Logo.JPG",
   logoWidth: 1480,
@@ -41,23 +41,27 @@ export const brand = {
 export const images = {
   hero: heroImage,
   heroAlt:
-    "FranklyEdu Global founder Frank with international education and career planning materials",
+    "Frankedu Global representative with international education and career planning materials",
   heroWidth: 941,
   heroHeight: 1672,
 };
 
 export const contact = {
-  email: "hello@franklyedu.com",
-  phone: "+90 533 000 0000",
+  email: "emmanuel@frankedu-global.com",
+  phone: "+90 548 850 4146",
   /** Digits only, international format — used to build the WhatsApp link. */
-  whatsappNumber: "905330000000",
-  whatsappDefaultMessage: "Hello FranklyEdu Global, I'd like guidance on studying abroad.",
-  address: "Famagusta, North Cyprus",
-  hours: "Mon – Sat, 09:00 – 18:00 (UTC+3)",
+  whatsappNumber: "905488504146",
+  whatsappDefaultMessage: "Hello Frankedu Global, I'd like guidance on studying abroad.",
+  address: "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
+  /** Working hours unconfigured — will be supplied separately by management */
+  hours: undefined as string | undefined,
   social: {
-    instagram: "https://instagram.com/franklyedu",
-    linkedin: "https://linkedin.com/company/franklyedu",
-    tiktok: "https://tiktok.com/@franklyedu",
+    tiktok: "https://www.tiktok.com/@ambfranklykelly22",
+    facebook: "https://www.facebook.com/share/1FtvSH1K3p/?mibextid=wwXIfr",
+    instagram: "https://www.instagram.com/franklyedu_global?stkn=MXdrcGhnNG5zOWJqag==",
+    // LinkedIn and YouTube remain unconfigured until confirmed by management
+    linkedin: undefined as string | undefined,
+    youtube: undefined as string | undefined,
   },
 };
 

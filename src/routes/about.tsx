@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
   head: () =>
     pageMeta(
       "About",
-      "FranklyEdu Global gives students frank, verified guidance on studying abroad.",
+      "Frankedu Global gives students and investors verified, transparent guidance on studying abroad and global opportunities.",
     ),
   component: AboutPage,
 });
@@ -28,7 +28,7 @@ function AboutPage() {
         </Link>
       </PageHero>
       <Section>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-3">
           {aboutContent.stats.map((s) => (
             <div key={s.label} className="card-navy p-6 text-center">
               <p className="font-display text-3xl font-bold">{s.value}</p>
@@ -48,22 +48,24 @@ function AboutPage() {
           ))}
         </div>
       </Section>
-      <Section>
-        <SectionHeading eyebrow="Team" title="People behind the plan." />
-        <div className="grid gap-4 sm:grid-cols-3">
-          {aboutContent.team.map((t) => (
-            <div key={t.name} className="card-light flex items-center gap-4 p-5 sm:p-6">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-navy font-display text-lg font-bold text-navy-foreground">
-                {t.name.charAt(0)}
-              </span>
-              <div className="min-w-0">
-                <p className="truncate font-semibold">{t.name}</p>
-                <p className="text-sm text-muted-foreground">{t.role}</p>
+      {aboutContent.team.length > 0 && (
+        <Section>
+          <SectionHeading eyebrow="Team" title="People behind the plan." />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {aboutContent.team.map((t) => (
+              <div key={t.name} className="card-light flex items-center gap-4 p-5 sm:p-6">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-navy font-display text-lg font-bold text-navy-foreground">
+                  {t.name.charAt(0)}
+                </span>
+                <div className="min-w-0">
+                  <p className="truncate font-semibold">{t.name}</p>
+                  <p className="text-sm text-muted-foreground">{t.role}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+            ))}
+          </div>
+        </Section>
+      )}
       <WhatsAppCta />
     </>
   );

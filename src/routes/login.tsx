@@ -7,7 +7,7 @@ export const Route = createFileRoute("/login")({
   head: () =>
     pageMeta(
       "Login",
-      "Sign in to your FranklyEdu student account to track applications and saved universities.",
+      "Sign in to your Frankedu student account to track applications and saved universities.",
     ),
   component: LoginPage,
 });

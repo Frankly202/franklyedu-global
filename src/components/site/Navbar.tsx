@@ -27,7 +27,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <div className="flex flex-col leading-none">
           <span className="font-display text-[15px] font-bold tracking-tight text-navy-foreground sm:text-base">
-            FranklyEdu
+            {brand.shortName}
           </span>
           <span className="font-display text-[9.5px] font-semibold tracking-[0.22em] uppercase text-sky-soft sm:text-[10px]">
             Global
@@ -86,7 +86,7 @@ const mobileNavGroups = [
     title: "Company",
     items: [
       {
-        label: "About FranklyEdu",
+        label: "About Frankedu",
         to: "/about" as const,
         desc: "Our mission, team & verified guidance",
       },
@@ -127,7 +127,7 @@ export function Navbar() {
             target="_blank"
             rel="noreferrer"
             className="btn btn-outline-light btn-sm flex items-center gap-1.5 border-emerald-500/40 text-emerald-300 transition-colors hover:border-emerald-400 hover:bg-emerald-500/10"
-            title="Chat with FranklyEdu Global on WhatsApp"
+            title="Chat with Frankedu Global on WhatsApp"
           >
             <MessageCircle className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
             <span className="hidden xl:inline">WhatsApp</span>
@@ -253,7 +253,7 @@ export function Navbar() {
 
               <div className="mt-4 flex flex-col gap-1 text-xs text-navy-muted sm:flex-row sm:justify-between">
                 <p>📍 {contact.address}</p>
-                <p>🕒 {contact.hours}</p>
+                {contact.hours ? <p>🕒 {contact.hours}</p> : null}
               </div>
             </div>
           </div>

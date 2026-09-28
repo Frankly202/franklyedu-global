@@ -44,7 +44,7 @@ function CoursesPage() {
         breadcrumbs={[{ label: "Courses" }]}
         eyebrow="Courses"
         title={uni ? `Programmes at ${uni.name}` : "Compare programmes."}
-        subtitle="Search by subject and level. Tuition and intake details are shown where verified."
+        subtitle="Search by subject and level. Individual programme details and fee schedules are confirmed directly with partner institutions upon inquiry."
       />
       <Section>
         <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-end">
@@ -113,9 +113,11 @@ function CoursesPage() {
           </div>
         ) : (
           <div className="card-light p-10 text-center">
-            <h2 className="text-lg font-semibold">No programmes match yet</h2>
+            <h2 className="text-lg font-semibold">Programme catalogue updating</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Adjust the filters or ask us to source verified options for you.
+              We verify individual programme details directly with partner institutions before
+              publishing. Message us on WhatsApp for currently open programmes, faculties, and
+              admission requirements.
             </p>
           </div>
         )}

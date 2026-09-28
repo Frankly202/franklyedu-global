@@ -26,12 +26,12 @@ function StudentPage() {
           <Breadcrumbs items={[{ label: "Student Preview" }]} />
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <div className="min-w-0">
-              <p className="eyebrow text-gold">Preview — mock data</p>
+              <p className="eyebrow text-gold">Prototype Preview — Demonstration Only</p>
               <h1 className="mt-1 truncate text-2xl font-bold sm:text-3xl">
-                Hello, {s.name.split(" ")[0]}
+                Applicant Dashboard Preview
               </h1>
               <p className="text-sm text-navy-muted">
-                Target intake: {s.targetIntake} · {s.nationality}
+                Demonstration tracker for programme applications and document checklists.
               </p>
             </div>
             <Link to="/application" className="btn btn-primary btn-sm shrink-0">

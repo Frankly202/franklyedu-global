@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
   head: () =>
     pageMeta(
       "Find your university. Build your future abroad.",
-      "Explore destinations, compare courses, understand tuition and scholarships, and start your application with clear guidance from FranklyEdu Global.",
+      "Explore destinations, compare courses, understand tuition and scholarships, and start your application with clear guidance from Frankedu Global.",
     ),
   component: Index,
 });
@@ -142,12 +142,12 @@ function Index() {
           eyebrow="Universities & courses"
           title={
             <>
-              A catalogue ready for
+              Confirmed institutions &
               <br />
-              verified opportunities.
+              verified pathways.
             </>
           }
-          subtitle="We only publish details once they are confirmed. These editable templates are ready for your verified university, programme, fee, and scholarship information."
+          subtitle="We publish confirmed details with partner institutions, including our recruitment relationship with Final International University (FIU) and global education network pathways."
         />
         <div className="grid gap-4 md:grid-cols-3">
           {universities.slice(0, 3).map((u) => (

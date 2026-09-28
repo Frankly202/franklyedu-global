@@ -21,7 +21,7 @@ function ScholarshipsPage() {
         breadcrumbs={[{ label: "Scholarships" }]}
         eyebrow="Scholarships"
         title="Funding that fits your plan."
-        subtitle="We list scholarships only once amounts and eligibility are confirmed. Items marked template are placeholders."
+        subtitle="We list scholarships confirmed with partner institutions. Scholarships can be up to 100% for eligible students at selected institutions."
       />
       <Section>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
