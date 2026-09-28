@@ -33,7 +33,8 @@ export const brand = {
   mark: "F",
   tagline: "Your Future • Our Priority",
   logoImage: "/Logo.JPG",
-  faviconPath: "/Logo.JPG",
+  faviconPath: "/favicon.ico",
+  appleTouchIconPath: "/apple-touch-icon.png",
   logoWidth: 1480,
   logoHeight: 1062,
 };
