@@ -84,8 +84,21 @@ export function CourseCard({ c }: { c: Course }) {
 export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?: string }) {
   return (
     <article className="card-light flex flex-col overflow-hidden">
-      <div className="flex h-36 items-end bg-gradient-to-br from-navy to-navy-soft p-4">
-        <span className="rounded-full bg-cream px-2.5 py-0.5 text-xs font-semibold text-navy">
+      <div className="relative flex h-40 w-full items-end overflow-hidden p-4">
+        {l.image ? (
+          <>
+            <img
+              src={l.image}
+              alt={l.imageAlt || l.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+              loading="lazy"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-navy to-navy-soft" />
+        )}
+        <span className="relative z-10 rounded-full bg-cream px-2.5 py-0.5 text-xs font-semibold text-navy shadow-xs">
           {l.type}
         </span>
       </div>

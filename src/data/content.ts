@@ -1,3 +1,5 @@
+import northCyprusResortImage from "@/assets/properties/seafront-resort-esentepe.png";
+
 /**
  * Central content and data configuration for Frankedu Global.
  * Contains verified institutional relationships, service offerings, and supported destinations.
@@ -397,6 +399,8 @@ export interface Listing {
   bedrooms: number;
   features: string[];
   availableFrom: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 export const accommodationListings: Listing[] = [
@@ -452,6 +456,8 @@ export const realEstateListings: Listing[] = [
     bedrooms: 0,
     features: ["Residential properties", "Off-plan developments", "Investment properties"],
     availableFrom: "Inquire for details",
+    image: northCyprusResortImage,
+    imageAlt: "Seafront Resort Residences development in Esentepe, North Cyprus",
   },
   {
     slug: "uk-properties",
