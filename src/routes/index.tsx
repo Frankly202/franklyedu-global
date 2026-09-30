@@ -24,7 +24,7 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-navy-deep text-navy-foreground">
+      <section className="relative overflow-hidden bg-navy text-navy-foreground">
         <img
           src={images.hero}
           alt={images.heroAlt}
@@ -36,7 +36,7 @@ function Index() {
         <div className="absolute inset-0 hero-fade" aria-hidden />
         <div className="container-site relative py-16 sm:py-20 lg:py-24">
           <div className="max-w-xl">
-            <p className="eyebrow text-sky-soft">{brand.tagline}</p>
+            <p className="eyebrow text-sky-contrast">{brand.tagline}</p>
             <h1 className="mt-4 text-4xl font-bold leading-[1.02] sm:text-5xl lg:text-[3.6rem]">
               Find your university.
               <br />

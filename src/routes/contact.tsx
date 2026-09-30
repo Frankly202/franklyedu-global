@@ -25,7 +25,7 @@ function ContactPage() {
         <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr]">
           <div className="space-y-4">
             <div className="card-navy p-6">
-              <p className="eyebrow text-sky-soft">WhatsApp</p>
+              <p className="eyebrow text-sky-contrast">WhatsApp</p>
               <p className="mt-2 font-display text-xl font-bold">{contact.phone}</p>
               {contact.hours ? (
                 <p className="mt-1 text-xs text-navy-muted">{contact.hours}</p>
@@ -34,7 +34,7 @@ function ContactPage() {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary mt-4"
+                className="btn btn-light mt-4"
               >
                 Chat on WhatsApp
               </a>
@@ -53,7 +53,7 @@ function ContactPage() {
                     href={contact.social.tiktok}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-sky-soft hover:text-navy"
+                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
                   >
                     TikTok
                   </a>
@@ -63,7 +63,7 @@ function ContactPage() {
                     href={contact.social.facebook}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-sky-soft hover:text-navy"
+                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
                   >
                     Facebook
                   </a>
@@ -73,7 +73,7 @@ function ContactPage() {
                     href={contact.social.instagram}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-sky-soft hover:text-navy"
+                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
                   >
                     Instagram
                   </a>

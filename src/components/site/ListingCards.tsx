@@ -5,24 +5,24 @@ import { Spec } from "./Section";
 
 export function UniversityCard({ u }: { u: University }) {
   return (
-    <article className="card-navy-deep flex flex-col p-5 sm:p-6">
-      <p className="eyebrow text-[0.7rem] text-sky-soft">
+    <article className="card-light flex flex-col p-5 sm:p-6">
+      <p className="eyebrow text-[0.7rem] text-sky font-semibold">
         {u.verified ? "Verified listing" : "Template — verify before publishing"}
       </p>
-      <h3 className="mt-3 text-xl font-semibold leading-snug">{u.name}</h3>
-      <p className="mt-1 text-sm text-navy-muted">
+      <h3 className="mt-3 text-xl font-semibold leading-snug text-navy">{u.name}</h3>
+      <p className="mt-1 text-sm text-muted-foreground">
         {u.city}, {u.country}
       </p>
-      <dl className="mt-4 grid gap-2.5 rounded-lg bg-navy-soft/60 p-4">
-        <Spec label="Degree level" value={u.degreeLevels} />
-        <Spec label="Courses" value={u.courses} />
-        <Spec label="Tuition fee" value={u.tuition} />
-        <Spec label="Intake" value={u.intake} />
-        <Spec label="Application fee" value={u.applicationFee} />
-        <Spec label="Scholarship availability" value={u.scholarship} />
+      <dl className="mt-4 grid gap-2.5 rounded-lg bg-muted/60 p-4">
+        <Spec label="Degree level" value={u.degreeLevels} tone="light" />
+        <Spec label="Courses" value={u.courses} tone="light" />
+        <Spec label="Tuition fee" value={u.tuition} tone="light" />
+        <Spec label="Intake" value={u.intake} tone="light" />
+        <Spec label="Application fee" value={u.applicationFee} tone="light" />
+        <Spec label="Scholarship availability" value={u.scholarship} tone="light" />
       </dl>
       <div className="mt-5 flex flex-wrap gap-2">
-        <Link to="/courses" search={{ university: u.slug }} className="btn btn-light btn-sm">
+        <Link to="/courses" search={{ university: u.slug }} className="btn btn-outline-dark btn-sm">
           View Programs
         </Link>
         <Link to="/application" search={{ university: u.slug }} className="btn btn-primary btn-sm">

@@ -21,7 +21,7 @@ function StudentPage() {
 
   return (
     <>
-      <section className="bg-navy-deep py-10 text-navy-foreground">
+      <section className="bg-navy py-10 text-navy-foreground">
         <div className="container-site">
           <Breadcrumbs items={[{ label: "Student Preview" }]} />
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
@@ -34,7 +34,7 @@ function StudentPage() {
                 Demonstration tracker for programme applications and document checklists.
               </p>
             </div>
-            <Link to="/application" className="btn btn-primary btn-sm shrink-0">
+            <Link to="/application" className="btn btn-light btn-sm shrink-0">
               New application
             </Link>
           </div>
@@ -81,7 +81,7 @@ function StudentPage() {
                     search={{ university: u.slug }}
                     className="card-navy p-4 transition-transform hover:-translate-y-0.5"
                   >
-                    <p className="eyebrow text-[0.7rem] text-sky-soft">{u.country}</p>
+                    <p className="eyebrow text-[0.7rem] text-sky-contrast">{u.country}</p>
                     <p className="mt-1 text-sm font-semibold leading-snug">{u.name}</p>
                     <p className="mt-2 text-[13px] text-navy-muted">{u.intake}</p>
                   </Link>
@@ -124,7 +124,7 @@ function StudentPage() {
                 )}
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary btn-sm mt-4"
+                className="btn btn-light btn-sm mt-4"
               >
                 Message counsellor
               </a>

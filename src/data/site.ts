@@ -32,10 +32,10 @@ export const brand = {
   /** Fallback single-letter mark if image logo cannot be rendered */
   mark: "F",
   tagline: "Your Future • Our Priority",
-  logoImage: "/Logo.JPG",
+  logoImage: "/logo-full-transparent.png",
   faviconPath: "/favicon.ico",
   appleTouchIconPath: "/apple-touch-icon.png",
-  logoWidth: 1480,
+  logoWidth: 1458,
   logoHeight: 1062,
 };
 

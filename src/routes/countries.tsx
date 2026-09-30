@@ -26,18 +26,18 @@ function CountriesPage() {
         <div className="grid gap-5 md:grid-cols-2">
           {destinations.map((d) => (
             <article key={d.slug} id={d.slug} className="card-navy p-6">
-              <p className="eyebrow text-sky-soft">{d.region}</p>
+              <p className="eyebrow text-sky-contrast">{d.region}</p>
               <h2 className="mt-2 text-2xl font-bold">{d.name}</h2>
               <p className="mt-2 text-sm text-navy-muted">{d.blurb}</p>
               <ul className="mt-4 space-y-1.5 text-sm">
                 {d.highlights.map((h) => (
                   <li key={h} className="flex gap-2">
-                    <span className="text-sky-soft">•</span>
+                    <span className="text-sky-contrast font-bold">•</span>
                     {h}
                   </li>
                 ))}
               </ul>
-              <dl className="mt-5 grid grid-cols-2 gap-3 rounded-lg bg-navy/60 p-4 text-sm">
+              <dl className="mt-5 grid grid-cols-2 gap-3 rounded-lg border border-white/15 bg-white/10 p-4 text-sm">
                 <div>
                   <dt className="eyebrow text-[0.7rem] text-navy-muted">Intakes</dt>
                   <dd className="mt-1 font-medium">{d.intakes}</dd>

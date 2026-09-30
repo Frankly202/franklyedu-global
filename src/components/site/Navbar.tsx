@@ -10,26 +10,20 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       className="flex shrink-0 items-center gap-2.5 sm:gap-3"
       aria-label={`${brand.name} home`}
     >
-      {brand.logoImage ? (
-        <img
-          src={brand.logoImage}
-          alt=""
-          width={compact ? 36 : 44}
-          height={compact ? 36 : 44}
-          className="h-10 w-auto max-h-10 rounded-sm object-contain sm:h-11 sm:max-h-11"
-          loading="eager"
-        />
-      ) : (
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-cream font-display text-sm font-bold text-navy">
-          {brand.mark}
-        </span>
-      )}
+      <img
+        src="/icon-192.png"
+        alt=""
+        width={compact ? 36 : 44}
+        height={compact ? 36 : 44}
+        className="h-10 w-auto max-h-10 rounded-sm object-contain sm:h-11 sm:max-h-11"
+        loading="eager"
+      />
       {!compact && (
         <div className="flex flex-col leading-none">
-          <span className="font-display text-[15px] font-bold tracking-tight text-navy-foreground sm:text-base">
+          <span className="font-display text-[15px] font-bold tracking-tight text-white sm:text-base">
             {brand.shortName}
           </span>
-          <span className="font-display text-[9.5px] font-semibold tracking-[0.22em] uppercase text-sky-soft sm:text-[10px]">
+          <span className="font-display text-[9.5px] font-semibold tracking-[0.22em] uppercase text-sky-contrast sm:text-[10px]">
             Global
           </span>
         </div>
@@ -102,8 +96,21 @@ export function Navbar() {
   const desktopNavItems = mainNav.filter((item) => item.to !== "/");
 
   return (
-    <header className="sticky top-0 z-50 bg-navy-deep/95 text-navy-foreground backdrop-blur supports-[backdrop-filter]:bg-navy-deep/85">
-      <div className="container-site flex h-16 items-center justify-between gap-3 lg:gap-4">
+    <header className="sticky top-0 z-50 relative overflow-hidden border-b border-white/15 bg-navy/95 text-white backdrop-blur supports-[backdrop-filter]:bg-navy/90">
+      {/* Visible Full Logo Artwork Background Watermark — clean transparent artwork, zero checkerboard */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 select-none overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-navy/85" />
+        <img
+          src="/logo-watermark-white.png"
+          alt=""
+          className="absolute -top-3 right-14 h-22 w-auto max-w-none object-contain opacity-12 sm:right-1/4 sm:-top-5 sm:h-26 sm:opacity-14 lg:right-1/3 lg:-top-6 lg:h-28 lg:opacity-15"
+        />
+      </div>
+
+      <div className="container-site relative z-10 flex h-16 items-center justify-between gap-3 lg:gap-4">
         <Logo />
 
         {/* Desktop Navigation */}
@@ -112,8 +119,8 @@ export function Navbar() {
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-md px-2 py-1.5 text-[13px] font-medium text-navy-muted transition-colors hover:text-navy-foreground xl:px-2.5 xl:text-sm"
-              activeProps={{ className: "text-navy-foreground font-semibold bg-navy-soft/60" }}
+              className="rounded-md px-2 py-1.5 text-[13px] font-medium text-white/80 transition-colors hover:text-white xl:px-2.5 xl:text-sm"
+              activeProps={{ className: "text-white font-semibold bg-white/15 shadow-xs" }}
             >
               {item.label}
             </Link>
@@ -126,7 +133,7 @@ export function Navbar() {
             href={whatsappLink()}
             target="_blank"
             rel="noreferrer"
-            className="btn btn-outline-light btn-sm flex items-center gap-1.5 border-emerald-500/40 text-emerald-300 transition-colors hover:border-emerald-400 hover:bg-emerald-500/10"
+            className="btn btn-outline-light btn-sm flex items-center gap-1.5 border-emerald-400/40 text-emerald-300 transition-colors hover:border-emerald-400 hover:bg-emerald-500/10"
             title="Chat with Frankedu Global on WhatsApp"
           >
             <MessageCircle className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
@@ -134,7 +141,7 @@ export function Navbar() {
           </a>
           <Link
             to="/application"
-            className="btn btn-primary btn-sm flex items-center gap-1 whitespace-nowrap shadow-sm"
+            className="btn btn-light btn-sm flex items-center gap-1 font-bold whitespace-nowrap shadow-sm"
           >
             <span>Start Application</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -147,7 +154,7 @@ export function Navbar() {
             href={whatsappLink()}
             target="_blank"
             rel="noreferrer"
-            className="grid h-9 w-9 place-items-center rounded-md border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 transition-colors hover:bg-emerald-500/20"
+            className="grid h-9 w-9 place-items-center rounded-md border border-emerald-400/40 bg-emerald-500/10 text-emerald-400 transition-colors hover:bg-emerald-500/20"
             aria-label="Chat on WhatsApp"
             title="Chat on WhatsApp"
           >
@@ -155,32 +162,44 @@ export function Navbar() {
           </a>
           <Link
             to="/application"
-            className="btn btn-primary btn-sm px-3 py-1.5 text-xs font-semibold sm:text-sm"
+            className="btn btn-light btn-sm px-3 py-1.5 text-xs font-bold sm:text-sm shadow-xs"
           >
             Apply
           </Link>
           <button
             type="button"
-            className="grid h-9 w-9 place-items-center rounded-md text-navy-foreground hover:bg-navy-soft"
+            className="grid h-9 w-9 place-items-center rounded-md border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 active:bg-white/30"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {open && (
-        <div className="border-t border-navy-border bg-navy-deep/98 max-h-[calc(100vh-4rem)] overflow-y-auto lg:hidden">
-          <div className="container-site py-5">
+        <div className="relative max-h-[calc(100vh-4rem)] overflow-hidden overflow-y-auto border-t border-white/15 bg-navy lg:hidden">
+          {/* Watermark in Mobile Drawer */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 select-none overflow-hidden"
+          >
+            <img
+              src="/logo-watermark-white.png"
+              alt=""
+              className="absolute -bottom-10 -right-8 h-56 w-auto max-w-none object-contain opacity-10"
+            />
+          </div>
+
+          <div className="container-site relative z-10 py-5">
             {/* Primary Action Buttons in Mobile Drawer */}
             <div className="grid gap-2.5 sm:grid-cols-2">
               <Link
                 to="/application"
                 onClick={() => setOpen(false)}
-                className="btn btn-primary flex w-full items-center justify-center gap-2 py-3 text-[15px] font-semibold shadow-md"
+                className="btn btn-light flex w-full items-center justify-center gap-2 py-3 text-[15px] font-bold shadow-md"
               >
                 <span>Start Application</span>
                 <ArrowRight className="h-4 w-4" />
@@ -190,9 +209,9 @@ export function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setOpen(false)}
-                className="btn btn-outline-light flex w-full items-center justify-center gap-2 border-emerald-500/40 py-2.5 text-[15px] font-semibold text-emerald-300 hover:bg-emerald-500/10"
+                className="btn btn-outline-light flex w-full items-center justify-center gap-2 border-emerald-400/50 bg-emerald-950/20 py-2.5 text-[15px] font-semibold text-emerald-300 hover:bg-emerald-500/20"
               >
-                <MessageCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+                <MessageCircle className="h-4 w-4 shrink-0 text-emerald-400" />
                 <span>Chat on WhatsApp</span>
               </a>
             </div>
@@ -201,18 +220,22 @@ export function Navbar() {
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
               {mobileNavGroups.map((group) => (
                 <div key={group.title} className="space-y-2">
-                  <p className="eyebrow text-sky-soft text-xs">{group.title}</p>
+                  <p className="eyebrow text-xs font-bold tracking-wider text-sky-contrast">
+                    {group.title}
+                  </p>
                   <div className="grid gap-1">
                     {group.items.map((item) => (
                       <Link
                         key={item.to}
                         to={item.to}
                         onClick={() => setOpen(false)}
-                        className="rounded-lg p-2.5 transition-colors hover:bg-navy-soft"
-                        activeProps={{ className: "bg-navy-soft text-navy-foreground" }}
+                        className="rounded-lg p-2.5 transition-colors hover:bg-white/10 active:bg-white/15"
+                        activeProps={{
+                          className: "bg-white/15 text-white font-semibold shadow-xs",
+                        }}
                       >
-                        <p className="text-[15px] font-medium text-navy-foreground">{item.label}</p>
-                        <p className="text-xs text-navy-muted">{item.desc}</p>
+                        <p className="text-[15px] font-semibold text-white">{item.label}</p>
+                        <p className="text-xs leading-relaxed text-navy-muted">{item.desc}</p>
                       </Link>
                     ))}
                   </div>
@@ -221,13 +244,13 @@ export function Navbar() {
             </div>
 
             {/* Secondary Student Account Access & Direct Contact */}
-            <div className="mt-6 border-t border-navy-border/60 pt-5">
+            <div className="mt-6 border-t border-white/15 pt-5">
               <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-navy-muted">
                 <div className="flex items-center gap-4">
                   <Link
                     to="/student"
                     onClick={() => setOpen(false)}
-                    className="font-medium text-sky-soft hover:underline"
+                    className="font-semibold text-sky-contrast hover:text-white hover:underline"
                   >
                     Student Dashboard Preview →
                   </Link>
@@ -236,15 +259,15 @@ export function Navbar() {
                   <Link
                     to={authNav.login.to}
                     onClick={() => setOpen(false)}
-                    className="hover:text-navy-foreground"
+                    className="font-medium text-white/90 hover:text-white hover:underline"
                   >
                     {authNav.login.label}
                   </Link>
-                  <span>·</span>
+                  <span className="text-white/40">·</span>
                   <Link
                     to={authNav.signup.to}
                     onClick={() => setOpen(false)}
-                    className="hover:text-navy-foreground"
+                    className="font-medium text-white/90 hover:text-white hover:underline"
                   >
                     {authNav.signup.label}
                   </Link>

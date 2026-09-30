@@ -53,48 +53,50 @@
   --color-cream-deep: var(--cream-deep);
   --color-sky: var(--sky);
   --color-sky-soft: var(--sky-soft);
+  --color-sky-contrast: var(--sky-contrast);
   --color-sky-foreground: var(--sky-foreground);
   --color-gold: var(--gold);
 
-  --shadow-card: 0 18px 40px -22px oklch(0.17 0.04 255 / 0.55);
-  --shadow-panel: 0 30px 70px -30px oklch(0.17 0.04 255 / 0.6);
+  --shadow-card: 0 10px 30px -10px rgba(0, 71, 177, 0.12);
+  --shadow-panel: 0 20px 45px -15px rgba(0, 71, 177, 0.2);
 }
 
 :root {
   --radius: 0.75rem;
 
-  --navy-deep: #071b2f;
-  --navy: #0c233c;
-  --navy-soft: #132e4d;
-  --navy-foreground: #f5f1e8;
-  --navy-muted: #9fb3c8;
-  --navy-border: rgba(78, 143, 189, 0.28);
-  --cream: #f5f1e8;
-  --cream-deep: #eae4d5;
-  --sky: #4e8fbd;
-  --sky-soft: #6ba4cb;
+  --navy-deep: #0a2540;
+  --navy: #0047b1;
+  --navy-soft: #0e3d79;
+  --navy-foreground: #ffffff;
+  --navy-muted: #c8ddf2;
+  --navy-border: rgba(255, 255, 255, 0.2);
+  --cream: #ffffff;
+  --cream-deep: #f1f5f9;
+  --sky: #0047b1;
+  --sky-soft: #0073e0;
+  --sky-contrast: #bae6fd;
   --sky-foreground: #ffffff;
   --gold: #d4af37;
 
-  --background: var(--cream);
-  --foreground: var(--navy);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--navy);
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--navy);
-  --primary: var(--sky);
-  --primary-foreground: var(--sky-foreground);
-  --secondary: var(--navy);
-  --secondary-foreground: var(--navy-foreground);
-  --muted: var(--cream-deep);
-  --muted-foreground: oklch(0.5 0.03 255);
-  --accent: var(--sky-soft);
-  --accent-foreground: var(--navy);
+  --background: #ffffff;
+  --foreground: #0a2540;
+  --card: #ffffff;
+  --card-foreground: #0a2540;
+  --popover: #ffffff;
+  --popover-foreground: #0a2540;
+  --primary: #0047b1;
+  --primary-foreground: #ffffff;
+  --secondary: #0a2540;
+  --secondary-foreground: #ffffff;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --accent: #0073e0;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.88 0.015 255);
-  --input: oklch(0.88 0.015 255);
-  --ring: var(--sky);
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0047b1;
 }
 
 @layer base {
@@ -141,6 +143,7 @@
     background-color 160ms ease,
     color 160ms ease,
     border-color 160ms ease,
+    box-shadow 160ms ease,
     transform 160ms ease;
   &:active {
     transform: translateY(1px);
@@ -154,35 +157,40 @@
 @utility btn-primary {
   background-color: var(--color-sky);
   color: var(--color-sky-foreground);
+  box-shadow: 0 4px 14px -3px rgba(0, 71, 177, 0.35);
   &:hover {
     background-color: var(--color-sky-soft);
+    box-shadow: 0 6px 18px -3px rgba(0, 115, 224, 0.4);
   }
 }
 
 @utility btn-light {
-  background-color: var(--color-cream);
-  color: var(--color-navy);
+  background-color: #ffffff;
+  color: var(--color-sky);
+  border: 1px solid var(--color-border);
   &:hover {
-    background-color: oklch(1 0 0);
+    background-color: #f8fafc;
+    color: var(--color-sky-soft);
   }
 }
 
 @utility btn-outline-light {
-  border: 1px solid var(--color-navy-foreground);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--color-navy-foreground);
   background-color: transparent;
   &:hover {
-    background-color: oklch(1 0 0 / 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
   }
 }
 
 @utility btn-outline-dark {
-  border: 1px solid var(--color-navy);
-  color: var(--color-navy);
+  border: 1px solid var(--color-sky);
+  color: var(--color-sky);
   background-color: transparent;
   &:hover {
-    background-color: var(--color-navy);
-    color: var(--color-navy-foreground);
+    background-color: var(--color-sky);
+    color: #ffffff;
   }
 }
 
@@ -199,15 +207,25 @@
 /* Surfaces */
 @utility card-navy {
   border-radius: var(--radius-xl);
-  background-color: var(--color-navy-soft);
+  background-color: var(--color-navy);
   border: 1px solid var(--color-navy-border);
   color: var(--color-navy-foreground);
   box-shadow: var(--shadow-card);
+  & .btn-primary {
+    background-color: #ffffff;
+    color: var(--color-navy);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 14px -3px rgba(0, 0, 0, 0.25);
+    &:hover {
+      background-color: #f8fafc;
+      color: var(--color-sky-soft);
+    }
+  }
 }
 
 @utility card-navy-deep {
   border-radius: var(--radius-xl);
-  background-color: var(--color-navy);
+  background-color: var(--color-navy-deep);
   border: 1px solid var(--color-navy-border);
   color: var(--color-navy-foreground);
   box-shadow: var(--shadow-card);
@@ -215,9 +233,9 @@
 
 @utility card-light {
   border-radius: var(--radius-xl);
-  background-color: oklch(1 0 0);
+  background-color: #ffffff;
   border: 1px solid var(--color-border);
-  color: var(--color-navy);
+  color: var(--color-foreground);
   box-shadow: var(--shadow-card);
 }
 
@@ -233,8 +251,8 @@
   width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-input);
-  background-color: oklch(1 0 0);
-  color: var(--color-navy);
+  background-color: #ffffff;
+  color: var(--color-foreground);
   padding: 0.75rem 0.95rem;
   font-size: 0.95rem;
   &::placeholder {
@@ -243,6 +261,7 @@
   &:focus {
     outline: 2px solid var(--color-sky);
     outline-offset: 1px;
+    border-color: var(--color-sky);
   }
 }
 
@@ -250,15 +269,15 @@
   width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-navy-border);
-  background-color: var(--color-cream);
-  color: var(--color-navy);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   padding: 0.8rem 0.95rem;
   font-size: 0.95rem;
   &::placeholder {
-    color: var(--color-muted-foreground);
+    color: var(--color-navy-muted);
   }
   &:focus {
-    outline: 2px solid var(--color-sky);
+    outline: 2px solid var(--color-sky-soft);
     outline-offset: 1px;
   }
 }
@@ -276,17 +295,17 @@
 @utility hero-fade {
   background: linear-gradient(
     to bottom,
-    rgba(7, 27, 47, 0.95) 0%,
-    rgba(7, 27, 47, 0.86) 50%,
-    rgba(7, 27, 47, 0.98) 100%
+    rgba(0, 71, 177, 0.95) 0%,
+    rgba(0, 71, 177, 0.86) 50%,
+    rgba(0, 71, 177, 0.98) 100%
   );
   @media (min-width: 768px) {
     background: linear-gradient(
       90deg,
-      #071b2f 0%,
-      #071b2f 38%,
-      rgba(7, 27, 47, 0.85) 56%,
-      rgba(7, 27, 47, 0.3) 80%,
+      #0047b1 0%,
+      #0047b1 38%,
+      rgba(0, 71, 177, 0.85) 56%,
+      rgba(0, 71, 177, 0.3) 80%,
       transparent 100%
     );
   }

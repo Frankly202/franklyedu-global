@@ -15,7 +15,7 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   return (
-    <section className="bg-navy-deep py-14 text-navy-foreground sm:py-20">
+    <section className="bg-navy py-14 text-navy-foreground sm:py-20">
       <div className="container-site max-w-2xl">
         <Breadcrumbs items={[{ label: "Login" }]} />
         <div className="text-center">
@@ -32,23 +32,26 @@ function LoginPage() {
           navigate({ to: "/student" });
         }}
       >
-        <div className="card-navy grid gap-3 p-6">
-          <p className="eyebrow text-gold">Ready for authentication integration</p>
-          <input className="field-dark" type="email" placeholder="Email address" />
-          <input className="field-dark" type="password" placeholder="Password" />
-          <button type="button" className="text-left text-sm hover:underline">
+        <div className="card-light grid gap-3.5 p-6 sm:p-8 text-foreground">
+          <p className="eyebrow text-sky">Ready for authentication integration</p>
+          <input className="field" type="email" placeholder="Email address" />
+          <input className="field" type="password" placeholder="Password" />
+          <button
+            type="button"
+            className="text-left text-sm text-muted-foreground hover:text-navy hover:underline"
+          >
             Forgot password?
           </button>
           <button type="submit" className="btn btn-primary btn-lg">
             Log in (integration ready)
           </button>
-          <p className="text-sm">
+          <p className="text-sm text-muted-foreground">
             New to {brand.shortName}?{" "}
-            <Link to="/signup" className="font-semibold hover:underline">
+            <Link to="/signup" className="font-semibold text-navy hover:underline">
               Create your account
             </Link>
           </p>
-          <Link to="/student" className="text-sm font-semibold hover:underline">
+          <Link to="/student" className="text-sm font-semibold text-sky hover:underline">
             Preview student dashboard →
           </Link>
         </div>

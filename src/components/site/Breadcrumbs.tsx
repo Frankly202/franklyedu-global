@@ -19,7 +19,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
         className="flex items-center gap-1 transition-colors hover:text-navy-foreground"
         aria-label="Home"
       >
-        <Home className="h-3.5 w-3.5 text-sky-soft" />
+        <Home className="h-3.5 w-3.5 text-sky-contrast" />
         <span className="sr-only sm:not-sr-only sm:inline">Home</span>
       </Link>
       {items.map((item, idx) => {

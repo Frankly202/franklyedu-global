@@ -137,7 +137,7 @@ function PropertyDetailPage() {
         {/* Quick Spec Pills */}
         <div className="mb-8 flex flex-wrap gap-2.5">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-navy px-3 py-1 text-xs font-semibold text-navy-foreground">
-            <Building2 className="h-3.5 w-3.5 text-sky-soft" />
+            <Building2 className="h-3.5 w-3.5 text-sky-contrast" />
             {property.propertyType}
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-cream-deep px-3 py-1 text-xs font-semibold text-navy">
@@ -282,7 +282,7 @@ function PropertyDetailPage() {
           <div className="space-y-6 lg:col-span-5 xl:col-span-4">
             {/* Property Summary Card */}
             <div className="card-navy p-6">
-              <p className="eyebrow text-[0.7rem] text-sky-soft">Verified Listing</p>
+              <p className="eyebrow text-[0.7rem] text-sky-contrast">Verified Listing</p>
               <h3 className="mt-2 text-xl font-bold text-navy-foreground">Key Information</h3>
 
               <dl className="mt-4 divide-y divide-navy-border/50 text-sm">

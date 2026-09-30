@@ -35,7 +35,7 @@ function MarketplacePage() {
             to="/accommodation"
             className="card-navy group p-6 transition-transform hover:-translate-y-0.5"
           >
-            <p className="eyebrow text-sky-soft">Housing</p>
+            <p className="eyebrow text-sky-contrast">Housing</p>
             <h2 className="mt-2 text-2xl font-bold">Accommodation</h2>
             <p className="mt-2 text-sm text-navy-muted">
               Dormitories, shared flats and private apartments near campus.
@@ -46,7 +46,7 @@ function MarketplacePage() {
             to="/real-estate"
             className="card-navy group p-6 transition-transform hover:-translate-y-0.5"
           >
-            <p className="eyebrow text-sky-soft">Property</p>
+            <p className="eyebrow text-sky-contrast">Property</p>
             <h2 className="mt-2 text-2xl font-bold">Real Estate</h2>
             <p className="mt-2 text-sm text-navy-muted">
               Buy or rent long-term — including student investment properties.

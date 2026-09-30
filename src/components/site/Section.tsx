@@ -48,7 +48,7 @@ export function SectionHeading({
       className={cn("mb-10 max-w-2xl", align === "center" ? "mx-auto text-center" : "text-left")}
     >
       {eyebrow && (
-        <p className={cn("eyebrow mb-3", tone === "dark" ? "text-sky-soft" : "text-sky")}>
+        <p className={cn("eyebrow mb-3", tone === "dark" ? "text-sky-contrast" : "text-sky")}>
           {eyebrow}
         </p>
       )}
@@ -80,10 +80,10 @@ export function PageHero({
   breadcrumbs?: BreadcrumbItem[];
 }) {
   return (
-    <section className="bg-navy-deep py-14 text-navy-foreground sm:py-18">
+    <section className="bg-navy py-14 text-navy-foreground sm:py-18">
       <div className="container-site max-w-3xl">
         {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
-        {eyebrow && <p className="eyebrow mb-3 text-sky-soft">{eyebrow}</p>}
+        {eyebrow && <p className="eyebrow mb-3 text-sky-contrast">{eyebrow}</p>}
         <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl">{title}</h1>
         {subtitle && (
           <p className="mt-4 max-w-xl text-base leading-relaxed text-navy-muted sm:text-lg">
@@ -116,11 +116,28 @@ export function InfoCard({
   );
 }
 
-export function Spec({ label, value }: { label: string; value: string }) {
+export function Spec({
+  label,
+  value,
+  tone = "light",
+}: {
+  label: string;
+  value: string;
+  tone?: "light" | "dark";
+}) {
   return (
     <div>
-      <dt className="eyebrow text-[0.7rem] text-navy-muted">{label}</dt>
-      <dd className="text-sm font-medium">{value}</dd>
+      <dt
+        className={cn(
+          "eyebrow text-[0.7rem]",
+          tone === "dark" ? "text-navy-muted" : "text-muted-foreground",
+        )}
+      >
+        {label}
+      </dt>
+      <dd className={cn("text-sm font-medium", tone === "dark" ? "text-white" : "text-foreground")}>
+        {value}
+      </dd>
     </div>
   );
 }
