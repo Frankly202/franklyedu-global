@@ -87,12 +87,28 @@ export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?
       <div className="relative flex h-40 w-full items-end overflow-hidden p-4">
         {l.image ? (
           <>
-            <img
-              src={l.image}
-              alt={l.imageAlt || l.title}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-              loading="lazy"
-            />
+            {l.detailSlug ? (
+              <Link
+                to="/real-estate/$slug"
+                params={{ slug: l.detailSlug }}
+                className="absolute inset-0 block"
+                aria-label={`View details for ${l.title}`}
+              >
+                <img
+                  src={l.image}
+                  alt={l.imageAlt || l.title}
+                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
+                />
+              </Link>
+            ) : (
+              <img
+                src={l.image}
+                alt={l.imageAlt || l.title}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                loading="lazy"
+              />
+            )}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
           </>
         ) : (
@@ -103,7 +119,19 @@ export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <h3 className="text-lg font-semibold">{l.title}</h3>
+        <h3 className="text-lg font-semibold">
+          {l.detailSlug ? (
+            <Link
+              to="/real-estate/$slug"
+              params={{ slug: l.detailSlug }}
+              className="transition-colors hover:text-navy/80 hover:underline"
+            >
+              {l.title}
+            </Link>
+          ) : (
+            l.title
+          )}
+        </h3>
         <p className="mt-1 text-sm text-muted-foreground">{l.location}</p>
         <p className="mt-3 font-display text-xl font-bold text-navy">{l.price}</p>
         <ul className="mt-3 flex flex-wrap gap-1.5">
@@ -113,8 +141,18 @@ export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?
             </li>
           ))}
         </ul>
-        <div className="mt-auto flex items-center justify-between pt-5">
-          <span className="text-sm text-muted-foreground">Available {l.availableFrom}</span>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-5">
+          {l.detailSlug ? (
+            <Link
+              to="/real-estate/$slug"
+              params={{ slug: l.detailSlug }}
+              className="btn btn-outline-dark btn-sm"
+            >
+              View details
+            </Link>
+          ) : (
+            <span className="text-sm text-muted-foreground">Available {l.availableFrom}</span>
+          )}
           <a
             href={whatsappLink(`Hi, I'm interested in "${l.title}" (${l.location}).`)}
             target="_blank"

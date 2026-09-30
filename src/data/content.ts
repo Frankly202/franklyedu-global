@@ -1,4 +1,9 @@
 import northCyprusResortImage from "@/assets/properties/seafront-resort-esentepe.png";
+import sarconCover from "@/assets/sarcon/sarcon-01-cover.jpg";
+import sarconSurroundings from "@/assets/sarcon/sarcon-02-surroundings.png";
+import sarconLivingRoom from "@/assets/sarcon/sarcon-03-living-room.jpg";
+import sarconStaircase from "@/assets/sarcon/sarcon-04-staircase.jpg";
+import sarconKitchen from "@/assets/sarcon/sarcon-05-kitchen.jpg";
 
 /**
  * Central content and data configuration for Frankedu Global.
@@ -396,11 +401,112 @@ export interface Listing {
   type: string;
   price: string;
   location: string;
-  bedrooms: number;
+  bedrooms?: number;
   features: string[];
   availableFrom: string;
   image?: string;
   imageAlt?: string;
+  detailSlug?: string;
+}
+
+export interface PropertyGalleryImage {
+  src: string;
+  alt: string;
+  title: string;
+  category: string;
+}
+
+export interface PropertyDetail {
+  slug: string;
+  title: string;
+  seoTitle: string;
+  seoDescription: string;
+  eyebrow: string;
+  reference: string;
+  propertyType: string;
+  status: string;
+  location: string;
+  locationNote: string;
+  priceDisplay: string;
+  buyerEligibility: string;
+  disclaimer: string;
+  description: string[];
+  highlights: string[];
+  gallery: PropertyGalleryImage[];
+  contactEmail: string;
+  contactPhone: string;
+  whatsappMessage: string;
+}
+
+export const propertyDetails: PropertyDetail[] = [
+  {
+    slug: "sarcon-87-renovated-villa-north-cyprus",
+    title: "Renovated Villa for Sale in North Cyprus",
+    seoTitle: "Renovated Villa for Sale in North Cyprus | Frankedu Global",
+    seoDescription:
+      "Explore Sarcon №87, a renovated villa for sale in North Cyprus. View the property gallery and contact Frankedu Global for viewing and purchase assistance.",
+    eyebrow: "Sarcon №87 · For Sale",
+    reference: "Sarcon №87 / ID3423",
+    propertyType: "Renovated / design-refurbished villa",
+    status: "For sale",
+    location: "North Cyprus",
+    locationNote: "Exact map location supplied upon enquiry",
+    priceDisplay: "Price on inquiry",
+    buyerEligibility: "Partner states the title is suitable for a foreign national*",
+    disclaimer:
+      "*Buyer/title eligibility information is based on the partner's statement and should be independently confirmed during legal conveyancing.",
+    description: [
+      "A beautifully renovated villa finished with a design-led approach and prepared for resale. This property is suitable for buyers looking for a refreshed home or investment opportunity in North Cyprus.",
+      "Full property photographs and the exact map location are available upon request. Contact Frankedu Global for viewing arrangements and dedicated purchasing assistance.",
+    ],
+    highlights: [
+      "Renovated and design-refurbished villa",
+      "North Cyprus location",
+      "Full property photo gallery available",
+      "Viewing and purchase assistance available",
+      "Partner states title is suitable for foreign buyers*",
+    ],
+    gallery: [
+      {
+        src: sarconCover,
+        alt: "Sarcon 87 renovated villa in North Cyprus – exterior street view and gated entrance",
+        title: "Exterior Street View & Gated Entrance",
+        category: "Cover / Main Exterior",
+      },
+      {
+        src: sarconSurroundings,
+        alt: "Sarcon 87 renovated villa in North Cyprus – surrounding coastal neighborhood and Mediterranean sea views",
+        title: "Surrounding Coastal Neighborhood & Sea View",
+        category: "Location & Setting",
+      },
+      {
+        src: sarconLivingRoom,
+        alt: "Sarcon 87 renovated villa in North Cyprus – spacious double-height living room with exposed timber beams",
+        title: "Double-Height Living Room",
+        category: "Living Space",
+      },
+      {
+        src: sarconStaircase,
+        alt: "Sarcon 87 renovated villa in North Cyprus – ground-floor living area, wrought-iron staircase, and hallway entrance",
+        title: "Living Area & Feature Staircase",
+        category: "Interior Architecture",
+      },
+      {
+        src: sarconKitchen,
+        alt: "Sarcon 87 renovated villa in North Cyprus – contemporary renovated kitchen and open-plan dining space",
+        title: "Renovated Kitchen & Dining",
+        category: "Kitchen & Dining",
+      },
+    ],
+    contactEmail: "emmanuel@frankedu-global.com",
+    contactPhone: "+90 548 850 4146",
+    whatsappMessage:
+      "Hi, I'm interested in Sarcon №87 (Renovated Villa for Sale in North Cyprus). Could you share verified details and viewing availability?",
+  },
+];
+
+export function getPropertyBySlug(slug: string): PropertyDetail | undefined {
+  return propertyDetails.find((p) => p.slug === slug);
 }
 
 export const accommodationListings: Listing[] = [
@@ -447,6 +553,22 @@ export const accommodationListings: Listing[] = [
 ];
 
 export const realEstateListings: Listing[] = [
+  {
+    slug: "sarcon-87-renovated-villa-north-cyprus",
+    title: "Sarcon №87: Renovated Villa for Sale",
+    type: "Renovated Villa",
+    price: "Price on inquiry",
+    location: "North Cyprus",
+    features: [
+      "Design-refurbished villa",
+      "Full photo gallery available",
+      "Foreign buyer eligible*",
+    ],
+    availableFrom: "Immediate / For sale",
+    image: sarconCover,
+    imageAlt: "Sarcon 87 renovated villa in North Cyprus – exterior street view and gated entrance",
+    detailSlug: "sarcon-87-renovated-villa-north-cyprus",
+  },
   {
     slug: "north-cyprus-properties",
     title: "North Cyprus: Residential, Off-Plan & Investment Properties",
