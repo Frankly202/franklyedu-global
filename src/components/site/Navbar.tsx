@@ -2,6 +2,52 @@ import { Link } from "@tanstack/react-router";
 import { MessageCircle, Menu, X, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { authNav, brand, contact, mainNav, whatsappLink } from "@/data/site";
+import { useLocale } from "@/lib/locale";
+import { cn } from "@/lib/utils";
+
+export function LanguageSelector({ className }: { className?: string }) {
+  const { locale, setLocale } = useLocale();
+
+  return (
+    <div
+      className={cn(
+        "inline-flex items-center rounded-full border border-white/20 bg-white/10 p-0.5 text-xs font-semibold backdrop-blur-xs",
+        className,
+      )}
+      role="group"
+      aria-label="Language selector"
+    >
+      <button
+        type="button"
+        onClick={() => setLocale("en")}
+        className={cn(
+          "rounded-full px-2.5 py-1 text-xs transition-all",
+          locale === "en"
+            ? "bg-white text-navy font-bold shadow-xs"
+            : "text-white/75 hover:text-white",
+        )}
+        aria-label="Switch to English"
+        aria-pressed={locale === "en"}
+      >
+        EN
+      </button>
+      <button
+        type="button"
+        onClick={() => setLocale("tr")}
+        className={cn(
+          "rounded-full px-2.5 py-1 text-xs transition-all",
+          locale === "tr"
+            ? "bg-white text-navy font-bold shadow-xs"
+            : "text-white/75 hover:text-white",
+        )}
+        aria-label="Türkçe diline geç"
+        aria-pressed={locale === "tr"}
+      >
+        TR
+      </button>
+    </div>
+  );
+}
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
@@ -114,12 +160,12 @@ export function Navbar() {
         <Logo />
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-0.5 xl:gap-1.5 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-1 xl:gap-2 lg:flex" aria-label="Main">
           {desktopNavItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-md px-2 py-1.5 text-[13px] font-medium text-white/80 transition-colors hover:text-white xl:px-2.5 xl:text-sm"
+              className="rounded-md px-2.5 py-1.5 text-[13px] font-medium text-white/80 transition-colors hover:text-white xl:px-3 xl:text-sm"
               activeProps={{ className: "text-white font-semibold bg-white/15 shadow-xs" }}
             >
               {item.label}
@@ -127,45 +173,14 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop Primary Actions: Start Application & WhatsApp prioritized */}
-        <div className="hidden items-center gap-2 xl:gap-2.5 lg:flex">
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-outline-light btn-sm flex items-center gap-1.5 border-emerald-400/40 text-emerald-300 transition-colors hover:border-emerald-400 hover:bg-emerald-500/10"
-            title="Chat with Frankedu Global on WhatsApp"
-          >
-            <MessageCircle className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-            <span className="hidden xl:inline">WhatsApp</span>
-          </a>
-          <Link
-            to="/application"
-            className="btn btn-light btn-sm flex items-center gap-1 font-bold whitespace-nowrap shadow-sm"
-          >
-            <span>Start Application</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+        {/* Desktop Language Selector — provides breathing room for nav items */}
+        <div className="hidden items-center lg:flex">
+          <LanguageSelector />
         </div>
 
         {/* Mobile Header Quick Actions */}
         <div className="flex items-center gap-2 lg:hidden">
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noreferrer"
-            className="grid h-9 w-9 place-items-center rounded-md border border-emerald-400/40 bg-emerald-500/10 text-emerald-400 transition-colors hover:bg-emerald-500/20"
-            aria-label="Chat on WhatsApp"
-            title="Chat on WhatsApp"
-          >
-            <MessageCircle className="h-4 w-4" />
-          </a>
-          <Link
-            to="/application"
-            className="btn btn-light btn-sm px-3 py-1.5 text-xs font-bold sm:text-sm shadow-xs"
-          >
-            Apply
-          </Link>
+          <LanguageSelector />
           <button
             type="button"
             className="grid h-9 w-9 place-items-center rounded-md border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 active:bg-white/30"
@@ -194,6 +209,12 @@ export function Navbar() {
           </div>
 
           <div className="container-site relative z-10 py-5">
+            {/* Language Switcher in Mobile Drawer */}
+            <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
+              <span className="text-xs font-semibold text-white/80">Language / Dil</span>
+              <LanguageSelector />
+            </div>
+
             {/* Primary Action Buttons in Mobile Drawer */}
             <div className="grid gap-2.5 sm:grid-cols-2">
               <Link
