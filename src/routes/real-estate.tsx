@@ -3,6 +3,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { ListingCard } from "@/components/site/ListingCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { realEstateListings } from "@/data/content";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/real-estate")({
@@ -15,22 +16,27 @@ export const Route = createFileRoute("/real-estate")({
 });
 
 function RealEstatePage() {
+  const { common, marketplace } = useTranslations();
+
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Marketplace", to: "/marketplace" }, { label: "Real Estate" }]}
-        eyebrow="Property & Investment"
-        title="Property for families, buyers and investors."
-        subtitle="Curated opportunities across North Cyprus, the UK, and selected Dubai/UAE markets. Student accommodation is managed separately."
+        breadcrumbs={[
+          { label: common.nav.marketplace, to: "/marketplace" },
+          { label: marketplace.realEstate.eyebrow },
+        ]}
+        eyebrow={marketplace.realEstate.eyebrow}
+        title={marketplace.realEstate.title}
+        subtitle={marketplace.realEstate.subtitle}
       >
         <Link to="/marketplace" className="btn btn-outline-light">
-          Back to marketplace
+          {marketplace.realEstate.backToMarketplace}
         </Link>
       </PageHero>
       <Section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {realEstateListings.map((l) => (
-            <ListingCard key={l.slug} l={l} ctaLabel="Request details" />
+            <ListingCard key={l.slug} l={l} ctaLabel={marketplace.realEstate.requestDetailsBtn} />
           ))}
         </div>
       </Section>

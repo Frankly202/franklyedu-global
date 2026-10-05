@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Home } from "lucide-react";
+import { useTranslations } from "@/data/translations";
 
 export interface BreadcrumbItem {
   label: string;
@@ -7,6 +8,7 @@ export interface BreadcrumbItem {
 }
 
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+  const { common } = useTranslations();
   if (!items || items.length === 0) return null;
 
   return (
@@ -17,10 +19,10 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       <Link
         to="/"
         className="flex items-center gap-1 transition-colors hover:text-navy-foreground"
-        aria-label="Home"
+        aria-label={common.breadcrumbs.home}
       >
         <Home className="h-3.5 w-3.5 text-sky-contrast" />
-        <span className="sr-only sm:not-sr-only sm:inline">Home</span>
+        <span className="sr-only sm:not-sr-only sm:inline">{common.breadcrumbs.home}</span>
       </Link>
       {items.map((item, idx) => {
         const isLast = idx === items.length - 1;

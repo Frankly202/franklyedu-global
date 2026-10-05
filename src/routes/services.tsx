@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { supportServices } from "@/data/content";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/services")({
@@ -14,16 +15,18 @@ export const Route = createFileRoute("/services")({
 });
 
 function ServicesPage() {
+  const { common, education } = useTranslations();
+
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Services" }]}
-        eyebrow="Student support"
-        title="Support for every part of your next step."
-        subtitle="Straightforward guidance from your shortlist to your arrival plans — with every requirement clearly explained."
+        breadcrumbs={[{ label: common.nav.services }]}
+        eyebrow={education.services.eyebrow}
+        title={education.services.title}
+        subtitle={education.services.subtitle}
       >
         <Link to="/application" className="btn btn-light">
-          Start your application
+          {education.services.startApplication}
         </Link>
       </PageHero>
       <Section>
@@ -31,7 +34,7 @@ function ServicesPage() {
           {supportServices.map((s, i) => (
             <article key={s.slug} id={s.slug} className="card-light scroll-mt-24 p-6">
               <span className="inline-block rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-white">
-                Step {String(i + 1).padStart(2, "0")}
+                {education.services.stepPrefix} {String(i + 1).padStart(2, "0")}
               </span>
               <h2 className="mt-3 text-xl font-semibold text-navy">{s.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.description}</p>

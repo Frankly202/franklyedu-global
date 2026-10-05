@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Section } from "@/components/site/Section";
 import { mockStudent, universities } from "@/data/content";
 import { whatsappLink } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/student")({
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/student")({
 });
 
 function StudentPage() {
+  const { portal } = useTranslations();
   const s = mockStudent;
   const saved = universities.filter((u) => s.savedUniversities.includes(u.slug));
   const doneCount = s.checklist.filter((c) => c.done).length;
@@ -23,19 +25,17 @@ function StudentPage() {
     <>
       <section className="bg-navy py-10 text-navy-foreground">
         <div className="container-site">
-          <Breadcrumbs items={[{ label: "Student Preview" }]} />
+          <Breadcrumbs items={[{ label: portal.student.breadcrumb }]} />
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <div className="min-w-0">
-              <p className="eyebrow text-gold">Prototype Preview — Demonstration Only</p>
+              <p className="eyebrow text-gold">{portal.student.bannerEyebrow}</p>
               <h1 className="mt-1 truncate text-2xl font-bold sm:text-3xl">
-                Applicant Dashboard Preview
+                {portal.student.title}
               </h1>
-              <p className="text-sm text-navy-muted">
-                Demonstration tracker for programme applications and document checklists.
-              </p>
+              <p className="text-sm text-navy-muted">{portal.student.subtitle}</p>
             </div>
             <Link to="/application" className="btn btn-light btn-sm shrink-0">
-              New application
+              {portal.student.newApplicationBtn}
             </Link>
           </div>
         </div>
@@ -45,7 +45,7 @@ function StudentPage() {
         <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
           <div className="space-y-6">
             <div>
-              <h2 className="mb-3 text-lg font-semibold">Applications</h2>
+              <h2 className="mb-3 text-lg font-semibold">{portal.student.applicationsHeading}</h2>
               <div className="grid gap-3">
                 {s.applications.map((a) => (
                   <article key={a.id} className="card-light p-5">
@@ -65,14 +65,16 @@ function StudentPage() {
                         style={{ width: `${a.progress}%` }}
                       />
                     </div>
-                    <p className="mt-1.5 text-xs text-muted-foreground">{a.progress}% complete</p>
+                    <p className="mt-1.5 text-xs text-muted-foreground">
+                      {a.progress}% {portal.student.completeSuffix}
+                    </p>
                   </article>
                 ))}
               </div>
             </div>
 
             <div>
-              <h2 className="mb-3 text-lg font-semibold">Saved universities</h2>
+              <h2 className="mb-3 text-lg font-semibold">{portal.student.savedUnisHeading}</h2>
               <div className="grid gap-3 sm:grid-cols-3">
                 {saved.map((u) => (
                   <Link
@@ -93,7 +95,7 @@ function StudentPage() {
           <aside className="space-y-6">
             <div className="card-light p-5">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold">Document checklist</h2>
+                <h2 className="font-semibold">{portal.student.checklistHeading}</h2>
                 <span className="text-sm font-medium text-muted-foreground">
                   {doneCount}/{s.checklist.length}
                 </span>
@@ -114,9 +116,9 @@ function StudentPage() {
               </ul>
             </div>
             <div className="card-navy p-5">
-              <h2 className="font-semibold">Need help with a document?</h2>
+              <h2 className="font-semibold">{portal.student.counselorCard.title}</h2>
               <p className="mt-1 text-sm text-navy-muted">
-                Your counsellor replies within 24 hours.
+                {portal.student.counselorCard.subtitle}
               </p>
               <a
                 href={whatsappLink(
@@ -126,14 +128,14 @@ function StudentPage() {
                 rel="noreferrer"
                 className="btn btn-light btn-sm mt-4"
               >
-                Message counsellor
+                {portal.student.counselorCard.button}
               </a>
             </div>
             <div className="card-light p-5 text-sm">
-              <p className="font-semibold">Account</p>
+              <p className="font-semibold">{portal.student.accountCard.title}</p>
               <p className="mt-1 text-xs text-muted-foreground">{s.email}</p>
               <Link to="/login" className="mt-3 inline-block text-xs font-semibold hover:underline">
-                Sign out (prototype) →
+                {portal.student.accountCard.signOut}
               </Link>
             </div>
           </aside>

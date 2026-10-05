@@ -4,6 +4,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { marketplaceItems } from "@/data/content";
 import { whatsappLink } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/marketplace")({
@@ -15,19 +16,20 @@ export const Route = createFileRoute("/marketplace")({
   component: MarketplacePage,
 });
 
-const categories = ["All", ...Array.from(new Set(marketplaceItems.map((m) => m.category)))];
+const rawCategories = ["All", ...Array.from(new Set(marketplaceItems.map((m) => m.category)))];
 
 function MarketplacePage() {
+  const { common, marketplace } = useTranslations();
   const [cat, setCat] = useState("All");
   const items = marketplaceItems.filter((m) => cat === "All" || m.category === cat);
 
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Marketplace" }]}
-        eyebrow="Marketplace"
-        title="Everything you need to settle in."
-        subtitle="Housing, essentials and trusted services from the Frankedu community."
+        breadcrumbs={[{ label: common.nav.marketplace }]}
+        eyebrow={marketplace.marketplace.eyebrow}
+        title={marketplace.marketplace.title}
+        subtitle={marketplace.marketplace.subtitle}
       />
       <Section>
         <div className="mb-10 grid gap-4 md:grid-cols-2">
@@ -35,35 +37,45 @@ function MarketplacePage() {
             to="/accommodation"
             className="card-navy group p-6 transition-transform hover:-translate-y-0.5"
           >
-            <p className="eyebrow text-sky-contrast">Housing</p>
-            <h2 className="mt-2 text-2xl font-bold">Accommodation</h2>
-            <p className="mt-2 text-sm text-navy-muted">
-              Dormitories, shared flats and private apartments near campus.
+            <p className="eyebrow text-sky-contrast">
+              {marketplace.marketplace.housingCard.eyebrow}
             </p>
-            <span className="mt-4 inline-block text-sm font-semibold">Browse accommodation →</span>
+            <h2 className="mt-2 text-2xl font-bold">{marketplace.marketplace.housingCard.title}</h2>
+            <p className="mt-2 text-sm text-navy-muted">
+              {marketplace.marketplace.housingCard.desc}
+            </p>
+            <span className="mt-4 inline-block text-sm font-semibold">
+              {marketplace.marketplace.housingCard.cta}
+            </span>
           </Link>
           <Link
             to="/real-estate"
             className="card-navy group p-6 transition-transform hover:-translate-y-0.5"
           >
-            <p className="eyebrow text-sky-contrast">Property</p>
-            <h2 className="mt-2 text-2xl font-bold">Real Estate</h2>
-            <p className="mt-2 text-sm text-navy-muted">
-              Buy or rent long-term — including student investment properties.
+            <p className="eyebrow text-sky-contrast">
+              {marketplace.marketplace.propertyCard.eyebrow}
             </p>
-            <span className="mt-4 inline-block text-sm font-semibold">Browse real estate →</span>
+            <h2 className="mt-2 text-2xl font-bold">
+              {marketplace.marketplace.propertyCard.title}
+            </h2>
+            <p className="mt-2 text-sm text-navy-muted">
+              {marketplace.marketplace.propertyCard.desc}
+            </p>
+            <span className="mt-4 inline-block text-sm font-semibold">
+              {marketplace.marketplace.propertyCard.cta}
+            </span>
           </Link>
         </div>
 
         <div className="mb-6 flex flex-wrap gap-2">
-          {categories.map((c) => (
+          {rawCategories.map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => setCat(c)}
               className={c === cat ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}
             >
-              {c}
+              {c === "All" ? marketplace.marketplace.allCategories : c}
             </button>
           ))}
         </div>
@@ -84,7 +96,7 @@ function MarketplacePage() {
                   rel="noreferrer"
                   className="btn btn-primary btn-sm"
                 >
-                  Enquire
+                  {marketplace.marketplace.enquireBtn}
                 </a>
               </div>
             </article>

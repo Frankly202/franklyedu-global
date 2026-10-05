@@ -3,6 +3,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { CourseCard } from "@/components/site/ListingCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { courses, subjects, universities } from "@/data/content";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 type Search = {
@@ -10,7 +11,6 @@ type Search = {
   subject?: string | undefined;
   level?: string | undefined;
 };
-const levels = ["Foundation", "Bachelor's", "Master's", "PhD"];
 
 export const Route = createFileRoute("/courses")({
   validateSearch: (s: Record<string, unknown>): Search => ({
@@ -27,9 +27,17 @@ export const Route = createFileRoute("/courses")({
 });
 
 function CoursesPage() {
+  const { common, education } = useTranslations();
   const { university, subject, level } = Route.useSearch();
   const navigate = Route.useNavigate();
   const uni = universities.find((u) => u.slug === university);
+
+  const levelOptions = [
+    { value: "Foundation", label: education.courses.levels.foundation },
+    { value: "Bachelor's", label: education.courses.levels.bachelors },
+    { value: "Master's", label: education.courses.levels.masters },
+    { value: "PhD", label: education.courses.levels.phd },
+  ];
 
   const results = courses.filter(
     (c) =>
@@ -41,15 +49,19 @@ function CoursesPage() {
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Courses" }]}
-        eyebrow="Courses"
-        title={uni ? `Programmes at ${uni.name}` : "Compare programmes."}
-        subtitle="Search by subject and level. Individual programme details and fee schedules are confirmed directly with partner institutions upon inquiry."
+        breadcrumbs={[{ label: common.nav.courses }]}
+        eyebrow={education.courses.eyebrow}
+        title={
+          uni ? `${education.courses.programmesAt} ${uni.name}` : education.courses.defaultTitle
+        }
+        subtitle={education.courses.subtitle}
       />
       <Section>
         <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-end">
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">Subject</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">
+              {education.courses.subjectLabel}
+            </span>
             <select
               className="field"
               value={subject ?? ""}
@@ -57,7 +69,7 @@ function CoursesPage() {
                 navigate({ search: (p) => ({ ...p, subject: e.target.value || undefined }) })
               }
             >
-              <option value="">All subjects</option>
+              <option value="">{education.courses.allSubjects}</option>
               {subjects.map((s) => (
                 <option key={s} value={s}>
                   {s}
@@ -66,7 +78,9 @@ function CoursesPage() {
             </select>
           </label>
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">Level</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">
+              {education.courses.levelLabel}
+            </span>
             <select
               className="field"
               value={level ?? ""}
@@ -74,16 +88,18 @@ function CoursesPage() {
                 navigate({ search: (p) => ({ ...p, level: e.target.value || undefined }) })
               }
             >
-              <option value="">All levels</option>
-              {levels.map((l) => (
-                <option key={l} value={l}>
-                  {l}
+              <option value="">{education.courses.allLevels}</option>
+              {levelOptions.map((l) => (
+                <option key={l.value} value={l.value}>
+                  {l.label}
                 </option>
               ))}
             </select>
           </label>
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">University</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">
+              {education.courses.universityLabel}
+            </span>
             <select
               className="field"
               value={university ?? ""}
@@ -91,7 +107,7 @@ function CoursesPage() {
                 navigate({ search: (p) => ({ ...p, university: e.target.value || undefined }) })
               }
             >
-              <option value="">All universities</option>
+              <option value="">{education.courses.allUniversities}</option>
               {universities.map((u) => (
                 <option key={u.slug} value={u.slug}>
                   {u.name}
@@ -100,11 +116,13 @@ function CoursesPage() {
             </select>
           </label>
           <Link to="/courses" search={{}} className="btn btn-outline-dark">
-            Clear
+            {education.courses.clearBtn}
           </Link>
         </div>
 
-        <p className="mb-5 text-sm text-muted-foreground">{results.length} programmes found</p>
+        <p className="mb-5 text-sm text-muted-foreground">
+          {results.length} {education.courses.foundCount}
+        </p>
         {results.length ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {results.map((c) => (
@@ -113,12 +131,8 @@ function CoursesPage() {
           </div>
         ) : (
           <div className="card-light p-10 text-center">
-            <h2 className="text-lg font-semibold">Programme catalogue updating</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              We verify individual programme details directly with partner institutions before
-              publishing. Message us on WhatsApp for currently open programmes, faculties, and
-              admission requirements.
-            </p>
+            <h2 className="text-lg font-semibold">{education.courses.emptyHeading}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{education.courses.emptyDesc}</p>
           </div>
         )}
       </Section>

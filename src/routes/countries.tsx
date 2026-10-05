@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { destinations } from "@/data/content";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/countries")({
@@ -14,13 +15,15 @@ export const Route = createFileRoute("/countries")({
 });
 
 function CountriesPage() {
+  const { common, education } = useTranslations();
+
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Destinations" }]}
-        eyebrow="Study destinations"
-        title="Choose where your degree takes you."
-        subtitle="Compare key study destinations side by side. Additional destinations worldwide may also be available through our global education network."
+        breadcrumbs={[{ label: common.nav.countries }]}
+        eyebrow={education.countries.eyebrow}
+        title={education.countries.title}
+        subtitle={education.countries.subtitle}
       />
       <Section>
         <div className="grid gap-5 md:grid-cols-2">
@@ -39,11 +42,15 @@ function CountriesPage() {
               </ul>
               <dl className="mt-5 grid grid-cols-2 gap-3 rounded-lg border border-white/15 bg-white/10 p-4 text-sm">
                 <div>
-                  <dt className="eyebrow text-[0.7rem] text-navy-muted">Intakes</dt>
+                  <dt className="eyebrow text-[0.7rem] text-navy-muted">
+                    {education.countries.intakesLabel}
+                  </dt>
                   <dd className="mt-1 font-medium">{d.intakes}</dd>
                 </div>
                 <div>
-                  <dt className="eyebrow text-[0.7rem] text-navy-muted">Tuition range</dt>
+                  <dt className="eyebrow text-[0.7rem] text-navy-muted">
+                    {education.countries.tuitionRangeLabel}
+                  </dt>
                   <dd className="mt-1 font-medium">{d.tuitionRange}</dd>
                 </div>
               </dl>
@@ -53,10 +60,10 @@ function CountriesPage() {
                   search={{ country: d.slug }}
                   className="btn btn-light btn-sm"
                 >
-                  View universities
+                  {education.countries.viewUniversities}
                 </Link>
                 <Link to="/scholarships" className="btn btn-outline-light btn-sm">
-                  Scholarships
+                  {education.countries.scholarshipsBtn}
                 </Link>
               </div>
             </article>

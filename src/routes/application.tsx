@@ -2,10 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHero, Section } from "@/components/site/Section";
 import { courses, destinations, universities } from "@/data/content";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 type Search = { university?: string | undefined; course?: string | undefined };
-const steps = ["Your details", "Study plan", "Documents", "Review"];
 
 export const Route = createFileRoute("/application")({
   validateSearch: (s: Record<string, unknown>): Search => ({
@@ -21,11 +21,19 @@ export const Route = createFileRoute("/application")({
 });
 
 function ApplicationPage() {
+  const { common, portal } = useTranslations();
   const search = Route.useSearch();
   const presetCourse = courses.find((c) => c.slug === search.course);
   const presetUni = universities.find(
     (u) => u.slug === (search.university ?? presetCourse?.universitySlug),
   );
+
+  const steps = [
+    portal.application.steps.details,
+    portal.application.steps.studyPlan,
+    portal.application.steps.documents,
+    portal.application.steps.review,
+  ];
 
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
@@ -51,16 +59,23 @@ function ApplicationPage() {
     (c) => !form.university || c.universitySlug === form.university,
   );
 
+  const requiredDocuments = [
+    portal.application.form.documentsList.passport,
+    portal.application.form.documentsList.transcripts,
+    portal.application.form.documentsList.englishProficiency,
+    portal.application.form.documentsList.sop,
+  ];
+
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Start Application" }]}
-        eyebrow="Application"
-        title="Start your application."
+        breadcrumbs={[{ label: common.footer.startApplication }]}
+        eyebrow={portal.application.eyebrow}
+        title={portal.application.defaultTitle}
         subtitle={
           presetUni
-            ? `Applying to ${presetUni.name}${presetCourse ? ` — ${presetCourse.title}` : ""}.`
-            : "Four short steps. You can come back and finish later once accounts are connected."
+            ? `${portal.application.applyingTo} ${presetUni.name}${presetCourse ? ` — ${presetCourse.title}` : ""}.`
+            : portal.application.defaultSubtitle
         }
       />
       <Section>
@@ -88,15 +103,12 @@ function ApplicationPage() {
           >
             {done ? (
               <div className="py-8 text-center">
-                <p className="eyebrow text-sky">Prototype</p>
-                <h2 className="mt-2 text-2xl font-bold">Application saved locally</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Nothing was submitted yet — this flow is ready to connect to your application
-                  system.
-                </p>
+                <p className="eyebrow text-sky">{portal.application.done.eyebrow}</p>
+                <h2 className="mt-2 text-2xl font-bold">{portal.application.done.title}</h2>
+                <p className="mt-2 text-sm text-muted-foreground">{portal.application.done.desc}</p>
                 <div className="mt-6 flex justify-center gap-2">
                   <Link to="/student" className="btn btn-primary">
-                    Go to student dashboard
+                    {portal.application.done.dashboardBtn}
                   </Link>
                   <button
                     type="button"
@@ -106,7 +118,7 @@ function ApplicationPage() {
                       setStep(0);
                     }}
                   >
-                    Start over
+                    {portal.application.done.startOverBtn}
                   </button>
                 </div>
               </div>
@@ -118,7 +130,7 @@ function ApplicationPage() {
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
                     <input
                       className="field"
-                      placeholder="Full name"
+                      placeholder={portal.application.form.fullNamePlaceholder}
                       value={form.name}
                       onChange={set("name")}
                       required
@@ -126,20 +138,20 @@ function ApplicationPage() {
                     <input
                       className="field"
                       type="email"
-                      placeholder="Email address"
+                      placeholder={portal.application.form.emailPlaceholder}
                       value={form.email}
                       onChange={set("email")}
                       required
                     />
                     <input
                       className="field"
-                      placeholder="Phone / WhatsApp number"
+                      placeholder={portal.application.form.phonePlaceholder}
                       value={form.phone}
                       onChange={set("phone")}
                     />
                     <input
                       className="field"
-                      placeholder="Nationality"
+                      placeholder={portal.application.form.nationalityPlaceholder}
                       value={form.nationality}
                       onChange={set("nationality")}
                     />
@@ -154,7 +166,7 @@ function ApplicationPage() {
                       onChange={set("destination")}
                       required
                     >
-                      <option value="">Study destination</option>
+                      <option value="">{portal.application.form.destinationOption}</option>
                       {destinations.map((d) => (
                         <option key={d.slug} value={d.slug}>
                           {d.name}
@@ -162,7 +174,7 @@ function ApplicationPage() {
                       ))}
                     </select>
                     <select className="field" value={form.university} onChange={set("university")}>
-                      <option value="">University (optional)</option>
+                      <option value="">{portal.application.form.universityOption}</option>
                       {uniOptions.map((u) => (
                         <option key={u.slug} value={u.slug}>
                           {u.name}
@@ -170,7 +182,7 @@ function ApplicationPage() {
                       ))}
                     </select>
                     <select className="field" value={form.course} onChange={set("course")}>
-                      <option value="">Programme (optional)</option>
+                      <option value="">{portal.application.form.courseOption}</option>
                       {courseOptions.map((c) => (
                         <option key={c.slug} value={c.slug}>
                           {c.title}
@@ -178,22 +190,23 @@ function ApplicationPage() {
                       ))}
                     </select>
                     <select className="field" value={form.intake} onChange={set("intake")} required>
-                      <option value="">Preferred intake</option>
-                      <option>January 2027</option>
-                      <option>September 2026</option>
-                      <option>February 2027</option>
+                      <option value="">{portal.application.form.intakeOption}</option>
+                      <option value="January 2027">
+                        {portal.application.form.intakeOptions.jan2027}
+                      </option>
+                      <option value="September 2026">
+                        {portal.application.form.intakeOptions.sep2026}
+                      </option>
+                      <option value="February 2027">
+                        {portal.application.form.intakeOptions.feb2027}
+                      </option>
                     </select>
                   </div>
                 )}
 
                 {step === 2 && (
                   <div className="mt-5 grid gap-3">
-                    {[
-                      "Passport copy",
-                      "Academic transcripts",
-                      "English proficiency proof",
-                      "Statement of purpose",
-                    ].map((d) => (
+                    {requiredDocuments.map((d) => (
                       <label
                         key={d}
                         className="flex items-center justify-between gap-4 rounded-lg border border-border p-3 text-sm"
@@ -206,7 +219,7 @@ function ApplicationPage() {
                       </label>
                     ))}
                     <p className="text-xs text-muted-foreground">
-                      Uploads are not stored in this prototype.
+                      {portal.application.form.uploadsNotice}
                     </p>
                   </div>
                 )}
@@ -214,16 +227,25 @@ function ApplicationPage() {
                 {step === 3 && (
                   <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
                     {[
-                      ["Name", form.name],
-                      ["Email", form.email],
-                      ["Phone", form.phone],
-                      ["Nationality", form.nationality],
-                      ["Destination", destinations.find((d) => d.slug === form.destination)?.name],
-                      ["University", universities.find((u) => u.slug === form.university)?.name],
-                      ["Programme", courses.find((c) => c.slug === form.course)?.title],
-                      ["Intake", form.intake],
+                      [portal.application.form.summaryLabels.name, form.name],
+                      [portal.application.form.summaryLabels.email, form.email],
+                      [portal.application.form.summaryLabels.phone, form.phone],
+                      [portal.application.form.summaryLabels.nationality, form.nationality],
+                      [
+                        portal.application.form.summaryLabels.destination,
+                        destinations.find((d) => d.slug === form.destination)?.name,
+                      ],
+                      [
+                        portal.application.form.summaryLabels.university,
+                        universities.find((u) => u.slug === form.university)?.name,
+                      ],
+                      [
+                        portal.application.form.summaryLabels.programme,
+                        courses.find((c) => c.slug === form.course)?.title,
+                      ],
+                      [portal.application.form.summaryLabels.intake, form.intake],
                     ].map(([k, v]) => (
-                      <div key={k} className="rounded-lg bg-muted p-3">
+                      <div key={String(k)} className="rounded-lg bg-muted p-3">
                         <dt className="text-xs text-muted-foreground">{k}</dt>
                         <dd className="font-medium">{v || "—"}</dd>
                       </div>
@@ -238,10 +260,12 @@ function ApplicationPage() {
                     disabled={step === 0}
                     onClick={() => setStep(step - 1)}
                   >
-                    Back
+                    {portal.application.form.backBtn}
                   </button>
                   <button type="submit" className="btn btn-primary">
-                    {step === steps.length - 1 ? "Submit application" : "Continue"}
+                    {step === steps.length - 1
+                      ? portal.application.form.submitBtn
+                      : portal.application.form.continueBtn}
                   </button>
                 </div>
               </>

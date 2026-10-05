@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/signup")({
@@ -12,16 +13,16 @@ export const Route = createFileRoute("/signup")({
 });
 
 function SignupPage() {
+  const { common, portal } = useTranslations();
   const navigate = useNavigate();
+
   return (
     <section className="bg-navy py-14 text-navy-foreground sm:py-20">
       <div className="container-site max-w-2xl">
-        <Breadcrumbs items={[{ label: "Sign Up" }]} />
+        <Breadcrumbs items={[{ label: common.nav.signup }]} />
         <div className="text-center">
-          <h1 className="text-4xl font-bold sm:text-5xl">Start your global study journey</h1>
-          <p className="mt-4 text-navy-muted">
-            Create your profile when you’re ready to save opportunities and begin an application.
-          </p>
+          <h1 className="text-4xl font-bold sm:text-5xl">{portal.signup.title}</h1>
+          <p className="mt-4 text-navy-muted">{portal.signup.subtitle}</p>
         </div>
       </div>
       <form
@@ -32,25 +33,33 @@ function SignupPage() {
         }}
       >
         <div className="card-light grid gap-3.5 p-6 sm:p-8 text-foreground">
-          <p className="eyebrow text-sky">Ready for authentication integration</p>
-          <input className="field" placeholder="Full name" />
-          <input className="field" type="email" placeholder="Email address" />
-          <input className="field" placeholder="Phone / WhatsApp number" />
-          <input className="field" placeholder="Nationality" />
-          <input className="field" placeholder="Country of residence" />
-          <input className="field" type="password" placeholder="Password" />
-          <input className="field" type="password" placeholder="Confirm password" />
+          <p className="eyebrow text-sky">{portal.signup.readyNotice}</p>
+          <input className="field" placeholder={portal.signup.fullNamePlaceholder} />
+          <input className="field" type="email" placeholder={portal.signup.emailPlaceholder} />
+          <input className="field" placeholder={portal.signup.phonePlaceholder} />
+          <input className="field" placeholder={portal.signup.nationalityPlaceholder} />
+          <input className="field" placeholder={portal.signup.residencePlaceholder} />
+          <input
+            className="field"
+            type="password"
+            placeholder={portal.signup.passwordPlaceholder}
+          />
+          <input
+            className="field"
+            type="password"
+            placeholder={portal.signup.confirmPasswordPlaceholder}
+          />
           <button type="submit" className="btn btn-primary btn-lg">
-            Create account (integration ready)
+            {portal.signup.submitBtn}
           </button>
           <p className="text-sm text-muted-foreground">
-            Already have an account?{" "}
+            {portal.signup.alreadyHaveAccount}{" "}
             <Link to="/login" className="font-semibold text-navy hover:underline">
-              Log in
+              {portal.signup.logInLink}
             </Link>
           </p>
           <Link to="/student" className="text-sm font-semibold text-sky hover:underline">
-            Preview student dashboard →
+            {portal.signup.previewDashboard}
           </Link>
         </div>
       </form>

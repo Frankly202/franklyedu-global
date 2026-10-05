@@ -3,6 +3,7 @@ import { PageHero, Section, SectionHeading } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { aboutContent } from "@/data/content";
 import { brand, whatsappLink } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 import leadershipPhoto from "@/assets/background-photo.jpg";
 import { Calendar, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
@@ -17,16 +18,18 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const { common, company } = useTranslations();
+
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "About" }]}
-        eyebrow={`About ${brand.shortName}`}
-        title="Frank guidance for global study."
+        breadcrumbs={[{ label: common.nav.about }]}
+        eyebrow={`${company.about.eyebrow} ${brand.shortName}`}
+        title={company.about.title}
         subtitle={aboutContent.mission}
       >
         <Link to="/contact" className="btn btn-light">
-          Get in touch
+          {company.about.getInTouch}
         </Link>
       </PageHero>
 
@@ -48,11 +51,11 @@ function AboutPage() {
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="h-4 w-4 shrink-0 text-sky" />
                     <p className="font-display text-xs font-bold uppercase tracking-wider text-sky">
-                      Verified Guidance
+                      {company.about.trustBadgeTitle}
                     </p>
                   </div>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Direct advisory for university admissions, scholarships, and overseas property.
+                    {company.about.trustBadgeSubtitle}
                   </p>
                 </div>
               </div>
@@ -62,9 +65,9 @@ function AboutPage() {
           {/* Company Details Column */}
           <div className="space-y-6 lg:col-span-7">
             <div>
-              <p className="eyebrow text-sky">Company & Heritage</p>
+              <p className="eyebrow text-sky">{company.about.heritageEyebrow}</p>
               <h2 className="mt-2 text-3xl font-bold leading-tight text-navy sm:text-4xl">
-                Personal, transparent guidance from day one.
+                {company.about.heritageTitle}
               </h2>
             </div>
 
@@ -73,10 +76,7 @@ function AboutPage() {
             </p>
 
             <p className="text-base leading-relaxed text-muted-foreground">
-              Operating from our headquarters in Lefkoşa, North Cyprus, Frankedu Global was
-              established to provide dependable clarity. We only publish admissions terms, tuition
-              rates, and scholarship criteria confirmed directly with our partner institutions and
-              verified networks.
+              {company.about.paragraph2}
             </p>
 
             <div className="grid gap-3 pt-2 sm:grid-cols-2">
@@ -84,12 +84,12 @@ function AboutPage() {
                 <div className="flex items-center gap-2 text-sky">
                   <Calendar className="h-4 w-4 shrink-0" />
                   <span className="font-display text-xs font-bold uppercase tracking-wider">
-                    Established
+                    {company.about.establishedLabel}
                   </span>
                 </div>
                 <p className="mt-1 text-sm font-semibold text-navy">{aboutContent.founded}</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
-                  Founded with transparent student advocacy at its core.
+                  {company.about.establishedDesc}
                 </p>
               </div>
 
@@ -97,13 +97,11 @@ function AboutPage() {
                 <div className="flex items-center gap-2 text-sky">
                   <MapPin className="h-4 w-4 shrink-0" />
                   <span className="font-display text-xs font-bold uppercase tracking-wider">
-                    Headquarters
+                    {company.about.hqLabel}
                   </span>
                 </div>
                 <p className="mt-1 text-sm font-semibold text-navy">{aboutContent.office}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">
-                  Lefkoşa office providing in-person and international consultation.
-                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{company.about.hqDesc}</p>
               </div>
             </div>
 
@@ -117,10 +115,10 @@ function AboutPage() {
                 className="btn btn-primary"
               >
                 <MessageCircle className="mr-1.5 h-4 w-4" />
-                Message on WhatsApp
+                {company.about.whatsappBtn}
               </a>
               <Link to="/contact" className="btn btn-outline-dark">
-                Contact our office
+                {company.about.contactOfficeBtn}
               </Link>
             </div>
           </div>
@@ -139,7 +137,10 @@ function AboutPage() {
       </Section>
 
       <Section>
-        <SectionHeading eyebrow="How we work" title="What you can expect." />
+        <SectionHeading
+          eyebrow={company.about.howWeWorkEyebrow}
+          title={company.about.howWeWorkTitle}
+        />
         <div className="grid gap-4 md:grid-cols-3">
           {aboutContent.values.map((v) => (
             <div key={v.title} className="card-light p-6">
@@ -152,7 +153,7 @@ function AboutPage() {
 
       {aboutContent.team.length > 0 && (
         <Section>
-          <SectionHeading eyebrow="Team" title="People behind the plan." />
+          <SectionHeading eyebrow={company.about.teamEyebrow} title={company.about.teamTitle} />
           <div className="grid gap-4 sm:grid-cols-3">
             {aboutContent.team.map((t) => (
               <div key={t.name} className="card-light flex items-center gap-4 p-5 sm:p-6">

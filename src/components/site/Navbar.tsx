@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, Menu, X, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { authNav, brand, contact, mainNav, whatsappLink } from "@/data/site";
+import { authNav, brand, contact, whatsappLink } from "@/data/site";
 import { useLocale } from "@/lib/locale";
+import { useTranslations } from "@/data/translations";
 import { cn } from "@/lib/utils";
 
 export function LanguageSelector({ className }: { className?: string }) {
@@ -15,7 +16,7 @@ export function LanguageSelector({ className }: { className?: string }) {
         className,
       )}
       role="group"
-      aria-label="Language selector"
+      aria-label={locale === "tr" ? "Dil seçici" : "Language selector"}
     >
       <button
         type="button"
@@ -78,68 +79,90 @@ export function Logo({ compact = false }: { compact?: boolean }) {
   );
 }
 
-// Grouped sections for mobile drawer clarity
-const mobileNavGroups = [
-  {
-    title: "Study Pathways",
-    items: [
-      {
-        label: "Universities",
-        to: "/universities" as const,
-        desc: "Explore partner campuses & tuition",
-      },
-      { label: "Courses", to: "/courses" as const, desc: "Compare English-taught programmes" },
-      {
-        label: "Destinations",
-        to: "/countries" as const,
-        desc: "Compare countries, visas & intakes",
-      },
-      {
-        label: "Scholarships",
-        to: "/scholarships" as const,
-        desc: "Verified funding & tuition discounts",
-      },
-    ],
-  },
-  {
-    title: "Services & Living",
-    items: [
-      {
-        label: "Student Services",
-        to: "/services" as const,
-        desc: "Intake planning, visa & arrival support",
-      },
-      {
-        label: "Marketplace",
-        to: "/marketplace" as const,
-        desc: "Student essentials & trusted community listings",
-      },
-      {
-        label: "Accommodation",
-        to: "/accommodation" as const,
-        desc: "Dorms & apartments near campus",
-      },
-      { label: "Real Estate", to: "/real-estate" as const, desc: "Property purchases & rentals" },
-    ],
-  },
-  {
-    title: "Company",
-    items: [
-      {
-        label: "About Frankedu",
-        to: "/about" as const,
-        desc: "Our mission, team & verified guidance",
-      },
-      { label: "Contact & Office", to: "/contact" as const, desc: "Message our advisory team" },
-    ],
-  },
-];
-
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { common } = useTranslations();
 
-  // Desktop navigation excludes redundant "Home" since the Logo already links to "/"
-  const desktopNavItems = mainNav.filter((item) => item.to !== "/");
+  // Desktop navigation items localized dynamically
+  const desktopNavItems = [
+    { label: common.nav.universities, to: "/universities" as const },
+    { label: common.nav.courses, to: "/courses" as const },
+    { label: common.nav.countries, to: "/countries" as const },
+    { label: common.nav.scholarships, to: "/scholarships" as const },
+    { label: common.nav.services, to: "/services" as const },
+    { label: common.nav.marketplace, to: "/marketplace" as const },
+    { label: common.nav.about, to: "/about" as const },
+    { label: common.nav.contact, to: "/contact" as const },
+  ];
+
+  // Grouped sections for mobile drawer clarity
+  const mobileNavGroups = [
+    {
+      title: common.mobileDrawer.studyPathwaysTitle,
+      items: [
+        {
+          label: common.nav.universities,
+          to: "/universities" as const,
+          desc: common.mobileDrawer.universitiesDesc,
+        },
+        {
+          label: common.nav.courses,
+          to: "/courses" as const,
+          desc: common.mobileDrawer.coursesDesc,
+        },
+        {
+          label: common.nav.countries,
+          to: "/countries" as const,
+          desc: common.mobileDrawer.destinationsDesc,
+        },
+        {
+          label: common.nav.scholarships,
+          to: "/scholarships" as const,
+          desc: common.mobileDrawer.scholarshipsDesc,
+        },
+      ],
+    },
+    {
+      title: common.mobileDrawer.servicesLivingTitle,
+      items: [
+        {
+          label: common.nav.services,
+          to: "/services" as const,
+          desc: common.mobileDrawer.studentServicesDesc,
+        },
+        {
+          label: common.nav.marketplace,
+          to: "/marketplace" as const,
+          desc: common.mobileDrawer.marketplaceDesc,
+        },
+        {
+          label: common.footer.accommodation,
+          to: "/accommodation" as const,
+          desc: common.mobileDrawer.accommodationDesc,
+        },
+        {
+          label: common.footer.realEstate,
+          to: "/real-estate" as const,
+          desc: common.mobileDrawer.realEstateDesc,
+        },
+      ],
+    },
+    {
+      title: common.mobileDrawer.companyTitle,
+      items: [
+        {
+          label: common.nav.about,
+          to: "/about" as const,
+          desc: common.mobileDrawer.aboutDesc,
+        },
+        {
+          label: common.nav.contact,
+          to: "/contact" as const,
+          desc: common.mobileDrawer.contactDesc,
+        },
+      ],
+    },
+  ];
 
   return (
     <header className="sticky top-0 z-50 relative overflow-hidden border-b border-white/15 bg-navy/95 text-white backdrop-blur supports-[backdrop-filter]:bg-navy/90">
@@ -211,7 +234,9 @@ export function Navbar() {
           <div className="container-site relative z-10 py-5">
             {/* Language Switcher in Mobile Drawer */}
             <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
-              <span className="text-xs font-semibold text-white/80">Language / Dil</span>
+              <span className="text-xs font-semibold text-white/80">
+                {common.mobileDrawer.languageTitle}
+              </span>
               <LanguageSelector />
             </div>
 
@@ -222,7 +247,7 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="btn btn-light flex w-full items-center justify-center gap-2 py-3 text-[15px] font-bold shadow-md"
               >
-                <span>Start Application</span>
+                <span>{common.mobileDrawer.startApplication}</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
@@ -233,7 +258,7 @@ export function Navbar() {
                 className="btn btn-outline-light flex w-full items-center justify-center gap-2 border-emerald-400/50 bg-emerald-950/20 py-2.5 text-[15px] font-semibold text-emerald-300 hover:bg-emerald-500/20"
               >
                 <MessageCircle className="h-4 w-4 shrink-0 text-emerald-400" />
-                <span>Chat on WhatsApp</span>
+                <span>{common.mobileDrawer.chatWhatsapp}</span>
               </a>
             </div>
 
@@ -273,7 +298,7 @@ export function Navbar() {
                     onClick={() => setOpen(false)}
                     className="font-semibold text-sky-contrast hover:text-white hover:underline"
                   >
-                    Student Dashboard Preview →
+                    {common.mobileDrawer.studentPreview}
                   </Link>
                 </div>
                 <div className="flex items-center gap-3 text-xs">
@@ -282,7 +307,7 @@ export function Navbar() {
                     onClick={() => setOpen(false)}
                     className="font-medium text-white/90 hover:text-white hover:underline"
                   >
-                    {authNav.login.label}
+                    {common.nav.login}
                   </Link>
                   <span className="text-white/40">·</span>
                   <Link
@@ -290,7 +315,7 @@ export function Navbar() {
                     onClick={() => setOpen(false)}
                     className="font-medium text-white/90 hover:text-white hover:underline"
                   >
-                    {authNav.signup.label}
+                    {common.nav.signup}
                   </Link>
                 </div>
               </div>

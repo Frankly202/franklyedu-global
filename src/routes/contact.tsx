@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHero, Section } from "@/components/site/Section";
 import { contact, whatsappLink } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
@@ -11,15 +12,16 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const { common, company } = useTranslations();
   const [sent, setSent] = useState(false);
 
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Contact" }]}
-        eyebrow="Contact"
-        title="Let’s talk about your next step."
-        subtitle="Reach us on WhatsApp for the fastest reply, or send a message below."
+        breadcrumbs={[{ label: common.nav.contact }]}
+        eyebrow={company.contact.eyebrow}
+        title={company.contact.title}
+        subtitle={company.contact.subtitle}
       />
       <Section>
         <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr]">
@@ -36,17 +38,17 @@ function ContactPage() {
                 rel="noreferrer"
                 className="btn btn-light mt-4"
               >
-                Chat on WhatsApp
+                {company.contact.whatsappCard.button}
               </a>
             </div>
             <div className="card-light p-6 text-sm">
-              <p className="eyebrow text-sky">Email</p>
+              <p className="eyebrow text-sky">{company.contact.officeCard.emailLabel}</p>
               <a href={`mailto:${contact.email}`} className="mt-1 block font-medium">
                 {contact.email}
               </a>
-              <p className="eyebrow mt-4 text-sky">Office</p>
+              <p className="eyebrow mt-4 text-sky">{company.contact.officeCard.officeLabel}</p>
               <p className="mt-1">{contact.address}</p>
-              <p className="eyebrow mt-4 text-sky">Social Channels</p>
+              <p className="eyebrow mt-4 text-sky">{company.contact.officeCard.socialLabel}</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {contact.social.tiktok && (
                   <a
@@ -91,32 +93,44 @@ function ContactPage() {
           >
             {sent ? (
               <div className="sm:col-span-2 py-10 text-center">
-                <h2 className="text-xl font-semibold">Message received</h2>
+                <h2 className="text-xl font-semibold">{company.contact.form.sentTitle}</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  This is a prototype — no message was sent yet. We’ll connect this form later.
+                  {company.contact.form.sentDesc}
                 </p>
                 <button
                   type="button"
                   className="btn btn-outline-dark mt-5"
                   onClick={() => setSent(false)}
                 >
-                  Send another
+                  {company.contact.form.sendAnotherBtn}
                 </button>
               </div>
             ) : (
               <>
-                <input className="field" placeholder="Full name" required />
-                <input className="field" type="email" placeholder="Email address" required />
-                <input className="field" placeholder="Phone / WhatsApp number" />
-                <input className="field" placeholder="Preferred destination" />
+                <input
+                  className="field"
+                  placeholder={company.contact.form.fullNamePlaceholder}
+                  required
+                />
+                <input
+                  className="field"
+                  type="email"
+                  placeholder={company.contact.form.emailPlaceholder}
+                  required
+                />
+                <input className="field" placeholder={company.contact.form.phonePlaceholder} />
+                <input
+                  className="field"
+                  placeholder={company.contact.form.destinationPlaceholder}
+                />
                 <textarea
                   className="field sm:col-span-2"
                   rows={5}
-                  placeholder="Tell us about your study plans"
+                  placeholder={company.contact.form.messagePlaceholder}
                   required
                 />
                 <button type="submit" className="btn btn-primary sm:col-span-2">
-                  Send message
+                  {company.contact.form.submitBtn}
                 </button>
               </>
             )}

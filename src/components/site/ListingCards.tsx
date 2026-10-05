@@ -1,32 +1,39 @@
 import { Link } from "@tanstack/react-router";
 import type { Course, Listing, University } from "@/data/content";
 import { whatsappLink } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { Spec } from "./Section";
 
 export function UniversityCard({ u }: { u: University }) {
+  const { common } = useTranslations();
+
   return (
     <article className="card-light flex flex-col p-5 sm:p-6">
       <p className="eyebrow text-[0.7rem] text-sky font-semibold">
-        {u.verified ? "Verified listing" : "Template — verify before publishing"}
+        {u.verified ? common.cards.verifiedListing : common.cards.templateListing}
       </p>
       <h3 className="mt-3 text-xl font-semibold leading-snug text-navy">{u.name}</h3>
       <p className="mt-1 text-sm text-muted-foreground">
         {u.city}, {u.country}
       </p>
       <dl className="mt-4 grid gap-2.5 rounded-lg bg-muted/60 p-4">
-        <Spec label="Degree level" value={u.degreeLevels} tone="light" />
-        <Spec label="Courses" value={u.courses} tone="light" />
-        <Spec label="Tuition fee" value={u.tuition} tone="light" />
-        <Spec label="Intake" value={u.intake} tone="light" />
-        <Spec label="Application fee" value={u.applicationFee} tone="light" />
-        <Spec label="Scholarship availability" value={u.scholarship} tone="light" />
+        <Spec label={common.cards.specs.degreeLevel} value={u.degreeLevels} tone="light" />
+        <Spec label={common.cards.specs.courses} value={u.courses} tone="light" />
+        <Spec label={common.cards.specs.tuitionFee} value={u.tuition} tone="light" />
+        <Spec label={common.cards.specs.intake} value={u.intake} tone="light" />
+        <Spec label={common.cards.specs.applicationFee} value={u.applicationFee} tone="light" />
+        <Spec
+          label={common.cards.specs.scholarshipAvailability}
+          value={u.scholarship}
+          tone="light"
+        />
       </dl>
       <div className="mt-5 flex flex-wrap gap-2">
         <Link to="/courses" search={{ university: u.slug }} className="btn btn-outline-dark btn-sm">
-          View Programs
+          {common.cards.viewPrograms}
         </Link>
         <Link to="/application" search={{ university: u.slug }} className="btn btn-primary btn-sm">
-          Apply Now
+          {common.cards.applyNow}
         </Link>
       </div>
     </article>
@@ -34,6 +41,8 @@ export function UniversityCard({ u }: { u: University }) {
 }
 
 export function CourseCard({ c }: { c: Course }) {
+  const { common } = useTranslations();
+
   return (
     <article className="card-light flex flex-col p-5 sm:p-6">
       <div className="flex items-center gap-2">
@@ -48,25 +57,25 @@ export function CourseCard({ c }: { c: Course }) {
       </p>
       <dl className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
         <div>
-          <dt className="text-muted-foreground">Duration</dt>
+          <dt className="text-muted-foreground">{common.cards.specs.duration}</dt>
           <dd className="font-medium">{c.duration}</dd>
         </div>
         <div>
-          <dt className="text-muted-foreground">Tuition</dt>
+          <dt className="text-muted-foreground">{common.cards.specs.tuition}</dt>
           <dd className="font-medium">{c.tuition}</dd>
         </div>
         <div>
-          <dt className="text-muted-foreground">Intake</dt>
+          <dt className="text-muted-foreground">{common.cards.specs.intake}</dt>
           <dd className="font-medium">{c.intake}</dd>
         </div>
         <div>
-          <dt className="text-muted-foreground">Language</dt>
+          <dt className="text-muted-foreground">{common.cards.specs.language}</dt>
           <dd className="font-medium">{c.language}</dd>
         </div>
       </dl>
       <div className="mt-5 flex gap-2">
         <Link to="/application" search={{ course: c.slug }} className="btn btn-primary btn-sm">
-          Apply Now
+          {common.cards.applyNow}
         </Link>
         <a
           href={whatsappLink(`Hi, I'd like to ask about ${c.title} at ${c.university}.`)}
@@ -74,14 +83,17 @@ export function CourseCard({ c }: { c: Course }) {
           rel="noreferrer"
           className="btn btn-outline-dark btn-sm"
         >
-          Ask a question
+          {common.cards.askQuestion}
         </a>
       </div>
     </article>
   );
 }
 
-export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?: string }) {
+export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) {
+  const { common } = useTranslations();
+  const effectiveCtaLabel = ctaLabel || common.cards.enquire;
+
   return (
     <article className="card-light flex flex-col overflow-hidden">
       <div className="relative flex h-40 w-full items-end overflow-hidden p-4">
@@ -148,10 +160,12 @@ export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?
               params={{ slug: l.detailSlug }}
               className="btn btn-outline-dark btn-sm"
             >
-              View details
+              {common.cards.viewDetails}
             </Link>
           ) : (
-            <span className="text-sm text-muted-foreground">Available {l.availableFrom}</span>
+            <span className="text-sm text-muted-foreground">
+              {common.cards.availableFrom} {l.availableFrom}
+            </span>
           )}
           <a
             href={whatsappLink(`Hi, I'm interested in "${l.title}" (${l.location}).`)}
@@ -159,7 +173,7 @@ export function ListingCard({ l, ctaLabel = "Enquire" }: { l: Listing; ctaLabel?
             rel="noreferrer"
             className="btn btn-primary btn-sm"
           >
-            {ctaLabel}
+            {effectiveCtaLabel}
           </a>
         </div>
       </div>

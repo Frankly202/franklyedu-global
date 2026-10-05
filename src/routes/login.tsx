@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
-import { brand } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/login")({
@@ -13,16 +13,16 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
+  const { common, portal } = useTranslations();
   const navigate = useNavigate();
+
   return (
     <section className="bg-navy py-14 text-navy-foreground sm:py-20">
       <div className="container-site max-w-2xl">
-        <Breadcrumbs items={[{ label: "Login" }]} />
+        <Breadcrumbs items={[{ label: common.nav.login }]} />
         <div className="text-center">
-          <h1 className="text-4xl font-bold sm:text-5xl">Welcome back</h1>
-          <p className="mt-4 text-navy-muted">
-            Student account access will be connected here when the application system is ready.
-          </p>
+          <h1 className="text-4xl font-bold sm:text-5xl">{portal.login.title}</h1>
+          <p className="mt-4 text-navy-muted">{portal.login.subtitle}</p>
         </div>
       </div>
       <form
@@ -33,26 +33,26 @@ function LoginPage() {
         }}
       >
         <div className="card-light grid gap-3.5 p-6 sm:p-8 text-foreground">
-          <p className="eyebrow text-sky">Ready for authentication integration</p>
-          <input className="field" type="email" placeholder="Email address" />
-          <input className="field" type="password" placeholder="Password" />
+          <p className="eyebrow text-sky">{portal.login.readyNotice}</p>
+          <input className="field" type="email" placeholder={portal.login.emailPlaceholder} />
+          <input className="field" type="password" placeholder={portal.login.passwordPlaceholder} />
           <button
             type="button"
             className="text-left text-sm text-muted-foreground hover:text-navy hover:underline"
           >
-            Forgot password?
+            {portal.login.forgotPassword}
           </button>
           <button type="submit" className="btn btn-primary btn-lg">
-            Log in (integration ready)
+            {portal.login.submitBtn}
           </button>
           <p className="text-sm text-muted-foreground">
-            New to {brand.shortName}?{" "}
+            {portal.login.newToBrand}{" "}
             <Link to="/signup" className="font-semibold text-navy hover:underline">
-              Create your account
+              {portal.login.createAccount}
             </Link>
           </p>
           <Link to="/student" className="text-sm font-semibold text-sky hover:underline">
-            Preview student dashboard →
+            {portal.login.previewDashboard}
           </Link>
         </div>
       </form>

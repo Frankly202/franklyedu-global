@@ -5,8 +5,7 @@ import { UniversityCard, ListingCard } from "@/components/site/ListingCards";
 import { destinations, realEstateListings, subjects, universities } from "@/data/content";
 import { images, whatsappLink } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
-import { useLocale } from "@/lib/locale";
-import { homeTranslations } from "@/data/home-translations";
+import { useTranslations } from "@/data/translations";
 import {
   GraduationCap,
   Building2,
@@ -29,8 +28,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const navigate = useNavigate();
-  const { locale } = useLocale();
-  const t = homeTranslations[locale];
+  const { locale, home: t } = useTranslations();
 
   const [country, setCountry] = useState("");
   const [subject, setSubject] = useState("");

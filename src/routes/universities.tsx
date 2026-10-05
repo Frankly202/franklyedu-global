@@ -3,6 +3,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { UniversityCard } from "@/components/site/ListingCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { destinations, subjects, universities } from "@/data/content";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 type Search = { country?: string | undefined; subject?: string | undefined };
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/universities")({
 });
 
 function UniversitiesPage() {
+  const { common, education } = useTranslations();
   const { country, subject } = Route.useSearch();
   const navigate = Route.useNavigate();
 
@@ -31,15 +33,17 @@ function UniversitiesPage() {
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Universities" }]}
-        eyebrow="Universities"
-        title="Find the right university."
-        subtitle="Filter by destination and subject. Confirmed partner institutions include Final International University (FIU). Additional destination applications are arranged through our education network."
+        breadcrumbs={[{ label: common.nav.universities }]}
+        eyebrow={education.universities.eyebrow}
+        title={education.universities.title}
+        subtitle={education.universities.subtitle}
       />
       <Section>
         <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">Destination</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">
+              {education.universities.destinationLabel}
+            </span>
             <select
               className="field"
               value={country ?? ""}
@@ -47,7 +51,7 @@ function UniversitiesPage() {
                 navigate({ search: (p) => ({ ...p, country: e.target.value || undefined }) })
               }
             >
-              <option value="">All destinations</option>
+              <option value="">{education.universities.allDestinations}</option>
               {destinations.map((d) => (
                 <option key={d.slug} value={d.slug}>
                   {d.name}
@@ -56,7 +60,9 @@ function UniversitiesPage() {
             </select>
           </label>
           <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">Subject</span>
+            <span className="eyebrow text-[0.7rem] text-muted-foreground">
+              {education.universities.subjectLabel}
+            </span>
             <select
               className="field"
               value={subject ?? ""}
@@ -64,7 +70,7 @@ function UniversitiesPage() {
                 navigate({ search: (p) => ({ ...p, subject: e.target.value || undefined }) })
               }
             >
-              <option value="">All subjects</option>
+              <option value="">{education.universities.allSubjects}</option>
               {subjects.map((s) => (
                 <option key={s} value={s}>
                   {s}
@@ -73,12 +79,15 @@ function UniversitiesPage() {
             </select>
           </label>
           <Link to="/universities" search={{}} className="btn btn-outline-dark">
-            Clear
+            {education.universities.clearBtn}
           </Link>
         </div>
 
         <p className="mb-5 text-sm text-muted-foreground">
-          {results.length} {results.length === 1 ? "university" : "universities"} found
+          {results.length}{" "}
+          {results.length === 1
+            ? education.universities.foundSingular
+            : education.universities.foundPlural}
         </p>
 
         {results.length ? (
@@ -89,11 +98,8 @@ function UniversitiesPage() {
           </div>
         ) : (
           <div className="card-light p-10 text-center">
-            <h2 className="text-lg font-semibold">Inquire for this destination</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              We guide admissions across all 9 supported destinations through our education network.
-              Message us on WhatsApp for tailored options.
-            </p>
+            <h2 className="text-lg font-semibold">{education.universities.emptyHeading}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{education.universities.emptyDesc}</p>
           </div>
         )}
       </Section>

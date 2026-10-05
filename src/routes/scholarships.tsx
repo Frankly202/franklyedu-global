@@ -3,6 +3,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { scholarships } from "@/data/content";
 import { whatsappLink } from "@/data/site";
+import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/scholarships")({
@@ -15,13 +16,15 @@ export const Route = createFileRoute("/scholarships")({
 });
 
 function ScholarshipsPage() {
+  const { common, education } = useTranslations();
+
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Scholarships" }]}
-        eyebrow="Scholarships"
-        title="Funding that fits your plan."
-        subtitle="We list scholarships confirmed with partner institutions. Scholarships can be up to 100% for eligible students at selected institutions."
+        breadcrumbs={[{ label: common.nav.scholarships }]}
+        eyebrow={education.scholarships.eyebrow}
+        title={education.scholarships.title}
+        subtitle={education.scholarships.subtitle}
       />
       <Section>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -33,21 +36,21 @@ function ScholarshipsPage() {
               <p className="mt-3 text-sm leading-relaxed">{s.summary}</p>
               <dl className="mt-4 grid grid-cols-3 gap-2 text-[13px]">
                 <div>
-                  <dt className="text-muted-foreground">Amount</dt>
+                  <dt className="text-muted-foreground">{education.scholarships.amountLabel}</dt>
                   <dd className="font-medium">{s.amount}</dd>
                 </div>
                 <div>
-                  <dt className="text-muted-foreground">Level</dt>
+                  <dt className="text-muted-foreground">{education.scholarships.levelLabel}</dt>
                   <dd className="font-medium">{s.level}</dd>
                 </div>
                 <div>
-                  <dt className="text-muted-foreground">Deadline</dt>
+                  <dt className="text-muted-foreground">{education.scholarships.deadlineLabel}</dt>
                   <dd className="font-medium">{s.deadline}</dd>
                 </div>
               </dl>
               <div className="mt-auto flex gap-2 pt-5">
                 <Link to="/application" className="btn btn-primary btn-sm">
-                  Apply with support
+                  {education.scholarships.applySupport}
                 </Link>
                 <a
                   href={whatsappLink(`Hi, I'd like to know if I'm eligible for ${s.name}.`)}
@@ -55,7 +58,7 @@ function ScholarshipsPage() {
                   rel="noreferrer"
                   className="btn btn-outline-dark btn-sm"
                 >
-                  Check eligibility
+                  {education.scholarships.checkEligibility}
                 </a>
               </div>
             </article>
