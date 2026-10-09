@@ -63,7 +63,8 @@ export interface HomeTranslation {
     title: string;
     subtitle: string;
     whatsappCta: string;
-    applyCta: string;
+    consultationCta: string;
+    applyCta?: string;
   };
 }
 
@@ -138,7 +139,7 @@ export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
           "Social & Digital Marketing",
           "Creative Media Solutions",
         ],
-        ctaLabel: "Learn More",
+        ctaLabel: "Get a Quote",
         href: "/services",
       },
       ecoLuxury: {
@@ -153,7 +154,7 @@ export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
           "Flexible Service Scheduling",
           "Local On-the-Ground Team",
         ],
-        ctaLabel: "Inquire Services",
+        ctaLabel: "Get a Quote",
         href: "/services",
       },
     },
@@ -187,7 +188,8 @@ export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
       subtitle:
         "Talk to our advisory team in Lefkoşa or connect directly online for university applications, property viewings, and professional services.",
       whatsappCta: "Chat on WhatsApp",
-      applyCta: "Start Your Application",
+      consultationCta: "Book a Consultation",
+      applyCta: "Book a Consultation",
     },
   },
   tr: {
@@ -260,7 +262,7 @@ export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
           "Sosyal Medya ve Dijital Pazarlama",
           "Kreatif Medya Çözümleri",
         ],
-        ctaLabel: "Detaylı Bilgi",
+        ctaLabel: "Fiyat Teklifi Alın",
         href: "/services",
       },
       ecoLuxury: {
@@ -275,7 +277,7 @@ export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
           "Esnek Hizmet ve Rezervasyon Planlaması",
           "Yerel Profesyonel Destek Ekibi",
         ],
-        ctaLabel: "Hizmet Talep Edin",
+        ctaLabel: "Fiyat Teklifi Alın",
         href: "/services",
       },
     },
@@ -309,7 +311,8 @@ export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
       subtitle:
         "Üniversite başvuruları, mülk gösterimleri ve danışmanlık hizmetlerimiz için Lefkoşa'daki ekibimizle görüşün veya çevrimiçi yazın.",
       whatsappCta: "WhatsApp ile İletişim",
-      applyCta: "Başvurunuzu Başlatın",
+      consultationCta: "Konsültasyon Randevusu Alın",
+      applyCta: "Konsültasyon Randevusu Alın",
     },
   },
 };

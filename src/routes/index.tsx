@@ -58,8 +58,8 @@ function Index() {
               </div>
 
               <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                {t.hero.titleLine1}{" "}
-                <span className="text-sky-contrast">{t.hero.titleHighlight}</span>
+                <span className="block text-white">{t.hero.titleLine1}</span>
+                <span className="block text-sky-contrast">{t.hero.titleHighlight}</span>
               </h1>
 
               <p className="font-display text-sm font-semibold uppercase tracking-wider text-sky-contrast sm:text-base">
@@ -194,7 +194,7 @@ function Index() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1: Education */}
           <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy/10 text-navy">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <GraduationCap className="h-6 w-6" />
             </div>
             <h3 className="text-xl font-bold text-navy">{t.services.education.title}</h3>
@@ -215,7 +215,7 @@ function Index() {
             <div className="mt-auto pt-6">
               <Link
                 to={t.services.education.href}
-                className="btn btn-outline-dark flex w-full items-center justify-center gap-1.5 text-xs font-bold"
+                className="btn btn-primary flex w-full items-center justify-center gap-1.5 text-xs font-bold"
               >
                 <span>{t.services.education.ctaLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -225,7 +225,7 @@ function Index() {
 
           {/* Card 2: Properties */}
           <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy/10 text-navy">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <Building2 className="h-6 w-6" />
             </div>
             <h3 className="text-xl font-bold text-navy">{t.services.properties.title}</h3>
@@ -246,7 +246,7 @@ function Index() {
             <div className="mt-auto pt-6">
               <Link
                 to={t.services.properties.href}
-                className="btn btn-outline-dark flex w-full items-center justify-center gap-1.5 text-xs font-bold"
+                className="btn btn-primary flex w-full items-center justify-center gap-1.5 text-xs font-bold"
               >
                 <span>{t.services.properties.ctaLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -256,7 +256,7 @@ function Index() {
 
           {/* Card 3: Creative */}
           <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy/10 text-navy">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <Palette className="h-6 w-6" />
             </div>
             <h3 className="text-xl font-bold text-navy">{t.services.creative.title}</h3>
@@ -277,7 +277,7 @@ function Index() {
             <div className="mt-auto pt-6">
               <Link
                 to={t.services.creative.href}
-                className="btn btn-outline-dark flex w-full items-center justify-center gap-1.5 text-xs font-bold"
+                className="btn btn-primary flex w-full items-center justify-center gap-1.5 text-xs font-bold"
               >
                 <span>{t.services.creative.ctaLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -287,7 +287,7 @@ function Index() {
 
           {/* Card 4: Eco Luxury */}
           <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy/10 text-navy">
+            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <Sparkles className="h-6 w-6" />
             </div>
             <h3 className="text-xl font-bold text-navy">{t.services.ecoLuxury.title}</h3>
@@ -308,7 +308,7 @@ function Index() {
             <div className="mt-auto pt-6">
               <Link
                 to={t.services.ecoLuxury.href}
-                className="btn btn-outline-dark flex w-full items-center justify-center gap-1.5 text-xs font-bold"
+                className="btn btn-primary flex w-full items-center justify-center gap-1.5 text-xs font-bold"
               >
                 <span>{t.services.ecoLuxury.ctaLabel}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -453,10 +453,10 @@ function Index() {
               <span>{t.ctaBanner.whatsappCta}</span>
             </a>
             <Link
-              to="/application"
+              to="/contact"
               className="btn btn-outline-light flex items-center gap-2 border-white/30 hover:bg-white/10"
             >
-              <span>{t.ctaBanner.applyCta}</span>
+              <span>{t.ctaBanner.consultationCta}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
