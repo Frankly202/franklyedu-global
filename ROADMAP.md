@@ -94,18 +94,22 @@
 
 ### Phase 4: Lead, Application & Contact Flows
 
-- **Status**: `NOT STARTED`
+- **Status**: `DONE`
 - **Scope**:
-  - Upgrade the Contact form (`/contact`) and Search filter (`/` and `/universities`) to convert inquiries directly into actionable leads.
-  - Connect the 4-step Application flow (`/application`) to generate pre-filled, structured WhatsApp enquiry messages with chosen destination, university, and programme details.
-  - Ensure every listing card's CTA ("Apply Now", "Reserve", "Request Details", "Enquire") triggers a targeted WhatsApp conversation with specific context.
-  - Add fallback email mailto links or webhook submission for students who prefer email communication.
+  - The Contact form (`/contact`) validates the entered details and opens a pre-filled email draft. The page explains that the visitor must send the draft; the website does not submit or store it.
+  - The four-step Application flow (`/application`) opens a pre-filled, localized WhatsApp draft with the applicant's contact and selected study details. The visitor reviews and sends it in WhatsApp.
+  - Contextual WhatsApp enquiries remain available from course, accommodation, real estate, marketplace, and property-detail actions. Course, accommodation, real estate, and marketplace card messages are localized.
+  - The application document step is a checklist only; it does not request file selection, upload, or transmission.
+  - Existing homepage and university destination/subject filters already worked and remain unchanged; they filter results rather than submit leads.
+  - No backend, database, CRM, or application persistence was introduced.
 - **Expected Outcome**:
-  - Seamless conversion funnel routing student inquiries directly into FranklyEdu's advisor pipeline via WhatsApp and email.
+  - Contact messages and application details are prepared in the visitor's chosen email or WhatsApp client, respectively, without suggesting that the website submitted or stored them.
 - **Validation Gate**:
+  - `bun run format`
   - `bun run lint`
   - `bun run --bun tsc --noEmit`
   - `bun run build`
+  - `git diff --check`
 
 ---
 

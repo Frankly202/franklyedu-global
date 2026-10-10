@@ -23,6 +23,7 @@ export interface CompanyTranslation {
     eyebrow: string;
     title: string;
     subtitle: string;
+    emailSubject: string;
     whatsappCard: {
       button: string;
     };
@@ -37,10 +38,8 @@ export interface CompanyTranslation {
       phonePlaceholder: string;
       destinationPlaceholder: string;
       messagePlaceholder: string;
-      submitBtn: string;
-      sentTitle: string;
-      sentDesc: string;
-      sendAnotherBtn: string;
+      emailNotice: string;
+      emailSubmitBtn: string;
     };
   };
 }
@@ -72,7 +71,8 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
     contact: {
       eyebrow: "Contact",
       title: "Let’s talk about your next step.",
-      subtitle: "Reach us on WhatsApp for the fastest reply, or send a message below.",
+      subtitle: "Reach us on WhatsApp for the fastest reply, or prepare an email below.",
+      emailSubject: "Frankedu Global website enquiry",
       whatsappCard: {
         button: "Chat on WhatsApp",
       },
@@ -87,10 +87,9 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
         phonePlaceholder: "Phone / WhatsApp number",
         destinationPlaceholder: "Preferred destination",
         messagePlaceholder: "Tell us about your study plans",
-        submitBtn: "Send message",
-        sentTitle: "Message received",
-        sentDesc: "This is a prototype — no message was sent yet. We’ll connect this form later.",
-        sendAnotherBtn: "Send another",
+        emailNotice:
+          "This opens your email app with the message ready. You will need to send it there; the website does not submit or store it.",
+        emailSubmitBtn: "Continue in email",
       },
     },
   },
@@ -121,7 +120,8 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
       eyebrow: "İletişim",
       title: "Geleceğiniz için bir sonraki adımı konuşalım.",
       subtitle:
-        "En hızlı yanıt için bize WhatsApp'tan ulaşabilir veya aşağıdaki formu doldurabilirsiniz.",
+        "En hızlı yanıt için bize WhatsApp'tan ulaşabilir veya aşağıdan e-posta taslağı oluşturabilirsiniz.",
+      emailSubject: "Frankedu Global web sitesi iletişim talebi",
       whatsappCard: {
         button: "WhatsApp'tan Yazın",
       },
@@ -136,11 +136,9 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
         phonePlaceholder: "Telefon / WhatsApp numarası",
         destinationPlaceholder: "Tercih edilen ülke",
         messagePlaceholder: "Eğitim veya mülk planlarınızdan bahsedin",
-        submitBtn: "Mesajı Gönder",
-        sentTitle: "Mesajınız alındı",
-        sentDesc:
-          "Bu bir prototiptir — henüz bir mesaj iletilmedi. Form yakında canlıya alınacaktır.",
-        sendAnotherBtn: "Yeni bir mesaj gönder",
+        emailNotice:
+          "Bu işlem e-posta uygulamanızı hazır bir mesaj taslağıyla açar. E-postayı oradan göndermeniz gerekir; web sitesi mesajı göndermez veya saklamaz.",
+        emailSubmitBtn: "E-posta ile devam et",
       },
     },
   },

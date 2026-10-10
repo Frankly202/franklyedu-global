@@ -78,7 +78,7 @@ export function CourseCard({ c }: { c: Course }) {
           {common.cards.applyNow}
         </Link>
         <a
-          href={whatsappLink(`Hi, I'd like to ask about ${c.title} at ${c.university}.`)}
+          href={whatsappLink(common.cards.whatsappMessages.course(c.title, c.university))}
           target="_blank"
           rel="noreferrer"
           className="btn btn-outline-dark btn-sm"
@@ -168,7 +168,7 @@ export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) 
             </span>
           )}
           <a
-            href={whatsappLink(`Hi, I'm interested in "${l.title}" (${l.location}).`)}
+            href={whatsappLink(common.cards.whatsappMessages.listing(l.title, l.location))}
             target="_blank"
             rel="noreferrer"
             className="btn btn-primary btn-sm"

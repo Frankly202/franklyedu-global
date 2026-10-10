@@ -4,6 +4,8 @@ export interface PortalTranslation {
     defaultTitle: string;
     applyingTo: string;
     defaultSubtitle: string;
+    whatsappIntro: string;
+    whatsappNotice: string;
     steps: {
       details: string;
       studyPlan: string;
@@ -39,18 +41,12 @@ export interface PortalTranslation {
         destination: string;
         university: string;
         programme: string;
+        studyLevel: string;
         intake: string;
       };
       backBtn: string;
       continueBtn: string;
       submitBtn: string;
-    };
-    done: {
-      eyebrow: string;
-      title: string;
-      desc: string;
-      dashboardBtn: string;
-      startOverBtn: string;
     };
   };
   student: {
@@ -110,7 +106,10 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
       defaultTitle: "Start your application.",
       applyingTo: "Applying to",
       defaultSubtitle:
-        "Four short steps. You can come back and finish later once accounts are connected.",
+        "Complete four short steps, then send your details to our advisor on WhatsApp.",
+      whatsappIntro: "Hello Frankedu Global, I'd like guidance with my study application.",
+      whatsappNotice:
+        "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step.",
       steps: {
         details: "Your details",
         studyPlan: "Study plan",
@@ -137,7 +136,7 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
           englishProficiency: "English proficiency proof",
           sop: "Statement of purpose",
         },
-        uploadsNotice: "Uploads are not stored in this prototype.",
+        uploadsNotice: "No documents are uploaded or sent in this step.",
         summaryLabels: {
           name: "Name",
           email: "Email",
@@ -146,18 +145,12 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
           destination: "Destination",
           university: "University",
           programme: "Programme",
+          studyLevel: "Programme level",
           intake: "Intake",
         },
         backBtn: "Back",
         continueBtn: "Continue",
-        submitBtn: "Submit application",
-      },
-      done: {
-        eyebrow: "Prototype",
-        title: "Application saved locally",
-        desc: "Nothing was submitted yet — this flow is ready to connect to your application system.",
-        dashboardBtn: "Go to student dashboard",
-        startOverBtn: "Start over",
+        submitBtn: "Continue to WhatsApp",
       },
     },
     student: {
@@ -217,7 +210,10 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
       defaultTitle: "Başvurunuzu başlatın.",
       applyingTo: "Başvurulan Kurum:",
       defaultSubtitle:
-        "Dört kısa adım. Hesap entegrasyonu sağlandığında dilediğiniz zaman devam edebilirsiniz.",
+        "Dört kısa adımı tamamlayın ve bilgilerinizi WhatsApp üzerinden danışmanımıza iletin.",
+      whatsappIntro: "Merhaba Frankedu Global, eğitim başvurum için rehberlik almak istiyorum.",
+      whatsappNotice:
+        "Devam ettiğinizde bu bilgileri inceleyip gönderebilmeniz için WhatsApp açılır. Belgeler bu adımda yüklenmez veya gönderilmez.",
       steps: {
         details: "Kişisel Bilgiler",
         studyPlan: "Eğitim Planı",
@@ -244,7 +240,7 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
           englishProficiency: "İngilizce Yeterlilik Belgesi",
           sop: "Niyet Mektubu (SOP)",
         },
-        uploadsNotice: "Yüklenen belgeler bu prototip aşamasında kaydedilmez.",
+        uploadsNotice: "Bu adımda hiçbir belge yüklenmez veya gönderilmez.",
         summaryLabels: {
           name: "Ad Soyad",
           email: "E-posta",
@@ -253,18 +249,12 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
           destination: "Eğitim Ülkesi",
           university: "Üniversite",
           programme: "Program",
+          studyLevel: "Program düzeyi",
           intake: "Kayıt Dönemi",
         },
         backBtn: "Geri",
         continueBtn: "Devam Et",
-        submitBtn: "Başvuruyu Gönder",
-      },
-      done: {
-        eyebrow: "Önizleme",
-        title: "Başvuru taslağı kaydedildi",
-        desc: "Henüz sunucuya gönderilmedi — bu akış başvuru yönetim altyapısına bağlanmaya hazırdır.",
-        dashboardBtn: "Öğrenci paneline git",
-        startOverBtn: "Yeniden başlat",
+        submitBtn: "WhatsApp'ta Devam Et",
       },
     },
     student: {

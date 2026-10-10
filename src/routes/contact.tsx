@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { PageHero, Section } from "@/components/site/Section";
 import { contact, whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
@@ -13,7 +12,6 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const { common, company } = useTranslations();
-  const [sent, setSent] = useState(false);
 
   return (
     <>
@@ -88,52 +86,65 @@ function ContactPage() {
             className="card-light grid gap-4 p-6 sm:grid-cols-2"
             onSubmit={(e) => {
               e.preventDefault();
-              setSent(true);
+              const values = new FormData(e.currentTarget);
+              const body = [
+                `${company.contact.form.fullNamePlaceholder}: ${values.get("fullName")}`,
+                `${company.contact.form.emailPlaceholder}: ${values.get("email")}`,
+                `${company.contact.form.phonePlaceholder}: ${values.get("phone") || "—"}`,
+                `${company.contact.form.destinationPlaceholder}: ${values.get("destination") || "—"}`,
+                "",
+                String(values.get("message") ?? ""),
+              ].join("\n");
+              window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
+                company.contact.emailSubject,
+              )}&body=${encodeURIComponent(body)}`;
             }}
           >
-            {sent ? (
-              <div className="sm:col-span-2 py-10 text-center">
-                <h2 className="text-xl font-semibold">{company.contact.form.sentTitle}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {company.contact.form.sentDesc}
-                </p>
-                <button
-                  type="button"
-                  className="btn btn-outline-dark mt-5"
-                  onClick={() => setSent(false)}
-                >
-                  {company.contact.form.sendAnotherBtn}
-                </button>
-              </div>
-            ) : (
-              <>
-                <input
-                  className="field"
-                  placeholder={company.contact.form.fullNamePlaceholder}
-                  required
-                />
-                <input
-                  className="field"
-                  type="email"
-                  placeholder={company.contact.form.emailPlaceholder}
-                  required
-                />
-                <input className="field" placeholder={company.contact.form.phonePlaceholder} />
-                <input
-                  className="field"
-                  placeholder={company.contact.form.destinationPlaceholder}
-                />
-                <textarea
-                  className="field sm:col-span-2"
-                  rows={5}
-                  placeholder={company.contact.form.messagePlaceholder}
-                  required
-                />
-                <button type="submit" className="btn btn-primary sm:col-span-2">
-                  {company.contact.form.submitBtn}
-                </button>
-              </>
-            )}
+            <input
+              className="field"
+              name="fullName"
+              autoComplete="name"
+              aria-label={company.contact.form.fullNamePlaceholder}
+              placeholder={company.contact.form.fullNamePlaceholder}
+              required
+            />
+            <input
+              className="field"
+              name="email"
+              type="email"
+              autoComplete="email"
+              aria-label={company.contact.form.emailPlaceholder}
+              placeholder={company.contact.form.emailPlaceholder}
+              required
+            />
+            <input
+              className="field"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              aria-label={company.contact.form.phonePlaceholder}
+              placeholder={company.contact.form.phonePlaceholder}
+            />
+            <input
+              className="field"
+              name="destination"
+              aria-label={company.contact.form.destinationPlaceholder}
+              placeholder={company.contact.form.destinationPlaceholder}
+            />
+            <textarea
+              className="field sm:col-span-2"
+              name="message"
+              rows={5}
+              aria-label={company.contact.form.messagePlaceholder}
+              placeholder={company.contact.form.messagePlaceholder}
+              required
+            />
+            <p className="text-xs text-muted-foreground sm:col-span-2">
+              {company.contact.form.emailNotice}
+            </p>
+            <button type="submit" className="btn btn-primary sm:col-span-2">
+              {company.contact.form.emailSubmitBtn}
+            </button>
           </form>
         </div>
       </Section>

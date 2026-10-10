@@ -91,7 +91,7 @@ function MarketplacePage() {
               <div className="mt-auto flex items-center justify-between pt-5">
                 <span className="font-display text-xl font-bold">{m.price}</span>
                 <a
-                  href={whatsappLink(`Hi, I'm interested in "${m.title}" on the marketplace.`)}
+                  href={whatsappLink(common.cards.whatsappMessages.marketplace(m.title))}
                   target="_blank"
                   rel="noreferrer"
                   className="btn btn-primary btn-sm"

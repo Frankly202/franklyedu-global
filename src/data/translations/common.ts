@@ -58,6 +58,11 @@ export interface CommonTranslation {
     requestDetails: string;
     viewDetails: string;
     availableFrom: string;
+    whatsappMessages: {
+      course: (title: string, university: string) => string;
+      listing: (title: string, location: string) => string;
+      marketplace: (title: string) => string;
+    };
     specs: {
       degreeLevel: string;
       courses: string;
@@ -149,6 +154,14 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       requestDetails: "Request details",
       viewDetails: "View details",
       availableFrom: "Available",
+      whatsappMessages: {
+        course: (title, university) =>
+          `Hello Frankedu Global, I'd like to ask about ${title} at ${university}.`,
+        listing: (title, location) =>
+          `Hello Frankedu Global, I'm interested in "${title}" (${location}). Could you share more information?`,
+        marketplace: (title) =>
+          `Hello Frankedu Global, I'm interested in "${title}" on the marketplace. Could you share more information?`,
+      },
       specs: {
         degreeLevel: "Degree level",
         courses: "Courses",
@@ -240,6 +253,14 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       requestDetails: "Detay İsteyin",
       viewDetails: "Detayları Gör",
       availableFrom: "Müsaitlik:",
+      whatsappMessages: {
+        course: (title, university) =>
+          `Merhaba Frankedu Global, ${university} bünyesindeki ${title} programı hakkında bilgi almak istiyorum.`,
+        listing: (title, location) =>
+          `Merhaba Frankedu Global, ${location} konumundaki "${title}" ilanıyla ilgileniyorum. Daha fazla bilgi alabilir miyim?`,
+        marketplace: (title) =>
+          `Merhaba Frankedu Global, pazaryerindeki "${title}" ilanıyla ilgileniyorum. Daha fazla bilgi alabilir miyim?`,
+      },
       specs: {
         degreeLevel: "Eğitim Seviyesi",
         courses: "Bölümler",
