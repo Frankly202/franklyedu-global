@@ -10,9 +10,13 @@ export interface CommonTranslation {
     contact: string;
     login: string;
     signup: string;
+    mainNavigationLabel: string;
   };
   mobileDrawer: {
     languageTitle: string;
+    navigationLabel: string;
+    openMenu: string;
+    closeMenu: string;
     startApplication: string;
     chatWhatsapp: string;
     studentPreview: string;
@@ -105,9 +109,13 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       contact: "Contact",
       login: "Login",
       signup: "Sign Up",
+      mainNavigationLabel: "Main navigation",
     },
     mobileDrawer: {
       languageTitle: "Language / Dil",
+      navigationLabel: "Mobile navigation",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
       startApplication: "Start Application",
       chatWhatsapp: "Chat on WhatsApp",
       studentPreview: "Student Dashboard Preview →",
@@ -203,9 +211,13 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       contact: "İletişim",
       login: "Giriş Yap",
       signup: "Kayıt Ol",
+      mainNavigationLabel: "Ana gezinme",
     },
     mobileDrawer: {
       languageTitle: "Dil / Language",
+      navigationLabel: "Mobil gezinme",
+      openMenu: "Menüyü aç",
+      closeMenu: "Menüyü kapat",
       startApplication: "Başvuru Başlat",
       chatWhatsapp: "WhatsApp'tan Yazın",
       studentPreview: "Öğrenci Paneli Önizleme →",

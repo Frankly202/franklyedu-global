@@ -53,7 +53,7 @@ function ContactPage() {
                     href={contact.social.tiktok}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
+                    className="inline-flex min-h-11 items-center rounded bg-muted px-2.5 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
                   >
                     TikTok
                   </a>
@@ -63,7 +63,7 @@ function ContactPage() {
                     href={contact.social.facebook}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
+                    className="inline-flex min-h-11 items-center rounded bg-muted px-2.5 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
                   >
                     Facebook
                   </a>
@@ -73,7 +73,7 @@ function ContactPage() {
                     href={contact.social.instagram}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
+                    className="inline-flex min-h-11 items-center rounded bg-muted px-2.5 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
                   >
                     Instagram
                   </a>

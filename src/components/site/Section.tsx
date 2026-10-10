@@ -52,7 +52,7 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="text-3xl font-bold leading-tight sm:text-4xl">{title}</h2>
+      <h2 className="text-[clamp(1.875rem,5vw,2.25rem)] font-bold leading-tight">{title}</h2>
       {subtitle && (
         <p
           className={cn(
@@ -84,7 +84,7 @@ export function PageHero({
       <div className="container-site max-w-3xl">
         {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
         {eyebrow && <p className="eyebrow mb-3 text-sky-contrast">{eyebrow}</p>}
-        <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl">{title}</h1>
+        <h1 className="text-[clamp(2rem,6vw,3rem)] font-bold leading-[1.08]">{title}</h1>
         {subtitle && (
           <p className="mt-4 max-w-xl text-base leading-relaxed text-navy-muted sm:text-lg">
             {subtitle}

@@ -115,18 +115,22 @@
 
 ### Phase 5: Responsive UX & Visual Polish
 
-- **Status**: `NOT STARTED`
+- **Status**: `DONE`
 - **Scope**:
-  - Harmonize typography scales, line heights, and letter spacing across Outfit (headings) and DM Sans (body) to mirror the Framer prototype with pixel-level precision.
-  - Polish mobile drawer animations, hamburger menu toggles, and touch targets (minimum 44x44px for iOS/Android accessibility).
-  - Implement smooth hover states, card elevation transitions, and focus rings.
-  - Address subtle SSR hydration nuances and browser extension attribute warnings.
+  - Harmonized shared page hero and section-heading sizes with fluid type scales and consistent line heights; the approved homepage hero layout remains unchanged.
+  - Kept the full desktop navigation at wider viewports and improved the mobile drawer with viewport-aware scrolling, a brief entrance animation, Escape-to-close behavior, focus return to the menu button, and English/Turkish accessible labels.
+  - Set 44px minimum heights for shared buttons and form controls, and expanded compact navigation, breadcrumb, social, login, and gallery controls to usable touch targets.
+  - Added visible keyboard focus outlines and ensured gallery navigation controls become visible on keyboard focus.
+  - Added reduced-motion behavior for scrolling, transitions, drawer animation, and decorative hover transforms.
+  - Preserved the locale provider's server-safe English initial render and client-side preference restoration; no hydration warnings were suppressed because browser-extension attribute changes are outside the app's control.
 - **Expected Outcome**:
-  - Visually stunning, fluid user experience with zero layout shift or jank on mobile, tablet, and desktop.
+  - Responsive and keyboard-accessible navigation and controls, readable shared page headings, and motion that respects user accessibility preferences without changing routes or established page content.
 - **Validation Gate**:
+  - `bun run format`
   - `bun run lint`
   - `bun run --bun tsc --noEmit`
   - `bun run build`
+  - `git diff --check`
 
 ---
 

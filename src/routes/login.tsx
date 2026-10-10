@@ -38,7 +38,7 @@ function LoginPage() {
           <input className="field" type="password" placeholder={portal.login.passwordPlaceholder} />
           <button
             type="button"
-            className="text-left text-sm text-muted-foreground hover:text-navy hover:underline"
+            className="min-h-11 text-left text-sm text-muted-foreground hover:text-navy hover:underline"
           >
             {portal.login.forgotPassword}
           </button>
@@ -47,11 +47,17 @@ function LoginPage() {
           </button>
           <p className="text-sm text-muted-foreground">
             {portal.login.newToBrand}{" "}
-            <Link to="/signup" className="font-semibold text-navy hover:underline">
+            <Link
+              to="/signup"
+              className="inline-flex min-h-11 items-center font-semibold text-navy hover:underline"
+            >
               {portal.login.createAccount}
             </Link>
           </p>
-          <Link to="/student" className="text-sm font-semibold text-sky hover:underline">
+          <Link
+            to="/student"
+            className="inline-flex min-h-11 items-center text-sm font-semibold text-sky hover:underline"
+          >
             {portal.login.previewDashboard}
           </Link>
         </div>

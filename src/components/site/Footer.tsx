@@ -56,7 +56,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="container-site relative z-10 grid gap-10 py-14 md:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <div className="container-site relative z-10 grid gap-8 py-14 sm:grid-cols-2 md:gap-10 lg:grid-cols-3 xl:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div className="space-y-4">
           <Logo />
           <p className="max-w-xs text-sm leading-relaxed text-navy-muted sm:text-[15px]">
@@ -66,7 +66,7 @@ export function Footer() {
             <p>{contact.address}</p>
             <a
               href={`mailto:${contact.email}`}
-              className="block transition-colors hover:text-white hover:underline"
+              className="flex min-h-11 items-center transition-colors hover:text-white hover:underline"
             >
               {contact.email}
             </a>
@@ -74,7 +74,7 @@ export function Footer() {
               href={whatsappLink()}
               target="_blank"
               rel="noreferrer"
-              className="block font-medium text-emerald-300 transition-colors hover:text-emerald-200 hover:underline"
+              className="flex min-h-11 items-center font-medium text-emerald-300 transition-colors hover:text-emerald-200 hover:underline"
             >
               WhatsApp {contact.phone}
             </a>
@@ -84,7 +84,7 @@ export function Footer() {
                   href={contact.social.tiktok}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-white transition-colors hover:bg-white/20"
+                  className="inline-flex min-h-11 items-center rounded-md border border-white/15 bg-white/10 px-2.5 text-white transition-colors hover:bg-white/20"
                 >
                   TikTok
                 </a>
@@ -94,7 +94,7 @@ export function Footer() {
                   href={contact.social.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-white transition-colors hover:bg-white/20"
+                  className="inline-flex min-h-11 items-center rounded-md border border-white/15 bg-white/10 px-2.5 text-white transition-colors hover:bg-white/20"
                 >
                   Facebook
                 </a>
@@ -104,7 +104,7 @@ export function Footer() {
                   href={contact.social.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-white transition-colors hover:bg-white/20"
+                  className="inline-flex min-h-11 items-center rounded-md border border-white/15 bg-white/10 px-2.5 text-white transition-colors hover:bg-white/20"
                 >
                   Instagram
                 </a>
@@ -123,7 +123,7 @@ export function Footer() {
                 <li key={item.to + item.label}>
                   <Link
                     to={item.to}
-                    className="text-sm text-navy-muted transition-colors hover:text-white hover:underline sm:text-[15px]"
+                    className="flex min-h-11 items-center text-sm text-navy-muted transition-colors hover:text-white hover:underline sm:text-[15px]"
                   >
                     {item.label}
                   </Link>

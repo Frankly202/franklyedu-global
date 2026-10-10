@@ -35,7 +35,7 @@ function MarketplacePage() {
         <div className="mb-10 grid gap-4 md:grid-cols-2">
           <Link
             to="/accommodation"
-            className="card-navy group p-6 transition-transform hover:-translate-y-0.5"
+            className="card-navy group p-6 transition-transform motion-safe:hover:-translate-y-0.5"
           >
             <p className="eyebrow text-sky-contrast">
               {marketplace.marketplace.housingCard.eyebrow}
@@ -50,7 +50,7 @@ function MarketplacePage() {
           </Link>
           <Link
             to="/real-estate"
-            className="card-navy group p-6 transition-transform hover:-translate-y-0.5"
+            className="card-navy group p-6 transition-transform motion-safe:hover:-translate-y-0.5"
           >
             <p className="eyebrow text-sky-contrast">
               {marketplace.marketplace.propertyCard.eyebrow}
@@ -73,7 +73,7 @@ function MarketplacePage() {
               key={c}
               type="button"
               onClick={() => setCat(c)}
-              className={c === cat ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}
+              className={`btn btn-sm ${c === cat ? "btn-primary" : "btn-outline-dark"}`}
             >
               {c === "All" ? marketplace.marketplace.allCategories : c}
             </button>

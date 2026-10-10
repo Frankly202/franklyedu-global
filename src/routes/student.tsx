@@ -81,7 +81,7 @@ function StudentPage() {
                     key={u.slug}
                     to="/courses"
                     search={{ university: u.slug }}
-                    className="card-navy p-4 transition-transform hover:-translate-y-0.5"
+                    className="card-navy p-4 transition-transform motion-safe:hover:-translate-y-0.5"
                   >
                     <p className="eyebrow text-[0.7rem] text-sky-contrast">{u.country}</p>
                     <p className="mt-1 text-sm font-semibold leading-snug">{u.name}</p>

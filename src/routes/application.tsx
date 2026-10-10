@@ -144,6 +144,8 @@ function ApplicationPage() {
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   <input
                     className="field"
+                    aria-label={portal.application.form.fullNamePlaceholder}
+                    autoComplete="name"
                     placeholder={portal.application.form.fullNamePlaceholder}
                     value={form.name}
                     onChange={set("name")}
@@ -152,6 +154,8 @@ function ApplicationPage() {
                   <input
                     className="field"
                     type="email"
+                    aria-label={portal.application.form.emailPlaceholder}
+                    autoComplete="email"
                     placeholder={portal.application.form.emailPlaceholder}
                     value={form.email}
                     onChange={set("email")}
@@ -159,12 +163,16 @@ function ApplicationPage() {
                   />
                   <input
                     className="field"
+                    type="tel"
+                    aria-label={portal.application.form.phonePlaceholder}
+                    autoComplete="tel"
                     placeholder={portal.application.form.phonePlaceholder}
                     value={form.phone}
                     onChange={set("phone")}
                   />
                   <input
                     className="field"
+                    aria-label={portal.application.form.nationalityPlaceholder}
                     placeholder={portal.application.form.nationalityPlaceholder}
                     value={form.nationality}
                     onChange={set("nationality")}
@@ -176,6 +184,7 @@ function ApplicationPage() {
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   <select
                     className="field"
+                    aria-label={portal.application.form.destinationOption}
                     value={form.destination}
                     onChange={(e) =>
                       setForm((f) => ({
@@ -196,6 +205,7 @@ function ApplicationPage() {
                   </select>
                   <select
                     className="field"
+                    aria-label={portal.application.form.universityOption}
                     value={form.university}
                     onChange={(e) =>
                       setForm((f) => ({
@@ -212,7 +222,12 @@ function ApplicationPage() {
                       </option>
                     ))}
                   </select>
-                  <select className="field" value={form.course} onChange={set("course")}>
+                  <select
+                    className="field"
+                    aria-label={portal.application.form.courseOption}
+                    value={form.course}
+                    onChange={set("course")}
+                  >
                     <option value="">{portal.application.form.courseOption}</option>
                     {courseOptions.map((c) => (
                       <option key={c.slug} value={c.slug}>
@@ -220,7 +235,13 @@ function ApplicationPage() {
                       </option>
                     ))}
                   </select>
-                  <select className="field" value={form.intake} onChange={set("intake")} required>
+                  <select
+                    className="field"
+                    aria-label={portal.application.form.intakeOption}
+                    value={form.intake}
+                    onChange={set("intake")}
+                    required
+                  >
                     <option value="">{portal.application.form.intakeOption}</option>
                     <option value="January 2027">
                       {portal.application.form.intakeOptions.jan2027}

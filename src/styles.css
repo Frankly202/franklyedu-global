@@ -108,6 +108,11 @@
     scroll-behavior: smooth;
   }
 
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -129,6 +134,7 @@
 /* Buttons */
 @utility btn {
   display: inline-flex;
+  min-height: 2.75rem;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -149,7 +155,7 @@
     transform: translateY(1px);
   }
   &:focus-visible {
-    outline: 2px solid var(--color-sky);
+    outline: 2px solid currentColor;
     outline-offset: 2px;
   }
 }
@@ -249,6 +255,7 @@
 
 @utility field {
   width: 100%;
+  min-height: 2.75rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-input);
   background-color: #ffffff;
@@ -259,7 +266,7 @@
     color: var(--color-muted-foreground);
   }
   &:focus {
-    outline: 2px solid var(--color-sky);
+    outline: 2px solid currentColor;
     outline-offset: 1px;
     border-color: var(--color-sky);
   }
@@ -267,6 +274,7 @@
 
 @utility field-dark {
   width: 100%;
+  min-height: 2.75rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-navy-border);
   background-color: rgba(255, 255, 255, 0.1);
@@ -277,9 +285,40 @@
     color: var(--color-navy-muted);
   }
   &:focus {
-    outline: 2px solid var(--color-sky-soft);
+    outline: 2px solid currentColor;
     outline-offset: 1px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}
+
+@keyframes mobile-drawer-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-drawer-enter {
+  animation: mobile-drawer-enter 180ms ease-out both;
 }
 
 @utility container-site {

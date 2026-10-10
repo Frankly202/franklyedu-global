@@ -193,7 +193,7 @@ function Index() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1: Education */}
-          <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
+          <div className="card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel">
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <GraduationCap className="h-6 w-6" />
             </div>
@@ -224,7 +224,7 @@ function Index() {
           </div>
 
           {/* Card 2: Properties */}
-          <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
+          <div className="card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel">
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <Building2 className="h-6 w-6" />
             </div>
@@ -255,7 +255,7 @@ function Index() {
           </div>
 
           {/* Card 3: Creative */}
-          <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
+          <div className="card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel">
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <Palette className="h-6 w-6" />
             </div>
@@ -286,7 +286,7 @@ function Index() {
           </div>
 
           {/* Card 4: Eco Luxury */}
-          <div className="card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel">
+          <div className="card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel">
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
               <Sparkles className="h-6 w-6" />
             </div>
@@ -343,7 +343,7 @@ function Index() {
               key={d.slug}
               to="/universities"
               search={{ country: d.slug }}
-              className="group card-light flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-panel"
+              className="group card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="eyebrow text-[0.7rem] text-sky">{d.region}</span>
@@ -357,7 +357,7 @@ function Index() {
               </p>
               <div className="mt-auto flex items-center gap-1 pt-4 text-xs font-semibold text-navy group-hover:text-sky">
                 <span>{locale === "tr" ? "Programları İncele" : "Explore Programmes"}</span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-3.5 w-3.5 transition-transform motion-safe:group-hover:translate-x-1" />
               </div>
             </Link>
           ))}

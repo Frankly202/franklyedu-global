@@ -165,7 +165,7 @@ function PropertyDetailPage() {
                 <img
                   src={activeImage.src}
                   alt={activeImage.alt}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-102"
+                  className="h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-102"
                 />
 
                 {/* Image Category Badge */}
@@ -179,7 +179,7 @@ function PropertyDetailPage() {
                 <button
                   type="button"
                   onClick={() => setIsLightboxOpen(true)}
-                  className="absolute top-3 right-3 z-10 rounded-full bg-navy-deep/80 p-2 text-navy-foreground backdrop-blur-xs transition-colors hover:bg-navy"
+                  className="absolute top-3 right-3 z-10 grid min-h-11 min-w-11 place-items-center rounded-full bg-navy-deep/80 p-2 text-navy-foreground backdrop-blur-xs transition-colors hover:bg-navy"
                   aria-label={marketplace.propertyDetail.expandPhotoAria}
                 >
                   <Maximize2 className="h-4 w-4" />
@@ -189,7 +189,7 @@ function PropertyDetailPage() {
                 <button
                   type="button"
                   onClick={prevImage}
-                  className="absolute top-1/2 left-3 z-10 -translate-y-1/2 rounded-full bg-navy-deep/70 p-2 text-navy-foreground opacity-90 backdrop-blur-xs transition-all hover:bg-navy hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                  className="absolute top-1/2 left-3 z-10 grid min-h-11 min-w-11 -translate-y-1/2 place-items-center rounded-full bg-navy-deep/70 p-2 text-navy-foreground opacity-90 backdrop-blur-xs transition-all hover:bg-navy hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                   aria-label={marketplace.propertyDetail.prevPhotoAria}
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -197,7 +197,7 @@ function PropertyDetailPage() {
                 <button
                   type="button"
                   onClick={nextImage}
-                  className="absolute top-1/2 right-3 z-10 -translate-y-1/2 rounded-full bg-navy-deep/70 p-2 text-navy-foreground opacity-90 backdrop-blur-xs transition-all hover:bg-navy hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+                  className="absolute top-1/2 right-3 z-10 grid min-h-11 min-w-11 -translate-y-1/2 place-items-center rounded-full bg-navy-deep/70 p-2 text-navy-foreground opacity-90 backdrop-blur-xs transition-all hover:bg-navy hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
                   aria-label={marketplace.propertyDetail.nextPhotoAria}
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -214,13 +214,13 @@ function PropertyDetailPage() {
               </div>
 
               {/* Thumbnails Row */}
-              <div className="mt-3 grid grid-cols-5 gap-2 sm:gap-3">
+              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
                 {property.gallery.map((img, idx) => (
                   <button
                     key={img.title}
                     type="button"
                     onClick={() => setActiveIndex(idx)}
-                    className={`relative aspect-[4/3] overflow-hidden rounded-md transition-all focus:outline-hidden ${
+                    className={`relative min-h-11 min-w-11 aspect-[4/3] overflow-hidden rounded-md transition-all ${
                       idx === activeIndex
                         ? "ring-2 ring-sky ring-offset-2 ring-offset-cream"
                         : "opacity-70 hover:opacity-100"
@@ -403,7 +403,7 @@ function PropertyDetailPage() {
           <button
             type="button"
             onClick={() => setIsLightboxOpen(false)}
-            className="absolute top-4 right-4 z-50 rounded-full bg-navy/80 p-2 text-navy-foreground transition-colors hover:bg-navy"
+            className="absolute top-4 right-4 z-50 grid min-h-11 min-w-11 place-items-center rounded-full bg-navy/80 p-2 text-navy-foreground transition-colors hover:bg-navy"
             aria-label={marketplace.propertyDetail.lightbox.closeAria}
           >
             <X className="h-6 w-6" />
@@ -413,7 +413,7 @@ function PropertyDetailPage() {
           <button
             type="button"
             onClick={prevImage}
-            className="absolute left-4 z-50 rounded-full bg-navy/80 p-3 text-navy-foreground transition-colors hover:bg-navy"
+            className="absolute left-4 z-50 grid min-h-11 min-w-11 place-items-center rounded-full bg-navy/80 p-3 text-navy-foreground transition-colors hover:bg-navy"
             aria-label={marketplace.propertyDetail.prevPhotoAria}
           >
             <ChevronLeft className="h-6 w-6" />
@@ -421,7 +421,7 @@ function PropertyDetailPage() {
           <button
             type="button"
             onClick={nextImage}
-            className="absolute right-4 z-50 rounded-full bg-navy/80 p-3 text-navy-foreground transition-colors hover:bg-navy"
+            className="absolute right-4 z-50 grid min-h-11 min-w-11 place-items-center rounded-full bg-navy/80 p-3 text-navy-foreground transition-colors hover:bg-navy"
             aria-label={marketplace.propertyDetail.nextPhotoAria}
           >
             <ChevronRight className="h-6 w-6" />

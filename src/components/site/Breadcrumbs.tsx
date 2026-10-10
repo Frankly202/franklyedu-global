@@ -18,7 +18,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
     >
       <Link
         to="/"
-        className="flex items-center gap-1 transition-colors hover:text-navy-foreground"
+        className="flex min-h-11 min-w-11 items-center gap-1 transition-colors hover:text-navy-foreground"
         aria-label={common.breadcrumbs.home}
       >
         <Home className="h-3.5 w-3.5 text-sky-contrast" />
@@ -30,7 +30,10 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
           <div key={item.label + idx} className="flex items-center gap-1.5">
             <ChevronRight className="h-3 w-3 text-navy-muted/60" aria-hidden="true" />
             {item.to && !isLast ? (
-              <Link to={item.to} className="transition-colors hover:text-navy-foreground">
+              <Link
+                to={item.to}
+                className="flex min-h-11 items-center transition-colors hover:text-navy-foreground"
+              >
                 {item.label}
               </Link>
             ) : (

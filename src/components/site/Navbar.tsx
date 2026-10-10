@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { MessageCircle, Menu, X, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { authNav, brand, contact, whatsappLink } from "@/data/site";
 import { useLocale } from "@/lib/locale";
 import { useTranslations } from "@/data/translations";
@@ -22,7 +22,7 @@ export function LanguageSelector({ className }: { className?: string }) {
         type="button"
         onClick={() => setLocale("en")}
         className={cn(
-          "rounded-full px-2.5 py-1 text-xs transition-all",
+          "min-h-11 min-w-11 rounded-full px-2.5 py-1 text-xs transition-all",
           locale === "en"
             ? "bg-white text-navy font-bold shadow-xs"
             : "text-white/75 hover:text-white",
@@ -36,7 +36,7 @@ export function LanguageSelector({ className }: { className?: string }) {
         type="button"
         onClick={() => setLocale("tr")}
         className={cn(
-          "rounded-full px-2.5 py-1 text-xs transition-all",
+          "min-h-11 min-w-11 rounded-full px-2.5 py-1 text-xs transition-all",
           locale === "tr"
             ? "bg-white text-navy font-bold shadow-xs"
             : "text-white/75 hover:text-white",
@@ -82,6 +82,21 @@ export function Logo({ compact = false }: { compact?: boolean }) {
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const { common } = useTranslations();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   // Desktop navigation items localized dynamically
   const desktopNavItems = [
@@ -183,7 +198,10 @@ export function Navbar() {
         <Logo />
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 xl:gap-2 lg:flex" aria-label="Main">
+        <nav
+          className="hidden items-center gap-1 xl:flex xl:gap-2"
+          aria-label={common.nav.mainNavigationLabel}
+        >
           {desktopNavItems.map((item) => (
             <Link
               key={item.to}
@@ -197,17 +215,18 @@ export function Navbar() {
         </nav>
 
         {/* Desktop Language Selector — provides breathing room for nav items */}
-        <div className="hidden items-center lg:flex">
+        <div className="hidden items-center xl:flex">
           <LanguageSelector />
         </div>
 
         {/* Mobile Header Quick Actions */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <LanguageSelector />
           <button
+            ref={menuButtonRef}
             type="button"
-            className="grid h-9 w-9 place-items-center rounded-md border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 active:bg-white/30"
-            aria-label={open ? "Close menu" : "Open menu"}
+            className="grid h-11 w-11 place-items-center rounded-md border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 active:bg-white/30"
+            aria-label={open ? common.mobileDrawer.closeMenu : common.mobileDrawer.openMenu}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
@@ -218,7 +237,11 @@ export function Navbar() {
 
       {/* Mobile Drawer */}
       {open && (
-        <div className="relative max-h-[calc(100vh-4rem)] overflow-hidden overflow-y-auto border-t border-white/15 bg-navy lg:hidden">
+        <nav
+          id="mobile-navigation"
+          aria-label={common.mobileDrawer.navigationLabel}
+          className="mobile-drawer-enter relative max-h-[calc(100dvh-4rem)] overscroll-contain overflow-y-auto border-t border-white/15 bg-navy xl:hidden"
+        >
           {/* Watermark in Mobile Drawer */}
           <div
             aria-hidden="true"
@@ -296,7 +319,7 @@ export function Navbar() {
                   <Link
                     to="/student"
                     onClick={() => setOpen(false)}
-                    className="font-semibold text-sky-contrast hover:text-white hover:underline"
+                    className="flex min-h-11 items-center font-semibold text-sky-contrast hover:text-white hover:underline"
                   >
                     {common.mobileDrawer.studentPreview}
                   </Link>
@@ -305,7 +328,7 @@ export function Navbar() {
                   <Link
                     to={authNav.login.to}
                     onClick={() => setOpen(false)}
-                    className="font-medium text-white/90 hover:text-white hover:underline"
+                    className="flex min-h-11 items-center px-1 font-medium text-white/90 hover:text-white hover:underline"
                   >
                     {common.nav.login}
                   </Link>
@@ -313,7 +336,7 @@ export function Navbar() {
                   <Link
                     to={authNav.signup.to}
                     onClick={() => setOpen(false)}
-                    className="font-medium text-white/90 hover:text-white hover:underline"
+                    className="flex min-h-11 items-center px-1 font-medium text-white/90 hover:text-white hover:underline"
                   >
                     {common.nav.signup}
                   </Link>
@@ -326,7 +349,7 @@ export function Navbar() {
               </div>
             </div>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );

@@ -54,11 +54,17 @@ function SignupPage() {
           </button>
           <p className="text-sm text-muted-foreground">
             {portal.signup.alreadyHaveAccount}{" "}
-            <Link to="/login" className="font-semibold text-navy hover:underline">
+            <Link
+              to="/login"
+              className="inline-flex min-h-11 items-center font-semibold text-navy hover:underline"
+            >
               {portal.signup.logInLink}
             </Link>
           </p>
-          <Link to="/student" className="text-sm font-semibold text-sky hover:underline">
+          <Link
+            to="/student"
+            className="inline-flex min-h-11 items-center text-sm font-semibold text-sky hover:underline"
+          >
             {portal.signup.previewDashboard}
           </Link>
         </div>

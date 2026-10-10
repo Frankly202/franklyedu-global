@@ -109,7 +109,7 @@ export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) 
                 <img
                   src={l.image}
                   alt={l.imageAlt || l.title}
-                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-300 motion-safe:hover:scale-105"
                   loading="lazy"
                 />
               </Link>
@@ -117,7 +117,7 @@ export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) 
               <img
                 src={l.image}
                 alt={l.imageAlt || l.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 motion-safe:hover:scale-105"
                 loading="lazy"
               />
             )}
