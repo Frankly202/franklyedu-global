@@ -43,8 +43,9 @@ function Index() {
           className="pointer-events-none absolute inset-0 select-none overflow-hidden"
         >
           <img
-            src="/logo-watermark-white.png"
+            src="/logo-watermark-white.webp"
             alt=""
+            fetchPriority="high"
             className="absolute -top-10 -right-16 h-80 w-auto max-w-none object-contain opacity-8 sm:h-96 sm:opacity-10 lg:-top-16 lg:right-1/4 lg:h-[30rem]"
           />
         </div>
@@ -147,6 +148,8 @@ function Index() {
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-white/20 bg-navy-soft shadow-panel">
                   <img
                     src={images.hero}
+                    srcSet={`${images.heroMobile} 768w, ${images.hero} ${images.heroWidth}w`}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     alt={images.heroAlt}
                     width={images.heroWidth}
                     height={images.heroHeight}
@@ -426,7 +429,7 @@ function Index() {
           className="pointer-events-none absolute inset-0 select-none overflow-hidden"
         >
           <img
-            src="/logo-watermark-white.png"
+            src="/logo-watermark-white.webp"
             alt=""
             className="absolute -bottom-10 -right-8 h-64 w-auto max-w-none object-contain opacity-10 sm:h-80"
           />

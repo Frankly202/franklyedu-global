@@ -72,7 +72,7 @@
 
 ### Phase 3: Content, Data & Imagery
 
-- **Status**: `IN PROGRESS` (Phase 3A Verified Content & Data: `DONE`; Phase 3B Imagery & Media Assets: `PENDING`)
+- **Status**: `IN PROGRESS` (Phase 3A Verified Content & Data: `DONE`; Phase 3B Imagery & Media Assets: `IN PROGRESS`, awaiting Frank's approved assets)
 - **Scope**:
   - **Phase 3A: Verified Content & Data (`DONE`)**:
     - Centralized brand configuration updated to official Frankedu Global naming, tagline (_"Your Future • Our Priority"_), phone/WhatsApp (+90 548 850 4146), email (`emmanuel@frankedu-global.com`), and office address (`Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus`).
@@ -80,9 +80,9 @@
     - Updated verified destination countries (9 core destinations: Cyprus/North Cyprus, UK, Canada, Germany, Poland, Finland, Netherlands, Australia, China) with network advisory notice in [`src/data/content.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/content.ts).
     - Verified Final International University (FIU) recruitment relationship, up to 100% scholarship opportunities, and verified property market advisory (North Cyprus residential, off-plan & investment; UK residential & investment; Dubai/UAE selected investment opportunities).
     - Unverified course catalogues, specific course fees, and founder role titles strictly excised; student portal flagged as prototype demonstration preview.
-  - **Phase 3B: Imagery & Media Assets (`PENDING`)**:
-    - Add genuine photography and visual cards for Accommodation, Real Estate, and Marketplace listings (replacing CSS gradient placeholders).
-    - Incorporate official imagery once supplied by management.
+  - **Phase 3B: Imagery & Media Assets (`IN PROGRESS`)**:
+    - Await Frank's approved genuine photography and visual cards for Accommodation, Real Estate, and Marketplace listings (replacing CSS gradient placeholders).
+    - Do not use unapproved, stock, or fabricated imagery in place of management-supplied assets.
 - **Expected Outcome**:
   - High-trust, professional presentation with genuine media assets and verified study abroad pathways.
 - **Validation Gate**:
@@ -136,15 +136,19 @@
 
 ### Phase 6: Production Readiness
 
-- **Status**: `IN PROGRESS` (route metadata, Cloudflare build-output checks, and automated coverage implemented; canonical URLs, sitemap host, and Lighthouse audit remain outstanding)
+- **Status**: `IN PROGRESS` (production metadata, Cloudflare output checks, and Lighthouse fixes are implemented; canonical URLs and sitemap await an approved production hostname)
 - **Scope**:
   - Shared route metadata now provides page titles and descriptions with Open Graph and Twitter title, description, and image tags in [`src/lib/seo.ts`](./src/lib/seo.ts); the existing root metadata supplies the social card type and Open Graph image.
   - Canonical URLs and `sitemap.xml` are deferred at the project owner's direction until a verified production hostname is available. No canonical host or sitemap URL is fabricated. The existing permissive `robots.txt` remains in place and is checked in the build output.
   - Automated checks verify the Nitro Cloudflare Module preset, Workers static asset binding, emitted public assets, and immutable one-year caching policy for hashed `/assets/*` files.
-  - The headless Playwright suite now covers all 15 core routes plus the verified property-detail route, page/social metadata, primary desktop navigation, university/course filters, mobile drawer keyboard behavior, EN/TR switching, application WhatsApp handoff, contextual listing enquiries, contact-form validation, and uncaught page exceptions.
-  - Lighthouse scores remain unverified: attempting to run Lighthouse through `bunx` failed during temporary package resolution with registry integrity errors. Re-run once the Lighthouse CLI and a compatible Chromium executable are available.
+  - The headless Playwright suite covers all 15 core routes plus the verified property-detail route, page/social metadata, primary desktop navigation, university/course filters, mobile drawer keyboard behavior, EN/TR switching, application WhatsApp handoff, contextual listing enquiries, contact-form validation, heading hierarchy, optimized build assets, locally loaded fonts, and uncaught page exceptions.
+  - Resolved Lighthouse tooling with Lighthouse 13.5.0 via npm and audited the production Cloudflare Worker bundle using Wrangler's local runtime and Playwright Chromium. Accessibility, Best Practices, and SEO score 100 on all 16 public routes after fixing skipped heading levels and insufficient gold-text contrast.
+  - Lighthouse scores on the final local production build (simulated mobile profile): homepage performance 87, contact 88, application 89, and property detail 82; desktop homepage performance 98. Accessibility, Best Practices, and SEO each score 100 on these routes, and all 16 audited routes score 100 in those three categories after fixing heading order and text contrast.
+  - Removed the external Google Fonts stylesheet and now serve the existing Outfit and DM Sans variable typefaces from the production bundle. Converted the existing hero and verified property photos to WebP; the homepage hero has responsive variants and the property gallery has 800px previews and 320px thumbnails while retaining full-resolution images for the lightbox. The property-detail route's initial image transfer fell from approximately 1.3 MB to 194 KB.
+  - Mobile Performance remains below 90 on the audited routes. Lighthouse still reports render-blocking application CSS and the constrained local mobile profile yields FCP of 2.8-3.0 seconds and LCP of 3.1-3.9 seconds; keep performance follow-up open for real edge/CDN deployment measurements rather than claiming the target has been met.
+  - These Lighthouse results are local production-build measurements, not an edge/CDN deployment audit. A public production hostname has not been purchased or approved.
 - **Expected Outcome**:
-  - Production metadata, Cloudflare output checks, and regression coverage are in place; final SEO/deployment verification awaits a verified production hostname and Lighthouse review.
+  - Production metadata, Cloudflare output checks, Lighthouse audits, verified accessibility fixes, performance optimizations, and regression coverage are in place; canonical URLs, sitemap entries, and deployment-level Lighthouse verification await Frank's approval and purchase of a production domain.
 - **Validation Gate**:
   - `bun run format`
   - `bun run lint`

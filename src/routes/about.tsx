@@ -5,7 +5,7 @@ import { aboutContent } from "@/data/content";
 import { brand, whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
-import leadershipPhoto from "@/assets/background-photo.jpg";
+import leadershipPhoto from "@/assets/background-photo.webp";
 import { Calendar, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/about")({

@@ -163,8 +163,11 @@ function PropertyDetailPage() {
               {/* Featured View */}
               <div className="group relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-navy-deep">
                 <img
-                  src={activeImage.src}
+                  src={activeImage.previewSrc}
+                  srcSet={`${activeImage.previewSrc} 800w, ${activeImage.src} ${activeImage.width}w`}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   alt={activeImage.alt}
+                  fetchPriority="high"
                   className="h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-102"
                 />
 
@@ -228,7 +231,7 @@ function PropertyDetailPage() {
                     aria-label={`${marketplace.propertyDetail.selectPhotoAria} ${img.title}`}
                   >
                     <img
-                      src={img.src}
+                      src={img.thumbnailSrc}
                       alt={img.alt}
                       className="h-full w-full object-cover"
                       loading="lazy"
@@ -330,7 +333,7 @@ function PropertyDetailPage() {
                   <dt className="text-navy-muted">
                     {marketplace.propertyDetail.summaryCard.pricing}
                   </dt>
-                  <dd className="font-semibold text-gold">{property.priceDisplay}</dd>
+                  <dd className="font-semibold text-gold-contrast">{property.priceDisplay}</dd>
                 </div>
                 <div className="flex flex-col py-2.5">
                   <dt className="text-navy-muted">

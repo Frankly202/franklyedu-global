@@ -28,7 +28,7 @@ function StudentPage() {
           <Breadcrumbs items={[{ label: portal.student.breadcrumb }]} />
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
             <div className="min-w-0">
-              <p className="eyebrow text-gold">{portal.student.bannerEyebrow}</p>
+              <p className="eyebrow text-gold-contrast">{portal.student.bannerEyebrow}</p>
               <h1 className="mt-1 truncate text-2xl font-bold sm:text-3xl">
                 {portal.student.title}
               </h1>

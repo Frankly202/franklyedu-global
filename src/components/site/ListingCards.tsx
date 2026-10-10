@@ -4,15 +4,22 @@ import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
 import { Spec } from "./Section";
 
-export function UniversityCard({ u }: { u: University }) {
+export function UniversityCard({
+  u,
+  headingLevel = "h3",
+}: {
+  u: University;
+  headingLevel?: "h2" | "h3";
+}) {
   const { common } = useTranslations();
+  const Heading = headingLevel;
 
   return (
     <article className="card-light flex flex-col p-5 sm:p-6">
       <p className="eyebrow text-[0.7rem] text-sky font-semibold">
         {u.verified ? common.cards.verifiedListing : common.cards.templateListing}
       </p>
-      <h3 className="mt-3 text-xl font-semibold leading-snug text-navy">{u.name}</h3>
+      <Heading className="mt-3 text-xl font-semibold leading-snug text-navy">{u.name}</Heading>
       <p className="mt-1 text-sm text-muted-foreground">
         {u.city}, {u.country}
       </p>
@@ -90,9 +97,18 @@ export function CourseCard({ c }: { c: Course }) {
   );
 }
 
-export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) {
+export function ListingCard({
+  l,
+  ctaLabel,
+  headingLevel = "h3",
+}: {
+  l: Listing;
+  ctaLabel?: string;
+  headingLevel?: "h2" | "h3";
+}) {
   const { common } = useTranslations();
   const effectiveCtaLabel = ctaLabel || common.cards.enquire;
+  const Heading = headingLevel;
 
   return (
     <article className="card-light flex flex-col overflow-hidden">
@@ -131,7 +147,7 @@ export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) 
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <h3 className="text-lg font-semibold">
+        <Heading className="text-lg font-semibold">
           {l.detailSlug ? (
             <Link
               to="/real-estate/$slug"
@@ -143,7 +159,7 @@ export function ListingCard({ l, ctaLabel }: { l: Listing; ctaLabel?: string }) 
           ) : (
             l.title
           )}
-        </h3>
+        </Heading>
         <p className="mt-1 text-sm text-muted-foreground">{l.location}</p>
         <p className="mt-3 font-display text-xl font-bold text-navy">{l.price}</p>
         <ul className="mt-3 flex flex-wrap gap-1.5">

@@ -50,7 +50,7 @@ export function Footer() {
         className="pointer-events-none absolute inset-0 select-none overflow-hidden"
       >
         <img
-          src="/logo-watermark-white.png"
+          src="/logo-watermark-white.webp"
           alt=""
           className="absolute -bottom-14 -right-12 h-64 w-auto max-w-none object-contain opacity-8 sm:h-72 sm:opacity-10 lg:-bottom-16 lg:h-80"
         />
@@ -115,9 +115,9 @@ export function Footer() {
 
         {footerGroups.map((group) => (
           <div key={group.title}>
-            <h3 className="eyebrow mb-3 font-bold tracking-wider text-sky-contrast">
+            <h2 className="eyebrow mb-3 font-bold tracking-wider text-sky-contrast">
               {group.title}
-            </h3>
+            </h2>
             <ul className="space-y-2.5">
               {group.items.map((item) => (
                 <li key={item.to + item.label}>

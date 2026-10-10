@@ -36,7 +36,12 @@ function RealEstatePage() {
       <Section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {realEstateListings.map((l) => (
-            <ListingCard key={l.slug} l={l} ctaLabel={marketplace.realEstate.requestDetailsBtn} />
+            <ListingCard
+              key={l.slug}
+              l={l}
+              ctaLabel={marketplace.realEstate.requestDetailsBtn}
+              headingLevel="h2"
+            />
           ))}
         </div>
       </Section>

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:net";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { chromium } from "playwright";
 import { createServer as createViteServer } from "vite";
 
@@ -86,6 +86,35 @@ async function verifyProductionArtifacts() {
   assert.match(robots, /Allow:\s*\/\s*$/im, "robots.txt must allow public pages.");
   await readFile(".output/public/favicon.ico");
   await readFile(".output/public/logo-full-transparent.png");
+  await readFile(".output/public/icon-88.png");
+  await readFile(".output/public/logo-watermark-white.webp");
+  const assets = await readdir(".output/public/assets");
+  assert.ok(
+    assets.filter((asset) => asset.startsWith("background-photo-") && asset.endsWith(".webp"))
+      .length >= 2,
+    "Responsive variants of the optimized hero photograph must be in the production bundle.",
+  );
+  assert.equal(
+    assets.filter(
+      (asset) =>
+        asset.startsWith("sarcon-") &&
+        !asset.includes("-preview-") &&
+        !asset.includes("-thumb-") &&
+        asset.endsWith(".webp"),
+    ).length,
+    5,
+    "All full-resolution property gallery images must use the optimized WebP variants.",
+  );
+  assert.equal(
+    assets.filter((asset) => asset.startsWith("sarcon-") && asset.includes("-preview-")).length,
+    5,
+    "All property gallery images must have responsive preview variants.",
+  );
+  assert.equal(
+    assets.filter((asset) => asset.startsWith("sarcon-") && asset.includes("-thumb-")).length,
+    5,
+    "All property gallery thumbnails must use the reduced-size variants.",
+  );
   console.log("✓ Cloudflare output, public assets, robots.txt, and asset cache headers");
 }
 
@@ -105,7 +134,14 @@ async function runSmokeTests() {
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     const browserErrors = [];
+    const remoteFontRequests = [];
     page.on("pageerror", (error) => browserErrors.push(error.message));
+    page.on("request", (request) => {
+      const hostname = new URL(request.url()).hostname;
+      if (hostname === "fonts.googleapis.com" || hostname === "fonts.gstatic.com") {
+        remoteFontRequests.push(request.url());
+      }
+    });
     page.on("console", (message) => {
       if (message.type() === "error") browserErrors.push(message.text());
     });
@@ -147,6 +183,17 @@ async function runSmokeTests() {
       );
     }
     console.log(`✓ ${routes.length} public routes render with SEO metadata`);
+
+    console.log("Checking page heading hierarchy on listing pages...");
+    for (const [route, heading] of [
+      ["/universities", "Final International University (FIU)"],
+      ["/accommodation", "On-campus student residence"],
+      ["/real-estate", "Sarcon №87: Renovated Villa for Sale"],
+    ]) {
+      await gotoReady(page, `${baseUrl}${route}`);
+      await page.getByRole("heading", { name: heading, level: 2 }).waitFor();
+    }
+    console.log("✓ Listing cards expose correctly nested section headings");
 
     console.log("Checking homepage content, desktop navigation, and search filters...");
     await gotoReady(page, `${baseUrl}/`);
@@ -273,6 +320,7 @@ async function runSmokeTests() {
       [],
       "No browser console errors or uncaught page errors should occur.",
     );
+    assert.deepEqual(remoteFontRequests, [], "Fonts must load from the production bundle.");
     console.log("All production-readiness smoke tests passed with zero browser errors.");
   } finally {
     if (browser) await browser.close();

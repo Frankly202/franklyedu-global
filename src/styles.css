@@ -1,3 +1,5 @@
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/outfit";
 @import "tailwindcss";
 @source not "../*.md";
 @source "../src";
@@ -19,8 +21,8 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -56,6 +58,7 @@
   --color-sky-contrast: var(--sky-contrast);
   --color-sky-foreground: var(--sky-foreground);
   --color-gold: var(--gold);
+  --color-gold-contrast: var(--gold-contrast);
 
   --shadow-card: 0 10px 30px -10px rgba(0, 71, 177, 0.12);
   --shadow-panel: 0 20px 45px -15px rgba(0, 71, 177, 0.2);
@@ -77,6 +80,7 @@
   --sky-contrast: #bae6fd;
   --sky-foreground: #ffffff;
   --gold: #d4af37;
+  --gold-contrast: #f0cf58;
 
   --background: #ffffff;
   --foreground: #0a2540;

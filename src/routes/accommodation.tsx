@@ -36,7 +36,12 @@ function AccommodationPage() {
       <Section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {accommodationListings.map((l) => (
-            <ListingCard key={l.slug} l={l} ctaLabel={marketplace.accommodation.reserveBtn} />
+            <ListingCard
+              key={l.slug}
+              l={l}
+              ctaLabel={marketplace.accommodation.reserveBtn}
+              headingLevel="h2"
+            />
           ))}
         </div>
       </Section>

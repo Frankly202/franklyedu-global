@@ -93,7 +93,7 @@ function UniversitiesPage() {
         {results.length ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {results.map((u) => (
-              <UniversityCard key={u.slug} u={u} />
+              <UniversityCard key={u.slug} u={u} headingLevel="h2" />
             ))}
           </div>
         ) : (

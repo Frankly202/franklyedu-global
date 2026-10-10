@@ -58,7 +58,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       aria-label={`${brand.name} home`}
     >
       <img
-        src="/icon-192.png"
+        src="/icon-88.png"
         alt=""
         width={compact ? 36 : 44}
         height={compact ? 36 : 44}
@@ -188,7 +188,7 @@ export function Navbar() {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-navy/85" />
         <img
-          src="/logo-watermark-white.png"
+          src="/logo-watermark-white.webp"
           alt=""
           className="absolute -top-3 right-14 h-22 w-auto max-w-none object-contain opacity-12 sm:right-1/4 sm:-top-5 sm:h-26 sm:opacity-14 lg:right-1/3 lg:-top-6 lg:h-28 lg:opacity-15"
         />
@@ -248,7 +248,7 @@ export function Navbar() {
             className="pointer-events-none absolute inset-0 select-none overflow-hidden"
           >
             <img
-              src="/logo-watermark-white.png"
+              src="/logo-watermark-white.webp"
               alt=""
               className="absolute -bottom-10 -right-8 h-56 w-auto max-w-none object-contain opacity-10"
             />

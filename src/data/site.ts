@@ -2,7 +2,8 @@
  * Central site configuration for Frankedu Global.
  * Replace brand assets, navigation labels and contact details here.
  */
-import heroImage from "@/assets/background-photo.jpg";
+import heroImage from "@/assets/background-photo.webp";
+import heroMobileImage from "@/assets/background-photo-768.webp";
 
 export type AppPath =
   | "/"
@@ -41,6 +42,7 @@ export const brand = {
 
 export const images = {
   hero: heroImage,
+  heroMobile: heroMobileImage,
   heroAlt:
     "Frankedu Global representative with international education and career planning materials",
   heroWidth: 941,

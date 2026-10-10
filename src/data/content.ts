@@ -1,9 +1,19 @@
 import northCyprusResortImage from "@/assets/properties/seafront-resort-esentepe.png";
-import sarconCover from "@/assets/sarcon/sarcon-01-cover.jpg";
-import sarconSurroundings from "@/assets/sarcon/sarcon-02-surroundings.png";
-import sarconLivingRoom from "@/assets/sarcon/sarcon-03-living-room.jpg";
-import sarconStaircase from "@/assets/sarcon/sarcon-04-staircase.jpg";
-import sarconKitchen from "@/assets/sarcon/sarcon-05-kitchen.jpg";
+import sarconCover from "@/assets/sarcon/sarcon-01-cover.webp";
+import sarconCoverPreview from "@/assets/sarcon/sarcon-01-cover-preview.webp";
+import sarconCoverThumbnail from "@/assets/sarcon/sarcon-01-cover-thumb.webp";
+import sarconSurroundings from "@/assets/sarcon/sarcon-02-surroundings.webp";
+import sarconSurroundingsPreview from "@/assets/sarcon/sarcon-02-surroundings-preview.webp";
+import sarconSurroundingsThumbnail from "@/assets/sarcon/sarcon-02-surroundings-thumb.webp";
+import sarconLivingRoom from "@/assets/sarcon/sarcon-03-living-room.webp";
+import sarconLivingRoomPreview from "@/assets/sarcon/sarcon-03-living-room-preview.webp";
+import sarconLivingRoomThumbnail from "@/assets/sarcon/sarcon-03-living-room-thumb.webp";
+import sarconStaircase from "@/assets/sarcon/sarcon-04-staircase.webp";
+import sarconStaircasePreview from "@/assets/sarcon/sarcon-04-staircase-preview.webp";
+import sarconStaircaseThumbnail from "@/assets/sarcon/sarcon-04-staircase-thumb.webp";
+import sarconKitchen from "@/assets/sarcon/sarcon-05-kitchen.webp";
+import sarconKitchenPreview from "@/assets/sarcon/sarcon-05-kitchen-preview.webp";
+import sarconKitchenThumbnail from "@/assets/sarcon/sarcon-05-kitchen-thumb.webp";
 
 /**
  * Central content and data configuration for Frankedu Global.
@@ -411,6 +421,9 @@ export interface Listing {
 
 export interface PropertyGalleryImage {
   src: string;
+  previewSrc: string;
+  thumbnailSrc: string;
+  width: number;
   alt: string;
   title: string;
   category: string;
@@ -469,30 +482,45 @@ export const propertyDetails: PropertyDetail[] = [
     gallery: [
       {
         src: sarconCover,
+        previewSrc: sarconCoverPreview,
+        thumbnailSrc: sarconCoverThumbnail,
+        width: 1600,
         alt: "Sarcon 87 renovated villa in North Cyprus – exterior street view and gated entrance",
         title: "Exterior Street View & Gated Entrance",
         category: "Cover / Main Exterior",
       },
       {
         src: sarconSurroundings,
+        previewSrc: sarconSurroundingsPreview,
+        thumbnailSrc: sarconSurroundingsThumbnail,
+        width: 1136,
         alt: "Sarcon 87 renovated villa in North Cyprus – surrounding coastal neighborhood and Mediterranean sea views",
         title: "Surrounding Coastal Neighborhood & Sea View",
         category: "Location & Setting",
       },
       {
         src: sarconLivingRoom,
+        previewSrc: sarconLivingRoomPreview,
+        thumbnailSrc: sarconLivingRoomThumbnail,
+        width: 1920,
         alt: "Sarcon 87 renovated villa in North Cyprus – spacious double-height living room with exposed timber beams",
         title: "Double-Height Living Room",
         category: "Living Space",
       },
       {
         src: sarconStaircase,
+        previewSrc: sarconStaircasePreview,
+        thumbnailSrc: sarconStaircaseThumbnail,
+        width: 1920,
         alt: "Sarcon 87 renovated villa in North Cyprus – ground-floor living area, wrought-iron staircase, and hallway entrance",
         title: "Living Area & Feature Staircase",
         category: "Interior Architecture",
       },
       {
         src: sarconKitchen,
+        previewSrc: sarconKitchenPreview,
+        thumbnailSrc: sarconKitchenThumbnail,
+        width: 1920,
         alt: "Sarcon 87 renovated villa in North Cyprus – contemporary renovated kitchen and open-plan dining space",
         title: "Renovated Kitchen & Dining",
         category: "Kitchen & Dining",
