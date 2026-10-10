@@ -9,6 +9,9 @@ export function pageMeta(title: string, description: string) {
       { name: "description", content: description },
       { property: "og:title", content: full },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: full },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: brand.logoImage },
     ],
   };
 }

@@ -136,18 +136,22 @@
 
 ### Phase 6: Production Readiness
 
-- **Status**: `NOT STARTED`
+- **Status**: `IN PROGRESS` (route metadata, Cloudflare build-output checks, and automated coverage implemented; canonical URLs, sitemap host, and Lighthouse audit remain outstanding)
 - **Scope**:
-  - Set production SEO tags, canonical URLs, page titles, descriptions, and OpenGraph/Twitter social preview cards in [`src/lib/seo.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/lib/seo.ts).
-  - Generate an updated `robots.txt` and `sitemap.xml`.
-  - Validate Nitro Cloudflare Pages/Worker build output (`.output/`) and asset caching headers.
-  - Ensure Lighthouse performance, accessibility, best practices, and SEO scores meet production standards.
+  - Shared route metadata now provides page titles and descriptions with Open Graph and Twitter title, description, and image tags in [`src/lib/seo.ts`](./src/lib/seo.ts); the existing root metadata supplies the social card type and Open Graph image.
+  - Canonical URLs and `sitemap.xml` are deferred at the project owner's direction until a verified production hostname is available. No canonical host or sitemap URL is fabricated. The existing permissive `robots.txt` remains in place and is checked in the build output.
+  - Automated checks verify the Nitro Cloudflare Module preset, Workers static asset binding, emitted public assets, and immutable one-year caching policy for hashed `/assets/*` files.
+  - The headless Playwright suite now covers all 15 core routes plus the verified property-detail route, page/social metadata, primary desktop navigation, university/course filters, mobile drawer keyboard behavior, EN/TR switching, application WhatsApp handoff, contextual listing enquiries, contact-form validation, and uncaught page exceptions.
+  - Lighthouse scores remain unverified: attempting to run Lighthouse through `bunx` failed during temporary package resolution with registry integrity errors. Re-run once the Lighthouse CLI and a compatible Chromium executable are available.
 - **Expected Outcome**:
-  - Fully optimized, secure production bundle ready for Cloudflare deployment.
+  - Production metadata, Cloudflare output checks, and regression coverage are in place; final SEO/deployment verification awaits a verified production hostname and Lighthouse review.
 - **Validation Gate**:
+  - `bun run format`
   - `bun run lint`
   - `bun run --bun tsc --noEmit`
   - `bun run build`
+  - `bun run test:smoke`
+  - `git diff --check`
 
 ---
 
@@ -155,9 +159,9 @@
 
 Once all 6 phases are marked `DONE`, the entire website must pass the comprehensive end-to-end verification suite before public release:
 
-- [ ] **Lint**: `bun run lint` (0 errors, 0 warnings)
-- [ ] **Typecheck**: `bun run --bun tsc --noEmit` (0 errors)
-- [ ] **Production Build**: `bun run build` (Clean `.output/` bundle generation)
-- [ ] **Playwright Automated Tests**: `bun run test:smoke` (Headless suite testing all 15 routes, primary navigation, search filters, and CTA click-throughs)
+- [x] **Lint**: `bun run lint` (0 errors, 0 warnings)
+- [x] **Typecheck**: `bun run --bun tsc --noEmit` (0 errors)
+- [x] **Production Build**: `bun run build` (Clean `.output/` bundle generation)
+- [x] **Playwright Automated Tests**: `bun run test:smoke` (Headless suite testing all 15 core routes plus the property detail route, metadata, navigation, filters, and lead handoffs)
 - [ ] **Browser Smoke Test**: Final manual visual walkthrough across desktop, tablet, and mobile viewport widths
-- [ ] **Zero Error Logs**: Confirm clean browser console and zero uncaught runtime exceptions
+- [x] **Zero Runtime Exceptions**: Automated smoke suite confirms zero browser console errors or uncaught page exceptions

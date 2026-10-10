@@ -1,6 +1,8 @@
+import assert from "node:assert/strict";
+import { createServer } from "node:net";
+import { readFile } from "node:fs/promises";
 import { chromium } from "playwright";
-
-const BASE_URL = process.env.BASE_URL || "http://localhost:5173";
+import { createServer as createViteServer } from "vite";
 
 const routes = [
   "/",
@@ -18,102 +20,267 @@ const routes = [
   "/student",
   "/login",
   "/signup",
+  "/real-estate/sarcon-87-renovated-villa-north-cyprus",
 ];
 
-async function runSmokeTests() {
-  console.log(`Starting headless Playwright smoke tests against ${BASE_URL}...`);
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-
-  const uncaughtErrors = [];
-  page.on("pageerror", (err) => {
-    console.error("Page error:", err.message);
-    uncaughtErrors.push(err.message);
+async function getAvailablePort() {
+  const server = createServer();
+  await new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", resolve);
   });
+  const address = server.address();
+  if (!address || typeof address === "string") {
+    throw new Error("Could not allocate a local port for the smoke-test server.");
+  }
+  await new Promise((resolve, reject) =>
+    server.close((error) => (error ? reject(error) : resolve())),
+  );
+  return address.port;
+}
+
+async function gotoReady(page, url) {
+  const response = await page.goto(url, { waitUntil: "networkidle" });
+  await page.locator("main h1").waitFor();
+  return response;
+}
+
+async function startDevServer() {
+  const port = await getAvailablePort();
+  const server = await createViteServer({
+    configFile: "./vite.config.ts",
+    server: { host: "127.0.0.1", port, strictPort: true },
+  });
+  const baseUrl = `http://127.0.0.1:${port}`;
 
   try {
-    // 1. Critical routes test
-    console.log("Checking critical routes...");
-    for (const route of routes) {
-      const res = await page.goto(`${BASE_URL}${route}`, { waitUntil: "domcontentloaded" });
-      if (!res || res.status() >= 400) {
-        throw new Error(`Route ${route} failed with status ${res ? res.status() : "no response"}`);
-      }
-      console.log(`  ✓ ${route} (status: ${res.status()})`);
-    }
-
-    // 2. Homepage core content verification
-    console.log("Checking homepage core content...");
-    await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
-
-    await page.waitForSelector("h1:has-text('Find your university.')");
-    await page.waitForSelector("text=/your global study pathway/i");
-    await page.waitForSelector("text=/Your education can take you further/i");
-    await page.waitForSelector("text=/Support for every/i");
-    await page.waitForSelector("text=/Not sure where to start/i");
-    console.log("  ✓ Core homepage content rendered successfully.");
-
-    // 3. Primary navigation links resolve
-    console.log("Checking primary navigation links...");
-    const navItems = ["Universities", "Courses", "Countries", "Services", "About", "Contact"];
-    for (const nav of navItems) {
-      await page.click(`header nav >> text='${nav}'`);
-      await page.waitForLoadState("domcontentloaded");
-      console.log(`  ✓ Navigated via navbar to ${page.url()}`);
-    }
-
-    // 4. Key CTA navigation works
-    console.log("Checking key CTA navigation...");
-    await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
-
-    // "Start Your Application" CTA
-    await page.click("text='Start Your Application'");
-    await page.waitForLoadState("domcontentloaded");
-    if (!page.url().includes("/application")) {
-      throw new Error(`Expected /application but got ${page.url()}`);
-    }
-    console.log("  ✓ 'Start Your Application' CTA navigates correctly.");
-
-    // Return to home and test "Find Universities" form submission
-    await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
-    await page.click("button:has-text('Find Universities')");
-    await page.waitForLoadState("domcontentloaded");
-    if (!page.url().includes("/universities")) {
-      throw new Error(`Expected /universities after search submit but got ${page.url()}`);
-    }
-    console.log("  ✓ 'Find Universities' form search navigates to /universities.");
-
-    // Header Login and Signup buttons
-    await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
-    await page.click("header >> text='Login'");
-    await page.waitForLoadState("domcontentloaded");
-    if (!page.url().includes("/login")) {
-      throw new Error(`Expected /login but got ${page.url()}`);
-    }
-    console.log("  ✓ Header 'Login' button navigates correctly.");
-
-    await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded" });
-    await page.click("header >> text='Sign Up'");
-    await page.waitForLoadState("domcontentloaded");
-    if (!page.url().includes("/signup")) {
-      throw new Error(`Expected /signup but got ${page.url()}`);
-    }
-    console.log("  ✓ Header 'Sign Up' button navigates correctly.");
-
-    // 5. Uncaught page errors check
-    if (uncaughtErrors.length > 0) {
-      throw new Error(
-        `Detected ${uncaughtErrors.length} uncaught page error(s): ${uncaughtErrors.join(", ")}`,
-      );
-    }
-
-    console.log("\nAll Playwright smoke tests PASSED headlessly with zero errors!");
-  } finally {
-    await browser.close();
+    await server.listen();
+    const response = await fetch(baseUrl);
+    assert.ok(response.ok, `Development server returned ${response.status}.`);
+    return { server, baseUrl };
+  } catch (error) {
+    await server.close();
+    throw error;
   }
 }
 
-runSmokeTests().catch((err) => {
-  console.error("Smoke test FAILED:", err);
-  process.exit(1);
+async function verifyProductionArtifacts() {
+  const nitro = JSON.parse(await readFile(".output/nitro.json", "utf8"));
+  const wrangler = JSON.parse(await readFile(".output/server/wrangler.json", "utf8"));
+  const headers = await readFile(".output/public/_headers", "utf8");
+  const robots = await readFile(".output/public/robots.txt", "utf8");
+
+  assert.equal(nitro.preset, "cloudflare-module", "Nitro must target Cloudflare Workers.");
+  assert.equal(wrangler.assets?.binding, "ASSETS", "Cloudflare static asset binding is missing.");
+  assert.equal(
+    wrangler.assets?.directory,
+    "../public",
+    "Cloudflare public asset directory changed.",
+  );
+  assert.match(
+    headers,
+    /\/assets\/\*\s+cache-control:\s*public,\s*max-age=31536000,\s*immutable/i,
+    "Hashed assets must retain immutable one-year caching headers.",
+  );
+  assert.match(robots, /User-agent:\s*\*/i, "robots.txt must include a general crawler policy.");
+  assert.match(robots, /Allow:\s*\/\s*$/im, "robots.txt must allow public pages.");
+  await readFile(".output/public/favicon.ico");
+  await readFile(".output/public/logo-full-transparent.png");
+  console.log("✓ Cloudflare output, public assets, robots.txt, and asset cache headers");
+}
+
+async function runSmokeTests() {
+  await verifyProductionArtifacts();
+
+  let server;
+  let baseUrl = process.env.BASE_URL;
+  if (!baseUrl) {
+    ({ server, baseUrl } = await startDevServer());
+  }
+
+  console.log(`Running headless Playwright tests against ${baseUrl}...`);
+  let browser;
+
+  try {
+    browser = await chromium.launch({ headless: true });
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    const browserErrors = [];
+    page.on("pageerror", (error) => browserErrors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") browserErrors.push(message.text());
+    });
+
+    console.log("Checking all public routes and route metadata...");
+    for (const route of routes) {
+      const response = await gotoReady(page, `${baseUrl}${route}`);
+      assert.ok(response, `Route ${route} returned no response.`);
+      assert.ok(response.status() < 400, `Route ${route} returned ${response.status()}.`);
+      assert.equal(await page.locator("main h1").count(), 1, `Route ${route} must render one h1.`);
+      assert.ok(await page.title(), `Route ${route} must have a page title.`);
+      assert.ok(
+        await page.locator('meta[name="description"]').getAttribute("content"),
+        `Route ${route} must have a description.`,
+      );
+      assert.ok(
+        await page.locator('meta[property="og:title"]').getAttribute("content"),
+        `Route ${route} must have an Open Graph title.`,
+      );
+      assert.ok(
+        await page.locator('meta[property="og:description"]').getAttribute("content"),
+        `Route ${route} must have an Open Graph description.`,
+      );
+      assert.ok(
+        await page.locator('meta[property="og:image"]').getAttribute("content"),
+        `Route ${route} must have an Open Graph image.`,
+      );
+      assert.ok(
+        await page.locator('meta[name="twitter:title"]').getAttribute("content"),
+        `Route ${route} must have a Twitter title.`,
+      );
+      assert.ok(
+        await page.locator('meta[name="twitter:description"]').getAttribute("content"),
+        `Route ${route} must have a Twitter description.`,
+      );
+      assert.ok(
+        await page.locator('meta[name="twitter:image"]').getAttribute("content"),
+        `Route ${route} must have a Twitter image.`,
+      );
+    }
+    console.log(`✓ ${routes.length} public routes render with SEO metadata`);
+
+    console.log("Checking homepage content, desktop navigation, and search filters...");
+    await gotoReady(page, `${baseUrl}/`);
+    assert.match(await page.locator("main h1").innerText(), /Your Future\.\s*Our Global Network\./);
+
+    const desktopNav = page.getByRole("navigation", { name: "Main navigation" });
+    for (const [label, route] of [
+      ["Universities", "/universities"],
+      ["Courses", "/courses"],
+      ["Countries", "/countries"],
+      ["Scholarships", "/scholarships"],
+      ["Services", "/services"],
+      ["Marketplace", "/marketplace"],
+      ["About", "/about"],
+      ["Contact", "/contact"],
+    ]) {
+      await desktopNav.getByRole("link", { name: label }).click();
+      await page.waitForFunction((pathname) => window.location.pathname === pathname, route);
+      await page.locator("main h1").waitFor();
+    }
+
+    await gotoReady(page, `${baseUrl}/`);
+    await desktopNav.getByRole("link", { name: "Universities" }).click();
+    await page.waitForFunction(() => window.location.pathname === "/universities");
+    await page.getByRole("heading", { name: "Find the right university." }).waitFor();
+
+    await gotoReady(page, `${baseUrl}/`);
+    await page.getByLabel("Study destination").selectOption("cyprus");
+    await page.getByRole("button", { name: "Find Universities" }).click();
+    await page.waitForFunction(
+      () =>
+        window.location.pathname === "/universities" &&
+        new URLSearchParams(window.location.search).get("country") === "cyprus",
+    );
+    assert.ok(await page.getByText("Final International University").count());
+
+    await gotoReady(page, `${baseUrl}/universities`);
+    await page.getByLabel("Destination").selectOption("cyprus");
+    await page.waitForFunction(
+      () =>
+        window.location.pathname === "/universities" &&
+        new URLSearchParams(window.location.search).get("country") === "cyprus",
+    );
+    assert.ok(await page.getByText("Final International University").count());
+
+    await gotoReady(page, `${baseUrl}/courses`);
+    await page.getByLabel("University").selectOption("final-international-university");
+    await page.waitForFunction(
+      () =>
+        window.location.pathname === "/courses" &&
+        new URLSearchParams(window.location.search).get("university") ===
+          "final-international-university",
+    );
+    assert.ok(await page.getByRole("link", { name: "Clear" }).count());
+    console.log("✓ Primary desktop navigation, homepage search, and directory filters");
+
+    console.log("Checking mobile navigation, localization, and application handoff...");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoReady(page, `${baseUrl}/`);
+    const menuButton = page.getByRole("button", { name: "Open menu" });
+    await menuButton.click();
+    const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
+    await mobileNav.waitFor({ state: "visible" });
+    await page.keyboard.press("Escape");
+    await mobileNav.waitFor({ state: "detached" });
+    assert.equal(await menuButton.getAttribute("aria-expanded"), "false");
+    assert.equal(await menuButton.evaluate((element) => element === document.activeElement), true);
+
+    await page.getByRole("button", { name: "Türkçe diline geç" }).click();
+    await page.getByRole("heading", { name: /Geleceğiniz\./ }).waitFor();
+    assert.equal(await page.locator("html").getAttribute("lang"), "tr");
+    await page.getByRole("button", { name: "Switch to English" }).click();
+    await page.getByRole("heading", { name: /Your Future\./ }).waitFor();
+    assert.equal(await page.locator("html").getAttribute("lang"), "en");
+
+    await gotoReady(page, `${baseUrl}/application`);
+    await page.getByPlaceholder("Full name").fill("Smoke Test Applicant");
+    await page.getByPlaceholder("Email address").fill("smoke@example.com");
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByLabel("Study destination").selectOption("cyprus");
+    await page.getByLabel("University (optional)").selectOption("final-international-university");
+    await page.getByLabel("Preferred intake").selectOption("January 2027");
+    await page.getByRole("button", { name: "Continue" }).click();
+    assert.equal(await page.locator('input[type="file"]').count(), 0);
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByText(/Documents are not uploaded or sent/).waitFor();
+
+    let whatsappUrl;
+    await page.route("https://wa.me/**", async (route) => {
+      whatsappUrl = route.request().url();
+      await route.fulfill({ status: 200, contentType: "text/html", body: "handoff intercepted" });
+    });
+    await page.getByRole("button", { name: "Continue to WhatsApp" }).click();
+    await page.waitForURL("https://wa.me/**");
+    const whatsappMessage = new URL(whatsappUrl).searchParams.get("text");
+    assert.match(whatsappMessage, /Smoke Test Applicant/);
+    assert.match(whatsappMessage, /Final International University/);
+    assert.match(whatsappMessage, /January 2027/);
+    console.log(
+      "✓ Mobile drawer keyboard behavior, EN/TR switching, and structured application handoff",
+    );
+
+    console.log("Checking contextual listing CTAs and contact form validation...");
+    await gotoReady(page, `${baseUrl}/accommodation`);
+    const reserveLink = page.getByRole("link", { name: "Reserve" }).first();
+    assert.match(await reserveLink.getAttribute("href"), /^https:\/\/wa\.me\/.*campus/i);
+
+    await gotoReady(page, `${baseUrl}/contact`);
+    const contactForm = page.locator("form").last();
+    assert.equal(
+      await contactForm.evaluate((form) => form.checkValidity()),
+      false,
+      "Contact form should require the visitor's name, email, and message.",
+    );
+    await contactForm.locator('[name="fullName"]').fill("Smoke Test");
+    await contactForm.locator('[name="email"]').fill("smoke@example.com");
+    await contactForm.locator('[name="message"]').fill("Smoke test inquiry");
+    assert.equal(await contactForm.evaluate((form) => form.checkValidity()), true);
+    assert.ok(await page.locator('a[href^="mailto:"]').count());
+    console.log("✓ Listing-specific WhatsApp enquiry and contact email fallback");
+
+    assert.deepEqual(
+      browserErrors,
+      [],
+      "No browser console errors or uncaught page errors should occur.",
+    );
+    console.log("All production-readiness smoke tests passed with zero browser errors.");
+  } finally {
+    if (browser) await browser.close();
+    if (server) await server.close();
+  }
+}
+
+runSmokeTests().catch((error) => {
+  console.error("Production-readiness test suite failed:", error);
+  process.exitCode = 1;
 });
