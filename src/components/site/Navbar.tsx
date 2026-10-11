@@ -64,7 +64,7 @@ export function LanguageSelector({ className }: { className?: string }) {
       <button
         ref={triggerRef}
         type="button"
-        className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 text-xs font-semibold text-white backdrop-blur-xs transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md border border-border bg-white px-3 text-xs font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         aria-label={selectorLabels.trigger}
         aria-expanded={expanded}
         aria-controls={`${id}-options`}
@@ -87,7 +87,7 @@ export function LanguageSelector({ className }: { className?: string }) {
           id={`${id}-options`}
           role="group"
           aria-label={selectorLabels.group}
-          className="absolute right-0 top-full z-[70] mt-2 grid w-max min-w-36 max-w-[calc(100vw-1rem)] gap-1 rounded-xl border border-white/15 bg-navy p-1.5 text-sm shadow-xl"
+          className="absolute right-0 top-full z-[70] mt-2 grid w-max min-w-36 max-w-[calc(100vw-1rem)] gap-1 rounded-xl border border-border bg-white p-1.5 text-sm shadow-xl"
         >
           {languages.map(({ locale: target, name }, index) => (
             <button
@@ -114,8 +114,8 @@ export function LanguageSelector({ className }: { className?: string }) {
                 }
               }}
               className={cn(
-                "flex min-h-11 items-center rounded-lg px-3 text-left text-white transition-colors hover:bg-white/10 focus-visible:bg-white/10 focus-visible:outline-none",
-                locale === target && "bg-white/15 font-semibold",
+                "flex min-h-11 items-center rounded-lg px-3 text-left text-foreground transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none",
+                locale === target && "bg-primary/10 font-semibold text-primary",
               )}
               aria-current={locale === target ? "true" : undefined}
             >
@@ -128,31 +128,84 @@ export function LanguageSelector({ className }: { className?: string }) {
   );
 }
 
-export function Logo({ compact = false }: { compact?: boolean }) {
+/** Only allow the services tagline to wrap after a "|" separator, never inside a service name. */
+const taglineWithSeparatorBreaks = brand.servicesTagline
+  .split(" | ")
+  .map((service) => service.replaceAll(" ", "\u00A0"))
+  .join("\u00A0| ");
+
+export function Logo({
+  onDark = false,
+}: {
+  /** Light wordmark and a white badge behind the symbol for navy surfaces. */
+  onDark?: boolean;
+}) {
+  if (!onDark) {
+    return (
+      <Link
+        to="/"
+        data-brand-lockup
+        className="flex w-fit min-w-0 shrink items-center gap-1.5 sm:gap-2"
+        aria-label={`${brand.name} home`}
+      >
+        <img
+          data-brand-symbol
+          src={brand.markImage}
+          alt=""
+          width={brand.markWidth}
+          height={brand.markHeight}
+          className="h-9 w-auto shrink-0 object-contain sm:h-10 md:h-11"
+          loading="eager"
+        />
+        <span data-brand-wordmark className="flex min-w-0 flex-col">
+          <span className="font-display text-[15px]/none font-bold tracking-tight text-foreground sm:text-base/none md:text-lg/none">
+            {brand.shortName}
+          </span>
+          <span className="mt-[3px] font-display text-[9px]/none font-semibold tracking-[0.3em] text-primary uppercase md:text-[10px]/none">
+            Global
+          </span>
+          <span
+            lang="en"
+            data-brand-tagline
+            className="mt-[3px] text-[9px]/[1.15] font-medium text-muted-foreground min-[360px]:text-[9.5px]/none md:text-[10px]/none"
+          >
+            {taglineWithSeparatorBreaks}
+          </span>
+        </span>
+      </Link>
+    );
+  }
+
   return (
     <Link
       to="/"
-      className="flex shrink-0 items-center gap-2.5 sm:gap-3"
+      data-brand-lockup
+      className="flex w-fit min-w-0 flex-col items-center text-center"
       aria-label={`${brand.name} home`}
     >
-      <img
-        src="/icon-88.png"
-        alt=""
-        width={compact ? 36 : 44}
-        height={compact ? 36 : 44}
-        className="h-10 w-auto max-h-10 rounded-sm object-contain sm:h-11 sm:max-h-11"
-        loading="eager"
-      />
-      {!compact && (
-        <div className="flex flex-col leading-none">
-          <span className="font-display text-[15px] font-bold tracking-tight text-white sm:text-base">
-            {brand.shortName}
-          </span>
-          <span className="font-display text-[9.5px] font-semibold tracking-[0.22em] uppercase text-sky-contrast sm:text-[10px]">
-            Global
-          </span>
-        </div>
-      )}
+      <span className="mb-1.5 flex shrink-0 items-center justify-center rounded-xl bg-white p-1.5 shadow-sm">
+        <img
+          src={brand.markImage}
+          alt=""
+          width={brand.markWidth}
+          height={brand.markHeight}
+          className="h-12 w-auto object-contain sm:h-14"
+          loading="eager"
+        />
+      </span>
+      <span className="mt-0.5 font-display text-xl/none font-bold tracking-tight text-white">
+        {brand.shortName}
+      </span>
+      <span className="mt-[3px] pl-[0.3em] font-display text-[11px]/none font-semibold tracking-[0.3em] text-sky-contrast uppercase">
+        Global
+      </span>
+      <span
+        lang="en"
+        data-brand-tagline
+        className="mt-1 text-xs leading-snug font-medium text-balance text-white/85"
+      >
+        {taglineWithSeparatorBreaks}
+      </span>
     </Link>
   );
 }
@@ -258,34 +311,23 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 relative border-b border-white/15 bg-navy/95 text-white backdrop-blur supports-[backdrop-filter]:bg-navy/90">
-      {/* Visible Full Logo Artwork Background Watermark — clean transparent artwork, zero checkerboard */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 select-none overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-navy/85" />
-        <img
-          src="/logo-watermark-white.webp"
-          alt=""
-          className="absolute -top-3 right-14 h-22 w-auto max-w-none object-contain opacity-12 sm:right-1/4 sm:-top-5 sm:h-26 sm:opacity-14 lg:right-1/3 lg:-top-6 lg:h-28 lg:opacity-15"
-        />
-      </div>
-
-      <div className="container-site relative z-10 flex h-16 items-center justify-between gap-3 lg:gap-4">
+    <header className="sticky top-0 z-50 relative border-b border-border bg-white text-foreground shadow-xs">
+      <div className="container-site relative z-10 flex h-16 items-center justify-between md:h-18 gap-3 lg:gap-4">
         <Logo />
 
         {/* Desktop Navigation */}
         <nav
-          className="hidden items-center gap-1 xl:flex xl:gap-2"
+          className="hidden shrink-0 items-center gap-1 xl:flex"
           aria-label={common.nav.mainNavigationLabel}
         >
           {desktopNavItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-md px-2.5 py-1.5 text-[13px] font-medium text-white/80 transition-colors hover:text-white xl:px-3 xl:text-sm"
-              activeProps={{ className: "text-white font-semibold bg-white/15 shadow-xs" }}
+              className="rounded-md px-2.5 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-primary xl:text-sm"
+              activeProps={{
+                className: "bg-primary !text-primary-foreground font-semibold shadow-xs",
+              }}
             >
               {item.label}
             </Link>
@@ -293,22 +335,22 @@ export function Navbar() {
         </nav>
 
         {/* Desktop Language Selector — provides breathing room for nav items */}
-        <div className="hidden items-center xl:flex">
+        <div className="hidden shrink-0 items-center xl:flex">
           <LanguageSelector />
         </div>
 
         {/* Mobile Header Quick Actions */}
-        <div className="flex items-center gap-2 xl:hidden">
+        <div className="flex shrink-0 items-center gap-2 xl:hidden">
           <LanguageSelector />
           <button
             ref={menuButtonRef}
             type="button"
-            className="grid h-11 w-11 place-items-center rounded-md border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 active:bg-white/30"
+            className="grid h-11 w-11 place-items-center rounded-md border border-border bg-white text-foreground transition-colors hover:bg-muted active:bg-muted"
             aria-label={open ? common.mobileDrawer.closeMenu : common.mobileDrawer.openMenu}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
@@ -318,7 +360,7 @@ export function Navbar() {
         <nav
           id="mobile-navigation"
           aria-label={common.mobileDrawer.navigationLabel}
-          className="mobile-drawer-enter relative max-h-[calc(100dvh-4rem)] overscroll-contain overflow-y-auto border-t border-white/15 bg-navy xl:hidden"
+          className="mobile-drawer-enter relative max-h-[calc(100dvh-4rem)] md:max-h-[calc(100dvh-4.5rem)] overscroll-contain overflow-y-auto border-t border-white/15 bg-navy xl:hidden"
         >
           {/* Watermark in Mobile Drawer */}
           <div

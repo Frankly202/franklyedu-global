@@ -25,7 +25,7 @@ export function pageMeta(title: string, description: string, options: PageMetaOp
       ...(canonical ? [{ property: "og:url", content: canonical }] : []),
       { name: "twitter:title", content: full },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: absoluteUrl(brand.logoImage) },
+      { name: "twitter:image", content: absoluteUrl(brand.ogImage) },
       ...(options.noindex ? [{ name: "robots", content: "noindex, follow" }] : []),
     ],
     links: canonical ? [{ rel: "canonical", href: canonical }] : [],

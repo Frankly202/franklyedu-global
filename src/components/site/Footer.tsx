@@ -58,7 +58,7 @@ export function Footer() {
 
       <div className="container-site relative z-10 grid gap-8 py-14 sm:grid-cols-2 md:gap-10 lg:grid-cols-3 xl:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div className="space-y-4">
-          <Logo />
+          <Logo onDark />
           <p className="max-w-xs text-sm leading-relaxed text-navy-muted sm:text-[15px]">
             {common.footer.tagline}
           </p>

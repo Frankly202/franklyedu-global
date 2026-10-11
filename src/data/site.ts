@@ -36,11 +36,16 @@ export const brand = {
   /** Fallback single-letter mark if image logo cannot be rendered */
   mark: "F",
   tagline: "Your Future • Our Priority",
-  logoImage: "/logo-full-transparent.png",
+  /** Services line from the official logo lockup, rendered as text beside the symbol. */
+  servicesTagline: "Education | Real Estate | Digital Services",
+  /** Cap-and-globe symbol cropped from the official logo; the wordmark is rendered as text. */
+  markImage: "/frankedu-mark.webp",
+  /** 1200×630 social preview card used for Open Graph and Twitter. */
+  ogImage: "/og-image.png",
   faviconPath: "/favicon.ico",
   appleTouchIconPath: "/apple-touch-icon.png",
-  logoWidth: 1458,
-  logoHeight: 1062,
+  markWidth: 158,
+  markHeight: 141,
 };
 
 export const images = {

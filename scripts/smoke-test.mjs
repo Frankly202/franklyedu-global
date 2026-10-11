@@ -125,10 +125,17 @@ async function verifyProductionArtifacts() {
   ]) {
     assert.match(headers, header, `Security header ${header} is missing from _headers.`);
   }
-  await readFile(".output/public/favicon.ico");
-  await readFile(".output/public/logo-full-transparent.png");
-  await readFile(".output/public/icon-88.png");
-  await readFile(".output/public/logo-watermark-white.webp");
+  for (const asset of [
+    "favicon.ico",
+    "favicon-32x32.png",
+    "apple-touch-icon.png",
+    "frankedu-mark.png",
+    "frankedu-mark.webp",
+    "og-image.png",
+    "logo-watermark-white.webp",
+  ]) {
+    await readFile(`.output/public/${asset}`);
+  }
   const assets = await readdir(".output/public/assets");
   assert.ok(
     assets.filter((asset) => asset.startsWith("background-photo-") && asset.endsWith(".webp"))
@@ -350,6 +357,101 @@ async function runSmokeTests() {
       "An outside click should close the language dropdown.",
     );
     console.log("✓ Language dropdown is keyboard accessible and closes on Escape/outside click");
+
+    console.log("Checking header height, brand lockup, and responsive overflow...");
+    for (const [locale, languageName] of [
+      ["en", "English"],
+      ["tr", "Türkçe"],
+      ["fr", "Français"],
+      ["sw", "Kiswahili"],
+    ]) {
+      await page.setViewportSize({ width: 1440, height: 1000 });
+      await gotoReady(page, `${baseUrl}/`);
+      await selectLanguage(page, languageName, locale);
+      for (const width of [320, 390, 768, 1024, 1280, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        const layout = await page.evaluate(() => {
+          const rect = (element) => element.getBoundingClientRect();
+          const row = rect(document.querySelector("header > div"));
+          const lockup = document.querySelector("header [data-brand-lockup]");
+          const lockupRect = rect(lockup);
+          const tagline = lockup.querySelector("[data-brand-tagline]");
+          const taglineRect = rect(tagline);
+          const symbol = rect(lockup.querySelector("[data-brand-symbol]"));
+          const wordmarkColumn = lockup.querySelector("[data-brand-wordmark]");
+          const wordmark = rect(wordmarkColumn.firstElementChild);
+          const lockupOverlapsControls = [
+            ...document.querySelectorAll("header button, header nav a"),
+          ]
+            .filter((element) => element.offsetParent)
+            .map(rect)
+            .some(
+              (r) =>
+                r.left < lockupRect.right &&
+                r.right > lockupRect.left &&
+                r.top < lockupRect.bottom &&
+                r.bottom > lockupRect.top,
+            );
+          return {
+            rowHeight: row.height,
+            lockupInside: lockupRect.top >= row.top - 0.5 && lockupRect.bottom <= row.bottom + 0.5,
+            taglineVisible: Boolean(tagline?.offsetParent) && taglineRect.width > 0,
+            symbolBesideWordmark:
+              symbol.right <= wordmark.left &&
+              symbol.top < wordmark.bottom &&
+              symbol.bottom > wordmark.top,
+            taglineBelowWordmark:
+              wordmarkColumn.contains(tagline) && taglineRect.top >= wordmark.bottom - 0.5,
+            taglineAligned: Math.abs(taglineRect.left - wordmark.left) <= 1,
+            verticalOffset: lockupRect.top - row.top - (row.bottom - lockupRect.bottom),
+            lockupOverlapsControls,
+            horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth,
+          };
+        });
+        const where = `${locale} at ${width}px`;
+        const expectedHeight = width >= 768 ? 72 : 64;
+        assert.ok(
+          Math.abs(layout.rowHeight - expectedHeight) <= 1,
+          `Header should be ${expectedHeight}px tall (${where}).`,
+        );
+        assert.ok(layout.lockupInside, `Brand lockup should not clip the header (${where}).`);
+        assert.ok(layout.taglineVisible, `Services tagline should be visible (${where}).`);
+        assert.ok(layout.symbolBesideWordmark, `Symbol should sit beside the wordmark (${where}).`);
+        assert.ok(layout.taglineBelowWordmark, `Tagline should sit below the wordmark (${where}).`);
+        assert.ok(layout.taglineAligned, `Tagline should align with the wordmark (${where}).`);
+        assert.ok(
+          Math.abs(layout.verticalOffset) <= 2,
+          `Brand lockup should be vertically centred (${where}).`,
+        );
+        assert.equal(layout.lockupOverlapsControls, false, `Brand lockup overlaps (${where}).`);
+        assert.equal(layout.horizontalOverflow, false, `Page overflows horizontally (${where}).`);
+      }
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.locator("header button[aria-expanded]:not([aria-controls])").click();
+      await page.waitForFunction(() =>
+        document
+          .getElementById("mobile-navigation")
+          ?.getAnimations()
+          .every((animation) => animation.playState === "finished"),
+      );
+      const drawer = await page.evaluate(() => {
+        const header = document.querySelector("header > div").getBoundingClientRect();
+        const nav = document.getElementById("mobile-navigation").getBoundingClientRect();
+        return { top: nav.top, headerBottom: header.bottom, bottom: nav.bottom };
+      });
+      assert.ok(
+        Math.abs(drawer.top - drawer.headerBottom) <= 1.5,
+        `Mobile drawer should open directly below the header (${locale}).`,
+      );
+      assert.ok(drawer.bottom <= 844 + 0.5, `Mobile drawer should fit the viewport (${locale}).`);
+      await page.keyboard.press("Escape");
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await gotoReady(page, `${baseUrl}/`);
+    await selectLanguage(page, "English", "en");
+    console.log(
+      "✓ 64px mobile / 72px tablet-desktop header, compact brand lockup, and drawer placement in EN/TR/FR/SW",
+    );
 
     console.log("Checking page heading hierarchy on listing pages...");
     for (const [route, heading] of [
