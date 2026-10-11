@@ -14,6 +14,7 @@ export const Route = createFileRoute("/about")({
     pageMeta(
       "About",
       "Frankedu Global gives students and investors verified, transparent guidance on studying abroad and global opportunities.",
+      { path: "/about" },
     ),
   component: AboutPage,
 });

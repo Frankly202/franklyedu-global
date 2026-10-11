@@ -12,6 +12,7 @@ export const Route = createFileRoute("/real-estate")({
     pageMeta(
       "Real Estate & Property Investment",
       "Property acquisition and investment opportunities across North Cyprus, the UK, and selected Dubai/UAE markets.",
+      { path: "/real-estate" },
     ),
   component: RealEstatePage,
 });

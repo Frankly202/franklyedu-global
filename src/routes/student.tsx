@@ -12,6 +12,7 @@ export const Route = createFileRoute("/student")({
     pageMeta(
       "Student Dashboard",
       "Track your applications, saved universities and document checklist.",
+      { path: "/student", noindex: true },
     ),
   component: StudentPage,
 });

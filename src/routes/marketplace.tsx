@@ -13,6 +13,7 @@ export const Route = createFileRoute("/marketplace")({
     pageMeta(
       "Student Marketplace",
       "Accommodation, real estate, essentials and services for students settling in.",
+      { path: "/marketplace" },
     ),
   component: MarketplacePage,
 });

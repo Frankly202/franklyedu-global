@@ -12,6 +12,7 @@ export const Route = createFileRoute("/accommodation")({
     pageMeta(
       "Student Accommodation",
       "Dormitories, shared flats, private apartments and homestays near campus.",
+      { path: "/accommodation" },
     ),
   component: AccommodationPage,
 });

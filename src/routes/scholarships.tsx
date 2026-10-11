@@ -12,6 +12,7 @@ export const Route = createFileRoute("/scholarships")({
     pageMeta(
       "Scholarships",
       "Discover verified scholarship pathways by destination, level and deadline.",
+      { path: "/scholarships" },
     ),
   component: ScholarshipsPage,
 });

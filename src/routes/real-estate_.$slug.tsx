@@ -26,9 +26,13 @@ export const Route = createFileRoute("/real-estate_/$slug")({
   head: ({ params }) => {
     const property = getPropertyBySlug(params.slug);
     if (!property) {
-      return pageMeta("Property Not Found", "The requested property listing was not found.");
+      return pageMeta("Property Not Found", "The requested property listing was not found.", {
+        noindex: true,
+      });
     }
-    return pageMeta(property.title, property.seoDescription);
+    return pageMeta(property.title, property.seoDescription, {
+      path: `/real-estate/${property.slug}`,
+    });
   },
   component: PropertyDetailPage,
 });

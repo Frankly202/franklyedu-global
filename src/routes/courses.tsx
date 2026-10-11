@@ -23,6 +23,7 @@ export const Route = createFileRoute("/courses")({
     pageMeta(
       "Courses",
       "Compare English-taught programmes by level, subject and university, with duration, tuition and intake.",
+      { path: "/courses" },
     ),
   component: CoursesPage,
 });

@@ -23,6 +23,7 @@ export const Route = createFileRoute("/")({
     pageMeta(
       "Your Future. Our Global Network. | Frankedu Global",
       "We connect people to global opportunities through world-class university admissions, trusted property investments, and professional services.",
+      { path: "/" },
     ),
   component: Index,
 });

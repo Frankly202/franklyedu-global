@@ -18,6 +18,7 @@ export const Route = createFileRoute("/application")({
     pageMeta(
       "Start Your Application",
       "A guided, step-by-step application form for your chosen university and programme.",
+      { path: "/application" },
     ),
   component: ApplicationPage,
 });

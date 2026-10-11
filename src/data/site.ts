@@ -27,6 +27,9 @@ export interface NavItem {
   to: AppPath;
 }
 
+/** Canonical production origin (apex host, no trailing slash). */
+export const siteUrl = "https://franklyedu.com";
+
 export const brand = {
   name: "Frankedu Global",
   shortName: "Frankedu",

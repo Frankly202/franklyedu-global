@@ -8,6 +8,7 @@ export const Route = createFileRoute("/signup")({
     pageMeta(
       "Sign Up",
       "Create your Frankedu profile to save opportunities and begin an application.",
+      { path: "/signup", noindex: true },
     ),
   component: SignupPage,
 });

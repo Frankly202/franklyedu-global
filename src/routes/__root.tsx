@@ -19,6 +19,7 @@ import { LocaleProvider } from "@/lib/locale";
 import { useTranslations } from "@/data/translations";
 import { getLocalizedRouteMetadata } from "@/data/translations/metadata";
 import { useLocale } from "@/lib/locale";
+import { absoluteUrl } from "@/lib/seo";
 
 function NotFoundContent() {
   const { common } = useTranslations();
@@ -100,7 +101,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: brand.name },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: brand.logoImage || "/Logo.JPG" },
+      { property: "og:site_name", content: brand.name },
+      { property: "og:image", content: absoluteUrl(brand.logoImage) },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

@@ -11,6 +11,7 @@ export const Route = createFileRoute("/services")({
     pageMeta(
       "Student Services",
       "Intake planning, admissions, visa, dependent and application support — explained step by step.",
+      { path: "/services" },
     ),
   component: ServicesPage,
 });

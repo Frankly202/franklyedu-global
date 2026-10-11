@@ -11,6 +11,7 @@ export const Route = createFileRoute("/countries")({
     pageMeta(
       "Study Destinations",
       "Compare study destinations by intakes, tuition ranges and post-study opportunities.",
+      { path: "/countries" },
     ),
   component: CountriesPage,
 });

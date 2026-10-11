@@ -23,6 +23,11 @@ const routes = [
   "/real-estate/sarcon-87-renovated-villa-north-cyprus",
 ];
 
+const siteUrl = "https://franklyedu.com";
+const noindexRoutes = new Set(["/student", "/login", "/signup"]);
+const indexableRoutes = routes.filter((route) => !noindexRoutes.has(route));
+const canonicalUrl = (route) => (route === "/" ? `${siteUrl}/` : `${siteUrl}${route}`);
+
 async function getAvailablePort() {
   const server = createServer();
   await new Promise((resolve, reject) => {
@@ -84,6 +89,7 @@ async function verifyProductionArtifacts() {
   const wrangler = JSON.parse(await readFile(".output/server/wrangler.json", "utf8"));
   const headers = await readFile(".output/public/_headers", "utf8");
   const robots = await readFile(".output/public/robots.txt", "utf8");
+  const sitemap = await readFile(".output/public/sitemap.xml", "utf8");
 
   assert.equal(nitro.preset, "cloudflare-module", "Nitro must target Cloudflare Workers.");
   assert.equal(wrangler.assets?.binding, "ASSETS", "Cloudflare static asset binding is missing.");
@@ -99,6 +105,26 @@ async function verifyProductionArtifacts() {
   );
   assert.match(robots, /User-agent:\s*\*/i, "robots.txt must include a general crawler policy.");
   assert.match(robots, /Allow:\s*\/\s*$/im, "robots.txt must allow public pages.");
+  assert.match(
+    robots,
+    /^Sitemap:\s*https:\/\/franklyedu\.com\/sitemap\.xml\s*$/m,
+    "robots.txt must reference the production sitemap.",
+  );
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  assert.deepEqual(
+    [...sitemapUrls].sort(),
+    indexableRoutes.map(canonicalUrl).sort(),
+    "sitemap.xml must list exactly the indexable routes on the canonical host.",
+  );
+  for (const header of [
+    /x-content-type-options:\s*nosniff/i,
+    /x-frame-options:\s*DENY/i,
+    /referrer-policy:\s*strict-origin-when-cross-origin/i,
+    /permissions-policy:\s*camera=\(\)/i,
+    /content-security-policy:\s*frame-ancestors 'none'/i,
+  ]) {
+    assert.match(headers, header, `Security header ${header} is missing from _headers.`);
+  }
   await readFile(".output/public/favicon.ico");
   await readFile(".output/public/logo-full-transparent.png");
   await readFile(".output/public/icon-88.png");
@@ -130,7 +156,9 @@ async function verifyProductionArtifacts() {
     5,
     "All property gallery thumbnails must use the reduced-size variants.",
   );
-  console.log("✓ Cloudflare output, public assets, robots.txt, and asset cache headers");
+  console.log(
+    "✓ Cloudflare output, public assets, robots.txt, sitemap.xml, security and asset cache headers",
+  );
 }
 
 async function runSmokeTests() {
@@ -196,6 +224,34 @@ async function runSmokeTests() {
         await page.locator('meta[name="twitter:image"]').getAttribute("content"),
         `Route ${route} must have a Twitter image.`,
       );
+      assert.ok(
+        (await page.locator('meta[property="og:image"]').getAttribute("content"))?.startsWith(
+          `${siteUrl}/`,
+        ),
+        `Route ${route} must use an absolute production Open Graph image.`,
+      );
+      const canonicalLinks = page.locator('link[rel="canonical"]');
+      const robotsLocator = page.locator('meta[name="robots"]');
+      const robotsMeta = (await robotsLocator.count())
+        ? await robotsLocator.getAttribute("content")
+        : null;
+      if (noindexRoutes.has(route)) {
+        assert.equal(
+          await canonicalLinks.count(),
+          0,
+          `Route ${route} must not declare a canonical.`,
+        );
+        assert.match(robotsMeta ?? "", /noindex/, `Route ${route} must be excluded from indexing.`);
+      } else {
+        assert.equal(await canonicalLinks.count(), 1, `Route ${route} needs one canonical link.`);
+        assert.equal(await canonicalLinks.getAttribute("href"), canonicalUrl(route));
+        assert.equal(
+          await page.locator('meta[property="og:url"]').getAttribute("content"),
+          canonicalUrl(route),
+          `Route ${route} must declare its canonical Open Graph URL.`,
+        );
+        assert.equal(robotsMeta, null, `Route ${route} must remain indexable.`);
+      }
     }
     console.log(`✓ ${routes.length} public routes render with SEO metadata`);
 

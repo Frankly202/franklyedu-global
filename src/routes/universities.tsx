@@ -18,6 +18,7 @@ export const Route = createFileRoute("/universities")({
     pageMeta(
       "Universities",
       "Browse partner universities by destination and subject, with verified tuition, intake and scholarship details.",
+      { path: "/universities" },
     ),
   component: UniversitiesPage,
 });

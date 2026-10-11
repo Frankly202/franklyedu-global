@@ -6,7 +6,11 @@ import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
-    pageMeta("Contact", "Message Frankedu Global on WhatsApp or email to plan your study pathway."),
+    pageMeta(
+      "Contact",
+      "Message Frankedu Global on WhatsApp or email to plan your study pathway.",
+      { path: "/contact" },
+    ),
   component: ContactPage,
 });
 
