@@ -136,7 +136,7 @@
 
 ### Phase 6: Production Readiness
 
-- **Status**: `IN PROGRESS` (canonical-domain redirects are verified live and all repository work is validated; completion awaits deploying this work and verifying its live output)
+- **Status**: `DONE` (deployed in commit `64fd906` and verified live on `https://franklyedu.com` on 2026-10-11)
 - **Scope**:
   - Shared route metadata in [`src/lib/seo.ts`](./src/lib/seo.ts) provides page titles, descriptions, Open Graph and Twitter tags, and now a server-rendered `<link rel="canonical">` plus `og:url` on the apex host `https://franklyedu.com` (configured once as `siteUrl` in [`src/data/site.ts`](./src/data/site.ts)). Open Graph and Twitter images use absolute production URLs. Locale is not URL-based, so no `hreflang` alternates are declared.
   - The prototype `/student`, `/login`, and `/signup` pages and the unknown-property fallback emit `noindex, follow` without a canonical URL and are excluded from the sitemap.
@@ -146,13 +146,17 @@
   - Automated checks verify the Nitro Cloudflare Module preset, Workers static asset binding, emitted public assets, immutable one-year caching for hashed `/assets/*` files, security headers, the robots `Sitemap` directive, sitemap contents, and per-route canonical, `og:url`, absolute image, and `noindex` behavior.
   - The headless Playwright suite covers all 15 core routes plus the verified property-detail route, page/social metadata, primary desktop navigation, university/course filters, mobile drawer and language-dropdown keyboard behavior, EN/TR/FR/SW switching, application and contact flows in all four locales, contextual listing enquiries, contact-form validation, heading hierarchy, optimized build assets, locally loaded fonts, and uncaught page exceptions.
   - Removed the external Google Fonts stylesheet and serve the existing Outfit and DM Sans variable typefaces from the production bundle. Converted the hero and verified property photos to WebP with responsive variants; the property-detail route's initial image transfer fell from approximately 2.9 MB to 194 KB.
-  - Production Lighthouse 13.5.0 audit of the live Vercel deployment (`https://www.franklyedu.com`, commit `647dcc4`, simulated mobile profile, repeat runs after a cold-start run): homepage performance 91-96, about 91-93, contact 96, application 99, and property detail 94; desktop homepage 98. Accessibility, Best Practices, and SEO score 100 on every audited route. Local production-build runs had previously measured 82-89 mobile performance; the edge deployment meets the 90 target.
-- **Remaining before `DONE`**:
-  - Deploy this work to Vercel Production. The live deployment (commit `647dcc4`) predates it: it has no canonical or `og:url` tags, uses a relative `og:image`, returns 404 for `/sitemap.xml`, its `robots.txt` has no `Sitemap` line, and it sends no security headers other than HSTS.
-  - After deployment, verify live canonical/`og:url` tags, `sitemap.xml`, `robots.txt`, and security headers on `https://franklyedu.com` with `curl`.
-  - Owner decision (outside this repository): if the Framer reference site should no longer be public, redirect or unpublish it in Framer.
+  - Production Lighthouse 13.5.0 audit of the deployed Phase 6 build on `https://franklyedu.com` (commit `64fd906`, simulated mobile profile): homepage performance median 94 across five runs (range 82-95; low runs were total-blocking-time spikes from the local audit CPU, with LCP steady at 2.6-3.1 s), about 95, contact 97, application 97-100, and property detail 95; desktop homepage 99. Accessibility, Best Practices, and SEO score 100 on every audited route. Local production-build runs had previously measured 82-89 mobile performance.
+- **Live Verification (2026-10-11)**:
+  - `https://franklyedu.com` serves production (200). `https://www.franklyedu.com/*` and `https://franklyedu-global.vercel.app/*` 308-redirect to the same path on the apex in one hop; `http://franklyedu.com` 308-redirects to HTTPS, and `http://www.franklyedu.com` reaches the apex in two 308 hops.
+  - All 13 sitemap URLs return 200 with a self-referencing canonical link and matching `og:url`; every page uses an absolute `og:image`; `/login`, `/signup`, and `/student` serve `noindex, follow` with no canonical.
+  - `robots.txt` includes `Sitemap: https://franklyedu.com/sitemap.xml`; `sitemap.xml` returns 200 as `application/xml`.
+  - SSR pages and static assets send HSTS, CSP `frame-ancestors`/`base-uri`/`object-src`/`form-action`, `Permissions-Policy`, `Referrer-Policy`, `X-Content-Type-Options`, and `X-Frame-Options`; hashed assets keep immutable one-year caching.
+  - The full headless smoke suite passes against the live domain (`BASE_URL=https://franklyedu.com bun run test:smoke`) with zero browser errors.
+- **Owner Follow-up (outside this repository, not a Phase 6 criterion)**:
+  - The Framer reference site `https://franklyedu.framer.website` still returns 200; redirect or unpublish it in Framer if it should no longer be public.
 - **Expected Outcome**:
-  - Production metadata, canonical URLs, sitemap, robots directives, security headers, Lighthouse audits, accessibility fixes, performance optimizations, and regression coverage are in place for `https://franklyedu.com`; the phase closes once the apex redirect and deployed output are verified live.
+  - Production metadata, canonical URLs, sitemap, robots directives, security headers, Lighthouse audits, accessibility fixes, performance optimizations, and regression coverage are in place and verified live on `https://franklyedu.com`.
 - **Validation Gate**:
   - `bun run format`
   - `bun run lint`
