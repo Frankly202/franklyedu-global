@@ -13,7 +13,15 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
 
   return (
     <nav
-      aria-label="Breadcrumb"
+      aria-label={
+        common.breadcrumbs.home === "Ana Sayfa"
+          ? "İçerik yolu"
+          : common.breadcrumbs.home === "Accueil"
+            ? "Fil d’Ariane"
+            : common.breadcrumbs.home === "Nyumbani"
+              ? "Njia ya ukurasa"
+              : "Breadcrumb"
+      }
       className="mb-4 flex items-center gap-1.5 text-xs text-navy-muted sm:text-[13px]"
     >
       <Link

@@ -5,6 +5,7 @@ import { educationTranslations, type EducationTranslation } from "./education";
 import { marketplaceTranslations, type MarketplaceTranslation } from "./marketplace";
 import { portalTranslations, type PortalTranslation } from "./portal";
 import { companyTranslations, type CompanyTranslation } from "./company";
+import { localizeTree } from "./localize";
 
 export interface Translations {
   common: CommonTranslation;
@@ -31,6 +32,22 @@ export const translations: Record<Locale, Translations> = {
     marketplace: marketplaceTranslations.tr,
     portal: portalTranslations.tr,
     company: companyTranslations.tr,
+  },
+  fr: {
+    common: localizeTree("fr", commonTranslations.en),
+    home: localizeTree("fr", homeTranslations.en),
+    education: localizeTree("fr", educationTranslations.en),
+    marketplace: localizeTree("fr", marketplaceTranslations.en),
+    portal: localizeTree("fr", portalTranslations.en),
+    company: localizeTree("fr", companyTranslations.en),
+  },
+  sw: {
+    common: localizeTree("sw", commonTranslations.en),
+    home: localizeTree("sw", homeTranslations.en),
+    education: localizeTree("sw", educationTranslations.en),
+    marketplace: localizeTree("sw", marketplaceTranslations.en),
+    portal: localizeTree("sw", portalTranslations.en),
+    company: localizeTree("sw", companyTranslations.en),
   },
 };
 

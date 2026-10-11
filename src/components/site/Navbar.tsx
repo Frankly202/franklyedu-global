@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, Menu, X, ArrowRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ChevronDown, MessageCircle, Menu, X } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
 import { authNav, brand, contact, whatsappLink } from "@/data/site";
 import { useLocale } from "@/lib/locale";
 import { useTranslations } from "@/data/translations";
@@ -8,44 +8,122 @@ import { cn } from "@/lib/utils";
 
 export function LanguageSelector({ className }: { className?: string }) {
   const { locale, setLocale } = useLocale();
+  const [expanded, setExpanded] = useState(false);
+  const id = useId();
+  const selectorRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const languageButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const languages = [
+    { locale: "en", label: "EN", name: "English" },
+    { locale: "tr", label: "TR", name: "Türkçe" },
+    { locale: "fr", label: "FR", name: "Français" },
+    { locale: "sw", label: "SW", name: "Kiswahili" },
+  ] as const;
+  const selectedLanguage = languages.find((language) => language.locale === locale)!;
+  const selectorLabels = {
+    en: { trigger: `Select language, current: ${selectedLanguage.name}`, group: "Languages" },
+    tr: { trigger: `Dil seçin, mevcut: ${selectedLanguage.name}`, group: "Diller" },
+    fr: {
+      trigger: `Choisir la langue, langue actuelle : ${selectedLanguage.name}`,
+      group: "Langues",
+    },
+    sw: {
+      trigger: `Chagua lugha, lugha ya sasa: ${selectedLanguage.name}`,
+      group: "Lugha",
+    },
+  }[locale];
+
+  useEffect(() => {
+    if (!expanded) return;
+
+    const closeOnOutsidePointer = (event: PointerEvent) => {
+      if (!selectorRef.current?.contains(event.target as Node)) setExpanded(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setExpanded(false);
+        triggerRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePointer);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePointer);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [expanded]);
+
+  const openAndFocus = (index: number) => {
+    setExpanded(true);
+    requestAnimationFrame(() => languageButtonRefs.current[index]?.focus());
+  };
 
   return (
-    <div
-      className={cn(
-        "inline-flex items-center rounded-full border border-white/20 bg-white/10 p-0.5 text-xs font-semibold backdrop-blur-xs",
-        className,
+    <div className={cn("relative", className)} ref={selectorRef}>
+      <button
+        ref={triggerRef}
+        type="button"
+        className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 text-xs font-semibold text-white backdrop-blur-xs transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        aria-label={selectorLabels.trigger}
+        aria-expanded={expanded}
+        aria-controls={`${id}-options`}
+        onClick={() => setExpanded((open) => !open)}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            event.preventDefault();
+            openAndFocus(event.key === "ArrowDown" ? 0 : languages.length - 1);
+          }
+        }}
+      >
+        <span>{selectedLanguage.label}</span>
+        <ChevronDown
+          aria-hidden="true"
+          className={cn("h-3.5 w-3.5 transition-transform", expanded && "rotate-180")}
+        />
+      </button>
+      {expanded && (
+        <div
+          id={`${id}-options`}
+          role="group"
+          aria-label={selectorLabels.group}
+          className="absolute right-0 top-full z-[70] mt-2 grid w-max min-w-36 max-w-[calc(100vw-1rem)] gap-1 rounded-xl border border-white/15 bg-navy p-1.5 text-sm shadow-xl"
+        >
+          {languages.map(({ locale: target, name }, index) => (
+            <button
+              key={target}
+              ref={(element) => {
+                languageButtonRefs.current[index] = element;
+              }}
+              type="button"
+              onClick={() => {
+                setLocale(target);
+                setExpanded(false);
+                triggerRef.current?.focus();
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                  event.preventDefault();
+                  const direction = event.key === "ArrowDown" ? 1 : -1;
+                  const nextIndex = (index + direction + languages.length) % languages.length;
+                  languageButtonRefs.current[nextIndex]?.focus();
+                } else if (event.key === "Home" || event.key === "End") {
+                  event.preventDefault();
+                  const nextIndex = event.key === "Home" ? 0 : languages.length - 1;
+                  languageButtonRefs.current[nextIndex]?.focus();
+                }
+              }}
+              className={cn(
+                "flex min-h-11 items-center rounded-lg px-3 text-left text-white transition-colors hover:bg-white/10 focus-visible:bg-white/10 focus-visible:outline-none",
+                locale === target && "bg-white/15 font-semibold",
+              )}
+              aria-current={locale === target ? "true" : undefined}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
       )}
-      role="group"
-      aria-label={locale === "tr" ? "Dil seçici" : "Language selector"}
-    >
-      <button
-        type="button"
-        onClick={() => setLocale("en")}
-        className={cn(
-          "min-h-11 min-w-11 rounded-full px-2.5 py-1 text-xs transition-all",
-          locale === "en"
-            ? "bg-white text-navy font-bold shadow-xs"
-            : "text-white/75 hover:text-white",
-        )}
-        aria-label="Switch to English"
-        aria-pressed={locale === "en"}
-      >
-        EN
-      </button>
-      <button
-        type="button"
-        onClick={() => setLocale("tr")}
-        className={cn(
-          "min-h-11 min-w-11 rounded-full px-2.5 py-1 text-xs transition-all",
-          locale === "tr"
-            ? "bg-white text-navy font-bold shadow-xs"
-            : "text-white/75 hover:text-white",
-        )}
-        aria-label="Türkçe diline geç"
-        aria-pressed={locale === "tr"}
-      >
-        TR
-      </button>
     </div>
   );
 }
@@ -180,7 +258,7 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 relative overflow-hidden border-b border-white/15 bg-navy/95 text-white backdrop-blur supports-[backdrop-filter]:bg-navy/90">
+    <header className="sticky top-0 z-50 relative border-b border-white/15 bg-navy/95 text-white backdrop-blur supports-[backdrop-filter]:bg-navy/90">
       {/* Visible Full Logo Artwork Background Watermark — clean transparent artwork, zero checkerboard */}
       <div
         aria-hidden="true"
@@ -255,14 +333,6 @@ export function Navbar() {
           </div>
 
           <div className="container-site relative z-10 py-5">
-            {/* Language Switcher in Mobile Drawer */}
-            <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
-              <span className="text-xs font-semibold text-white/80">
-                {common.mobileDrawer.languageTitle}
-              </span>
-              <LanguageSelector />
-            </div>
-
             {/* Primary Action Buttons in Mobile Drawer */}
             <div className="grid gap-2.5 sm:grid-cols-2">
               <Link

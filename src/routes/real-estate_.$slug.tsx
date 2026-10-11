@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { getPropertyBySlug } from "@/data/content";
 import { whatsappLink, contact } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
@@ -33,9 +34,10 @@ export const Route = createFileRoute("/real-estate_/$slug")({
 });
 
 function PropertyDetailPage() {
-  const { common, marketplace } = useTranslations();
+  const { common, marketplace, locale } = useTranslations();
   const { slug } = Route.useParams();
-  const property = getPropertyBySlug(slug);
+  const sourceProperty = getPropertyBySlug(slug);
+  const property = sourceProperty ? localizeTree(locale, sourceProperty) : undefined;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -399,7 +401,15 @@ function PropertyDetailPage() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Photo Gallery Lightbox"
+          aria-label={
+            locale === "fr"
+              ? "Galerie photo"
+              : locale === "sw"
+                ? "Matunzio ya picha"
+                : locale === "tr"
+                  ? "Fotoğraf galerisi"
+                  : "Photo Gallery Lightbox"
+          }
           className="fixed inset-0 z-50 flex items-center justify-center bg-navy-deep/95 p-4 backdrop-blur-md"
         >
           {/* Close button */}

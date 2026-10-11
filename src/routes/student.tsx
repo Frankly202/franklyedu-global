@@ -4,6 +4,7 @@ import { Section } from "@/components/site/Section";
 import { mockStudent, universities } from "@/data/content";
 import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/student")({
@@ -16,9 +17,11 @@ export const Route = createFileRoute("/student")({
 });
 
 function StudentPage() {
-  const { portal } = useTranslations();
-  const s = mockStudent;
-  const saved = universities.filter((u) => s.savedUniversities.includes(u.slug));
+  const { portal, locale } = useTranslations();
+  const s = localizeTree(locale, mockStudent);
+  const saved = localizeTree(locale, universities).filter((u) =>
+    s.savedUniversities.includes(u.slug),
+  );
   const doneCount = s.checklist.filter((c) => c.done).length;
 
   return (
@@ -122,7 +125,10 @@ function StudentPage() {
               </p>
               <a
                 href={whatsappLink(
-                  `Hi, I need help with my application ${s.applications[0]?.id ?? ""}.`,
+                  localizeText(
+                    locale,
+                    `Hi, I need help with my application ${s.applications[0]?.id ?? ""}.`,
+                  ),
                 )}
                 target="_blank"
                 rel="noreferrer"

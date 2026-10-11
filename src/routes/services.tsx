@@ -3,6 +3,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { supportServices } from "@/data/content";
 import { useTranslations } from "@/data/translations";
+import { localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/services")({
@@ -15,7 +16,8 @@ export const Route = createFileRoute("/services")({
 });
 
 function ServicesPage() {
-  const { common, education } = useTranslations();
+  const { common, education, locale } = useTranslations();
+  const localizedServices = localizeTree(locale, supportServices);
 
   return (
     <>
@@ -31,7 +33,7 @@ function ServicesPage() {
       </PageHero>
       <Section>
         <div className="grid gap-4 md:grid-cols-2">
-          {supportServices.map((s, i) => (
+          {localizedServices.map((s, i) => (
             <article key={s.slug} id={s.slug} className="card-light scroll-mt-24 p-6">
               <span className="inline-block rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-white">
                 {education.services.stepPrefix} {String(i + 1).padStart(2, "0")}

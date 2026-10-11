@@ -4,6 +4,7 @@ import { UniversityCard } from "@/components/site/ListingCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { destinations, subjects, universities } from "@/data/content";
 import { useTranslations } from "@/data/translations";
+import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 type Search = { country?: string | undefined; subject?: string | undefined };
@@ -22,7 +23,9 @@ export const Route = createFileRoute("/universities")({
 });
 
 function UniversitiesPage() {
-  const { common, education } = useTranslations();
+  const { common, education, locale } = useTranslations();
+  const localizedDestinations = localizeTree(locale, destinations);
+  const localizedUniversities = localizeTree(locale, universities);
   const { country, subject } = Route.useSearch();
   const navigate = Route.useNavigate();
 
@@ -52,7 +55,7 @@ function UniversitiesPage() {
               }
             >
               <option value="">{education.universities.allDestinations}</option>
-              {destinations.map((d) => (
+              {localizedDestinations.map((d) => (
                 <option key={d.slug} value={d.slug}>
                   {d.name}
                 </option>
@@ -73,7 +76,7 @@ function UniversitiesPage() {
               <option value="">{education.universities.allSubjects}</option>
               {subjects.map((s) => (
                 <option key={s} value={s}>
-                  {s}
+                  {localizeText(locale, s)}
                 </option>
               ))}
             </select>

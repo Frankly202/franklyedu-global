@@ -45,6 +45,21 @@ async function gotoReady(page, url) {
   return response;
 }
 
+async function selectLanguage(page, languageName, expectedLocale) {
+  const trigger = page.getByRole("button", {
+    name: /Select language|Dil seçin|Choisir la langue|Chagua lugha/,
+  });
+  await trigger.click();
+  const options = page.getByRole("group", { name: /Languages|Diller|Langues|Lugha/ });
+  for (const name of ["English", "Türkçe", "Français", "Kiswahili"]) {
+    await options.getByRole("button", { name, exact: true }).waitFor();
+  }
+  await options.getByRole("button", { name: languageName, exact: true }).click();
+  await page.waitForFunction((locale) => document.documentElement.lang === locale, expectedLocale);
+  assert.equal(await page.evaluate(() => localStorage.getItem("frankedu_locale")), expectedLocale);
+  assert.equal(await trigger.getAttribute("aria-expanded"), "false");
+}
+
 async function startDevServer() {
   const port = await getAvailablePort();
   const server = await createViteServer({
@@ -184,6 +199,102 @@ async function runSmokeTests() {
     }
     console.log(`✓ ${routes.length} public routes render with SEO metadata`);
 
+    console.log("Checking all routes in each supported locale...");
+    const englishMetadata = new Map();
+    for (const route of routes) {
+      await gotoReady(page, `${baseUrl}${route}`);
+      englishMetadata.set(route, {
+        title: await page.title(),
+        description: await page.locator('meta[name="description"]').getAttribute("content"),
+      });
+    }
+    for (const [locale, languageName] of [
+      ["tr", "Türkçe"],
+      ["fr", "Français"],
+      ["sw", "Kiswahili"],
+    ]) {
+      await gotoReady(page, `${baseUrl}/`);
+      await selectLanguage(page, languageName, locale);
+      for (const route of routes) {
+        const response = await gotoReady(page, `${baseUrl}${route}`);
+        assert.ok(response && response.status() < 400, `${locale} route ${route} failed.`);
+        assert.equal(
+          await page.locator("html").getAttribute("lang"),
+          locale,
+          `${route} must expose the selected document language.`,
+        );
+        assert.ok(await page.title(), `${locale} route ${route} must have a title.`);
+        assert.ok(
+          await page.locator('meta[name="description"]').getAttribute("content"),
+          `${locale} route ${route} must have a description.`,
+        );
+        const localizedTitle = await page.title();
+        const localizedDescription = await page
+          .locator('meta[name="description"]')
+          .getAttribute("content");
+        const english = englishMetadata.get(route);
+        assert.ok(
+          localizedTitle !== english.title || localizedDescription !== english.description,
+          `${locale} metadata for ${route} should be localized.`,
+        );
+      }
+    }
+    await gotoReady(page, `${baseUrl}/`);
+    await selectLanguage(page, "English", "en");
+    console.log(`✓ ${routes.length} routes expose localized metadata in EN/TR/FR/SW`);
+
+    console.log("Checking language dropdown keyboard and outside-click behavior...");
+    const languageTrigger = page.getByRole("button", {
+      name: /Select language|Dil seçin|Choisir la langue|Chagua lugha/,
+    });
+    await languageTrigger.focus();
+    await page.keyboard.press("ArrowDown");
+    const languageOptions = page.getByRole("group", { name: "Languages" });
+    const desktopOptionsBounds = await languageOptions.boundingBox();
+    const desktopViewport = page.viewportSize();
+    assert.ok(desktopOptionsBounds && desktopViewport);
+    assert.ok(
+      desktopOptionsBounds.x >= 0 &&
+        desktopOptionsBounds.x + desktopOptionsBounds.width <= desktopViewport.width,
+      "Language dropdown should remain within the desktop viewport.",
+    );
+    const englishOption = languageOptions.getByRole("button", { name: "English", exact: true });
+    await englishOption.waitFor();
+    await page.waitForFunction(() => document.activeElement?.textContent?.trim() === "English");
+    assert.equal(
+      await englishOption.evaluate((element) => element === document.activeElement),
+      true,
+      "ArrowDown from the language trigger should focus the first language.",
+    );
+    await page.keyboard.press("ArrowDown");
+    const turkishOption = languageOptions.getByRole("button", { name: "Türkçe", exact: true });
+    assert.equal(
+      await turkishOption.evaluate((element) => element === document.activeElement),
+      true,
+      "ArrowDown should move focus to the next language.",
+    );
+    await page.keyboard.press("Home");
+    assert.equal(
+      await englishOption.evaluate((element) => element === document.activeElement),
+      true,
+      "Home should focus the first language.",
+    );
+    await page.keyboard.press("Escape");
+    assert.equal(await languageTrigger.getAttribute("aria-expanded"), "false");
+    assert.equal(
+      await languageTrigger.evaluate((element) => element === document.activeElement),
+      true,
+      "Escape should return focus to the language trigger.",
+    );
+    await languageTrigger.click();
+    await page.mouse.click(5, 800);
+    assert.equal(
+      await languageTrigger.getAttribute("aria-expanded"),
+      "false",
+      "An outside click should close the language dropdown.",
+    );
+    console.log("✓ Language dropdown is keyboard accessible and closes on Escape/outside click");
+
     console.log("Checking page heading hierarchy on listing pages...");
     for (const [route, heading] of [
       ["/universities", "Final International University (FIU)"],
@@ -251,8 +362,30 @@ async function runSmokeTests() {
     console.log("✓ Primary desktop navigation, homepage search, and directory filters");
 
     console.log("Checking mobile navigation, localization, and application handoff...");
-    await page.setViewportSize({ width: 390, height: 844 });
+    await page.setViewportSize({ width: 320, height: 844 });
     await gotoReady(page, `${baseUrl}/`);
+    const mobileLanguageTrigger = page.getByRole("button", {
+      name: /Select language|Dil seçin|Choisir la langue|Chagua lugha/,
+    });
+    await mobileLanguageTrigger.click();
+    const mobileLanguageOptions = page.getByRole("group", { name: "Languages" });
+    const mobileOptionsBounds = await mobileLanguageOptions.boundingBox();
+    const menuButtonBounds = await page.getByRole("button", { name: "Open menu" }).boundingBox();
+    assert.ok(mobileOptionsBounds && menuButtonBounds);
+    const fitsSmallViewport =
+      mobileOptionsBounds.x >= 0 &&
+      mobileOptionsBounds.x + mobileOptionsBounds.width <= 320 &&
+      mobileOptionsBounds.y >= 0 &&
+      mobileOptionsBounds.y + mobileOptionsBounds.height <= 844;
+    const overlapsHamburger =
+      mobileOptionsBounds.x < menuButtonBounds.x + menuButtonBounds.width &&
+      mobileOptionsBounds.x + mobileOptionsBounds.width > menuButtonBounds.x &&
+      mobileOptionsBounds.y < menuButtonBounds.y + menuButtonBounds.height &&
+      mobileOptionsBounds.y + mobileOptionsBounds.height > menuButtonBounds.y;
+    assert.ok(fitsSmallViewport, "Language dropdown should remain within a 320px viewport.");
+    assert.equal(overlapsHamburger, false, "Language dropdown should not cover the menu button.");
+    await page.mouse.click(5, 800);
+    await page.setViewportSize({ width: 390, height: 844 });
     const menuButton = page.getByRole("button", { name: "Open menu" });
     await menuButton.click();
     const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
@@ -262,57 +395,77 @@ async function runSmokeTests() {
     assert.equal(await menuButton.getAttribute("aria-expanded"), "false");
     assert.equal(await menuButton.evaluate((element) => element === document.activeElement), true);
 
-    await page.getByRole("button", { name: "Türkçe diline geç" }).click();
-    await page.getByRole("heading", { name: /Geleceğiniz\./ }).waitFor();
-    assert.equal(await page.locator("html").getAttribute("lang"), "tr");
-    await page.getByRole("button", { name: "Switch to English" }).click();
+    await selectLanguage(page, "Türkçe", "tr");
+    await selectLanguage(page, "Français", "fr");
+    await selectLanguage(page, "Kiswahili", "sw");
+    await selectLanguage(page, "English", "en");
     await page.getByRole("heading", { name: /Your Future\./ }).waitFor();
     assert.equal(await page.locator("html").getAttribute("lang"), "en");
 
-    await gotoReady(page, `${baseUrl}/application`);
-    await page.getByPlaceholder("Full name").fill("Smoke Test Applicant");
-    await page.getByPlaceholder("Email address").fill("smoke@example.com");
-    await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByLabel("Study destination").selectOption("cyprus");
-    await page.getByLabel("University (optional)").selectOption("final-international-university");
-    await page.getByLabel("Preferred intake").selectOption("January 2027");
-    await page.getByRole("button", { name: "Continue" }).click();
-    assert.equal(await page.locator('input[type="file"]').count(), 0);
-    await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByText(/Documents are not uploaded or sent/).waitFor();
+    for (const [locale, languageName] of [
+      ["en", "English"],
+      ["tr", "Türkçe"],
+      ["fr", "Français"],
+      ["sw", "Kiswahili"],
+    ]) {
+      await gotoReady(page, `${baseUrl}/`);
+      await selectLanguage(page, languageName, locale);
+      await gotoReady(page, `${baseUrl}/application`);
+      const applicationForm = page.locator("form");
+      await applicationForm.locator("input").nth(0).fill("Smoke Test Applicant");
+      await applicationForm.locator('input[type="email"]').fill("smoke@example.com");
+      const submitButton = applicationForm.locator('button[type="submit"]');
+      await submitButton.click();
+      await applicationForm.locator("select").nth(0).selectOption("cyprus");
+      await applicationForm.locator("select").nth(1).selectOption("final-international-university");
+      await applicationForm.locator("select").nth(3).selectOption("January 2027");
+      await submitButton.click();
+      assert.equal(await page.locator('input[type="file"]').count(), 0);
+      const documentsHeading = await applicationForm.locator("h2").innerText();
+      await submitButton.click();
+      await page.waitForFunction(
+        (previousHeading) => document.querySelector("form h2")?.innerText !== previousHeading,
+        documentsHeading,
+      );
 
-    let whatsappUrl;
-    await page.route("https://wa.me/**", async (route) => {
-      whatsappUrl = route.request().url();
-      await route.fulfill({ status: 200, contentType: "text/html", body: "handoff intercepted" });
-    });
-    await page.getByRole("button", { name: "Continue to WhatsApp" }).click();
-    await page.waitForURL("https://wa.me/**");
-    const whatsappMessage = new URL(whatsappUrl).searchParams.get("text");
-    assert.match(whatsappMessage, /Smoke Test Applicant/);
-    assert.match(whatsappMessage, /Final International University/);
-    assert.match(whatsappMessage, /January 2027/);
-    console.log(
-      "✓ Mobile drawer keyboard behavior, EN/TR switching, and structured application handoff",
-    );
+      let whatsappUrl;
+      await page.route("https://wa.me/**", async (route) => {
+        whatsappUrl = route.request().url();
+        await route.fulfill({ status: 200, contentType: "text/html", body: "handoff intercepted" });
+      });
+      await submitButton.click();
+      await page.waitForURL("https://wa.me/**");
+      const whatsappMessage = new URL(whatsappUrl).searchParams.get("text");
+      assert.match(whatsappMessage, /Smoke Test Applicant/);
+      assert.match(whatsappMessage, /Final International University/);
+      const localizedJanuary = {
+        en: "January 2027",
+        tr: "Ocak 2027",
+        fr: "Janvier 2027",
+        sw: "Januari 2027",
+      }[locale];
+      assert.ok(whatsappMessage.includes(localizedJanuary));
+      await page.unroute("https://wa.me/**");
+
+      await gotoReady(page, `${baseUrl}/contact`);
+      const contactForm = page.locator("form").last();
+      assert.equal(await contactForm.evaluate((form) => form.checkValidity()), false);
+      await contactForm.locator('[name="fullName"]').fill("Smoke Test");
+      await contactForm.locator('[name="email"]').fill("smoke@example.com");
+      await contactForm.locator('[name="message"]').fill("Smoke test inquiry");
+      assert.equal(await contactForm.evaluate((form) => form.checkValidity()), true);
+      assert.ok(await page.locator('a[href^="mailto:"]').count());
+    }
+    console.log("✓ Mobile drawer keyboard behavior and application/contact flows in EN/TR/FR/SW");
+
+    await gotoReady(page, `${baseUrl}/`);
+    await selectLanguage(page, "English", "en");
 
     console.log("Checking contextual listing CTAs and contact form validation...");
     await gotoReady(page, `${baseUrl}/accommodation`);
     const reserveLink = page.getByRole("link", { name: "Reserve" }).first();
     assert.match(await reserveLink.getAttribute("href"), /^https:\/\/wa\.me\/.*campus/i);
 
-    await gotoReady(page, `${baseUrl}/contact`);
-    const contactForm = page.locator("form").last();
-    assert.equal(
-      await contactForm.evaluate((form) => form.checkValidity()),
-      false,
-      "Contact form should require the visitor's name, email, and message.",
-    );
-    await contactForm.locator('[name="fullName"]').fill("Smoke Test");
-    await contactForm.locator('[name="email"]').fill("smoke@example.com");
-    await contactForm.locator('[name="message"]').fill("Smoke test inquiry");
-    assert.equal(await contactForm.evaluate((form) => form.checkValidity()), true);
-    assert.ok(await page.locator('a[href^="mailto:"]').count());
     console.log("✓ Listing-specific WhatsApp enquiry and contact email fallback");
 
     assert.deepEqual(

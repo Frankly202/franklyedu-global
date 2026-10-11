@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type Locale = "en" | "tr";
+export type Locale = "en" | "tr" | "fr" | "sw";
 
 interface LocaleContextType {
   locale: Locale;
@@ -22,7 +22,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
-      if (saved === "en" || saved === "tr") {
+      if (saved === "en" || saved === "tr" || saved === "fr" || saved === "sw") {
         setLocaleState(saved);
       }
     } catch {
@@ -46,7 +46,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleLocale = () => {
-    const next = locale === "en" ? "tr" : "en";
+    const order: Locale[] = ["en", "tr", "fr", "sw"];
+    const next = order[(order.indexOf(locale) + 1) % order.length]!;
     setLocale(next);
   };
 

@@ -6,6 +6,7 @@ import { destinations, realEstateListings, subjects, universities } from "@/data
 import { images, whatsappLink } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 import { useTranslations } from "@/data/translations";
+import { localizeText, localizeTree } from "@/data/translations/localize";
 import {
   GraduationCap,
   Building2,
@@ -29,6 +30,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   const navigate = useNavigate();
   const { locale, home: t } = useTranslations();
+  const localizedDestinations = localizeTree(locale, destinations);
+  const localizedUniversities = localizeTree(locale, universities);
+  const localizedProperties = localizeTree(locale, realEstateListings);
 
   const [country, setCountry] = useState("");
   const [subject, setSubject] = useState("");
@@ -112,7 +116,7 @@ function Index() {
                     className="field py-2.5 text-sm font-medium"
                   >
                     <option value="">{t.hero.search.destinationPlaceholder}</option>
-                    {destinations.map((d) => (
+                    {localizedDestinations.map((d) => (
                       <option key={d.slug} value={d.slug}>
                         {d.name}
                       </option>
@@ -131,7 +135,7 @@ function Index() {
                     <option value="">{t.hero.search.subjectPlaceholder}</option>
                     {subjects.map((s) => (
                       <option key={s} value={s}>
-                        {s}
+                        {localizeText(locale, s)}
                       </option>
                     ))}
                   </select>
@@ -341,7 +345,7 @@ function Index() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {destinations.slice(0, 6).map((d) => (
+          {localizedDestinations.slice(0, 6).map((d) => (
             <Link
               key={d.slug}
               to="/universities"
@@ -359,7 +363,7 @@ function Index() {
                 {d.blurb}
               </p>
               <div className="mt-auto flex items-center gap-1 pt-4 text-xs font-semibold text-navy group-hover:text-sky">
-                <span>{locale === "tr" ? "Programları İncele" : "Explore Programmes"}</span>
+                <span>{localizeText(locale, "Explore Programmes")}</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform motion-safe:group-hover:translate-x-1" />
               </div>
             </Link>
@@ -387,7 +391,7 @@ function Index() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {universities.map((u) => (
+          {localizedUniversities.map((u) => (
             <UniversityCard key={u.slug} u={u} />
           ))}
         </div>
@@ -413,7 +417,7 @@ function Index() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {realEstateListings.slice(0, 2).map((l) => (
+          {localizedProperties.slice(0, 2).map((l) => (
             <ListingCard key={l.slug} l={l} />
           ))}
         </div>

@@ -3,6 +3,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { destinations } from "@/data/content";
 import { useTranslations } from "@/data/translations";
+import { localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/countries")({
@@ -15,7 +16,8 @@ export const Route = createFileRoute("/countries")({
 });
 
 function CountriesPage() {
-  const { common, education } = useTranslations();
+  const { common, education, locale } = useTranslations();
+  const localizedDestinations = localizeTree(locale, destinations);
 
   return (
     <>
@@ -27,7 +29,7 @@ function CountriesPage() {
       />
       <Section>
         <div className="grid gap-5 md:grid-cols-2">
-          {destinations.map((d) => (
+          {localizedDestinations.map((d) => (
             <article key={d.slug} id={d.slug} className="card-navy p-6">
               <p className="eyebrow text-sky-contrast">{d.region}</p>
               <h2 className="mt-2 text-2xl font-bold">{d.name}</h2>

@@ -4,6 +4,7 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { aboutContent } from "@/data/content";
 import { brand, whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 import leadershipPhoto from "@/assets/background-photo.webp";
 import { Calendar, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
@@ -18,7 +19,8 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
-  const { common, company } = useTranslations();
+  const { common, company, locale } = useTranslations();
+  const content = localizeTree(locale, aboutContent);
 
   return (
     <>
@@ -26,7 +28,7 @@ function AboutPage() {
         breadcrumbs={[{ label: common.nav.about }]}
         eyebrow={`${company.about.eyebrow} ${brand.shortName}`}
         title={company.about.title}
-        subtitle={aboutContent.mission}
+        subtitle={content.mission}
       >
         <Link to="/contact" className="btn btn-light">
           {company.about.getInTouch}
@@ -72,7 +74,7 @@ function AboutPage() {
             </div>
 
             <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {aboutContent.mission}
+              {content.mission}
             </p>
 
             <p className="text-base leading-relaxed text-muted-foreground">
@@ -87,7 +89,7 @@ function AboutPage() {
                     {company.about.establishedLabel}
                   </span>
                 </div>
-                <p className="mt-1 text-sm font-semibold text-navy">{aboutContent.founded}</p>
+                <p className="mt-1 text-sm font-semibold text-navy">{content.founded}</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {company.about.establishedDesc}
                 </p>
@@ -100,7 +102,7 @@ function AboutPage() {
                     {company.about.hqLabel}
                   </span>
                 </div>
-                <p className="mt-1 text-sm font-semibold text-navy">{aboutContent.office}</p>
+                <p className="mt-1 text-sm font-semibold text-navy">{content.office}</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">{company.about.hqDesc}</p>
               </div>
             </div>
@@ -108,7 +110,10 @@ function AboutPage() {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href={whatsappLink(
-                  "Hello Frankedu Global, I'd like to learn more about your services.",
+                  localizeText(
+                    locale,
+                    "Hello Frankedu Global, I'd like to learn more about your services.",
+                  ),
                 )}
                 target="_blank"
                 rel="noreferrer"
@@ -127,7 +132,7 @@ function AboutPage() {
 
       <Section tone="dark">
         <div className="grid gap-4 sm:grid-cols-3">
-          {aboutContent.stats.map((s) => (
+          {content.stats.map((s) => (
             <div key={s.label} className="card-navy p-6 text-center">
               <p className="font-display text-3xl font-bold">{s.value}</p>
               <p className="mt-1 text-sm text-navy-muted">{s.label}</p>
@@ -142,7 +147,7 @@ function AboutPage() {
           title={company.about.howWeWorkTitle}
         />
         <div className="grid gap-4 md:grid-cols-3">
-          {aboutContent.values.map((v) => (
+          {content.values.map((v) => (
             <div key={v.title} className="card-light p-6">
               <h3 className="text-lg font-semibold text-navy">{v.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.text}</p>
@@ -151,11 +156,11 @@ function AboutPage() {
         </div>
       </Section>
 
-      {aboutContent.team.length > 0 && (
+      {content.team.length > 0 && (
         <Section>
           <SectionHeading eyebrow={company.about.teamEyebrow} title={company.about.teamTitle} />
           <div className="grid gap-4 sm:grid-cols-3">
-            {aboutContent.team.map((t) => (
+            {content.team.map((t) => (
               <div key={t.name} className="card-light flex items-center gap-4 p-5 sm:p-6">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-navy font-display text-lg font-bold text-navy-foreground">
                   {t.name.charAt(0)}

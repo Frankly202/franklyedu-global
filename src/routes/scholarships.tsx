@@ -4,6 +4,7 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { scholarships } from "@/data/content";
 import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/scholarships")({
@@ -16,7 +17,8 @@ export const Route = createFileRoute("/scholarships")({
 });
 
 function ScholarshipsPage() {
-  const { common, education } = useTranslations();
+  const { common, education, locale } = useTranslations();
+  const localizedScholarships = localizeTree(locale, scholarships);
 
   return (
     <>
@@ -28,7 +30,7 @@ function ScholarshipsPage() {
       />
       <Section>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {scholarships.map((s) => (
+          {localizedScholarships.map((s) => (
             <article key={s.slug} className="card-light flex flex-col p-5 sm:p-6">
               <p className="eyebrow text-[0.7rem] text-sky">{s.country}</p>
               <h2 className="mt-2 text-xl font-semibold leading-snug">{s.name}</h2>
@@ -53,7 +55,9 @@ function ScholarshipsPage() {
                   {education.scholarships.applySupport}
                 </Link>
                 <a
-                  href={whatsappLink(`Hi, I'd like to know if I'm eligible for ${s.name}.`)}
+                  href={whatsappLink(
+                    localizeText(locale, `Hi, I'd like to know if I'm eligible for ${s.name}.`),
+                  )}
                   target="_blank"
                   rel="noreferrer"
                   className="btn btn-outline-dark btn-sm"

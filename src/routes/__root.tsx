@@ -6,9 +6,10 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useRouterState,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { Navbar } from "@/components/site/Navbar";
@@ -16,6 +17,8 @@ import { Footer } from "@/components/site/Footer";
 import { brand } from "@/data/site";
 import { LocaleProvider } from "@/lib/locale";
 import { useTranslations } from "@/data/translations";
+import { getLocalizedRouteMetadata } from "@/data/translations/metadata";
+import { useLocale } from "@/lib/locale";
 
 function NotFoundContent() {
   const { common } = useTranslations();
@@ -129,10 +132,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
       <LocaleProvider>
+        <LocalizedMetadata pathname={pathname} />
         <div className="flex min-h-screen flex-col">
           <Navbar />
           <main className="flex-1">
@@ -144,4 +149,26 @@ function RootComponent() {
       </LocaleProvider>
     </QueryClientProvider>
   );
+}
+
+function LocalizedMetadata({ pathname }: { pathname: string }) {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    const metadata = getLocalizedRouteMetadata(locale, pathname);
+    document.title = metadata.title;
+    const tags: Array<[string, string]> = [
+      ['meta[name="description"]', metadata.description],
+      ['meta[property="og:title"]', metadata.title],
+      ['meta[property="og:description"]', metadata.description],
+      ['meta[name="twitter:title"]', metadata.title],
+      ['meta[name="twitter:description"]', metadata.description],
+    ];
+    for (const [selector, content] of tags) {
+      const element = document.querySelector<HTMLMetaElement>(selector);
+      if (element) element.content = content;
+    }
+  }, [locale, pathname]);
+
+  return null;
 }

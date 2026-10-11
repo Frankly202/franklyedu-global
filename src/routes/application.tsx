@@ -4,6 +4,7 @@ import { PageHero, Section } from "@/components/site/Section";
 import { courses, destinations, universities } from "@/data/content";
 import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 type Search = { university?: string | undefined; course?: string | undefined };
@@ -22,10 +23,13 @@ export const Route = createFileRoute("/application")({
 });
 
 function ApplicationPage() {
-  const { common, portal } = useTranslations();
+  const { common, portal, locale } = useTranslations();
+  const localizedDestinations = localizeTree(locale, destinations);
+  const localizedUniversities = localizeTree(locale, universities);
+  const localizedCourses = localizeTree(locale, courses);
   const search = Route.useSearch();
-  const requestedCourse = courses.find((c) => c.slug === search.course);
-  const requestedUniversity = universities.find((u) => u.slug === search.university);
+  const requestedCourse = localizedCourses.find((c) => c.slug === search.course);
+  const requestedUniversity = localizedUniversities.find((u) => u.slug === search.university);
   const presetCourse =
     requestedCourse &&
     (!requestedUniversity || requestedCourse.universitySlug === requestedUniversity.slug)
@@ -56,10 +60,10 @@ function ApplicationPage() {
     (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
       setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const uniOptions = universities.filter(
+  const uniOptions = localizedUniversities.filter(
     (u) => !form.destination || u.countrySlug === form.destination,
   );
-  const courseOptions = courses.filter(
+  const courseOptions = localizedCourses.filter(
     (c) => !form.university || c.universitySlug === form.university,
   );
 
@@ -69,8 +73,8 @@ function ApplicationPage() {
     portal.application.form.documentsList.englishProficiency,
     portal.application.form.documentsList.sop,
   ];
-  const selectedCourse = courses.find((c) => c.slug === form.course);
-  const selectedUniversity = universities.find(
+  const selectedCourse = localizedCourses.find((c) => c.slug === form.course);
+  const selectedUniversity = localizedUniversities.find(
     (u) => u.slug === (form.university || selectedCourse?.universitySlug),
   );
   const selectedIntake =
@@ -89,7 +93,7 @@ function ApplicationPage() {
       [labels.email, form.email.trim()],
       [labels.phone, form.phone.trim() || undefined],
       [labels.nationality, form.nationality.trim() || undefined],
-      [labels.destination, destinations.find((d) => d.slug === form.destination)?.name],
+      [labels.destination, localizedDestinations.find((d) => d.slug === form.destination)?.name],
       [labels.university, selectedUniversity?.name],
       [labels.programme, selectedCourse?.title],
       [labels.studyLevel, selectedCourse?.level],
@@ -197,7 +201,7 @@ function ApplicationPage() {
                     required
                   >
                     <option value="">{portal.application.form.destinationOption}</option>
-                    {destinations.map((d) => (
+                    {localizedDestinations.map((d) => (
                       <option key={d.slug} value={d.slug}>
                         {d.name}
                       </option>
@@ -278,7 +282,7 @@ function ApplicationPage() {
                     [portal.application.form.summaryLabels.nationality, form.nationality],
                     [
                       portal.application.form.summaryLabels.destination,
-                      destinations.find((d) => d.slug === form.destination)?.name,
+                      localizedDestinations.find((d) => d.slug === form.destination)?.name,
                     ],
                     [portal.application.form.summaryLabels.university, selectedUniversity?.name],
                     [portal.application.form.summaryLabels.programme, selectedCourse?.title],

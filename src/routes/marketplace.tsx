@@ -5,6 +5,7 @@ import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { marketplaceItems } from "@/data/content";
 import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/marketplace")({
@@ -19,9 +20,11 @@ export const Route = createFileRoute("/marketplace")({
 const rawCategories = ["All", ...Array.from(new Set(marketplaceItems.map((m) => m.category)))];
 
 function MarketplacePage() {
-  const { common, marketplace } = useTranslations();
+  const { common, marketplace, locale } = useTranslations();
   const [cat, setCat] = useState("All");
   const items = marketplaceItems.filter((m) => cat === "All" || m.category === cat);
+  const localizedItems = localizeTree(locale, items);
+  const categories = rawCategories.map((category) => localizeText(locale, category));
 
   return (
     <>
@@ -68,19 +71,19 @@ function MarketplacePage() {
         </div>
 
         <div className="mb-6 flex flex-wrap gap-2">
-          {rawCategories.map((c) => (
+          {rawCategories.map((c, index) => (
             <button
               key={c}
               type="button"
               onClick={() => setCat(c)}
               className={`btn btn-sm ${c === cat ? "btn-primary" : "btn-outline-dark"}`}
             >
-              {c === "All" ? marketplace.marketplace.allCategories : c}
+              {c === "All" ? marketplace.marketplace.allCategories : categories[index]}
             </button>
           ))}
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((m) => (
+          {localizedItems.map((m) => (
             <article key={m.slug} className="card-light flex flex-col p-5 sm:p-6">
               <span className="self-start rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-navy">
                 {m.category}

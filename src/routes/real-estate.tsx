@@ -4,6 +4,7 @@ import { ListingCard } from "@/components/site/ListingCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { realEstateListings } from "@/data/content";
 import { useTranslations } from "@/data/translations";
+import { localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/real-estate")({
@@ -16,7 +17,8 @@ export const Route = createFileRoute("/real-estate")({
 });
 
 function RealEstatePage() {
-  const { common, marketplace } = useTranslations();
+  const { common, marketplace, locale } = useTranslations();
+  const listings = localizeTree(locale, realEstateListings);
 
   return (
     <>
@@ -35,7 +37,7 @@ function RealEstatePage() {
       </PageHero>
       <Section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {realEstateListings.map((l) => (
+          {listings.map((l) => (
             <ListingCard
               key={l.slug}
               l={l}

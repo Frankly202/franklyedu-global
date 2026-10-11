@@ -118,7 +118,7 @@
 - **Status**: `DONE`
 - **Scope**:
   - Harmonized shared page hero and section-heading sizes with fluid type scales and consistent line heights; the approved homepage hero layout remains unchanged.
-  - Kept the full desktop navigation at wider viewports and improved the mobile drawer with viewport-aware scrolling, a brief entrance animation, Escape-to-close behavior, focus return to the menu button, and English/Turkish accessible labels.
+  - Kept the full desktop navigation at wider viewports and improved the mobile drawer with viewport-aware scrolling, a brief entrance animation, Escape-to-close behavior, focus return to the menu button, and accessible localized language controls.
   - Set 44px minimum heights for shared buttons and form controls, and expanded compact navigation, breadcrumb, social, login, and gallery controls to usable touch targets.
   - Added visible keyboard focus outlines and ensured gallery navigation controls become visible on keyboard focus.
   - Added reduced-motion behavior for scrolling, transitions, drawer animation, and decorative hover transforms.
@@ -141,7 +141,7 @@
   - Shared route metadata now provides page titles and descriptions with Open Graph and Twitter title, description, and image tags in [`src/lib/seo.ts`](./src/lib/seo.ts); the existing root metadata supplies the social card type and Open Graph image.
   - Canonical URLs and `sitemap.xml` are deferred at the project owner's direction until a verified production hostname is available. No canonical host or sitemap URL is fabricated. The existing permissive `robots.txt` remains in place and is checked in the build output.
   - Automated checks verify the Nitro Cloudflare Module preset, Workers static asset binding, emitted public assets, and immutable one-year caching policy for hashed `/assets/*` files.
-  - The headless Playwright suite covers all 15 core routes plus the verified property-detail route, page/social metadata, primary desktop navigation, university/course filters, mobile drawer keyboard behavior, EN/TR switching, application WhatsApp handoff, contextual listing enquiries, contact-form validation, heading hierarchy, optimized build assets, locally loaded fonts, and uncaught page exceptions.
+  - The headless Playwright suite covers all 15 core routes plus the verified property-detail route, page/social metadata, primary desktop navigation, university/course filters, mobile drawer and language-dropdown keyboard behavior, EN/TR/FR/SW switching, application and contact flows in all four locales, contextual listing enquiries, contact-form validation, heading hierarchy, optimized build assets, locally loaded fonts, and uncaught page exceptions.
   - Resolved Lighthouse tooling with Lighthouse 13.5.0 via npm and audited the production Cloudflare Worker bundle using Wrangler's local runtime and Playwright Chromium. Accessibility, Best Practices, and SEO score 100 on all 16 public routes after fixing skipped heading levels and insufficient gold-text contrast.
   - Lighthouse scores on the final local production build (simulated mobile profile): homepage performance 87, contact 88, application 89, and property detail 82; desktop homepage performance 98. Accessibility, Best Practices, and SEO each score 100 on these routes, and all 16 audited routes score 100 in those three categories after fixing heading order and text contrast.
   - Removed the external Google Fonts stylesheet and now serve the existing Outfit and DM Sans variable typefaces from the production bundle. Converted the existing hero and verified property photos to WebP; the homepage hero has responsive variants and the property gallery has 800px previews and 320px thumbnails while retaining full-resolution images for the lightbox. The property-detail route's initial image transfer fell from approximately 2.9 MB to 194 KB.
@@ -166,6 +166,6 @@ Once all 6 phases are marked `DONE`, the entire website must pass the comprehens
 - [x] **Lint**: `bun run lint` (0 errors, 0 warnings)
 - [x] **Typecheck**: `bun run --bun tsc --noEmit` (0 errors)
 - [x] **Production Build**: `bun run build` (Clean `.output/` bundle generation)
-- [x] **Playwright Automated Tests**: `bun run test:smoke` (Headless suite testing all 15 core routes plus the property detail route, metadata, navigation, filters, and lead handoffs)
+- [x] **Playwright Automated Tests**: `bun run test:smoke` (Headless suite testing all 15 core routes plus the property detail route, metadata, navigation, filters, four-locale lead handoffs, and accessible language selection)
 - [ ] **Browser Smoke Test**: Final manual visual walkthrough across desktop, tablet, and mobile viewport widths
 - [x] **Zero Runtime Exceptions**: Automated smoke suite confirms zero browser console errors or uncaught page exceptions

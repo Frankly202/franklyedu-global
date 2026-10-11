@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { Course, Listing, University } from "@/data/content";
 import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
+import { localizeTree } from "@/data/translations/localize";
 import { Spec } from "./Section";
 
 export function UniversityCard({
@@ -11,7 +12,8 @@ export function UniversityCard({
   u: University;
   headingLevel?: "h2" | "h3";
 }) {
-  const { common } = useTranslations();
+  const { common, locale } = useTranslations();
+  u = localizeTree(locale, u);
   const Heading = headingLevel;
 
   return (
@@ -48,7 +50,8 @@ export function UniversityCard({
 }
 
 export function CourseCard({ c }: { c: Course }) {
-  const { common } = useTranslations();
+  const { common, locale } = useTranslations();
+  c = localizeTree(locale, c);
 
   return (
     <article className="card-light flex flex-col p-5 sm:p-6">
@@ -106,7 +109,8 @@ export function ListingCard({
   ctaLabel?: string;
   headingLevel?: "h2" | "h3";
 }) {
-  const { common } = useTranslations();
+  const { common, locale } = useTranslations();
+  l = localizeTree(locale, l);
   const effectiveCtaLabel = ctaLabel || common.cards.enquire;
   const Heading = headingLevel;
 
