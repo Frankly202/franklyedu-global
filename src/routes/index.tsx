@@ -21,8 +21,8 @@ import {
 export const Route = createFileRoute("/")({
   head: () =>
     pageMeta(
-      "Your Future. Our Global Network. | Frankedu Global",
-      "We connect people to global opportunities through world-class university admissions, trusted property investments, and professional services.",
+      "Your Future. Global Opportunities. | Frankedu Global",
+      "We help students, families, and investors explore study options, property information, and professional services.",
       { path: "/" },
     ),
   component: Index,
@@ -372,7 +372,7 @@ function Index() {
         </div>
       </Section>
 
-      {/* 4. Partner Universities */}
+      {/* 4. University Pathways */}
       <Section tone="dark" className="py-14 sm:py-20">
         <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div className="max-w-2xl">

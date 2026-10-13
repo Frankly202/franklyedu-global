@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Section } from "@/components/site/Section";
 import { mockStudent, universities } from "@/data/content";
@@ -8,6 +8,9 @@ import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/student")({
+  beforeLoad: () => {
+    throw redirect({ to: "/application" });
+  },
   head: () =>
     pageMeta(
       "Student Dashboard",

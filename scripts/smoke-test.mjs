@@ -17,15 +17,12 @@ const routes = [
   "/real-estate",
   "/contact",
   "/application",
-  "/student",
-  "/login",
-  "/signup",
   "/real-estate/sarcon-87-renovated-villa-north-cyprus",
 ];
 
+const retiredRoutes = ["/student", "/login", "/signup"];
 const siteUrl = "https://franklyedu.com";
-const noindexRoutes = new Set(["/student", "/login", "/signup"]);
-const indexableRoutes = routes.filter((route) => !noindexRoutes.has(route));
+const indexableRoutes = routes;
 const canonicalUrl = (route) => (route === "/" ? `${siteUrl}/` : `${siteUrl}${route}`);
 
 async function getAvailablePort() {
@@ -242,25 +239,144 @@ async function runSmokeTests() {
       const robotsMeta = (await robotsLocator.count())
         ? await robotsLocator.getAttribute("content")
         : null;
-      if (noindexRoutes.has(route)) {
-        assert.equal(
-          await canonicalLinks.count(),
-          0,
-          `Route ${route} must not declare a canonical.`,
-        );
-        assert.match(robotsMeta ?? "", /noindex/, `Route ${route} must be excluded from indexing.`);
-      } else {
-        assert.equal(await canonicalLinks.count(), 1, `Route ${route} needs one canonical link.`);
-        assert.equal(await canonicalLinks.getAttribute("href"), canonicalUrl(route));
-        assert.equal(
-          await page.locator('meta[property="og:url"]').getAttribute("content"),
-          canonicalUrl(route),
-          `Route ${route} must declare its canonical Open Graph URL.`,
-        );
-        assert.equal(robotsMeta, null, `Route ${route} must remain indexable.`);
-      }
+      assert.equal(await canonicalLinks.count(), 1, `Route ${route} needs one canonical link.`);
+      assert.equal(await canonicalLinks.getAttribute("href"), canonicalUrl(route));
+      assert.equal(
+        await page.locator('meta[property="og:url"]').getAttribute("content"),
+        canonicalUrl(route),
+        `Route ${route} must declare its canonical Open Graph URL.`,
+      );
+      assert.equal(robotsMeta, null, `Route ${route} must remain indexable.`);
     }
     console.log(`✓ ${routes.length} public routes render with SEO metadata`);
+
+    console.log("Checking retired account and preview routes...");
+    for (const route of retiredRoutes) {
+      const serverResponse = await fetch(`${baseUrl}${route}`, { redirect: "manual" });
+      assert.ok(
+        serverResponse.status >= 300 && serverResponse.status < 400,
+        `${route} must return a server-side redirect response.`,
+      );
+      assert.equal(
+        new URL(serverResponse.headers.get("location"), baseUrl).pathname,
+        "/application",
+        `${route} must redirect directly to the application without a server-side redirect loop.`,
+      );
+      await gotoReady(page, `${baseUrl}${route}`);
+      assert.equal(
+        new URL(page.url()).pathname,
+        "/application",
+        `${route} must redirect to the public application flow.`,
+      );
+      assert.match(
+        await page.locator("main h1").innerText(),
+        /Start your application|Başvurunuzu başlatın|Commencez votre candidature|Anza maombi yako/i,
+        `${route} must not render an account form or preview dashboard.`,
+      );
+    }
+    await gotoReady(page, `${baseUrl}/application`);
+    for (const route of retiredRoutes) {
+      const redirected = await page.evaluate(
+        (path) =>
+          new Promise((resolve) => {
+            const timeout = setTimeout(() => resolve(false), 3000);
+            window.history.pushState({}, "", path);
+            window.dispatchEvent(new PopStateEvent("popstate"));
+            const checkLocation = () => {
+              if (window.location.pathname === "/application") {
+                clearTimeout(timeout);
+                resolve(true);
+              } else {
+                requestAnimationFrame(checkLocation);
+              }
+            };
+            requestAnimationFrame(checkLocation);
+          }),
+        route,
+      );
+      assert.equal(
+        redirected,
+        true,
+        `${route} must redirect to the application during client-side navigation.`,
+      );
+      assert.match(
+        await page.locator("main h1").innerText(),
+        /Start your application|Başvurunuzu başlatın|Commencez votre candidature|Anza maombi yako/i,
+        `${route} client navigation must leave the public application rendered.`,
+      );
+    }
+    await gotoReady(page, `${baseUrl}/`);
+    assert.equal(
+      await page.locator('a[href="/student"], a[href="/login"], a[href="/signup"]').count(),
+      0,
+      "Public navigation and footer must not link to retired student or account routes.",
+    );
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobileMenuButton = page.getByRole("button", { name: "Open menu" });
+    await mobileMenuButton.click();
+    const mobileNavigation = page.locator("#mobile-navigation");
+    assert.equal(
+      await mobileNavigation
+        .locator('a[href="/student"], a[href="/login"], a[href="/signup"]')
+        .count(),
+      0,
+      "The mobile menu must not link to retired student or account routes.",
+    );
+    await page.keyboard.press("Escape");
+    await page.setViewportSize({ width: 1440, height: 1000 });
+
+    async function checkApprovedCompanyCopy(locale) {
+      await gotoReady(page, `${baseUrl}/about`);
+      const aboutCopy = await page.locator("main").innerText();
+      assert.ok(
+        aboutCopy.includes("Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus"),
+        `${locale} About page must preserve the supplied address exactly.`,
+      );
+      assert.doesNotMatch(
+        aboutCopy,
+        /September 2023|Eylül 2023|Septembre 2023|Septemba 2023/i,
+        `${locale} About page must not state an unsubstantiated founding date.`,
+      );
+      assert.doesNotMatch(
+        aboutCopy,
+        /headquarters|head office|HQ:|genel merkez|makao makuu|siège/i,
+        `${locale} About page must not imply headquarters status.`,
+      );
+
+      await gotoReady(page, `${baseUrl}/universities`);
+      const universityCopy = await page.locator("main").innerText();
+      assert.match(
+        universityCopy,
+        /Final International University \(FIU\)/,
+        `${locale} university page must retain the confirmed FIU relationship.`,
+      );
+      assert.doesNotMatch(
+        universityCopy,
+        /partners?|partenaires?|washirika|network|réseau|mtandao|official representation|resmi temsil/i,
+        `${locale} university page must not imply broader partnerships.`,
+      );
+
+      await gotoReady(page, `${baseUrl}/services`);
+      const servicesCopy = await page.locator("main").innerText();
+      assert.match(
+        servicesCopy,
+        /Final International University|Final Uluslararası Üniversitesi|FIU/,
+        `${locale} service copy must scope scholarship information to FIU.`,
+      );
+      assert.doesNotMatch(
+        servicesCopy,
+        /selected institutions|établissements sélectionnés|taasisi zilizochaguliwa|9\+ supported destinations|plus de 9 destinations|destinations zaidi ya 9/i,
+        `${locale} service copy must not imply unconfirmed institutional coverage.`,
+      );
+
+      await gotoReady(page, `${baseUrl}/scholarships`);
+      const scholarshipCopy = await page.locator("main").innerText();
+      assert.match(
+        scholarshipCopy,
+        /Final International University|Final Uluslararası Üniversitesi|FIU/,
+        `${locale} scholarship page must identify FIU.`,
+      );
+    }
 
     console.log("Checking all routes in each supported locale...");
     const englishMetadata = new Map();
@@ -301,9 +417,11 @@ async function runSmokeTests() {
           `${locale} metadata for ${route} should be localized.`,
         );
       }
+      await checkApprovedCompanyCopy(locale);
     }
     await gotoReady(page, `${baseUrl}/`);
     await selectLanguage(page, "English", "en");
+    await checkApprovedCompanyCopy("en");
     console.log(`✓ ${routes.length} routes expose localized metadata in EN/TR/FR/SW`);
 
     console.log("Checking language dropdown keyboard and outside-click behavior...");
@@ -466,7 +584,10 @@ async function runSmokeTests() {
 
     console.log("Checking homepage content, desktop navigation, and search filters...");
     await gotoReady(page, `${baseUrl}/`);
-    assert.match(await page.locator("main h1").innerText(), /Your Future\.\s*Our Global Network\./);
+    assert.match(
+      await page.locator("main h1").innerText(),
+      /Your Future\.\s*Global Opportunities\./,
+    );
 
     const desktopNav = page.getByRole("navigation", { name: "Main navigation" });
     for (const [label, route] of [
@@ -568,23 +689,156 @@ async function runSmokeTests() {
     ]) {
       await gotoReady(page, `${baseUrl}/`);
       await selectLanguage(page, languageName, locale);
+
+      async function openApplicationStudyPlan(url) {
+        await gotoReady(page, url);
+        const form = page.locator("form");
+        await form.locator('input[autocomplete="name"]').fill("Prefill Test");
+        await form.locator('input[type="email"]').fill("prefill@example.test");
+        await form.locator('button[type="submit"]').click();
+        return form.locator("select");
+      }
+
+      await gotoReady(page, `${baseUrl}/universities`);
+      const universityApplicationHref = await page
+        .locator('a[href^="/application?university="]')
+        .first()
+        .getAttribute("href");
+      assert.ok(universityApplicationHref, `${locale} university card must link to application.`);
+      let applicationSelects = await openApplicationStudyPlan(
+        new URL(universityApplicationHref, baseUrl).href,
+      );
+      assert.equal(await applicationSelects.nth(0).inputValue(), "cyprus");
+      assert.equal(
+        await applicationSelects.nth(1).inputValue(),
+        "final-international-university",
+        `${locale} application route must prefill the university from its query.`,
+      );
+
+      applicationSelects = await openApplicationStudyPlan(
+        `${baseUrl}/application?university=final-international-university&course=unpublished-course`,
+      );
+      assert.equal(await applicationSelects.nth(1).inputValue(), "final-international-university");
+      assert.equal(
+        await applicationSelects.nth(2).inputValue(),
+        "",
+        `${locale} unknown course query must not prefill an unavailable course.`,
+      );
+
+      await gotoReady(page, `${baseUrl}/courses`);
+      const courseApplicationLink = page.locator('a[href^="/application?course="]').first();
+      if ((await courseApplicationLink.count()) > 0) {
+        const courseApplicationHref = await courseApplicationLink.getAttribute("href");
+        assert.ok(courseApplicationHref, `${locale} course card must link to application.`);
+        applicationSelects = await openApplicationStudyPlan(
+          new URL(courseApplicationHref, baseUrl).href,
+        );
+        assert.equal(
+          await page.locator("form select").nth(2).inputValue(),
+          new URL(courseApplicationHref, baseUrl).searchParams.get("course"),
+          `${locale} application route must prefill a course from its card CTA.`,
+        );
+      }
+
       await gotoReady(page, `${baseUrl}/application`);
       const applicationForm = page.locator("form");
-      await applicationForm.locator("input").nth(0).fill("Smoke Test Applicant");
-      await applicationForm.locator('input[type="email"]').fill("smoke@example.com");
       const submitButton = applicationForm.locator('button[type="submit"]');
-      await submitButton.click();
-      await applicationForm.locator("select").nth(0).selectOption("cyprus");
-      await applicationForm.locator("select").nth(1).selectOption("final-international-university");
-      await applicationForm.locator("select").nth(3).selectOption("January 2027");
-      await submitButton.click();
-      assert.equal(await page.locator('input[type="file"]').count(), 0);
-      const documentsHeading = await applicationForm.locator("h2").innerText();
-      await submitButton.click();
-      await page.waitForFunction(
-        (previousHeading) => document.querySelector("form h2")?.innerText !== previousHeading,
-        documentsHeading,
+      const initialStep = await applicationForm.locator("h2").innerText();
+      assert.equal(
+        await applicationForm.evaluate((form) => form.checkValidity()),
+        false,
+        `${locale} application must require name, email, destination, and intake.`,
       );
+      await submitButton.click();
+      assert.equal(await applicationForm.locator("h2").innerText(), initialStep);
+
+      await applicationForm.locator("input").nth(0).fill("Zoë Test & Applicant");
+      await applicationForm.locator('input[type="email"]').fill("smoke.applicant@example.test");
+      await applicationForm.locator('input[type="tel"]').fill("+90 555 010 2030");
+      await applicationForm.locator("input").nth(3).fill("Test nationality");
+      await submitButton.click();
+
+      applicationSelects = applicationForm.locator("select");
+      assert.equal(
+        await applicationForm.evaluate((form) => form.checkValidity()),
+        false,
+        `${locale} destination and intake must be required.`,
+      );
+      const studyPlanStep = await applicationForm.locator("h2").innerText();
+      await submitButton.click();
+      assert.equal(await applicationForm.locator("h2").innerText(), studyPlanStep);
+
+      await applicationSelects.nth(0).selectOption("cyprus");
+      await applicationSelects.nth(1).selectOption("final-international-university");
+      await applicationSelects.nth(3).selectOption("January 2027");
+      assert.equal(
+        await applicationForm.evaluate((form) => form.checkValidity()),
+        true,
+        `${locale} application should be valid once required fields are filled.`,
+      );
+      await submitButton.click();
+      await applicationForm
+        .getByText(
+          locale === "en"
+            ? "Passport copy"
+            : locale === "tr"
+              ? "Pasaport Fotokopisi"
+              : locale === "fr"
+                ? "Copie du passeport"
+                : "Nakala ya pasipoti",
+        )
+        .waitFor();
+      assert.equal(await page.locator('input[type="file"]').count(), 0);
+      assert.match(
+        await applicationForm.innerText(),
+        /No documents are uploaded|belge yüklenmez|Aucun document n’est téléversé|Hakuna nyaraka zinazopakiwa/i,
+        `${locale} application must explain that documents are not uploaded or sent.`,
+      );
+
+      const documentsStep = await applicationForm.locator("h2").innerText();
+      await applicationForm.getByRole("button", { name: /Back|Geri|Retour|Rudi/ }).click();
+      assert.equal(await applicationForm.locator("h2").innerText(), studyPlanStep);
+      assert.equal(await applicationSelects.nth(0).inputValue(), "cyprus");
+      assert.equal(await applicationSelects.nth(1).inputValue(), "final-international-university");
+      assert.equal(await applicationSelects.nth(3).inputValue(), "January 2027");
+      await submitButton.click();
+      assert.equal(await applicationForm.locator("h2").innerText(), documentsStep);
+      await submitButton.click();
+      assert.notEqual(await applicationForm.locator("h2").innerText(), documentsStep);
+      const reviewRows = await applicationForm.locator("dl > div").evaluateAll((rows) =>
+        rows.map((row) => ({
+          label: row.querySelector("dt")?.textContent?.trim(),
+          value: row.querySelector("dd")?.textContent?.trim(),
+        })),
+      );
+      const messageRows = reviewRows.filter((row) => row.value && row.value !== "—");
+      assert.equal(
+        messageRows.length,
+        7,
+        `${locale} WhatsApp review should include all seven available applicant and study details; found labels: ${messageRows.map((row) => row.label).join(", ")}.`,
+      );
+      assert.ok(messageRows.some((row) => row.value === "Zoë Test & Applicant"));
+      assert.ok(messageRows.some((row) => row.value === "smoke.applicant@example.test"));
+      assert.ok(messageRows.some((row) => row.value === "+90 555 010 2030"));
+      assert.ok(messageRows.some((row) => row.value === "Test nationality"));
+      assert.ok(messageRows.some((row) => row.value === "Final International University (FIU)"));
+      const localizedJanuary = {
+        en: "January 2027",
+        tr: "Ocak 2027",
+        fr: "Janvier 2027",
+        sw: "Januari 2027",
+      }[locale];
+      assert.ok(messageRows.some((row) => row.value === localizedJanuary));
+
+      const localizedIntro = {
+        en: "Hello Frankedu Global, I'd like guidance with my study application.",
+        tr: "Merhaba Frankedu Global, eğitim başvurum için rehberlik almak istiyorum.",
+        fr: "Bonjour Frankedu Global, je souhaite être accompagné dans ma candidature aux études.",
+        sw: "Habari Frankedu Global, ningependa kupata mwongozo kuhusu maombi yangu ya masomo.",
+      }[locale];
+      const expectedMessage = `${localizedIntro}\n\n${messageRows
+        .map(({ label, value }) => `${label}: ${value}`)
+        .join("\n")}`;
 
       let whatsappUrl;
       await page.route("https://wa.me/**", async (route) => {
@@ -593,16 +847,23 @@ async function runSmokeTests() {
       });
       await submitButton.click();
       await page.waitForURL("https://wa.me/**");
-      const whatsappMessage = new URL(whatsappUrl).searchParams.get("text");
-      assert.match(whatsappMessage, /Smoke Test Applicant/);
-      assert.match(whatsappMessage, /Final International University/);
-      const localizedJanuary = {
-        en: "January 2027",
-        tr: "Ocak 2027",
-        fr: "Janvier 2027",
-        sw: "Januari 2027",
-      }[locale];
-      assert.ok(whatsappMessage.includes(localizedJanuary));
+      const handoffUrl = new URL(whatsappUrl);
+      assert.equal(handoffUrl.searchParams.get("text"), expectedMessage);
+      assert.match(
+        handoffUrl.search,
+        /%0A/i,
+        `${locale} WhatsApp handoff must encode message line breaks.`,
+      );
+      assert.match(
+        handoffUrl.search,
+        /%26/i,
+        `${locale} WhatsApp handoff must encode reserved message characters.`,
+      );
+      assert.match(
+        handoffUrl.search,
+        /%C3%AB/i,
+        `${locale} WhatsApp handoff must encode non-ASCII applicant text.`,
+      );
       await page.unroute("https://wa.me/**");
 
       await gotoReady(page, `${baseUrl}/contact`);

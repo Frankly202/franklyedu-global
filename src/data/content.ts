@@ -17,7 +17,7 @@ import sarconKitchenThumbnail from "@/assets/sarcon/sarcon-05-kitchen-thumb.webp
 
 /**
  * Central content and data configuration for Frankedu Global.
- * Contains verified institutional relationships, service offerings, and supported destinations.
+ * Contains university information, service offerings, and supported destinations.
  */
 
 export interface Destination {
@@ -36,14 +36,14 @@ export const destinations: Destination[] = [
     name: "Cyprus / North Cyprus",
     region: "Europe / Mediterranean",
     blurb:
-      "English-medium degree programmes with generous scholarship opportunities up to 100% at confirmed partner institutions including Final International University (FIU).",
+      "English-medium degree programmes and scholarship opportunities at Final International University (FIU).",
     highlights: [
       "Confirmed recruitment relationship: Final International University (FIU)",
-      "Scholarships up to 100% for eligible students at selected institutions",
+      "Scholarships up to 100% for eligible students at Final International University (FIU)",
       "Affordable cost of living and student accommodation",
     ],
     intakes: "Inquire for current intakes",
-    tuitionRange: "Scholarship-eligible (up to 100% at selected institutions)",
+    tuitionRange: "Scholarship opportunities up to 100% at Final International University (FIU)",
   },
   {
     slug: "united-kingdom",
@@ -57,7 +57,7 @@ export const destinations: Destination[] = [
       "Admissions and visa advisory support",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "canada",
@@ -70,7 +70,7 @@ export const destinations: Destination[] = [
       "Undergraduate and postgraduate diploma pathways",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "germany",
@@ -84,7 +84,7 @@ export const destinations: Destination[] = [
       "Strong industrial and technological ecosystem",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "poland",
@@ -98,7 +98,7 @@ export const destinations: Destination[] = [
       "English-medium bachelor's and master's tracks",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "finland",
@@ -112,7 +112,7 @@ export const destinations: Destination[] = [
       "High quality of life and modern learning environments",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "netherlands",
@@ -125,7 +125,7 @@ export const destinations: Destination[] = [
       "Central European location and international student community",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "australia",
@@ -139,7 +139,7 @@ export const destinations: Destination[] = [
       "Undergraduate, postgraduate, and vocational training options",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
   {
     slug: "china",
@@ -153,12 +153,9 @@ export const destinations: Destination[] = [
       "Exposure to one of the world's leading economic ecosystems",
     ],
     intakes: "Inquire for current intake cycles",
-    tuitionRange: "Contact advisor for verified fee schedules",
+    tuitionRange: "Contact advisor for current tuition information",
   },
 ];
-
-export const networkDestinationsNotice =
-  "Additional study destinations worldwide may also be available through our global education network. Contact us if your desired country is not listed.";
 
 export const subjects = [
   "Business & Management",
@@ -206,10 +203,10 @@ export const universities: University[] = [
       "Architecture & Fine Arts",
       "Social Sciences & Humanities",
     ],
-    tuition: "Contact advisor for verified fee schedule",
+    tuition: "Contact advisor for current tuition information",
     intake: "Contact advisor for intake schedules",
     applicationFee: "Contact advisor",
-    scholarship: "Scholarships up to 100% for eligible students at selected institutions",
+    scholarship: "Scholarships up to 100% for eligible students",
     verified: true,
   },
 ];
@@ -228,7 +225,7 @@ export interface Course {
   language: string;
 }
 
-/** Specific courses will be populated once individual programme details are verified with partner institutions. */
+/** Specific courses will be populated once individual programme details are confirmed. */
 export const courses: Course[] = [];
 
 export interface Scholarship {
@@ -252,18 +249,7 @@ export const scholarships: Scholarship[] = [
     level: "Undergraduate & Postgraduate",
     deadline: "Contact advisor",
     summary:
-      "Scholarships can be up to 100% for eligible students at selected institutions based on academic merit, quota availability, or early application.",
-  },
-  {
-    slug: "partner-network-scholarships",
-    name: "Education Network Institutional Awards",
-    provider: "Selected Partner Institutions",
-    country: "Supported Network Destinations",
-    amount: "Up to 100% for eligible students",
-    level: "Undergraduate & Postgraduate",
-    deadline: "Contact advisor",
-    summary:
-      "Merit-based waivers and institutional awards available across supported destinations. Assessed upon academic profile review.",
+      "Scholarship opportunities at Final International University (FIU) can be up to 100% for eligible students. Contact us for current eligibility and award details.",
   },
 ];
 
@@ -278,10 +264,9 @@ export const supportServices: SupportService[] = [
   {
     slug: "admissions",
     title: "University Admissions & Programme Matching",
-    description:
-      "End-to-end guidance matching your academic background and aspirations with verified institutions.",
+    description: "Guidance on study options based on your academic background and aspirations.",
     details: [
-      "Programme matching across 9+ supported destinations",
+      "Study guidance by destination and subject",
       "Document readiness & academic credential check",
       "Official portal submission & offer letter follow-up",
     ],
@@ -290,11 +275,11 @@ export const supportServices: SupportService[] = [
     slug: "scholarships",
     title: "Scholarships & Financial Guidance",
     description:
-      "Scholarships can be up to 100% for eligible students at selected institutions — we guide your application.",
+      "At Final International University (FIU), scholarships can be up to 100% for eligible students. Contact us for current details.",
     details: [
-      "Up to 100% scholarship evaluation at selected institutions",
-      "Merit and country-quota matching",
-      "Transparent fee planning before you commit",
+      "Scholarship opportunities at FIU for eligible students",
+      "Contact us for current scholarship criteria and award details",
+      "Review current tuition details before applying",
     ],
   },
   {
@@ -312,7 +297,7 @@ export const supportServices: SupportService[] = [
     slug: "student-accommodation",
     title: "Student Accommodation & Relocation",
     description:
-      "Verified student dormitories and rentals near campus, kept strictly separate from investment property.",
+      "Student dormitories and rentals near campus, kept strictly separate from investment property.",
     details: [
       "On-campus and off-campus student housing options",
       "Airport pickup and meet-and-greet reception",
@@ -465,9 +450,9 @@ export const propertyDetails: PropertyDetail[] = [
     location: "North Cyprus",
     locationNote: "Exact map location supplied upon enquiry",
     priceDisplay: "Price on inquiry",
-    buyerEligibility: "Partner states the title is suitable for a foreign national*",
+    buyerEligibility: "Listing states the title is suitable for a foreign national*",
     disclaimer:
-      "*Buyer/title eligibility information is based on the partner's statement and should be independently confirmed during legal conveyancing.",
+      "*Buyer/title eligibility information in the listing should be independently confirmed during legal conveyancing.",
     description: [
       "A beautifully renovated villa finished with a design-led approach and prepared for resale. This property is suitable for buyers looking for a refreshed home or investment opportunity in North Cyprus.",
       "Full property photographs and the exact map location are available upon request. Contact Frankedu Global for viewing arrangements and dedicated purchasing assistance.",
@@ -477,7 +462,7 @@ export const propertyDetails: PropertyDetail[] = [
       "North Cyprus location",
       "Full property photo gallery available",
       "Viewing and purchase assistance available",
-      "Partner states title is suitable for foreign buyers*",
+      "Listing states title is suitable for foreign buyers*",
     ],
     gallery: [
       {
@@ -641,13 +626,12 @@ export const realEstateListings: Listing[] = [
 
 export const aboutContent = {
   mission:
-    "Founded in September 2023, Frankedu Global provides transparent guidance for students, families, and investors navigating global university admissions, scholarships, student accommodation, and overseas property opportunities.",
-  founded: "September 2023",
+    "Frankedu Global provides guidance for students, families, and investors navigating university admissions, scholarships, student accommodation, and overseas property opportunities.",
   office: "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
   values: [
     {
-      title: "Verified first",
-      text: "We only publish admissions, tuition, and scholarship terms confirmed directly with our partner institutions and verified networks.",
+      title: "Clear information",
+      text: "We aim to provide clear information about admissions, tuition, and scholarship terms. Contact us for current details.",
     },
     {
       title: "Frank & transparent",
@@ -659,9 +643,8 @@ export const aboutContent = {
     },
   ],
   stats: [
-    { label: "Founded", value: "Sep 2023" },
     { label: "Supported destinations", value: "9" },
-    { label: "Scholarship range", value: "Up to 100%" },
+    { label: "FIU scholarship range", value: "Up to 100%" },
   ],
   team: [] as { name: string; role: string }[],
 };

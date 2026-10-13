@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, MessageCircle, Menu, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
-import { authNav, brand, contact, whatsappLink } from "@/data/site";
+import { brand, contact, whatsappLink } from "@/data/site";
 import { useLocale } from "@/lib/locale";
 import { useTranslations } from "@/data/translations";
 import { cn } from "@/lib/utils";
@@ -424,38 +424,9 @@ export function Navbar() {
               ))}
             </div>
 
-            {/* Secondary Student Account Access & Direct Contact */}
+            {/* Direct contact details */}
             <div className="mt-6 border-t border-white/15 pt-5">
-              <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-navy-muted">
-                <div className="flex items-center gap-4">
-                  <Link
-                    to="/student"
-                    onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center font-semibold text-sky-contrast hover:text-white hover:underline"
-                  >
-                    {common.mobileDrawer.studentPreview}
-                  </Link>
-                </div>
-                <div className="flex items-center gap-3 text-xs">
-                  <Link
-                    to={authNav.login.to}
-                    onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center px-1 font-medium text-white/90 hover:text-white hover:underline"
-                  >
-                    {common.nav.login}
-                  </Link>
-                  <span className="text-white/40">·</span>
-                  <Link
-                    to={authNav.signup.to}
-                    onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center px-1 font-medium text-white/90 hover:text-white hover:underline"
-                  >
-                    {common.nav.signup}
-                  </Link>
-                </div>
-              </div>
-
-              <div className="mt-4 flex flex-col gap-1 text-xs text-navy-muted sm:flex-row sm:justify-between">
+              <div className="flex flex-col gap-1 text-xs text-navy-muted sm:flex-row sm:justify-between">
                 <p>📍 {contact.address}</p>
                 {contact.hours ? <p>🕒 {contact.hours}</p> : null}
               </div>

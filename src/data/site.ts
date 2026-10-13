@@ -91,11 +91,6 @@ export const mainNav: NavItem[] = [
   { label: "Contact", to: "/contact" },
 ];
 
-export const authNav = {
-  login: { label: "Login", to: "/login" as AppPath },
-  signup: { label: "Sign Up", to: "/signup" as AppPath },
-};
-
 export const footerNav: { title: string; items: NavItem[] }[] = [
   {
     title: "Explore",
@@ -110,9 +105,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Students",
     items: [
       { label: "Start an application", to: "/application" },
-      { label: "Student dashboard", to: "/student" },
       { label: "Services", to: "/services" },
-      { label: "Login", to: "/login" },
     ],
   },
   {

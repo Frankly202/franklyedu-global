@@ -7,13 +7,13 @@ import { useTranslations } from "@/data/translations";
 import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 import leadershipPhoto from "@/assets/background-photo.webp";
-import { Calendar, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+import { Building2, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () =>
     pageMeta(
       "About",
-      "Frankedu Global gives students and investors verified, transparent guidance on studying abroad and global opportunities.",
+      "Frankedu Global provides guidance on studying abroad and international opportunities for students and investors.",
       { path: "/about" },
     ),
   component: AboutPage,
@@ -85,26 +85,23 @@ function AboutPage() {
             <div className="grid gap-3 pt-2 sm:grid-cols-2">
               <div className="rounded-xl border border-border bg-muted/60 p-4">
                 <div className="flex items-center gap-2 text-sky">
-                  <Calendar className="h-4 w-4 shrink-0" />
+                  <Building2 className="h-4 w-4 shrink-0" />
                   <span className="font-display text-xs font-bold uppercase tracking-wider">
-                    {company.about.establishedLabel}
+                    {company.about.brandLabel}
                   </span>
                 </div>
-                <p className="mt-1 text-sm font-semibold text-navy">{content.founded}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">
-                  {company.about.establishedDesc}
-                </p>
+                <p className="mt-1 text-sm font-semibold text-navy">{brand.name}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{company.about.brandDesc}</p>
               </div>
 
               <div className="rounded-xl border border-border bg-muted/60 p-4">
                 <div className="flex items-center gap-2 text-sky">
                   <MapPin className="h-4 w-4 shrink-0" />
                   <span className="font-display text-xs font-bold uppercase tracking-wider">
-                    {company.about.hqLabel}
+                    {company.about.addressLabel}
                   </span>
                 </div>
                 <p className="mt-1 text-sm font-semibold text-navy">{content.office}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">{company.about.hqDesc}</p>
               </div>
             </div>
 
@@ -132,7 +129,7 @@ function AboutPage() {
       </Section>
 
       <Section tone="dark">
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {content.stats.map((s) => (
             <div key={s.label} className="card-navy p-6 text-center">
               <p className="font-display text-3xl font-bold">{s.value}</p>

@@ -20,9 +20,7 @@ export function Footer() {
       title: common.footer.studentsTitle,
       items: [
         { label: common.footer.startApplication, to: "/application" as const },
-        { label: common.footer.studentDashboard, to: "/student" as const },
         { label: common.footer.services, to: "/services" as const },
-        { label: common.nav.login, to: "/login" as const },
       ],
     },
     {
@@ -138,7 +136,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {brand.name}. {common.footer.copyright}
           </p>
-          <p>{common.footer.partnerNotice}</p>
+          <p>{common.footer.studyNotice}</p>
         </div>
       </div>
     </footer>

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/scholarships")({
   head: () =>
     pageMeta(
       "Scholarships",
-      "Discover verified scholarship pathways by destination, level and deadline.",
+      "Find scholarship information for eligible students at Final International University (FIU). Contact us for current details.",
       { path: "/scholarships" },
     ),
   component: ScholarshipsPage,

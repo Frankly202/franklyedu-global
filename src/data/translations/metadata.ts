@@ -7,14 +7,14 @@ type RouteMetadata = { title: string; description: string };
 const metadata: Record<Locale, Record<string, RouteMetadata>> = {
   en: {
     "/": {
-      title: "Your Future. Our Global Network. | Frankedu Global",
+      title: "Your Future. Global Opportunities. | Frankedu Global",
       description:
-        "We connect people to global opportunities through world-class university admissions, trusted property investments, and professional services.",
+        "We help students, families, and investors explore study options, property information, and professional services.",
     },
     "/about": {
       title: "About",
       description:
-        "Frankedu Global gives students and investors verified, transparent guidance on studying abroad and global opportunities.",
+        "Frankedu Global provides guidance on studying abroad and international opportunities for students and investors.",
     },
     "/courses": {
       title: "Courses",
@@ -24,7 +24,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/universities": {
       title: "Universities",
       description:
-        "Browse partner universities by destination and subject, with verified tuition, intake and scholarship details.",
+        "Explore university options by destination and subject. Contact us for current tuition, intake and scholarship information.",
     },
     "/countries": {
       title: "Study Destinations",
@@ -33,7 +33,8 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     },
     "/scholarships": {
       title: "Scholarships",
-      description: "Discover verified scholarship pathways by destination, level and deadline.",
+      description:
+        "Find scholarship information for eligible students at Final International University (FIU). Contact us for current details.",
     },
     "/services": {
       title: "Student Services",
@@ -81,9 +82,9 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
   },
   tr: {
     "/": {
-      title: "Geleceğiniz. Küresel Ağımız. | Frankedu Global",
+      title: "Geleceğiniz. Küresel Fırsatlar. | Frankedu Global",
       description:
-        "Üniversite kabulleri, gayrimenkul danışmanlığı ve profesyonel hizmetlerle küresel fırsatlara ulaşmanıza yardımcı oluyoruz.",
+        "Öğrencilere, ailelere ve yatırımcılara eğitim seçenekleri, gayrimenkul bilgileri ve profesyonel hizmetler hakkında rehberlik sunuyoruz.",
     },
     "/about": {
       title: "Hakkımızda",
@@ -96,7 +97,8 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     },
     "/universities": {
       title: "Üniversiteler",
-      description: "Partner üniversiteleri eğitim ülkesine ve alana göre inceleyin.",
+      description:
+        "Üniversite seçeneklerini ülkeye ve alana göre inceleyin. Güncel ücret ve kabul bilgileri için bizimle iletişime geçin.",
     },
     "/countries": {
       title: "Eğitim Destinasyonları",
@@ -104,7 +106,8 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     },
     "/scholarships": {
       title: "Burslar",
-      description: "Destinasyon, seviye ve tarihe göre doğrulanmış burs olanaklarını inceleyin.",
+      description:
+        "Final International University (FIU) burs bilgilerini inceleyin. Güncel uygunluk ve ödül ayrıntıları için bizimle iletişime geçin.",
     },
     "/services": {
       title: "Öğrenci Hizmetleri",
@@ -151,7 +154,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
   },
   fr: {
     "/": {
-      title: "Votre avenir. Notre réseau mondial. | Frankedu Global",
+      title: "Votre avenir. Des possibilités internationales. | Frankedu Global",
       description:
         "Nous vous accompagnons vers des possibilités internationales d’études, d’immobilier et de services professionnels.",
     },
@@ -166,7 +169,8 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     },
     "/universities": {
       title: "Universités",
-      description: "Parcourez les universités partenaires par destination et domaine.",
+      description:
+        "Découvrez les options universitaires par destination et domaine. Contactez-nous pour obtenir les informations à jour sur les frais et les admissions.",
     },
     "/countries": {
       title: "Destinations d’études",
@@ -176,7 +180,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/scholarships": {
       title: "Bourses",
       description:
-        "Découvrez les parcours de bourses vérifiés par destination, niveau et échéance.",
+        "Consultez les informations sur les bourses à Final International University (FIU). Contactez-nous pour connaître les critères et les montants actuels.",
     },
     "/services": {
       title: "Services étudiants",
@@ -226,7 +230,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
   },
   sw: {
     "/": {
-      title: "Mustakabali wako. Mtandao wetu wa kimataifa. | Frankedu Global",
+      title: "Mustakabali wako. Fursa za kimataifa. | Frankedu Global",
       description: "Tunakuunganisha na fursa za kimataifa za masomo, mali na huduma za kitaalamu.",
     },
     "/about": {
@@ -241,7 +245,8 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     },
     "/universities": {
       title: "Vyuo vikuu",
-      description: "Vinjari vyuo washirika kulingana na nchi na somo.",
+      description:
+        "Chunguza chaguo za vyuo kulingana na nchi na somo. Wasiliana nasi kwa taarifa za sasa kuhusu ada na udahili.",
     },
     "/countries": {
       title: "Nchi za masomo",
@@ -250,7 +255,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/scholarships": {
       title: "Ufadhili wa masomo",
       description:
-        "Chunguza njia za ufadhili zilizothibitishwa kulingana na nchi, kiwango na tarehe.",
+        "Pata taarifa kuhusu ufadhili wa masomo kwa wanafunzi wanaostahiki katika Final International University (FIU). Wasiliana nasi kwa maelezo ya sasa.",
     },
     "/services": {
       title: "Huduma za wanafunzi",

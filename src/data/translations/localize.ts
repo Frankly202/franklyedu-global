@@ -13,16 +13,15 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study Pathways": "Eğitim Yolları",
     "Services & Living": "Hizmetler ve Yaşam",
     Company: "Kurumsal",
-    "Explore partner campuses & tuition": "Anlaşmalı kampüsleri ve harçları inceleyin",
     "Compare English-taught programmes": "İngilizce programları karşılaştırın",
     "Compare countries, visas & intakes": "Ülkeleri, vizeleri ve dönemleri karşılaştırın",
-    "Verified funding & tuition discounts": "Doğrulanmış burs ve harç indirimleri",
+    "Scholarship information": "Burs bilgileri",
     "Intake planning, visa & arrival support": "Dönem planlama, vize ve varış desteği",
     "Student essentials & trusted community listings":
       "Öğrenci ihtiyaçları ve güvenilir topluluk ilanları",
     "Dorms & apartments near campus": "Kampüse yakın yurtlar ve daireler",
     "Property purchases & rentals": "Gayrimenkul alım ve kiralama",
-    "Our mission, team & verified guidance": "Misyonumuz, ekibimiz ve doğrulanmış danışmanlık",
+    "Our mission, team & personal guidance": "Misyonumuz, ekibimiz ve kişiye özel danışmanlık",
     "Message our advisory team": "Danışman ekibimize mesaj gönderin",
     "Clear guidance for students choosing where — and how — to study abroad.":
       "Yurtdışında nerede ve nasıl eğitim alacağını seçen öğrenciler için açık ve güvenilir rehberlik.",
@@ -31,8 +30,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Start an application": "Başvuru başlat",
     "Student dashboard": "Öğrenci paneli",
     "All rights reserved.": "Tüm hakları saklıdır.",
-    "Confirmed partner listings. Additional destinations available via our education network.":
-      "Doğrulanmış partner ilanları. Eğitim ağımız üzerinden ek destinasyonlar da sunulabilir.",
     Home: "Ana Sayfa",
     "Verified listing": "Doğrulanmış ilan",
     "Template — verify before publishing": "Şablon — yayınlamadan önce doğrulayın",
@@ -60,7 +57,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Go home": "Ana sayfaya dönün",
     "Education • Real Estate • Creative • Beyond": "Eğitim • Gayrimenkul • Kreatif • Daha Fazlası",
     "Your Future.": "Geleceğiniz.",
-    "Our Global Network.": "Küresel Ağımız.",
     "Study Abroad • Invest in Property • Build Your Brand • Live Better":
       "Yurtdışında Eğitim • Gayrimenkul Yatırımı • Markanızı Büyütün • Daha İyi Yaşayın",
     "Study destination": "Eğitim ülkesi",
@@ -71,7 +67,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "One Global Brand. Multiple Opportunities.": "Tek Küresel Marka. Sayısız Fırsat.",
     "Explore All Services": "Tüm Hizmetleri Gör",
     "Education & Admissions": "Eğitim ve Üniversite Kabulü",
-    "Global study pathways & scholarships": "Küresel eğitim yolları ve burslar",
     "Browse Universities": "Üniversiteleri İncele",
     "Properties & Investment": "Gayrimenkul ve Yatırım",
     "Verified homes & investment assets": "Doğrulanmış konutlar ve yatırım varlıkları",
@@ -84,7 +79,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "View All Destinations": "Tüm Destinasyonları Gör",
     "Study • Invest • Live": "Eğitim • Yatırım • Yaşam",
     "Institutions & Pathways": "Kurumlar ve Eğitim Yolları",
-    "Confirmed Partner Institutions.": "Doğrulanmış Partner Kurumlar.",
     "Browse All Universities": "Tüm Üniversiteleri İncele",
     "Real Estate Opportunities": "Gayrimenkul Fırsatları",
     "Featured Properties.": "Öne Çıkan Mülkler.",
@@ -203,7 +197,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Personal, transparent guidance from day one.":
       "İlk günden itibaren kişisel ve şeffaf rehberlik.",
     Established: "Kuruluş",
-    Headquarters: "Genel merkez",
     "How we work": "Çalışma şeklimiz",
     "What you can expect.": "Beklentileriniz neler olabilir?",
     Team: "Ekip",
@@ -252,8 +245,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Local community immersion": "Yerel topluma uyum",
     "Cyprus / North Cyprus": "Kıbrıs / Kuzey Kıbrıs",
     "Europe / Mediterranean": "Avrupa / Akdeniz",
-    "English-medium degree programmes with generous scholarship opportunities up to 100% at confirmed partner institutions including Final International University (FIU).":
-      "Final Uluslararası Üniversitesi (FIU) dahil doğrulanmış partner kurumlarda %100'e varan burs olanakları sunan İngilizce lisans programları.",
     "Confirmed recruitment relationship: Final International University (FIU)":
       "Doğrulanmış öğrenci alım ilişkisi: Final Uluslararası Üniversitesi (FIU)",
     "Scholarships up to 100% for eligible students at selected institutions":
@@ -353,25 +344,17 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Örnek program başvurusu (prototip önizlemesi)",
     "Under review": "İnceleniyor",
     "Financial evidence": "Mali durum belgesi",
-    "Additional study destinations worldwide may also be available through our global education network. Contact us if your desired country is not listed.":
-      "Küresel eğitim ağımız aracılığıyla dünya çapında ek destinasyonlar da sunulabilir. İstediğiniz ülke listede yoksa bizimle iletişime geçin.",
     "Sarcon №87 · For Sale": "Sarcon №87 · Satılık",
     "Renovated / design-refurbished villa": "Yenilenmiş / tasarım odaklı villa",
     "For sale": "Satılık",
     "Exact map location supplied upon enquiry": "Kesin harita konumu talep üzerine iletilir",
     "Price on inquiry": "Fiyat bilgisi için danışın",
-    "Partner states the title is suitable for a foreign national*":
-      "Partner, tapunun yabancı uyruklu alıcıya uygun olduğunu belirtmektedir*",
-    "*Buyer/title eligibility information is based on the partner's statement and should be independently confirmed during legal conveyancing.":
-      "*Alıcı/tapu uygunluğu bilgisi partner beyanına dayanır ve hukuki devir sürecinde bağımsız olarak teyit edilmelidir.",
     "Renovated and design-refurbished villa": "Yenilenmiş ve tasarım odaklı villa",
     "North Cyprus location": "Kuzey Kıbrıs konumu",
     "Full property photo gallery available": "Tam mülk fotoğraf galerisi mevcuttur",
     "Viewing and purchase assistance available": "Gösterim ve satın alma desteği sunulmaktadır",
-    "Partner states title is suitable for foreign buyers*":
-      "Partner tapunun yabancı alıcılar için uygun olduğunu belirtmektedir*",
-    "September 2023": "Eylül 2023",
-    "Sep 2023": "Eyl 2023",
+    "*Buyer/title eligibility information in the listing should be independently confirmed during legal conveyancing.":
+      "*İlandaki alıcı/tapu uygunluğu bilgileri hukuki devir sürecinde bağımsız olarak teyit edilmelidir.",
     "Supported destinations": "Desteklenen destinasyonlar",
     Europe: "Avrupa",
     Canada: "Kanada",
@@ -444,9 +427,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Contact advisor": "Danışmana ulaşın",
     "Scholarships can be up to 100% for eligible students at selected institutions based on academic merit, quota availability, or early application.":
       "Seçili kurumlarda uygun öğrenciler için akademik başarı, kontenjan durumu veya erken başvuruya bağlı olarak %100'e varan burslar sunulabilir.",
-    "Education Network Institutional Awards": "Eğitim Ağı Kurum Bursları",
-    "Selected Partner Institutions": "Seçili Partner Kurumlar",
-    "Supported Network Destinations": "Desteklenen Ağ Destinasyonları",
     "Merit-based waivers and institutional awards available across supported destinations. Assessed upon academic profile review.":
       "Desteklenen destinasyonlarda başarıya dayalı muafiyet ve kurum bursları sunulabilir. Akademik profil incelenerek değerlendirilir.",
     "Health Sciences & Nursing": "Sağlık Bilimleri ve Hemşirelik",
@@ -505,20 +485,14 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Renovated Villa for Sale in North Cyprus | Frankedu Global":
       "Kuzey Kıbrıs'ta Satılık Yenilenmiş Villa | Frankedu Global",
     "Contact advisor for intake schedules": "Kayıt dönemleri için danışmana ulaşın",
-    "Founded in September 2023, Frankedu Global provides transparent guidance for students, families, and investors navigating global university admissions, scholarships, student accommodation, and overseas property opportunities.":
-      "Eylül 2023'te kurulan Frankedu Global, küresel üniversite kabulleri, burslar, öğrenci konaklaması ve yurtdışı gayrimenkul fırsatları konusunda öğrencilere, ailelere ve yatırımcılara şeffaf rehberlik sunar.",
     "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus":
-      "Regal Residence, Küçük Kaymaklı, Lefkoşa, Kuzey Kıbrıs",
-    "Verified first": "Önce doğrulama",
-    "We only publish admissions, tuition, and scholarship terms confirmed directly with our partner institutions and verified networks.":
-      "Yalnızca partner kurumlarımız ve doğrulanmış ağlarımızla doğrudan teyit edilen kabul, harç ve burs koşullarını yayınlıyoruz.",
+      "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
     "Frank & transparent": "Açık ve şeffaf",
     "Honest, realistic advice regarding admissions criteria, visa regulations, and living costs — with no overselling.":
       "Kabul kriterleri, vize düzenlemeleri ve yaşam giderleri hakkında abartısız, dürüst ve gerçekçi danışmanlık.",
     "Comprehensive support": "Kapsamlı destek",
     "From programme matching and visa preparation to arrival reception, accommodation, and property investment guidance.":
       "Program eşleştirme ve vize hazırlığından varışta karşılama, konaklama ve gayrimenkul yatırım danışmanlığına kadar.",
-    Founded: "Kuruluş",
     "Scholarship range": "Burs oranı",
     "Up to 100%": "%100'e kadar",
     "North Cyprus": "Kuzey Kıbrıs",
@@ -529,6 +503,81 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Tasarım odaklı biçimde yenilenmiş ve yeniden satışa hazırlanmış bu villa, Kuzey Kıbrıs'ta yenilenmiş bir ev veya yatırım fırsatı arayan alıcılara uygundur.",
     "Full property photographs and the exact map location are available upon request. Contact Frankedu Global for viewing arrangements and dedicated purchasing assistance.":
       "Mülkün tüm fotoğrafları ve kesin harita konumu talep üzerine iletilir. Gösterim ve satın alma desteği için Frankedu Global ile iletişime geçin.",
+    "Explore university options & tuition": "Üniversite seçeneklerini ve harçları inceleyin",
+    "Contact us about study destinations and university admissions.":
+      "Eğitim ülkeleri ve üniversite başvuruları hakkında bizimle iletişime geçin.",
+    "Global Opportunities.": "Küresel Fırsatlar.",
+    "Study guidance • Property information": "Eğitim danışmanlığı • Gayrimenkul bilgileri",
+    "Study options & scholarships": "Eğitim seçenekleri ve burslar",
+    "Guidance on study options based on your academic background and aspirations.":
+      "Akademik geçmişinize ve hedeflerinize göre eğitim seçenekleri hakkında danışmanlık.",
+    "Buyer Eligibility Information*": "Alıcı uygunluk bilgileri*",
+    "Explore study destinations and discuss options based on your academic goals, budget, and preferred intake.":
+      "Eğitim ülkelerini keşfedin; akademik hedeflerinize, bütçenize ve tercih ettiğiniz döneme göre seçenekleri görüşün.",
+    "University Pathways.": "Üniversite Eğitim Yolları.",
+    "We have a confirmed recruitment relationship with Final International University (FIU). Contact us for current programme and admissions details.":
+      "Final International University (FIU) ile doğrulanmış bir öğrenci alım ilişkimiz bulunmaktadır. Güncel program ve kabul bilgileri için bizimle iletişime geçin.",
+    "Explore property opportunities across North Cyprus and selected international markets.":
+      "Kuzey Kıbrıs ve seçili uluslararası pazarlardaki gayrimenkul fırsatlarını inceleyin.",
+    "*Buyer/title eligibility information is included in the listing and should be independently confirmed during legal conveyancing.":
+      "*Alıcı/tapu uygunluğu bilgileri ilanda yer alır ve hukuki devir sürecinde bağımsız olarak teyit edilmelidir.",
+    "We have a confirmed recruitment relationship with Final International University (FIU). Contact us to discuss other study options.":
+      "Final International University (FIU) ile doğrulanmış bir öğrenci alım ilişkimiz bulunmaktadır. Diğer eğitim seçeneklerini görüşmek için bizimle iletişime geçin.",
+    "Contact us to discuss study options for this destination.":
+      "Bu ülkedeki eğitim seçeneklerini görüşmek için bizimle iletişime geçin.",
+    "Search by subject and level. Contact us for current programme details and fee information.":
+      "Bölüm ve eğitim seviyesine göre arama yapın. Güncel program ve ücret bilgileri için bizimle iletişime geçin.",
+    "Programme and admission information can change. Contact us for current details about available programmes, faculties, and requirements.":
+      "Program ve kabul bilgileri değişebilir. Mevcut programlar, fakülteler ve koşullar hakkında güncel bilgi için bizimle iletişime geçin.",
+    "Compare key study destinations side by side. Contact us to discuss options for destinations not listed.":
+      "Öne çıkan eğitim ülkelerini karşılaştırın. Listelenmeyen ülkelerdeki seçenekleri görüşmek için bizimle iletişime geçin.",
+    "Scholarship details depend on the institution and eligibility criteria. Contact us for current information.":
+      "Burs bilgileri kuruma ve uygunluk koşullarına göre değişir. Güncel bilgi için bizimle iletişime geçin.",
+    "Listing states the title is suitable for a foreign national*":
+      "İlanda tapunun yabancı uyruklu alıcıya uygun olduğu belirtilmektedir*",
+    "Listing states title is suitable for foreign buyers*":
+      "İlanda tapunun yabancı alıcılara uygun olduğu belirtilmektedir*",
+    "Frankedu Global provides guidance for students, families, and investors navigating university admissions, scholarships, student accommodation, and overseas property opportunities.":
+      "Frankedu Global, öğrencilere, ailelere ve yatırımcılara üniversite kabulleri, burslar, öğrenci konaklaması ve yurtdışı gayrimenkul fırsatları konusunda rehberlik sunar.",
+    "Clear information": "Açık bilgi",
+    "We aim to provide clear information about admissions, tuition, and scholarship terms. Contact us for current details.":
+      "Kabul, öğrenim ücreti ve burs koşulları hakkında açık bilgi sunmayı amaçlıyoruz. Güncel ayrıntılar için bizimle iletişime geçin.",
+    "Frankedu Global provides guidance for students and families. Contact us for current admissions, tuition, and scholarship details.":
+      "Frankedu Global, öğrencilere ve ailelere rehberlik sunar. Güncel kabul, öğrenim ücreti ve burs bilgileri için bizimle iletişime geçin.",
+    "Company & Approach": "Şirket ve Yaklaşım",
+    Brand: "Marka",
+    "Customer-facing brand": "Müşterilere sunulan marka",
+    Address: "Adres",
+    "We help students, families, and investors explore study options, property information, and professional services.":
+      "Öğrencilere, ailelere ve yatırımcılara eğitim seçeneklerini, gayrimenkul bilgilerini ve profesyonel hizmetleri incelemelerinde yardımcı oluyoruz.",
+    "Personalized Guidance": "Kişiye özel danışmanlık",
+    "Property information & investment options": "Gayrimenkul bilgileri ve yatırım seçenekleri",
+    "Scholarships up to 100% for eligible students at Final International University (FIU)":
+      "Final International University (FIU)'de uygun öğrenciler için %100'e varan burslar",
+    "Scholarship opportunities up to 100% at Final International University (FIU)":
+      "Final International University (FIU)'de %100'e kadar burs olanakları",
+    "Scholarship-eligible (up to 100% at Final International University (FIU))":
+      "Final International University (FIU)'de %100'e kadar burs olanağı",
+    "Scholarship opportunities at Final International University (FIU) can be up to 100% for eligible students. Contact us for current eligibility and award details.":
+      "Final International University (FIU)'de uygun öğrenciler için burslar %100'e kadar çıkabilir. Güncel uygunluk ve burs tutarları için bizimle iletişime geçin.",
+    "Scholarships up to 100% for eligible students":
+      "FIU'da uygun öğrenciler için %100'e varan burslar",
+    "Study guidance by destination and subject": "Ülke ve bölüme göre eğitim danışmanlığı",
+    "At Final International University (FIU), scholarships can be up to 100% for eligible students. Contact us for current details.":
+      "Final International University (FIU)'de uygun öğrenciler için burslar %100'e kadar çıkabilir. Güncel ayrıntılar için bizimle iletişime geçin.",
+    "Scholarship opportunities at FIU for eligible students":
+      "FIU'da uygun öğrenciler için burs olanakları",
+    "Contact us for current scholarship criteria and award details":
+      "Güncel burs koşulları ve tutarları için bizimle iletişime geçin",
+    "Review current tuition details before applying":
+      "Başvurmadan önce güncel öğrenim ücreti ayrıntılarını inceleyin",
+    "FIU scholarship range": "FIU burs aralığı",
+    "FIU scholarships up to 100% for eligible students":
+      "FIU'da uygun öğrenciler için %100'e varan burslar",
+    "Contact advisor for current tuition information":
+      "Güncel öğrenim ücreti bilgileri için danışmana ulaşın",
+    "Student dormitories and rentals near campus, kept strictly separate from investment property.":
+      "Kampüs yakınındaki öğrenci yurtları ve kiralık konutlar, yatırım amaçlı gayrimenkullerden ayrı tutulur.",
   },
   fr: {
     Universities: "Universités",
@@ -551,16 +600,16 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study Pathways": "Parcours d’études",
     "Services & Living": "Services et logement",
     Company: "Entreprise",
-    "Explore partner campuses & tuition": "Découvrir les campus partenaires et les frais",
     "Compare English-taught programmes": "Comparer les formations en anglais",
     "Compare countries, visas & intakes": "Comparer les pays, visas et périodes d’admission",
-    "Verified funding & tuition discounts": "Aides financières et réductions vérifiées",
+    "Scholarship information": "Informations sur les bourses",
     "Intake planning, visa & arrival support": "Planification, visa et accompagnement à l’arrivée",
     "Student essentials & trusted community listings":
       "Services étudiants et annonces communautaires",
     "Dorms & apartments near campus": "Résidences et appartements près du campus",
     "Property purchases & rentals": "Achats et locations immobiliers",
-    "Our mission, team & verified guidance": "Notre mission, notre équipe et nos conseils vérifiés",
+    "Our mission, team & personal guidance":
+      "Notre mission, notre équipe et un accompagnement personnalisé",
     "Message our advisory team": "Écrire à notre équipe de conseil",
     "Clear guidance for students choosing where — and how — to study abroad.":
       "Des conseils clairs pour choisir où et comment étudier à l’étranger.",
@@ -571,8 +620,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Accommodation: "Logement",
     "Real Estate": "Immobilier",
     "All rights reserved.": "Tous droits réservés.",
-    "Confirmed partner listings. Additional destinations available via our education network.":
-      "Partenaires confirmés. D’autres destinations peuvent être proposées par notre réseau éducatif.",
     Home: "Accueil",
     "Verified listing": "Annonce vérifiée",
     "Template — verify before publishing": "Modèle — à vérifier avant publication",
@@ -604,7 +651,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Go home": "Retour à l’accueil",
     "Education • Real Estate • Creative • Beyond": "Études • Immobilier • Création • Et plus",
     "Your Future.": "Votre avenir.",
-    "Our Global Network.": "Notre réseau mondial.",
     "Study Abroad • Invest in Property • Build Your Brand • Live Better":
       "Étudier à l’étranger • Investir • Développer sa marque • Mieux vivre",
     "Study destination": "Destination d’études",
@@ -615,7 +661,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "One Global Brand. Multiple Opportunities.": "Une marque mondiale. De nombreuses possibilités.",
     "Explore All Services": "Découvrir tous les services",
     "Education & Admissions": "Études et admissions",
-    "Global study pathways & scholarships": "Parcours d’études et bourses à l’international",
     "Browse Universities": "Parcourir les universités",
     "Properties & Investment": "Immobilier et investissement",
     "Verified homes & investment assets": "Biens et investissements vérifiés",
@@ -628,7 +673,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "View All Destinations": "Voir toutes les destinations",
     "Study • Invest • Live": "Étudier • Investir • Vivre",
     "Institutions & Pathways": "Établissements et parcours",
-    "Confirmed Partner Institutions.": "Établissements partenaires confirmés.",
     "Browse All Universities": "Voir toutes les universités",
     "Real Estate Opportunities": "Opportunités immobilières",
     "Featured Properties.": "Biens à la une.",
@@ -746,7 +790,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Personal, transparent guidance from day one.":
       "Un accompagnement personnalisé et transparent dès le premier jour.",
     Established: "Création",
-    Headquarters: "Siège",
     "How we work": "Notre méthode",
     "What you can expect.": "À quoi vous attendre.",
     Team: "Équipe",
@@ -782,8 +825,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Acquisition immobilière, villas rénovées et résidences côtières à Chypre du Nord, au Royaume-Uni et aux Émirats arabes unis.",
     "North Cyprus Residential Villas": "Villas résidentielles à Chypre du Nord",
     "Seafront Resort Residences": "Résidences en bord de mer",
-    "Partner-Verified Foreign Buyer Titles*":
-      "Titres de propriété vérifiés par un partenaire pour acheteurs étrangers*",
     "Property Acquisition Advisory": "Conseil en acquisition immobilière",
     "UK & Dubai Opportunities": "Possibilités au Royaume-Uni et à Dubaï",
     "Brand development, bespoke websites, student portfolio polish, and creative digital solutions by Frankedu.":
@@ -802,22 +843,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Local On-the-Ground Team": "Équipe locale sur place",
     "Explore high-demand study hubs and receive verified guidance based on your academic goals, budget, and preferred intake.":
       "Découvrez des destinations d’études prisées et recevez des conseils vérifiés selon vos objectifs, votre budget et la période souhaitée.",
-    "We publish confirmed details with partner institutions, including our recruitment relationship with Final International University (FIU) and global education network pathways.":
-      "Nous publions les informations confirmées par nos partenaires, notamment notre relation de recrutement avec Final International University (FIU) et les parcours de notre réseau éducatif.",
-    "Explore verified property opportunities in top locations across North Cyprus and our primary partner networks.":
-      "Découvrez des possibilités immobilières vérifiées à Chypre du Nord et dans nos principaux réseaux partenaires.",
-    "*Buyer/title eligibility is based on partner statements and verified during legal conveyancing.":
-      "*L’éligibilité de l’acheteur et du titre repose sur les déclarations du partenaire et doit être vérifiée lors de la transaction juridique.",
-    "Filter by destination and subject. Confirmed partner institutions include Final International University (FIU). Additional destination applications are arranged through our education network.":
-      "Filtrez par destination et domaine. Final International University (FIU) fait partie de nos partenaires confirmés. Les candidatures vers d’autres destinations sont organisées par notre réseau éducatif.",
-    "We guide admissions across all 9 supported destinations through our education network. Message us on WhatsApp for tailored options.":
-      "Nous accompagnons les admissions dans les 9 destinations couvertes par notre réseau éducatif. Écrivez-nous sur WhatsApp pour des options adaptées.",
-    "Search by subject and level. Individual programme details and fee schedules are confirmed directly with partner institutions upon inquiry.":
-      "Recherchez par domaine et niveau. Les détails des formations et les frais sont confirmés directement auprès des établissements partenaires.",
-    "We verify individual programme details directly with partner institutions before publishing. Message us on WhatsApp for currently open programmes, faculties, and admission requirements.":
-      "Nous vérifions les détails de chaque formation auprès des établissements partenaires avant publication. Écrivez-nous sur WhatsApp pour connaître les formations ouvertes et les conditions d’admission.",
-    "We list scholarships confirmed with partner institutions. Scholarships can be up to 100% for eligible students at selected institutions.":
-      "Nous répertorions les bourses confirmées par nos partenaires. Dans certains établissements, les étudiants admissibles peuvent obtenir une bourse pouvant atteindre 100 %.",
     "Straightforward guidance from your shortlist to your arrival plans — with every requirement clearly explained.":
       "Un accompagnement clair, de votre sélection d’établissements à votre arrivée, avec chaque exigence expliquée.",
     "Housing, essentials and trusted services from the Frankedu community.":
@@ -836,16 +861,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Une villa rénovée avec soin, préparée pour la revente. Ce bien peut intéresser les acheteurs recherchant une maison remise à neuf ou une possibilité d’investissement à Chypre du Nord.",
     "Full property photographs and the exact map location are available upon request. Contact Frankedu Global for viewing arrangements and dedicated purchasing assistance.":
       "Les photos complètes et l’emplacement exact sont disponibles sur demande. Contactez Frankedu Global pour organiser une visite et obtenir un accompagnement à l’achat.",
-    "Partner states the title is suitable for a foreign national*":
-      "Le partenaire indique que le titre convient à un ressortissant étranger*",
-    "*Buyer/title eligibility information is based on the partner's statement and should be independently confirmed during legal conveyancing.":
-      "*Les informations sur l’éligibilité de l’acheteur et du titre reposent sur les déclarations du partenaire et doivent être confirmées indépendamment lors de la transaction juridique.",
     "Renovated and design-refurbished villa": "Villa rénovée et réaménagée par un designer",
     "North Cyprus location": "Emplacement à Chypre du Nord",
     "Full property photo gallery available": "Galerie complète de photos disponible",
     "Viewing and purchase assistance available": "Aide à la visite et à l’achat disponible",
-    "Partner states title is suitable for foreign buyers*":
-      "Le partenaire indique que le titre convient aux acheteurs étrangers*",
     "Contact advisor for verified fee schedules": "Contactez un conseiller pour les frais vérifiés",
     "Contact advisor for intake schedules": "Contactez un conseiller pour les périodes d’admission",
     "Inquire for current opportunities": "Renseignez-vous sur les possibilités actuelles",
@@ -856,8 +875,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Up to 100% for eligible students": "Jusqu’à 100 % pour les étudiants admissibles",
     "Undergraduate & Postgraduate": "Premier et deuxième cycles",
     "Contact advisor": "Contacter un conseiller",
-    "Selected Partner Institutions": "Établissements partenaires sélectionnés",
-    "Supported Network Destinations": "Destinations couvertes par le réseau",
     "Merit-based waivers and institutional awards available across supported destinations. Assessed upon academic profile review.":
       "Des exonérations au mérite et des bourses institutionnelles sont possibles dans les destinations couvertes, après examen du dossier scolaire.",
     "Business & Management": "Commerce et gestion",
@@ -967,20 +984,14 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Upcoming Intake": "Prochaine période d’admission",
     "Under review": "En cours d’examen",
     "Financial evidence": "Justificatif financier",
-    "Founded in September 2023, Frankedu Global provides transparent guidance for students, families, and investors navigating global university admissions, scholarships, student accommodation, and overseas property opportunities.":
-      "Fondée en septembre 2023, Frankedu Global accompagne avec transparence les étudiants, les familles et les investisseurs dans les admissions universitaires, les bourses, le logement étudiant et l’immobilier à l’étranger.",
     "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus":
-      "Regal Residence, Küçük Kaymaklı, Lefkoşa, Chypre du Nord",
-    "Verified first": "La vérification avant tout",
-    "We only publish admissions, tuition, and scholarship terms confirmed directly with our partner institutions and verified networks.":
-      "Nous ne publions que les conditions d’admission, frais et bourses confirmés directement par nos partenaires et réseaux vérifiés.",
+      "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
     "Frank & transparent": "Franc et transparent",
     "Honest, realistic advice regarding admissions criteria, visa regulations, and living costs — with no overselling.":
       "Des conseils honnêtes et réalistes sur les admissions, les visas et le coût de la vie, sans promesses exagérées.",
     "Comprehensive support": "Accompagnement complet",
     "From programme matching and visa preparation to arrival reception, accommodation, and property investment guidance.":
       "Du choix de formation à la préparation du visa, l’accueil, le logement et les conseils en investissement immobilier.",
-    Founded: "Fondée",
     "Supported destinations": "Destinations couvertes",
     "Scholarship range": "Montant des bourses",
     "Up to 100%": "Jusqu’à 100 %",
@@ -1001,17 +1012,11 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Vélo urbain fiable avec antivol et éclairages pour rejoindre facilement le campus.",
     "Germany, UK, Cyprus…": "Allemagne, Royaume-Uni, Chypre…",
     "Business, Engineering, IT…": "Commerce, ingénierie, informatique…",
-    "HQ: Lefkoşa, North Cyprus • Partner institutions & verified properties":
-      "Siège : Lefkoşa, Chypre du Nord • Établissements partenaires et biens vérifiés",
     "Eco Luxury & Property Care": "Eco Luxury et entretien immobilier",
     "Turnover cleaning & maintenance": "Nettoyage de rotation et entretien",
-    "Talk to our advisory team in Lefkoşa or connect directly online for university applications, property viewings, and professional services.":
-      "Rencontrez notre équipe à Lefkoşa ou contactez-la en ligne pour les candidatures universitaires, les visites immobilières et les services professionnels.",
     "Inquire for this destination": "Renseignez-vous sur cette destination",
     "Programmes at": "Formations à",
     "programmes found": "formations trouvées",
-    "Compare key study destinations side by side. Additional destinations worldwide may also be available through our global education network.":
-      "Comparez les principales destinations d’études. D’autres destinations peuvent être proposées par notre réseau éducatif mondial.",
     "Funding that fits your plan.": "Un financement adapté à votre projet.",
     "Dormitories, shared flats and private apartments near campus.":
       "Résidences, appartements partagés et logements privés près du campus.",
@@ -1059,24 +1064,13 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Verified Guidance": "Conseils vérifiés",
     "Direct advisory for university admissions, scholarships, and overseas property.":
       "Conseils directs sur les admissions universitaires, les bourses et l’immobilier à l’étranger.",
-    "Operating from our headquarters in Lefkoşa, North Cyprus, Frankedu Global was established to provide dependable clarity. We only publish admissions terms, tuition rates, and scholarship criteria confirmed directly with our partner institutions and verified networks.":
-      "Depuis son siège à Lefkoşa, Chypre du Nord, Frankedu Global fournit des conseils fiables et clairs. Nous ne publions que les conditions d’admission, frais et critères de bourse confirmés par nos partenaires et réseaux vérifiés.",
-    "Founded with transparent student advocacy at its core.":
-      "Fondée sur un accompagnement étudiant transparent.",
-    "Lefkoşa office providing in-person and international consultation.":
-      "Le bureau de Lefkoşa propose des consultations sur place et à l’international.",
     "Message on WhatsApp": "Écrire sur WhatsApp",
     "Contact our office": "Contacter notre bureau",
     "Reach us on WhatsApp for the fastest reply, or prepare an email below.":
       "Écrivez-nous sur WhatsApp pour une réponse rapide ou préparez un e-mail ci-dessous.",
     "Frankedu Global website enquiry": "Demande depuis le site Frankedu Global",
-    Office: "Bureau",
     "This opens your email app with the message ready. You will need to send it there; the website does not submit or store it.":
       "Votre application de messagerie s’ouvrira avec le message préparé. Vous devrez l’envoyer depuis cette application ; le site ne l’envoie ni ne le conserve.",
-    "September 2023": "Septembre 2023",
-    "Sep 2023": "Sept. 2023",
-    "English-medium degree programmes with generous scholarship opportunities up to 100% at confirmed partner institutions including Final International University (FIU).":
-      "Formations diplômantes en anglais et bourses pouvant atteindre 100 % dans des établissements partenaires confirmés, dont Final International University (FIU).",
     "Confirmed recruitment relationship: Final International University (FIU)":
       "Relation de recrutement confirmée avec Final International University (FIU)",
     "Scholarships up to 100% for eligible students at selected institutions":
@@ -1151,8 +1145,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Books: "Livres",
     Furniture: "Mobilier",
     Transport: "Transport",
-    "Additional study destinations worldwide may also be available through our global education network. Contact us if your desired country is not listed.":
-      "D’autres destinations peuvent être proposées par notre réseau éducatif mondial. Contactez-nous si le pays souhaité ne figure pas dans la liste.",
     "Renovated Villa for Sale in North Cyprus": "Villa rénovée à vendre à Chypre du Nord",
     "Renovated Villa for Sale in North Cyprus | Frankedu Global":
       "Villa rénovée à vendre à Chypre du Nord | Frankedu Global",
@@ -1205,7 +1197,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Final International University Scholarships": "Bourses de Final International University",
     "Scholarships can be up to 100% for eligible students at selected institutions based on academic merit, quota availability, or early application.":
       "Dans certains établissements, les étudiants admissibles peuvent obtenir une bourse allant jusqu’à 100 %, selon le mérite, les quotas disponibles ou la date de candidature.",
-    "Education Network Institutional Awards": "Bourses des établissements du réseau éducatif",
     "North Cyprus: residential, off-plan and investment properties":
       "Chypre du Nord : biens résidentiels, sur plan et d’investissement",
     "United Kingdom: residential and investment opportunities":
@@ -1223,6 +1214,88 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Up to 100% scholarship evaluation at selected institutions":
       "Évaluation pour une bourse allant jusqu’à 100 % dans certains établissements",
     Transportation: "Transport",
+    "Explore university options & tuition": "Découvrir les options universitaires et les frais",
+    "Contact us about study destinations and university admissions.":
+      "Contactez-nous au sujet des destinations d’études et des admissions universitaires.",
+    "Global Opportunities.": "Possibilités internationales.",
+    "Study guidance • Property information": "Conseils d’études • Informations immobilières",
+    "Study options & scholarships": "Options d’études et bourses",
+    "Guidance on study options based on your academic background and aspirations.":
+      "Conseils sur les options d’études selon votre parcours universitaire et vos objectifs.",
+    "Buyer Eligibility Information*": "Informations sur l’éligibilité des acheteurs*",
+    "Explore study destinations and discuss options based on your academic goals, budget, and preferred intake.":
+      "Découvrez les destinations d’études et discutez des options selon vos objectifs, votre budget et la période souhaitée.",
+    "University Pathways.": "Parcours universitaires.",
+    "We have a confirmed recruitment relationship with Final International University (FIU). Contact us for current programme and admissions details.":
+      "Nous avons une relation de recrutement confirmée avec Final International University (FIU). Contactez-nous pour connaître les formations et admissions actuellement proposées.",
+    "Explore property opportunities across North Cyprus and selected international markets.":
+      "Découvrez des possibilités immobilières à Chypre du Nord et sur certains marchés internationaux.",
+    "*Buyer/title eligibility information is included in the listing and should be independently confirmed during legal conveyancing.":
+      "*Les informations sur l’éligibilité de l’acheteur et du titre figurant dans l’annonce doivent être confirmées indépendamment lors de la transaction juridique.",
+    "We have a confirmed recruitment relationship with Final International University (FIU). Contact us to discuss other study options.":
+      "Nous avons une relation de recrutement confirmée avec Final International University (FIU). Contactez-nous pour discuter d’autres possibilités d’études.",
+    "Contact us to discuss study options for this destination.":
+      "Contactez-nous pour discuter des options d’études dans cette destination.",
+    "Search by subject and level. Contact us for current programme details and fee information.":
+      "Recherchez par domaine et niveau. Contactez-nous pour obtenir les informations actuelles sur les formations et les frais.",
+    "Programme and admission information can change. Contact us for current details about available programmes, faculties, and requirements.":
+      "Les informations sur les formations et les admissions peuvent changer. Contactez-nous pour connaître les formations, facultés et conditions actuellement disponibles.",
+    "Compare key study destinations side by side. Contact us to discuss options for destinations not listed.":
+      "Comparez les principales destinations d’études. Contactez-nous pour discuter des options dans les destinations non répertoriées.",
+    "Scholarship details depend on the institution and eligibility criteria. Contact us for current information.":
+      "Les bourses dépendent de l’établissement et des critères d’admissibilité. Contactez-nous pour obtenir les informations actuelles.",
+    "Listing states the title is suitable for a foreign national*":
+      "L’annonce indique que le titre convient à un ressortissant étranger*",
+    "Listing states title is suitable for foreign buyers*":
+      "L’annonce indique que le titre convient aux acheteurs étrangers*",
+    "*Buyer/title eligibility information in the listing should be independently confirmed during legal conveyancing.":
+      "*Les informations de l’annonce sur l’éligibilité de l’acheteur et du titre doivent être confirmées indépendamment lors de la transaction juridique.",
+    "Frankedu Global provides guidance for students, families, and investors navigating university admissions, scholarships, student accommodation, and overseas property opportunities.":
+      "Frankedu Global accompagne les étudiants, les familles et les investisseurs dans les admissions universitaires, les bourses, le logement étudiant et les possibilités immobilières à l’étranger.",
+    "Clear information": "Des informations claires",
+    "We aim to provide clear information about admissions, tuition, and scholarship terms. Contact us for current details.":
+      "Nous cherchons à fournir des informations claires sur les admissions, les frais de scolarité et les bourses. Contactez-nous pour obtenir les détails actuels.",
+    "Frankedu Global provides guidance for students and families. Contact us for current admissions, tuition, and scholarship details.":
+      "Frankedu Global accompagne les étudiants et les familles. Contactez-nous pour obtenir les informations actuelles sur les admissions, les frais et les bourses.",
+    "Company & Approach": "Entreprise et approche",
+    Brand: "Marque",
+    "Customer-facing brand": "Marque destinée aux clients",
+    Address: "Adresse",
+    "Contact us online about university applications, property viewings, and professional services.":
+      "Contactez-nous en ligne au sujet des candidatures universitaires, des visites immobilières et des services professionnels.",
+    "English-medium degree programmes and scholarship opportunities at Final International University (FIU).":
+      "Formations diplômantes en anglais et possibilités de bourses à Final International University (FIU).",
+    "We help students, families, and investors explore study options, property information, and professional services.":
+      "Nous aidons les étudiants, les familles et les investisseurs à découvrir des options d’études, des informations immobilières et des services professionnels.",
+    "Personalized Guidance": "Conseils personnalisés",
+    "Property information & investment options":
+      "Informations immobilières et options d’investissement",
+    "Scholarships up to 100% for eligible students at Final International University (FIU)":
+      "Bourses pouvant atteindre 100 % pour les étudiants admissibles à Final International University (FIU)",
+    "Scholarship opportunities up to 100% at Final International University (FIU)":
+      "Possibilités de bourses allant jusqu’à 100 % à Final International University (FIU)",
+    "Scholarship-eligible (up to 100% at Final International University (FIU))":
+      "Possibilités de bourses allant jusqu’à 100 % à Final International University (FIU)",
+    "Scholarship opportunities at Final International University (FIU) can be up to 100% for eligible students. Contact us for current eligibility and award details.":
+      "Les bourses à Final International University (FIU) peuvent atteindre 100 % pour les étudiants admissibles. Contactez-nous pour connaître les critères et montants actuels.",
+    "Scholarships up to 100% for eligible students":
+      "Bourses pouvant atteindre 100 % pour les étudiants admissibles",
+    "Study guidance by destination and subject": "Conseils d’études par destination et domaine",
+    "At Final International University (FIU), scholarships can be up to 100% for eligible students. Contact us for current details.":
+      "À Final International University (FIU), les bourses peuvent atteindre 100 % pour les étudiants admissibles. Contactez-nous pour obtenir les détails actuels.",
+    "Scholarship opportunities at FIU for eligible students":
+      "Possibilités de bourses à FIU pour les étudiants admissibles",
+    "Contact us for current scholarship criteria and award details":
+      "Contactez-nous pour connaître les critères et montants actuels des bourses",
+    "Review current tuition details before applying":
+      "Consultez les frais de scolarité actuels avant de postuler",
+    "FIU scholarship range": "Montant des bourses à FIU",
+    "FIU scholarships up to 100% for eligible students":
+      "Bourses à FIU pouvant atteindre 100 % pour les étudiants admissibles",
+    "Contact advisor for current tuition information":
+      "Contactez un conseiller pour connaître les frais de scolarité actuels",
+    "Student dormitories and rentals near campus, kept strictly separate from investment property.":
+      "Résidences et locations étudiantes près du campus, distinctes des biens d’investissement.",
   },
   sw: {
     Universities: "Vyuo vikuu",
@@ -1248,13 +1321,13 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Company: "Kampuni",
     "Compare English-taught programmes": "Linganisha programu zinazofundishwa kwa Kiingereza",
     "Compare countries, visas & intakes": "Linganisha nchi, visa na vipindi vya udahili",
-    "Verified funding & tuition discounts": "Ufadhili na punguzo la ada lililothibitishwa",
+    "Scholarship information": "Taarifa za ufadhili wa masomo",
     "Intake planning, visa & arrival support": "Mipango ya udahili, visa na msaada wa kuwasili",
     "Student essentials & trusted community listings":
       "Mahitaji ya wanafunzi na matangazo ya jumuiya",
     "Dorms & apartments near campus": "Mabweni na vyumba karibu na chuo",
     "Property purchases & rentals": "Ununuzi na upangishaji wa mali",
-    "Our mission, team & verified guidance": "Dhamira yetu, timu na mwongozo uliothibitishwa",
+    "Our mission, team & personal guidance": "Dhamira yetu, timu na mwongozo wa kibinafsi",
     "Message our advisory team": "Tuma ujumbe kwa timu yetu ya ushauri",
     "Clear guidance for students choosing where — and how — to study abroad.":
       "Mwongozo wazi kwa wanafunzi wanaochagua mahali na namna ya kusoma nje ya nchi.",
@@ -1265,8 +1338,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Accommodation: "Malazi",
     "Real Estate": "Mali isiyohamishika",
     "All rights reserved.": "Haki zote zimehifadhiwa.",
-    "Confirmed partner listings. Additional destinations available via our education network.":
-      "Orodha za washirika zimethibitishwa. Nchi nyingine zinaweza kupatikana kupitia mtandao wetu wa elimu.",
     Home: "Nyumbani",
     "Verified listing": "Tangazo limethibitishwa",
     "Template — verify before publishing": "Kiolezo — thibitisha kabla ya kuchapisha",
@@ -1297,7 +1368,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Go home": "Rudi mwanzo",
     "Education • Real Estate • Creative • Beyond": "Elimu • Mali • Ubunifu • Mengineyo",
     "Your Future.": "Mustakabali wako.",
-    "Our Global Network.": "Mtandao wetu wa kimataifa.",
     "Study Abroad • Invest in Property • Build Your Brand • Live Better":
       "Soma nje • Wekeza kwenye mali • Jenga chapa yako • Ishi vizuri",
     "Study destination": "Nchi ya masomo",
@@ -1308,7 +1378,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "One Global Brand. Multiple Opportunities.": "Chapa moja ya kimataifa. Fursa nyingi.",
     "Explore All Services": "Chunguza huduma zote",
     "Education & Admissions": "Elimu na udahili",
-    "Global study pathways & scholarships": "Njia za masomo na ufadhili duniani",
     "Browse Universities": "Vinjari vyuo vikuu",
     "Properties & Investment": "Mali na uwekezaji",
     "Verified homes & investment assets": "Nyumba na mali za uwekezaji zilizothibitishwa",
@@ -1321,7 +1390,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "View All Destinations": "Tazama nchi zote",
     "Study • Invest • Live": "Soma • Wekeza • Ishi",
     "Institutions & Pathways": "Taasisi na njia za masomo",
-    "Confirmed Partner Institutions.": "Taasisi washirika zilizothibitishwa.",
     "Browse All Universities": "Vinjari vyuo vyote",
     "Real Estate Opportunities": "Fursa za mali",
     "Featured Properties.": "Mali zilizoangaziwa.",
@@ -1439,7 +1507,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Personal, transparent guidance from day one.":
       "Mwongozo wa kibinafsi na wazi tangu siku ya kwanza.",
     Established: "Ilianzishwa",
-    Headquarters: "Makao makuu",
     "How we work": "Jinsi tunavyofanya kazi",
     "What you can expect.": "Unachoweza kutarajia.",
     Team: "Timu",
@@ -1469,8 +1536,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Ununuzi wa mali, nyumba zilizokarabatiwa na makazi ya pwani Kaskazini mwa Saiprasi, Uingereza na UAE.",
     "North Cyprus Residential Villas": "Nyumba za makazi Kaskazini mwa Saiprasi",
     "Seafront Resort Residences": "Makazi ya mapumziko kando ya bahari",
-    "Partner-Verified Foreign Buyer Titles*":
-      "Hati zilizothibitishwa na mshirika kwa wanunuzi wa kigeni*",
     "Property Acquisition Advisory": "Ushauri wa ununuzi wa mali",
     "UK & Dubai Opportunities": "Fursa Uingereza na Dubai",
     "Brand development, bespoke websites, student portfolio polish, and creative digital solutions by Frankedu.":
@@ -1489,22 +1554,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Local On-the-Ground Team": "Timu ya eneo husika",
     "Explore high-demand study hubs and receive verified guidance based on your academic goals, budget, and preferred intake.":
       "Chunguza nchi maarufu za masomo na upate mwongozo uliothibitishwa kulingana na malengo yako, bajeti na kipindi unachopendelea.",
-    "We publish confirmed details with partner institutions, including our recruitment relationship with Final International University (FIU) and global education network pathways.":
-      "Tunachapisha taarifa zilizothibitishwa na taasisi washirika, ikiwemo uhusiano wetu wa udahili na Final International University (FIU) na njia za mtandao wetu wa elimu.",
-    "Explore verified property opportunities in top locations across North Cyprus and our primary partner networks.":
-      "Chunguza fursa za mali zilizothibitishwa Kaskazini mwa Saiprasi na katika mitandao yetu mikuu ya washirika.",
-    "*Buyer/title eligibility is based on partner statements and verified during legal conveyancing.":
-      "*Ustahiki wa mnunuzi na hati unategemea taarifa za mshirika na unapaswa kuthibitishwa wakati wa uhamisho wa kisheria.",
-    "Filter by destination and subject. Confirmed partner institutions include Final International University (FIU). Additional destination applications are arranged through our education network.":
-      "Chuja kwa nchi na somo. Taasisi washirika zilizothibitishwa zinajumuisha Final International University (FIU). Maombi ya nchi nyingine hupangwa kupitia mtandao wetu wa elimu.",
-    "We guide admissions across all 9 supported destinations through our education network. Message us on WhatsApp for tailored options.":
-      "Tunatoa mwongozo wa udahili katika nchi zote 9 zinazoungwa mkono kupitia mtandao wetu wa elimu. Tutumie ujumbe WhatsApp upate chaguo zinazokufaa.",
-    "Search by subject and level. Individual programme details and fee schedules are confirmed directly with partner institutions upon inquiry.":
-      "Tafuta kwa somo na kiwango. Maelezo ya programu na ada huthibitishwa moja kwa moja na taasisi washirika unapouliza.",
-    "We verify individual programme details directly with partner institutions before publishing. Message us on WhatsApp for currently open programmes, faculties, and admission requirements.":
-      "Tunathibitisha maelezo ya kila programu moja kwa moja na taasisi washirika kabla ya kuchapisha. Tutumie ujumbe WhatsApp kuhusu programu zilizo wazi na masharti ya udahili.",
-    "We list scholarships confirmed with partner institutions. Scholarships can be up to 100% for eligible students at selected institutions.":
-      "Tunaorodhesha ufadhili uliothibitishwa na taasisi washirika. Wanafunzi wanaostahiki wanaweza kupata ufadhili hadi asilimia 100 katika taasisi zilizochaguliwa.",
     "Straightforward guidance from your shortlist to your arrival plans — with every requirement clearly explained.":
       "Mwongozo wazi kutoka kuchagua vyuo hadi kupanga kuwasili, huku kila sharti likielezwa.",
     "Housing, essentials and trusted services from the Frankedu community.":
@@ -1521,16 +1570,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Nyumba iliyokarabatiwa kwa umakini na kuandaliwa kuuzwa tena. Mali hii inaweza kuwafaa wanunuzi wanaotafuta nyumba iliyoboreshwa au fursa ya uwekezaji Kaskazini mwa Saiprasi.",
     "Full property photographs and the exact map location are available upon request. Contact Frankedu Global for viewing arrangements and dedicated purchasing assistance.":
       "Picha zote na eneo halisi kwenye ramani hutolewa ukiomba. Wasiliana na Frankedu Global kupanga ziara na kupata msaada wa ununuzi.",
-    "Partner states the title is suitable for a foreign national*":
-      "Mshirika anasema hati inamfaa mnunuzi wa kigeni*",
-    "*Buyer/title eligibility information is based on the partner's statement and should be independently confirmed during legal conveyancing.":
-      "*Taarifa kuhusu ustahiki wa mnunuzi na hati zinatokana na maelezo ya mshirika na zinapaswa kuthibitishwa kwa kujitegemea wakati wa uhamisho wa kisheria.",
     "Renovated and design-refurbished villa": "Nyumba iliyokarabatiwa na kupangwa upya",
     "North Cyprus location": "Eneo la Kaskazini mwa Saiprasi",
     "Full property photo gallery available": "Matunzio kamili ya picha za mali yanapatikana",
     "Viewing and purchase assistance available": "Msaada wa kutembelea na kununua unapatikana",
-    "Partner states title is suitable for foreign buyers*":
-      "Mshirika anasema hati inawafaa wanunuzi wa kigeni*",
     "Cyprus / North Cyprus": "Saiprasi / Kaskazini mwa Saiprasi",
     "Europe / Mediterranean": "Ulaya / Mediterania",
     "United Kingdom": "Uingereza",
@@ -1580,24 +1623,17 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Sample Programme Application (Prototype Preview)": "Maombi ya mfano (hakiki ya programu)",
     "Under review": "Yanapitiwa",
     "Financial evidence": "Uthibitisho wa fedha",
-    "Founded in September 2023, Frankedu Global provides transparent guidance for students, families, and investors navigating global university admissions, scholarships, student accommodation, and overseas property opportunities.":
-      "Ilianzishwa Septemba 2023, Frankedu Global hutoa mwongozo wazi kwa wanafunzi, familia na wawekezaji kuhusu udahili wa vyuo duniani, ufadhili, malazi ya wanafunzi na fursa za mali nje ya nchi.",
     "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus":
-      "Regal Residence, Küçük Kaymaklı, Lefkoşa, Kaskazini mwa Saiprasi",
-    "Verified first": "Uthibitisho kwanza",
-    "We only publish admissions, tuition, and scholarship terms confirmed directly with our partner institutions and verified networks.":
-      "Tunachapisha tu masharti ya udahili, ada na ufadhili yaliyothibitishwa moja kwa moja na taasisi washirika na mitandao iliyothibitishwa.",
+      "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
     "Frank & transparent": "Wazi na waaminifu",
     "Honest, realistic advice regarding admissions criteria, visa regulations, and living costs — with no overselling.":
       "Ushauri wa kweli kuhusu vigezo vya udahili, kanuni za visa na gharama za maisha bila ahadi zilizopitiliza.",
     "Comprehensive support": "Msaada kamili",
     "From programme matching and visa preparation to arrival reception, accommodation, and property investment guidance.":
       "Kuanzia kuchagua programu na kuandaa visa hadi mapokezi, malazi na ushauri wa uwekezaji wa mali.",
-    Founded: "Ilianzishwa",
     "Supported destinations": "Nchi zinazoungwa mkono",
     "Scholarship range": "Kiwango cha ufadhili",
     "Up to 100%": "Hadi asilimia 100",
-    "Explore partner campuses & tuition": "Chunguza vyuo washirika na ada",
     "Inquire for current intakes": "Uliza kuhusu vipindi vya sasa vya udahili",
     "Scholarship-eligible (up to 100% at selected institutions)":
       "Ufadhili unapatikana (hadi 100% katika taasisi zilizochaguliwa)",
@@ -1665,8 +1701,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Hitilafu imetokea. Jaribu kupakia upya au urudi mwanzo.",
     "Germany, UK, Cyprus…": "Ujerumani, Uingereza, Saiprasi…",
     "Business, Engineering, IT…": "Biashara, uhandisi, TEHAMA…",
-    "HQ: Lefkoşa, North Cyprus • Partner institutions & verified properties":
-      "Makao makuu: Lefkoşa, Kaskazini mwa Saiprasi • Taasisi washirika na mali zilizothibitishwa",
     "University Admissions & Matching": "Udahili wa vyuo na ulinganishaji wa programu",
     "Eco Luxury & Property Care": "Eco Luxury na utunzaji wa mali",
     "Turnover cleaning & maintenance": "Usafi wa nyumba na matengenezo",
@@ -1675,8 +1709,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Inquire for this destination": "Uliza kuhusu nchi hii",
     "Programmes at": "Programu katika",
     "programmes found": "programu zimepatikana",
-    "Compare key study destinations side by side. Additional destinations worldwide may also be available through our global education network.":
-      "Linganisha nchi muhimu za masomo. Nchi nyingine zinaweza kupatikana kupitia mtandao wetu wa elimu duniani.",
     "Funding that fits your plan.": "Ufadhili unaolingana na mpango wako.",
     "Dormitories, shared flats and private apartments near campus.":
       "Mabweni, nyumba za pamoja na fleti binafsi karibu na chuo.",
@@ -1725,10 +1757,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Verified Guidance": "Mwongozo uliothibitishwa",
     "Direct advisory for university admissions, scholarships, and overseas property.":
       "Ushauri wa moja kwa moja kuhusu udahili wa vyuo, ufadhili na mali nje ya nchi.",
-    "Operating from our headquarters in Lefkoşa, North Cyprus, Frankedu Global was established to provide dependable clarity. We only publish admissions terms, tuition rates, and scholarship criteria confirmed directly with our partner institutions and verified networks.":
-      "Kutoka makao yetu makuu Lefkoşa, Kaskazini mwa Saiprasi, Frankedu Global ilianzishwa kutoa mwongozo wa kuaminika na wazi. Tunachapisha tu masharti ya udahili, ada na vigezo vya ufadhili vilivyothibitishwa moja kwa moja na taasisi washirika na mitandao yetu.",
-    "Founded with transparent student advocacy at its core.":
-      "Ilianzishwa kwa msingi wa uwazi na kutetea maslahi ya wanafunzi.",
     "Lefkoşa office providing in-person and international consultation.":
       "Ofisi ya Lefkoşa hutoa mashauriano ya ana kwa ana na ya kimataifa.",
     "Message on WhatsApp": "Tuma ujumbe WhatsApp",
@@ -1739,12 +1767,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Office: "Ofisi",
     "This opens your email app with the message ready. You will need to send it there; the website does not submit or store it.":
       "Programu yako ya barua pepe itafunguka na ujumbe ukiwa tayari. Utahitaji kuutuma humo; tovuti haitumi wala kuhifadhi ujumbe.",
-    "September 2023": "Septemba 2023",
-    "Sep 2023": "Sep 2023",
-    "English-medium degree programmes with generous scholarship opportunities up to 100% at confirmed partner institutions including Final International University (FIU).":
-      "Programu za shahada zinazofundishwa kwa Kiingereza na ufadhili hadi asilimia 100 katika taasisi washirika zilizothibitishwa, zikiwemo Final International University (FIU).",
-    "Confirmed recruitment relationship: Final International University (FIU)":
-      "Uhusiano wa udahili uliothibitishwa: Final International University (FIU)",
     "Scholarships up to 100% for eligible students at selected institutions":
       "Ufadhili hadi asilimia 100 kwa wanafunzi wanaostahiki katika taasisi zilizochaguliwa",
     "Affordable cost of living and student accommodation":
@@ -1781,8 +1803,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Transport: "Usafiri",
     "Reliable city bicycle with lock and safety lights for easy campus commute.":
       "Baiskeli ya mjini ya kuaminika yenye kufuli na taa za usalama kwa safari rahisi kwenda chuoni.",
-    "Additional study destinations worldwide may also be available through our global education network. Contact us if your desired country is not listed.":
-      "Nchi nyingine za masomo zinaweza kupatikana kupitia mtandao wetu wa elimu duniani. Wasiliana nasi ikiwa nchi unayotaka haijaorodheshwa.",
     "Renovated Villa for Sale in North Cyprus":
       "Nyumba iliyokarabatiwa inauzwa Kaskazini mwa Saiprasi",
     "Renovated Villa for Sale in North Cyprus | Frankedu Global":
@@ -1844,9 +1864,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Contact advisor": "Wasiliana na mshauri",
     "Scholarships can be up to 100% for eligible students at selected institutions based on academic merit, quota availability, or early application.":
       "Katika taasisi zilizochaguliwa, wanafunzi wanaostahiki wanaweza kupata ufadhili hadi asilimia 100 kulingana na ufaulu, nafasi zilizopo au maombi ya mapema.",
-    "Education Network Institutional Awards": "Tuzo za taasisi za mtandao wa elimu",
-    "Selected Partner Institutions": "Taasisi washirika zilizochaguliwa",
-    "Supported Network Destinations": "Nchi zinazoungwa mkono na mtandao",
     "Merit-based waivers and institutional awards available across supported destinations. Assessed upon academic profile review.":
       "Msamaha wa ada na tuzo za taasisi kulingana na ufaulu zinapatikana katika nchi zinazoungwa mkono. Tathmini hufanywa baada ya kupitia rekodi ya masomo.",
     "Business & Management": "Biashara na usimamizi",
@@ -1912,6 +1929,87 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Career Support & Digital Services": "Msaada wa kazi na huduma za kidijitali",
     "Contact advisor for verified fee schedule":
       "Wasiliana na mshauri upate ratiba ya ada iliyothibitishwa",
+    "Explore university options & tuition": "Chunguza chaguo za vyuo na ada",
+    "Contact us about study destinations and university admissions.":
+      "Wasiliana nasi kuhusu nchi za masomo na udahili wa vyuo.",
+    "Global Opportunities.": "Fursa za kimataifa.",
+    "Study guidance • Property information": "Mwongozo wa masomo • Taarifa za mali",
+    "Study options & scholarships": "Chaguo za masomo na ufadhili",
+    "Guidance on study options based on your academic background and aspirations.":
+      "Mwongozo kuhusu chaguo za masomo kulingana na historia na malengo yako ya kitaaluma.",
+    "Buyer Eligibility Information*": "Taarifa za ustahiki wa mnunuzi*",
+    "Explore study destinations and discuss options based on your academic goals, budget, and preferred intake.":
+      "Chunguza nchi za masomo na ujadili chaguo kulingana na malengo yako ya kitaaluma, bajeti na kipindi unachopendelea.",
+    "University Pathways.": "Njia za masomo ya chuo kikuu.",
+    "We have a confirmed recruitment relationship with Final International University (FIU). Contact us for current programme and admissions details.":
+      "Tuna uhusiano wa udahili uliothibitishwa na Final International University (FIU). Wasiliana nasi kwa taarifa za sasa kuhusu programu na udahili.",
+    "Explore property opportunities across North Cyprus and selected international markets.":
+      "Chunguza fursa za mali Kaskazini mwa Saiprasi na katika baadhi ya masoko ya kimataifa.",
+    "*Buyer/title eligibility information is included in the listing and should be independently confirmed during legal conveyancing.":
+      "*Taarifa za ustahiki wa mnunuzi na hati zilizo kwenye tangazo zinapaswa kuthibitishwa kwa kujitegemea wakati wa uhamisho wa kisheria.",
+    "We have a confirmed recruitment relationship with Final International University (FIU). Contact us to discuss other study options.":
+      "Tuna uhusiano wa udahili uliothibitishwa na Final International University (FIU). Wasiliana nasi kujadili chaguo nyingine za masomo.",
+    "Contact us to discuss study options for this destination.":
+      "Wasiliana nasi kujadili chaguo za masomo katika nchi hii.",
+    "Search by subject and level. Contact us for current programme details and fee information.":
+      "Tafuta kwa somo na kiwango. Wasiliana nasi kwa taarifa za sasa kuhusu programu na ada.",
+    "Programme and admission information can change. Contact us for current details about available programmes, faculties, and requirements.":
+      "Taarifa za programu na udahili zinaweza kubadilika. Wasiliana nasi kupata taarifa za sasa kuhusu programu, vitivo na masharti yanayopatikana.",
+    "Compare key study destinations side by side. Contact us to discuss options for destinations not listed.":
+      "Linganisha nchi kuu za masomo. Wasiliana nasi kujadili chaguo za nchi ambazo hazijaorodheshwa.",
+    "Scholarship details depend on the institution and eligibility criteria. Contact us for current information.":
+      "Taarifa za ufadhili hutegemea taasisi na vigezo vya ustahiki. Wasiliana nasi kupata taarifa za sasa.",
+    "Listing states the title is suitable for a foreign national*":
+      "Tangazo linasema hati inamfaa raia wa kigeni*",
+    "Listing states title is suitable for foreign buyers*":
+      "Tangazo linasema hati inawafaa wanunuzi wa kigeni*",
+    "*Buyer/title eligibility information in the listing should be independently confirmed during legal conveyancing.":
+      "*Taarifa za ustahiki wa mnunuzi na hati zilizo kwenye tangazo zinapaswa kuthibitishwa kwa kujitegemea wakati wa uhamisho wa kisheria.",
+    "Frankedu Global provides guidance for students, families, and investors navigating university admissions, scholarships, student accommodation, and overseas property opportunities.":
+      "Frankedu Global hutoa mwongozo kwa wanafunzi, familia na wawekezaji kuhusu udahili wa vyuo, ufadhili, malazi ya wanafunzi na fursa za mali nje ya nchi.",
+    "Clear information": "Taarifa zilizo wazi",
+    "We aim to provide clear information about admissions, tuition, and scholarship terms. Contact us for current details.":
+      "Tunalenga kutoa taarifa zilizo wazi kuhusu udahili, ada na masharti ya ufadhili. Wasiliana nasi kupata maelezo ya sasa.",
+    "Frankedu Global provides guidance for students and families. Contact us for current admissions, tuition, and scholarship details.":
+      "Frankedu Global hutoa mwongozo kwa wanafunzi na familia. Wasiliana nasi kupata taarifa za sasa kuhusu udahili, ada na ufadhili.",
+    "Company & Approach": "Kampuni na mtazamo",
+    Brand: "Chapa",
+    "Customer-facing brand": "Chapa inayotumika kwa wateja",
+    Address: "Anwani",
+    "Contact us online about university applications, property viewings, and professional services.":
+      "Wasiliana nasi mtandaoni kuhusu maombi ya chuo, kutembelea mali na huduma za kitaalamu.",
+    "English-medium degree programmes and scholarship opportunities at Final International University (FIU).":
+      "Programu za shahada zinazofundishwa kwa Kiingereza na fursa za ufadhili katika Final International University (FIU).",
+    "We help students, families, and investors explore study options, property information, and professional services.":
+      "Tunawasaidia wanafunzi, familia na wawekezaji kuchunguza chaguo za masomo, taarifa za mali na huduma za kitaalamu.",
+    "Personalized Guidance": "Mwongozo wa kibinafsi",
+    "Property information & investment options": "Taarifa za mali na chaguo za uwekezaji",
+    "Scholarships up to 100% for eligible students at Final International University (FIU)":
+      "Ufadhili wa hadi asilimia 100 kwa wanafunzi wanaostahiki katika Final International University (FIU)",
+    "Scholarship opportunities up to 100% at Final International University (FIU)":
+      "Fursa za ufadhili wa hadi asilimia 100 katika Final International University (FIU)",
+    "Scholarship-eligible (up to 100% at Final International University (FIU))":
+      "Fursa za ufadhili wa hadi asilimia 100 katika Final International University (FIU)",
+    "Scholarship opportunities at Final International University (FIU) can be up to 100% for eligible students. Contact us for current eligibility and award details.":
+      "Ufadhili katika Final International University (FIU) unaweza kufikia asilimia 100 kwa wanafunzi wanaostahiki. Wasiliana nasi kwa vigezo na maelezo ya sasa.",
+    "Scholarships up to 100% for eligible students":
+      "Ufadhili wa hadi asilimia 100 kwa wanafunzi wanaostahiki",
+    "Study guidance by destination and subject": "Mwongozo wa masomo kulingana na nchi na somo",
+    "At Final International University (FIU), scholarships can be up to 100% for eligible students. Contact us for current details.":
+      "Katika Final International University (FIU), ufadhili unaweza kufikia asilimia 100 kwa wanafunzi wanaostahiki. Wasiliana nasi kupata maelezo ya sasa.",
+    "Scholarship opportunities at FIU for eligible students":
+      "Fursa za ufadhili katika FIU kwa wanafunzi wanaostahiki",
+    "Contact us for current scholarship criteria and award details":
+      "Wasiliana nasi kwa vigezo na maelezo ya sasa ya ufadhili",
+    "Review current tuition details before applying":
+      "Kagua maelezo ya sasa ya ada kabla ya kutuma maombi",
+    "FIU scholarship range": "Kiwango cha ufadhili wa FIU",
+    "FIU scholarships up to 100% for eligible students":
+      "Ufadhili wa FIU wa hadi asilimia 100 kwa wanafunzi wanaostahiki",
+    "Contact advisor for current tuition information":
+      "Wasiliana na mshauri kupata taarifa za sasa za ada",
+    "Student dormitories and rentals near campus, kept strictly separate from investment property.":
+      "Mabweni na nyumba za kupangisha karibu na chuo, zinazotenganishwa na mali za uwekezaji.",
   },
 };
 

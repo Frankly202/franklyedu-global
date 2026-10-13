@@ -69,7 +69,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       eyebrow: "Universities",
       title: "Find the right university.",
       subtitle:
-        "Filter by destination and subject. Confirmed partner institutions include Final International University (FIU). Additional destination applications are arranged through our education network.",
+        "Filter by destination and subject. We have a confirmed recruitment relationship with Final International University (FIU). Contact us to discuss other study options.",
       destinationLabel: "Destination",
       allDestinations: "All destinations",
       subjectLabel: "Subject",
@@ -78,15 +78,14 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       foundSingular: "university found",
       foundPlural: "universities found",
       emptyHeading: "Inquire for this destination",
-      emptyDesc:
-        "We guide admissions across all 9 supported destinations through our education network. Message us on WhatsApp for tailored options.",
+      emptyDesc: "Contact us to discuss study options for this destination.",
     },
     courses: {
       eyebrow: "Courses",
       defaultTitle: "Compare programmes.",
       programmesAt: "Programmes at",
       subtitle:
-        "Search by subject and level. Individual programme details and fee schedules are confirmed directly with partner institutions upon inquiry.",
+        "Search by subject and level. Contact us for current programme details and fee information.",
       subjectLabel: "Subject",
       allSubjects: "All subjects",
       levelLabel: "Level",
@@ -97,7 +96,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       foundCount: "programmes found",
       emptyHeading: "Programme catalogue updating",
       emptyDesc:
-        "We verify individual programme details directly with partner institutions before publishing. Message us on WhatsApp for currently open programmes, faculties, and admission requirements.",
+        "Programme and admission information can change. Contact us for current details about available programmes, faculties, and requirements.",
       levels: {
         foundation: "Foundation",
         bachelors: "Bachelor's",
@@ -109,7 +108,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       eyebrow: "Study destinations",
       title: "Choose where your degree takes you.",
       subtitle:
-        "Compare key study destinations side by side. Additional destinations worldwide may also be available through our global education network.",
+        "Compare key study destinations side by side. Contact us to discuss options for destinations not listed.",
       intakesLabel: "Intakes",
       tuitionRangeLabel: "Tuition range",
       viewUniversities: "View universities",
@@ -119,7 +118,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       eyebrow: "Scholarships",
       title: "Funding that fits your plan.",
       subtitle:
-        "We list scholarships confirmed with partner institutions. Scholarships can be up to 100% for eligible students at selected institutions.",
+        "Scholarship details depend on the institution and eligibility criteria. Contact us for current information.",
       amountLabel: "Amount",
       levelLabel: "Level",
       deadlineLabel: "Deadline",
@@ -140,7 +139,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       eyebrow: "Üniversiteler",
       title: "Doğru üniversiteyi bulun.",
       subtitle:
-        "Ülke ve uzmanlık alanına göre filtreleyin. Onaylı partner kurumlarımız arasında Final Uluslararası Üniversitesi (FIU) bulunmaktadır. Diğer ülkeler için başvurular küresel eğitim ağımızla yürütülmektedir.",
+        "Ülke ve uzmanlık alanına göre filtreleyin. Final Uluslararası Üniversitesi (FIU) ile doğrulanmış bir öğrenci alım ilişkimiz bulunmaktadır. Diğer eğitim seçenekleri hakkında bilgi almak için bizimle iletişime geçin.",
       destinationLabel: "Eğitim Ülkesi",
       allDestinations: "Tüm ülkeler",
       subjectLabel: "Bölüm / Alan",
@@ -149,15 +148,14 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       foundSingular: "üniversite bulundu",
       foundPlural: "üniversite bulundu",
       emptyHeading: "Bu ülke için doğrudan danışın",
-      emptyDesc:
-        "Eğitim ağımız aracılığıyla desteklenen 9 ülkenin tamamında başvuru rehberliği sunuyoruz. Size özel seçenekler için bize WhatsApp'tan ulaşın.",
+      emptyDesc: "Bu ülkeyle ilgili eğitim seçeneklerini görüşmek için bizimle iletişime geçin.",
     },
     courses: {
       eyebrow: "Bölümler ve Programlar",
       defaultTitle: "Programları karşılaştırın.",
       programmesAt: "Bünyesindeki programlar:",
       subtitle:
-        "Bölüm ve eğitim seviyesine göre arama yapın. Münferit program detayları ve harç tarifeleri başvuru esnasında partner kurumlarla teyit edilir.",
+        "Bölüm ve eğitim seviyesine göre arama yapın. Güncel program detayları ve öğrenim ücretleri için bizimle iletişime geçin.",
       subjectLabel: "Bölüm / Alan",
       allSubjects: "Tüm alanlar",
       levelLabel: "Eğitim Seviyesi",
@@ -168,7 +166,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       foundCount: "program bulundu",
       emptyHeading: "Program kataloğu güncelleniyor",
       emptyDesc:
-        "Program ayrıntılarını yayınlamadan önce partner kurumlarla doğrudan teyit ediyoruz. Güncel açık programlar, fakülteler ve kabul şartları için bize WhatsApp'tan yazın.",
+        "Program ve kabul bilgileri değişebilir. Açık programlar, fakülteler ve koşullar hakkında güncel bilgi almak için bizimle iletişime geçin.",
       levels: {
         foundation: "Hazırlık",
         bachelors: "Lisans",
@@ -180,7 +178,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       eyebrow: "Eğitim Merkezleri",
       title: "Diplomanızın sizi taşıyacağı ülkeyi seçin.",
       subtitle:
-        "Öne çıkan eğitim merkezlerini yan yana karşılaştırın. Küresel eğitim ağımızla dünya çapında ek ülkeler de sunulmaktadır.",
+        "Öne çıkan eğitim merkezlerini yan yana karşılaştırın. Listelenmeyen ülkelerdeki seçenekleri görüşmek için bizimle iletişime geçin.",
       intakesLabel: "Kayıt Dönemleri",
       tuitionRangeLabel: "Harç Aralığı",
       viewUniversities: "Üniversiteleri Gör",
@@ -190,7 +188,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       eyebrow: "Burs Olanakları",
       title: "Eğitim planınıza uygun burs destekleri.",
       subtitle:
-        "Partner kurumlarla teyit edilmiş burs imkanlarını listeliyoruz. Uygun öğrenciler için seçili kurumlarda %100'e varan burslar mevcuttur.",
+        "Burs bilgileri kuruma ve uygunluk koşullarına göre değişir. Güncel bilgi için bizimle iletişime geçin.",
       amountLabel: "Miktar",
       levelLabel: "Seviye",
       deadlineLabel: "Son Tarih",

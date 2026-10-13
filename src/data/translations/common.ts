@@ -46,7 +46,7 @@ export interface CommonTranslation {
     accommodation: string;
     realEstate: string;
     copyright: string;
-    partnerNotice: string;
+    studyNotice: string;
   };
   breadcrumbs: {
     home: string;
@@ -122,15 +122,15 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       studyPathwaysTitle: "Study Pathways",
       servicesLivingTitle: "Services & Living",
       companyTitle: "Company",
-      universitiesDesc: "Explore partner campuses & tuition",
+      universitiesDesc: "Explore university options & tuition",
       coursesDesc: "Compare English-taught programmes",
       destinationsDesc: "Compare countries, visas & intakes",
-      scholarshipsDesc: "Verified funding & tuition discounts",
+      scholarshipsDesc: "Scholarship information",
       studentServicesDesc: "Intake planning, visa & arrival support",
       marketplaceDesc: "Student essentials & trusted community listings",
       accommodationDesc: "Dorms & apartments near campus",
       realEstateDesc: "Property purchases & rentals",
-      aboutDesc: "Our mission, team & verified guidance",
+      aboutDesc: "Our mission, team & personal guidance",
       contactDesc: "Message our advisory team",
     },
     footer: {
@@ -145,8 +145,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       accommodation: "Accommodation",
       realEstate: "Real Estate",
       copyright: "All rights reserved.",
-      partnerNotice:
-        "Confirmed partner listings. Additional destinations available via our education network.",
+      studyNotice: "Contact us about study destinations and university admissions.",
     },
     breadcrumbs: {
       home: "Home",
@@ -224,7 +223,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       studyPathwaysTitle: "Eğitim Yolları",
       servicesLivingTitle: "Hizmetler ve Yaşam",
       companyTitle: "Kurumsal",
-      universitiesDesc: "Anlaşmalı kampüsleri ve harç ücretlerini inceleyin",
+      universitiesDesc: "Üniversite seçeneklerini ve harçları inceleyin",
       coursesDesc: "İngilizce eğitim veren programları karşılaştırın",
       destinationsDesc: "Ülkeleri, vizeleri ve başvuru dönemlerini karşılaştırın",
       scholarshipsDesc: "Onaylı burs ve harç indirimi olanakları",
@@ -248,8 +247,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       accommodation: "Konaklama",
       realEstate: "Gayrimenkul",
       copyright: "Tüm hakları saklıdır.",
-      partnerNotice:
-        "Onaylanmış anlaşmalı kurum listeleri. Küresel eğitim ağımız aracılığıyla ek eğitim merkezleri de sunulmaktadır.",
+      studyNotice: "Eğitim ülkeleri ve üniversite başvuruları hakkında bizimle iletişime geçin.",
     },
     breadcrumbs: {
       home: "Ana Sayfa",

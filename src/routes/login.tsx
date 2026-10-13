@@ -1,9 +1,12 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { useTranslations } from "@/data/translations";
 import { pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/login")({
+  beforeLoad: () => {
+    throw redirect({ to: "/application" });
+  },
   head: () =>
     pageMeta(
       "Login",
