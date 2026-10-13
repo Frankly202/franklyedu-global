@@ -54,8 +54,8 @@ export interface CommonTranslation {
   cards: {
     verifiedListing: string;
     templateListing: string;
-    viewPrograms: string;
     applyNow: string;
+    closeDetails: string;
     askQuestion: string;
     enquire: string;
     reserve: string;
@@ -153,13 +153,13 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
     cards: {
       verifiedListing: "Verified listing",
       templateListing: "Template — verify before publishing",
-      viewPrograms: "View Programs",
       applyNow: "Apply Now",
+      closeDetails: "Close",
       askQuestion: "Ask a question",
       enquire: "Enquire",
       reserve: "Reserve",
       requestDetails: "Request details",
-      viewDetails: "View details",
+      viewDetails: "View Details",
       availableFrom: "Available",
       whatsappMessages: {
         course: (title, university) =>
@@ -255,8 +255,8 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
     cards: {
       verifiedListing: "Doğrulanmış ilan",
       templateListing: "Şablon — yayınlamadan önce doğrulayın",
-      viewPrograms: "Programları İncele",
       applyNow: "Hemen Başvur",
+      closeDetails: "Kapat",
       askQuestion: "Soru Sor",
       enquire: "Bilgi Al",
       reserve: "Rezerve Et",

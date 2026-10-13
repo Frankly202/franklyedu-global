@@ -60,6 +60,7 @@
     - Contact (`/contact`)
     - Application (`/application`)
   - Keep the student preview and authentication route implementations for possible future reuse, but redirect `/student`, `/login`, and `/signup` to `/application`; do not link these prototype-only features in public navigation.
+  - University directory cards use the six supplied institution logos, display approved names and locations, and open accessible details dialogs with no unsupported programme, fee, intake, or scholarship claims. FIU's existing application prefill is preserved; a United States destination supports Memphis and Pace inquiry prefills without implying recruitment relationships.
 - **Expected Outcome**:
   - Intuitive, frictionless navigation across all devices with working route transitions and breadcrumbs.
 - **Validation Gate**:
@@ -74,12 +75,13 @@
 - **Status**: `IN PROGRESS` (Phase 3A Verified Content & Data: `DONE`; Phase 3B Imagery & Media Assets: `IN PROGRESS`, awaiting Frank's approved assets)
 - **Scope**:
   - **Phase 3A: Verified Content & Data (`DONE`)**:
-    - Centralized brand configuration updated to official Frankedu Global naming, tagline (_"Your Future • Our Priority"_), phone/WhatsApp (+90 548 850 4146), email (`emmanuel@frankedu-global.com`), and office address (`Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus`).
+    - Centralized brand configuration updated to official Frankedu Global naming, tagline (_"Your Future • Our Priority"_), phone/WhatsApp (+90 548 850 4146), email (`emmanuel@frankedu-global.com`), and public address (`Lefkoşa, North Cyprus`) across Contact, About, footer, and mobile navigation.
     - Verified social media channels configured (TikTok, Facebook, Instagram) in [`src/data/site.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/site.ts); unconfirmed channels and operating hours left unconfigured pending supply.
     - Updated destination country content (9 core destinations: Cyprus/North Cyprus, UK, Canada, Germany, Poland, Finland, Netherlands, Australia, China) in [`src/data/content.ts`](file:///Users/abrahamogbu/Developer/Frank-Edu/src/data/content.ts).
     - Project context records Final International University (FIU) as the only confirmed recruitment relationship and scholarship opportunities up to 100%; reconfirm current eligibility and award terms with FIU before publication. Property market advisory coverage: North Cyprus residential, off-plan & investment; UK residential & investment; Dubai/UAE selected investment opportunities.
     - Unverified course catalogues, specific course fees, and founder role titles strictly excised; student portal flagged as prototype demonstration preview.
     - **Approved content correction (2026-10-13)**: Removed the unsupported September 2023 founding date and Headquarters/HQ labels; retained the supplied North Cyprus address verbatim with neutral “Address” wording; limited university recruitment and scholarship copy/SEO to FIU; removed broader education-network/partner claims, generic institution-verification wording, and the unsupported “9+ destinations” service claim. Updated EN/TR copy and FR/SW localized output. No legal identity or registration details were published.
+    - **University directory update (2026-10-13)**: Added the six supplied institutional wordmarks with official names and locations. Directory details show only names, locations, and a localized request for current admissions information; no new programme, fee, intake, scholarship, or recruitment claims were added. Only FIU's existing recruitment relationship is confirmed in project context.
   - **Phase 3B: Imagery & Media Assets (`IN PROGRESS`)**:
     - Await Frank's approved genuine photography and visual cards for Accommodation, Real Estate, and Marketplace listings (replacing CSS gradient placeholders).
     - Do not use unapproved, stock, or fabricated imagery in place of management-supplied assets.

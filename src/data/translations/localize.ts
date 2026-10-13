@@ -33,13 +33,20 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Home: "Ana Sayfa",
     "Verified listing": "Doğrulanmış ilan",
     "Template — verify before publishing": "Şablon — yayınlamadan önce doğrulayın",
-    "View Programs": "Programları Görüntüle",
     "Apply Now": "Şimdi Başvur",
+    Close: "Kapat",
     "Ask a question": "Soru sorun",
     Enquire: "Bilgi alın",
     Reserve: "Rezervasyon yapın",
     "Request details": "Ayrıntı isteyin",
-    "View details": "Ayrıntıları görüntüle",
+    "View Details": "Ayrıntıları görüntüle",
+    "Ask us for current admissions information for this institution.":
+      "Bu kurumun güncel kabul bilgileri için bize danışın.",
+    "Contact us to ask about current study options.":
+      "Güncel eğitim seçeneklerini sormak için bizimle iletişime geçin.",
+    "Contact us for current intake information":
+      "Güncel kayıt dönemleri için bizimle iletişime geçin",
+    "United States": "Amerika Birleşik Devletleri",
     Available: "Uygun",
     "Degree level": "Derece seviyesi",
     "Tuition fee": "Öğrenim ücreti",
@@ -485,8 +492,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Renovated Villa for Sale in North Cyprus | Frankedu Global":
       "Kuzey Kıbrıs'ta Satılık Yenilenmiş Villa | Frankedu Global",
     "Contact advisor for intake schedules": "Kayıt dönemleri için danışmana ulaşın",
-    "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus":
-      "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
     "Frank & transparent": "Açık ve şeffaf",
     "Honest, realistic advice regarding admissions criteria, visa regulations, and living costs — with no overselling.":
       "Kabul kriterleri, vize düzenlemeleri ve yaşam giderleri hakkında abartısız, dürüst ve gerçekçi danışmanlık.",
@@ -623,13 +628,20 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Home: "Accueil",
     "Verified listing": "Annonce vérifiée",
     "Template — verify before publishing": "Modèle — à vérifier avant publication",
-    "View Programs": "Voir les formations",
     "Apply Now": "Postuler",
+    Close: "Fermer",
     "Ask a question": "Poser une question",
     Enquire: "Demander des renseignements",
     Reserve: "Réserver",
     "Request details": "Demander des détails",
-    "View details": "Voir les détails",
+    "View Details": "Voir les détails",
+    "Ask us for current admissions information for this institution.":
+      "Contactez-nous pour obtenir les informations actuelles sur les admissions de cet établissement.",
+    "Contact us to ask about current study options.":
+      "Contactez-nous pour vous renseigner sur les possibilités d’études actuelles.",
+    "Contact us for current intake information":
+      "Contactez-nous pour connaître les périodes d’admission actuelles.",
+    "United States": "États-Unis",
     Available: "Disponible",
     "Degree level": "Niveau du diplôme",
     Courses: "Formations",
@@ -984,8 +996,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Upcoming Intake": "Prochaine période d’admission",
     "Under review": "En cours d’examen",
     "Financial evidence": "Justificatif financier",
-    "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus":
-      "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
     "Frank & transparent": "Franc et transparent",
     "Honest, realistic advice regarding admissions criteria, visa regulations, and living costs — with no overselling.":
       "Des conseils honnêtes et réalistes sur les admissions, les visas et le coût de la vie, sans promesses exagérées.",
@@ -1341,13 +1351,20 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Home: "Nyumbani",
     "Verified listing": "Tangazo limethibitishwa",
     "Template — verify before publishing": "Kiolezo — thibitisha kabla ya kuchapisha",
-    "View Programs": "Tazama programu",
     "Apply Now": "Omba sasa",
+    Close: "Funga",
     "Ask a question": "Uliza swali",
     Enquire: "Uliza maelezo",
     Reserve: "Hifadhi",
     "Request details": "Omba maelezo",
-    "View details": "Tazama maelezo",
+    "View Details": "Tazama maelezo",
+    "Ask us for current admissions information for this institution.":
+      "Wasiliana nasi kupata taarifa za sasa za udahili katika taasisi hii.",
+    "Contact us to ask about current study options.":
+      "Wasiliana nasi kuulizia chaguo za sasa za masomo.",
+    "Contact us for current intake information":
+      "Wasiliana nasi kupata taarifa za sasa kuhusu vipindi vya udahili.",
+    "United States": "Marekani",
     Available: "Inapatikana",
     "Degree level": "Kiwango cha shahada",
     "Tuition fee": "Ada ya masomo",
@@ -1623,8 +1640,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Sample Programme Application (Prototype Preview)": "Maombi ya mfano (hakiki ya programu)",
     "Under review": "Yanapitiwa",
     "Financial evidence": "Uthibitisho wa fedha",
-    "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus":
-      "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
     "Frank & transparent": "Wazi na waaminifu",
     "Honest, realistic advice regarding admissions criteria, visa regulations, and living costs — with no overselling.":
       "Ushauri wa kweli kuhusu vigezo vya udahili, kanuni za visa na gharama za maisha bila ahadi zilizopitiliza.",

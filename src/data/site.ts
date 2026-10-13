@@ -63,7 +63,7 @@ export const contact = {
   /** Digits only, international format — used to build the WhatsApp link. */
   whatsappNumber: "905488504146",
   whatsappDefaultMessage: "Hello Frankedu Global, I'd like guidance on studying abroad.",
-  address: "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
+  address: "Lefkoşa, North Cyprus",
   /** Working hours unconfigured — will be supplied separately by management */
   hours: undefined as string | undefined,
   social: {

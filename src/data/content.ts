@@ -155,6 +155,15 @@ export const destinations: Destination[] = [
     intakes: "Inquire for current intake cycles",
     tuitionRange: "Contact advisor for current tuition information",
   },
+  {
+    slug: "united-states",
+    name: "United States",
+    region: "North America",
+    blurb: "Contact us to ask about current study options.",
+    highlights: [],
+    intakes: "Contact us for current intake information",
+    tuitionRange: "Contact us for current tuition information",
+  },
 ];
 
 export const subjects = [
@@ -171,28 +180,24 @@ export const subjects = [
 export interface University {
   slug: string;
   name: string;
+  src: string;
+  summary: string;
   country: string;
   countrySlug: string;
   city: string;
-  degreeLevels: string;
-  courses: string;
+  intake?: string;
   subjects: string[];
-  tuition: string;
-  intake: string;
-  applicationFee: string;
-  scholarship: string;
-  verified: boolean;
 }
 
 export const universities: University[] = [
   {
     slug: "final-international-university",
     name: "Final International University (FIU)",
+    src: "/Uni-Logos/FIU-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
     country: "Cyprus / North Cyprus",
     countrySlug: "cyprus",
     city: "Kyrenia (Girne)",
-    degreeLevels: "Bachelor's, Master's, PhD",
-    courses: "Programmes available across confirmed faculties (contact advisor)",
     subjects: [
       "Business & Management",
       "Engineering & Technology",
@@ -203,11 +208,56 @@ export const universities: University[] = [
       "Architecture & Fine Arts",
       "Social Sciences & Humanities",
     ],
-    tuition: "Contact advisor for current tuition information",
-    intake: "Contact advisor for intake schedules",
-    applicationFee: "Contact advisor",
-    scholarship: "Scholarships up to 100% for eligible students",
-    verified: true,
+  },
+  {
+    slug: "cyprus-international-university",
+    name: "Cyprus International University",
+    src: "/Uni-Logos/CIU-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Nicosia",
+    subjects: [],
+  },
+  {
+    slug: "university-of-kyrenia",
+    name: "University of Kyrenia (Girne Üniversitesi)",
+    src: "/Uni-Logos/girne-uni-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Kyrenia (Girne)",
+    subjects: [],
+  },
+  {
+    slug: "university-of-memphis",
+    name: "University of Memphis",
+    src: "/Uni-Logos/memphis-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "United States",
+    countrySlug: "united-states",
+    city: "Memphis, Tennessee",
+    subjects: [],
+  },
+  {
+    slug: "pace-university",
+    name: "Pace University",
+    src: "/Uni-Logos/pace-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "United States",
+    countrySlug: "united-states",
+    city: "New York City and Westchester County",
+    subjects: [],
+  },
+  {
+    slug: "university-of-sunderland",
+    name: "University of Sunderland",
+    src: "/Uni-Logos/university-sunderland-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "United Kingdom",
+    countrySlug: "united-kingdom",
+    city: "Sunderland, England",
+    subjects: [],
   },
 ];
 
@@ -627,7 +677,7 @@ export const realEstateListings: Listing[] = [
 export const aboutContent = {
   mission:
     "Frankedu Global provides guidance for students, families, and investors navigating university admissions, scholarships, student accommodation, and overseas property opportunities.",
-  office: "Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus",
+  office: "Lefkoşa, North Cyprus",
   values: [
     {
       title: "Clear information",

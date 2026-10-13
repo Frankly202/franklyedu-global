@@ -130,6 +130,12 @@ async function verifyProductionArtifacts() {
     "frankedu-mark.webp",
     "og-image.png",
     "logo-watermark-white.webp",
+    "Uni-Logos/CIU-logo.png",
+    "Uni-Logos/FIU-logo.png",
+    "Uni-Logos/girne-uni-logo.png",
+    "Uni-Logos/memphis-logo.png",
+    "Uni-Logos/pace-logo.png",
+    "Uni-Logos/university-sunderland-logo.png",
   ]) {
     await readFile(`.output/public/${asset}`);
   }
@@ -311,6 +317,16 @@ async function runSmokeTests() {
       0,
       "Public navigation and footer must not link to retired student or account routes.",
     );
+    const footerCopy = await page.locator("footer").innerText();
+    assert.ok(
+      footerCopy.includes("Lefkoşa, North Cyprus"),
+      "The desktop footer must display the shortened contact address.",
+    );
+    assert.doesNotMatch(
+      footerCopy,
+      /Regal Residence|Küçük Kaymaklı/,
+      "The desktop footer must not display the removed address details.",
+    );
     await page.setViewportSize({ width: 390, height: 844 });
     const mobileMenuButton = page.getByRole("button", { name: "Open menu" });
     await mobileMenuButton.click();
@@ -322,6 +338,15 @@ async function runSmokeTests() {
       0,
       "The mobile menu must not link to retired student or account routes.",
     );
+    assert.ok(
+      (await mobileNavigation.innerText()).includes("Lefkoşa, North Cyprus"),
+      "The mobile menu must display the shortened contact address.",
+    );
+    assert.doesNotMatch(
+      await mobileNavigation.innerText(),
+      /Regal Residence|Küçük Kaymaklı/,
+      "The mobile menu must not display the removed address details.",
+    );
     await page.keyboard.press("Escape");
     await page.setViewportSize({ width: 1440, height: 1000 });
 
@@ -329,8 +354,13 @@ async function runSmokeTests() {
       await gotoReady(page, `${baseUrl}/about`);
       const aboutCopy = await page.locator("main").innerText();
       assert.ok(
-        aboutCopy.includes("Regal Residence, Küçük Kaymaklı, Lefkoşa, North Cyprus"),
-        `${locale} About page must preserve the supplied address exactly.`,
+        aboutCopy.includes("Lefkoşa, North Cyprus"),
+        `${locale} About page must show the shortened address.`,
+      );
+      assert.doesNotMatch(
+        aboutCopy,
+        /Regal Residence|Küçük Kaymaklı/,
+        `${locale} About page must omit the removed address details.`,
       );
       assert.doesNotMatch(
         aboutCopy,
@@ -355,6 +385,31 @@ async function runSmokeTests() {
         /partners?|partenaires?|washirika|network|réseau|mtandao|official representation|resmi temsil/i,
         `${locale} university page must not imply broader partnerships.`,
       );
+
+      await gotoReady(page, `${baseUrl}/contact`);
+      const contactCopy = await page.locator("main").innerText();
+      assert.ok(
+        contactCopy.includes("Lefkoşa, North Cyprus"),
+        `${locale} Contact page must show the shortened address.`,
+      );
+      assert.doesNotMatch(
+        contactCopy,
+        /Regal Residence|Küçük Kaymaklı/,
+        `${locale} Contact page must omit the removed address details.`,
+      );
+      await page.setViewportSize({ width: 390, height: 844 });
+      await gotoReady(page, `${baseUrl}/contact`);
+      const mobileContactCopy = await page.locator("main").innerText();
+      assert.ok(
+        mobileContactCopy.includes("Lefkoşa, North Cyprus"),
+        `${locale} mobile Contact page must show the shortened address.`,
+      );
+      assert.doesNotMatch(
+        mobileContactCopy,
+        /Regal Residence|Küçük Kaymaklı/,
+        `${locale} mobile Contact page must omit the removed address details.`,
+      );
+      await page.setViewportSize({ width: 1440, height: 1000 });
 
       await gotoReady(page, `${baseUrl}/services`);
       const servicesCopy = await page.locator("main").innerText();
@@ -690,6 +745,150 @@ async function runSmokeTests() {
       await gotoReady(page, `${baseUrl}/`);
       await selectLanguage(page, languageName, locale);
 
+      const expectedUniversities = [
+        {
+          slug: "final-international-university",
+          name: "Final International University (FIU)",
+          logo: "/Uni-Logos/FIU-logo.png",
+          location: "Kyrenia (Girne)",
+        },
+        {
+          slug: "cyprus-international-university",
+          name: "Cyprus International University",
+          logo: "/Uni-Logos/CIU-logo.png",
+          location: "Nicosia",
+        },
+        {
+          slug: "university-of-kyrenia",
+          name: "University of Kyrenia (Girne Üniversitesi)",
+          logo: "/Uni-Logos/girne-uni-logo.png",
+          location: "Kyrenia (Girne)",
+        },
+        {
+          slug: "university-of-memphis",
+          name: "University of Memphis",
+          logo: "/Uni-Logos/memphis-logo.png",
+          location: "Memphis, Tennessee",
+        },
+        {
+          slug: "pace-university",
+          name: "Pace University",
+          logo: "/Uni-Logos/pace-logo.png",
+          location: "New York City and Westchester County",
+        },
+        {
+          slug: "university-of-sunderland",
+          name: "University of Sunderland",
+          logo: "/Uni-Logos/university-sunderland-logo.png",
+          location: "Sunderland, England",
+        },
+      ];
+      const detailLabel = {
+        en: "View Details",
+        tr: "Detayları Gör",
+        fr: "Voir les détails",
+        sw: "Tazama maelezo",
+      }[locale];
+      const closeLabel = { en: "Close", tr: "Kapat", fr: "Fermer", sw: "Funga" }[locale];
+      const summaryText = {
+        en: "Ask us for current admissions information for this institution.",
+        tr: "Bu kurumun güncel kabul bilgileri için bize danışın.",
+        fr: "Contactez-nous pour obtenir les informations actuelles sur les admissions de cet établissement.",
+        sw: "Wasiliana nasi kupata taarifa za sasa za udahili katika taasisi hii.",
+      }[locale];
+      const localizedLocation = (university) =>
+        locale === "tr" && university.location === "Kyrenia (Girne)"
+          ? "Girne (Kyrenia)"
+          : university.location;
+
+      await gotoReady(page, `${baseUrl}/universities`);
+      const universityCards = page.locator("main article.card-light");
+      assert.equal(
+        await universityCards.count(),
+        6,
+        `${locale} directory must show six universities.`,
+      );
+      for (const university of expectedUniversities) {
+        const card = universityCards.filter({
+          has: page.getByRole("heading", { name: university.name, exact: true }),
+        });
+        assert.equal(await card.count(), 1, `${locale} must render ${university.name}.`);
+        assert.equal(
+          await card.locator("img").getAttribute("src"),
+          university.logo,
+          `${university.name} must use its matching logo asset.`,
+        );
+        assert.equal(
+          await card.locator("img").evaluate((image) => getComputedStyle(image).objectFit),
+          "contain",
+          `${university.name} logo must fit without cropping.`,
+        );
+        assert.ok(
+          await card.locator("img").evaluate((image) => image.complete && image.naturalWidth > 0),
+          `${university.name} logo must load successfully.`,
+        );
+        await card.getByText(localizedLocation(university), { exact: false }).waitFor();
+        assert.equal(
+          await card.locator('a[href^="/application?university="]').getAttribute("href"),
+          `/application?university=${university.slug}`,
+          `${university.name} must link to its existing application-prefill path.`,
+        );
+      }
+      await gotoReady(page, `${baseUrl}/countries`);
+      assert.equal(
+        await page.locator("#united-states a[href='/scholarships']").count(),
+        0,
+        `${locale} US destination must not imply availability of FIU-specific scholarships.`,
+      );
+      await gotoReady(page, `${baseUrl}/universities`);
+
+      assert.equal(
+        await universityCards.getByRole("button", { name: detailLabel }).count(),
+        6,
+        `${locale} must localize View Details on every card.`,
+      );
+      const detailsDialog = page.getByRole("dialog");
+      for (const university of expectedUniversities) {
+        const detailsButton = universityCards
+          .filter({ has: page.getByRole("heading", { name: university.name, exact: true }) })
+          .getByRole("button", { name: detailLabel });
+        await detailsButton.click();
+        await detailsDialog.waitFor({ state: "visible" });
+        await detailsDialog.getByRole("heading", { name: university.name }).waitFor();
+        assert.ok(
+          await detailsDialog.getByText(localizedLocation(university), { exact: false }).count(),
+        );
+        assert.ok(await detailsDialog.getByText(summaryText, { exact: true }).count());
+        assert.doesNotMatch(
+          await detailsDialog.innerText(),
+          /degree level|programmes?|courses?|tuition|fees?|intakes?|scholarships?/i,
+          `${locale} modal must omit unverified programme, fee, intake, and scholarship fields.`,
+        );
+        await page.keyboard.press("Escape");
+        await detailsDialog.waitFor({ state: "hidden" });
+        assert.equal(
+          await detailsButton.evaluate((button) => button === document.activeElement),
+          true,
+          `${locale} modal must return focus to its trigger after closing.`,
+        );
+      }
+
+      await page.setViewportSize({ width: 320, height: 844 });
+      const detailsButton = universityCards.first().getByRole("button", { name: detailLabel });
+      await detailsButton.click();
+      const dialogBounds = await detailsDialog.boundingBox();
+      assert.ok(dialogBounds);
+      assert.ok(
+        dialogBounds.x >= 0 &&
+          dialogBounds.x + dialogBounds.width <= 320 &&
+          dialogBounds.y >= 0 &&
+          dialogBounds.y + dialogBounds.height <= 844,
+        `${locale} university details modal must fit a 320px viewport.`,
+      );
+      await detailsDialog.getByRole("button", { name: closeLabel }).click();
+      await detailsDialog.waitFor({ state: "hidden" });
+      await page.setViewportSize({ width: 1440, height: 1000 });
+
       async function openApplicationStudyPlan(url) {
         await gotoReady(page, url);
         const form = page.locator("form");
@@ -714,6 +913,24 @@ async function runSmokeTests() {
         "final-international-university",
         `${locale} application route must prefill the university from its query.`,
       );
+
+      for (const unitedStatesUniversity of expectedUniversities.filter(({ slug }) =>
+        ["university-of-memphis", "pace-university"].includes(slug),
+      )) {
+        applicationSelects = await openApplicationStudyPlan(
+          `${baseUrl}/application?university=${unitedStatesUniversity.slug}`,
+        );
+        assert.equal(
+          await applicationSelects.nth(0).inputValue(),
+          "united-states",
+          `${locale} ${unitedStatesUniversity.name} must prefill a supported US destination.`,
+        );
+        assert.equal(
+          await applicationSelects.nth(1).inputValue(),
+          unitedStatesUniversity.slug,
+          `${locale} ${unitedStatesUniversity.name} must prefill in the application form.`,
+        );
+      }
 
       applicationSelects = await openApplicationStudyPlan(
         `${baseUrl}/application?university=final-international-university&course=unpublished-course`,

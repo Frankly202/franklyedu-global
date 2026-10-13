@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useId, useRef } from "react";
 import type { Course, Listing, University } from "@/data/content";
 import { whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
@@ -15,37 +16,83 @@ export function UniversityCard({
   const { common, locale } = useTranslations();
   u = localizeTree(locale, u);
   const Heading = headingLevel;
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogTitleId = useId();
+  const location = `${u.city}, ${u.country}`;
 
   return (
-    <article className="card-light flex flex-col p-5 sm:p-6">
-      <p className="eyebrow text-[0.7rem] text-sky font-semibold">
-        {u.verified ? common.cards.verifiedListing : common.cards.templateListing}
-      </p>
-      <Heading className="mt-3 text-xl font-semibold leading-snug text-navy">{u.name}</Heading>
-      <p className="mt-1 text-sm text-muted-foreground">
-        {u.city}, {u.country}
-      </p>
-      <dl className="mt-4 grid gap-2.5 rounded-lg bg-muted/60 p-4">
-        <Spec label={common.cards.specs.degreeLevel} value={u.degreeLevels} tone="light" />
-        <Spec label={common.cards.specs.courses} value={u.courses} tone="light" />
-        <Spec label={common.cards.specs.tuitionFee} value={u.tuition} tone="light" />
-        <Spec label={common.cards.specs.intake} value={u.intake} tone="light" />
-        <Spec label={common.cards.specs.applicationFee} value={u.applicationFee} tone="light" />
-        <Spec
-          label={common.cards.specs.scholarshipAvailability}
-          value={u.scholarship}
-          tone="light"
-        />
-      </dl>
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Link to="/courses" search={{ university: u.slug }} className="btn btn-outline-dark btn-sm">
-          {common.cards.viewPrograms}
-        </Link>
-        <Link to="/application" search={{ university: u.slug }} className="btn btn-primary btn-sm">
-          {common.cards.applyNow}
-        </Link>
-      </div>
-    </article>
+    <>
+      <article className="card-light flex h-full flex-col p-5 sm:p-6">
+        <div className="flex h-24 items-center justify-center rounded-lg bg-white p-3 sm:h-28">
+          <img
+            src={u.src}
+            alt={`${u.name} logo`}
+            className="h-full w-full object-contain"
+            loading="lazy"
+          />
+        </div>
+        <Heading className="mt-4 text-xl font-semibold leading-snug text-navy">{u.name}</Heading>
+        <p className="mt-1 text-sm text-muted-foreground">{location}</p>
+        <p className="mt-3 text-sm leading-relaxed text-foreground">{u.summary}</p>
+        <div className="mt-auto flex flex-wrap gap-2 pt-5">
+          <button
+            type="button"
+            onClick={() => dialogRef.current?.showModal()}
+            className="btn btn-outline-dark btn-sm"
+          >
+            {common.cards.viewDetails}
+          </button>
+          <Link
+            to="/application"
+            search={{ university: u.slug }}
+            className="btn btn-primary btn-sm"
+          >
+            {common.cards.applyNow}
+          </Link>
+        </div>
+      </article>
+
+      <dialog
+        ref={dialogRef}
+        aria-labelledby={dialogTitleId}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) dialogRef.current?.close();
+        }}
+        className="m-auto max-h-[min(90dvh,48rem)] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-2xl border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-navy-deep/70"
+      >
+        <div className="p-5 sm:p-8">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex h-20 w-full max-w-xs items-center justify-center rounded-lg bg-white p-3 sm:h-24">
+              <img src={u.src} alt={`${u.name} logo`} className="h-full w-full object-contain" />
+            </div>
+            <button
+              type="button"
+              autoFocus
+              onClick={() => dialogRef.current?.close()}
+              aria-label={common.cards.closeDetails}
+              className="btn btn-outline-dark btn-sm shrink-0"
+            >
+              {common.cards.closeDetails}
+            </button>
+          </div>
+          <h2 id={dialogTitleId} className="mt-5 text-2xl font-bold text-navy">
+            {u.name}
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">{location}</p>
+          <p className="mt-4 leading-relaxed">{u.summary}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <Link
+              to="/application"
+              search={{ university: u.slug }}
+              onClick={() => dialogRef.current?.close()}
+              className="btn btn-primary btn-sm"
+            >
+              {common.cards.applyNow}
+            </Link>
+          </div>
+        </div>
+      </dialog>
+    </>
   );
 }
 

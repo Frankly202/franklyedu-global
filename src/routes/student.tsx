@@ -92,7 +92,9 @@ function StudentPage() {
                   >
                     <p className="eyebrow text-[0.7rem] text-sky-contrast">{u.country}</p>
                     <p className="mt-1 text-sm font-semibold leading-snug">{u.name}</p>
-                    <p className="mt-2 text-[13px] text-navy-muted">{u.intake}</p>
+                    {u.intake ? (
+                      <p className="mt-2 text-[13px] text-navy-muted">{u.intake}</p>
+                    ) : null}
                   </Link>
                 ))}
               </div>

@@ -65,9 +65,11 @@ function CountriesPage() {
                 >
                   {education.countries.viewUniversities}
                 </Link>
-                <Link to="/scholarships" className="btn btn-outline-light btn-sm">
-                  {education.countries.scholarshipsBtn}
-                </Link>
+                {d.slug !== "united-states" ? (
+                  <Link to="/scholarships" className="btn btn-outline-light btn-sm">
+                    {education.countries.scholarshipsBtn}
+                  </Link>
+                ) : null}
               </div>
             </article>
           ))}
