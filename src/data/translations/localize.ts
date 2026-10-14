@@ -1075,7 +1075,7 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Direct advisory for university admissions, scholarships, and overseas property.":
       "Conseils directs sur les admissions universitaires, les bourses et l’immobilier à l’étranger.",
     "Message on WhatsApp": "Écrire sur WhatsApp",
-    "Contact our office": "Contacter notre bureau",
+    "Contact us": "Contactez-nous",
     "Reach us on WhatsApp for the fastest reply, or prepare an email below.":
       "Écrivez-nous sur WhatsApp pour une réponse rapide ou préparez un e-mail ci-dessous.",
     "Frankedu Global website enquiry": "Demande depuis le site Frankedu Global",
@@ -1772,10 +1772,8 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Verified Guidance": "Mwongozo uliothibitishwa",
     "Direct advisory for university admissions, scholarships, and overseas property.":
       "Ushauri wa moja kwa moja kuhusu udahili wa vyuo, ufadhili na mali nje ya nchi.",
-    "Lefkoşa office providing in-person and international consultation.":
-      "Ofisi ya Lefkoşa hutoa mashauriano ya ana kwa ana na ya kimataifa.",
     "Message on WhatsApp": "Tuma ujumbe WhatsApp",
-    "Contact our office": "Wasiliana na ofisi yetu",
+    "Contact us": "Wasiliana nasi",
     "Reach us on WhatsApp for the fastest reply, or prepare an email below.":
       "Wasiliana nasi WhatsApp upate jibu la haraka, au andaa barua pepe hapa chini.",
     "Frankedu Global website enquiry": "Ujumbe kutoka tovuti ya Frankedu Global",

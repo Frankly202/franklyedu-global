@@ -353,6 +353,44 @@ async function runSmokeTests() {
     async function checkApprovedCompanyCopy(locale) {
       await gotoReady(page, `${baseUrl}/about`);
       const aboutCopy = await page.locator("main").innerText();
+      const aboutContactLabel = {
+        en: "Contact us",
+        tr: "Bize ulaşın",
+        fr: "Contactez-nous",
+        sw: "Wasiliana nasi",
+      }[locale];
+      const trustBadgeLabel = {
+        en: "Personalized Guidance",
+        tr: "Kişiye özel danışmanlık",
+        fr: "Conseils personnalisés",
+        sw: "Mwongozo wa kibinafsi",
+      }[locale];
+      assert.ok(
+        (await page.getByRole("link", { name: aboutContactLabel, exact: true }).count()) > 0,
+        `${locale} About page must use neutral Contact us wording.`,
+      );
+      assert.ok(
+        aboutCopy.toLocaleLowerCase(locale).includes(trustBadgeLabel.toLocaleLowerCase(locale)),
+        `${locale} About page must describe guidance without an unsupported verification claim.`,
+      );
+      assert.doesNotMatch(
+        aboutCopy,
+        /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit|verified advisory|doğrulanmış danışmanlık/i,
+        `${locale} About page must not expose unapproved legal or tax claims.`,
+      );
+      const aboutDescription = await page
+        .locator('meta[name="description"]')
+        .getAttribute("content");
+      assert.doesNotMatch(
+        aboutDescription ?? "",
+        /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit/i,
+        `${locale} About SEO description must not expose unapproved legal or tax claims.`,
+      );
+      assert.doesNotMatch(
+        await page.locator("footer").innerText(),
+        /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit/i,
+        `${locale} footer must not expose unapproved legal or tax claims.`,
+      );
       assert.ok(
         aboutCopy.includes("Lefkoşa, North Cyprus"),
         `${locale} About page must show the shortened address.`,
@@ -396,6 +434,19 @@ async function runSmokeTests() {
         contactCopy,
         /Regal Residence|Küçük Kaymaklı/,
         `${locale} Contact page must omit the removed address details.`,
+      );
+      assert.doesNotMatch(
+        contactCopy,
+        /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit/i,
+        `${locale} Contact page must not expose unapproved legal or tax claims.`,
+      );
+      const contactDescription = await page
+        .locator('meta[name="description"]')
+        .getAttribute("content");
+      assert.doesNotMatch(
+        contactDescription ?? "",
+        /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit/i,
+        `${locale} Contact SEO description must not expose unapproved legal or tax claims.`,
       );
       await page.setViewportSize({ width: 390, height: 844 });
       await gotoReady(page, `${baseUrl}/contact`);
