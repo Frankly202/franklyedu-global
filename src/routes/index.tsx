@@ -2,27 +2,18 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Section } from "@/components/site/Section";
 import { UniversityCard, ListingCard } from "@/components/site/ListingCards";
-import { destinations, realEstateListings, subjects, universities } from "@/data/content";
+import { destinations, realEstateListings, universities } from "@/data/content";
 import { images, whatsappLink } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 import { useTranslations } from "@/data/translations";
 import { localizeText, localizeTree } from "@/data/translations/localize";
-import {
-  GraduationCap,
-  Building2,
-  Palette,
-  Sparkles,
-  Check,
-  ArrowRight,
-  ShieldCheck,
-  MessageCircle,
-} from "lucide-react";
+import { GraduationCap, Building2, Palette, Check, ArrowRight, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () =>
     pageMeta(
-      "Your Future. Global Opportunities. | Frankedu Global",
-      "We help students, families, and investors explore study options, property information, and professional services.",
+      "Frankedu Global | Study, Property, and Digital Services",
+      "Ask Frankedu Global about study information, property listings, and digital services.",
       { path: "/" },
     ),
   component: Index,
@@ -36,7 +27,6 @@ function Index() {
   const localizedProperties = localizeTree(locale, realEstateListings);
 
   const [country, setCountry] = useState("");
-  const [subject, setSubject] = useState("");
 
   return (
     <>
@@ -98,12 +88,12 @@ function Index() {
 
               {/* Interactive Search Filter Box */}
               <form
-                className="mt-6 grid gap-3 rounded-2xl border-2 border-cream bg-white p-4 text-navy shadow-panel sm:grid-cols-[1fr_1fr_auto] sm:items-end"
+                className="mt-6 grid gap-3 rounded-2xl border-2 border-cream bg-white p-4 text-navy shadow-panel sm:grid-cols-[1fr_auto] sm:items-end"
                 onSubmit={(e) => {
                   e.preventDefault();
                   navigate({
                     to: "/universities",
-                    search: { country: country || undefined, subject: subject || undefined },
+                    search: { country: country || undefined },
                   });
                 }}
               >
@@ -124,30 +114,13 @@ function Index() {
                     ))}
                   </select>
                 </label>
-                <label className="grid gap-1">
-                  <span className="eyebrow text-[0.7rem] font-bold text-muted-foreground">
-                    {t.hero.search.subjectLabel}
-                  </span>
-                  <select
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    className="field py-2.5 text-sm font-medium"
-                  >
-                    <option value="">{t.hero.search.subjectPlaceholder}</option>
-                    {subjects.map((s) => (
-                      <option key={s} value={s}>
-                        {localizeText(locale, s)}
-                      </option>
-                    ))}
-                  </select>
-                </label>
                 <button type="submit" className="btn btn-primary font-bold">
                   {t.hero.search.submitBtn}
                 </button>
               </form>
             </div>
 
-            {/* Right Column: Authentic Leadership Trust Card */}
+            {/* Right Column: Brand image and enquiry information */}
             <div className="lg:col-span-5">
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-white/20 bg-navy-soft shadow-panel">
@@ -164,7 +137,7 @@ function Index() {
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
                   <div className="absolute right-4 bottom-4 left-4 rounded-xl border border-white/20 bg-white/95 p-4 text-navy shadow-card backdrop-blur-xs">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="h-5 w-5 shrink-0 text-navy" />
+                      <MessageCircle className="h-5 w-5 shrink-0 text-navy" />
                       <p className="font-display text-xs font-bold uppercase tracking-wider text-navy">
                         {t.hero.trustBadge.title}
                       </p>
@@ -199,7 +172,7 @@ function Index() {
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* Card 1: Education */}
           <div className="card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel">
             <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
@@ -292,37 +265,6 @@ function Index() {
               </Link>
             </div>
           </div>
-
-          {/* Card 4: Eco Luxury */}
-          <div className="card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel">
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-xs">
-              <Sparkles className="h-6 w-6" />
-            </div>
-            <h3 className="text-xl font-bold text-navy">{t.services.ecoLuxury.title}</h3>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-sky">
-              {t.services.ecoLuxury.tagline}
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {t.services.ecoLuxury.description}
-            </p>
-            <ul className="mt-4 space-y-2 border-t border-border pt-4 text-xs text-foreground">
-              {t.services.ecoLuxury.points.map((pt) => (
-                <li key={pt} className="flex items-start gap-2">
-                  <Check className="h-3.5 w-3.5 shrink-0 text-sky" />
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto pt-6">
-              <Link
-                to={t.services.ecoLuxury.href}
-                className="btn btn-primary flex w-full items-center justify-center gap-1.5 text-xs font-bold"
-              >
-                <span>{t.services.ecoLuxury.ctaLabel}</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
         </div>
       </Section>
 
@@ -349,8 +291,7 @@ function Index() {
           {localizedDestinations.slice(0, 6).map((d) => (
             <Link
               key={d.slug}
-              to="/universities"
-              search={{ country: d.slug }}
+              to="/contact"
               className="group card-light flex flex-col p-6 transition-all duration-200 motion-safe:hover:-translate-y-1 hover:shadow-panel"
             >
               <div className="flex items-center justify-between gap-2">
@@ -360,11 +301,8 @@ function Index() {
                 </span>
               </div>
               <h3 className="mt-2 text-xl font-bold text-navy group-hover:text-sky">{d.name}</h3>
-              <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                {d.blurb}
-              </p>
               <div className="mt-auto flex items-center gap-1 pt-4 text-xs font-semibold text-navy group-hover:text-sky">
-                <span>{localizeText(locale, "Explore Programmes")}</span>
+                <span>{localizeText(locale, "Ask about options")}</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform motion-safe:group-hover:translate-x-1" />
               </div>
             </Link>

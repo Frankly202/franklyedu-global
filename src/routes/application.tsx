@@ -17,7 +17,7 @@ export const Route = createFileRoute("/application")({
   head: () =>
     pageMeta(
       "Start Your Application",
-      "A guided, step-by-step application form for your chosen university and programme.",
+      "A guided enquiry form that prepares your study details for review and sending in WhatsApp.",
       { path: "/application" },
     ),
   component: ApplicationPage,
@@ -81,11 +81,9 @@ function ApplicationPage() {
   const selectedIntake =
     form.intake === "January 2027"
       ? portal.application.form.intakeOptions.jan2027
-      : form.intake === "September 2026"
-        ? portal.application.form.intakeOptions.sep2026
-        : form.intake === "February 2027"
-          ? portal.application.form.intakeOptions.feb2027
-          : form.intake;
+      : form.intake === "February 2027"
+        ? portal.application.form.intakeOptions.feb2027
+        : form.intake;
 
   const createApplicationMessage = () => {
     const labels = portal.application.form.summaryLabels;
@@ -147,117 +145,121 @@ function ApplicationPage() {
 
               {step === 0 && (
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  <input
-                    className="field"
-                    aria-label={portal.application.form.fullNamePlaceholder}
-                    autoComplete="name"
-                    placeholder={portal.application.form.fullNamePlaceholder}
-                    value={form.name}
-                    onChange={set("name")}
-                    required
-                  />
-                  <input
-                    className="field"
-                    type="email"
-                    aria-label={portal.application.form.emailPlaceholder}
-                    autoComplete="email"
-                    placeholder={portal.application.form.emailPlaceholder}
-                    value={form.email}
-                    onChange={set("email")}
-                    required
-                  />
-                  <input
-                    className="field"
-                    type="tel"
-                    aria-label={portal.application.form.phonePlaceholder}
-                    autoComplete="tel"
-                    placeholder={portal.application.form.phonePlaceholder}
-                    value={form.phone}
-                    onChange={set("phone")}
-                  />
-                  <input
-                    className="field"
-                    aria-label={portal.application.form.nationalityPlaceholder}
-                    placeholder={portal.application.form.nationalityPlaceholder}
-                    value={form.nationality}
-                    onChange={set("nationality")}
-                  />
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.fullNamePlaceholder}
+                    <input
+                      className="field"
+                      autoComplete="name"
+                      placeholder={portal.application.form.fullNamePlaceholder}
+                      value={form.name}
+                      onChange={set("name")}
+                      required
+                    />
+                  </label>
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.emailPlaceholder}
+                    <input
+                      className="field"
+                      type="email"
+                      autoComplete="email"
+                      placeholder={portal.application.form.emailPlaceholder}
+                      value={form.email}
+                      onChange={set("email")}
+                      required
+                    />
+                  </label>
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.phonePlaceholder}
+                    <input
+                      className="field"
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder={portal.application.form.phonePlaceholder}
+                      value={form.phone}
+                      onChange={set("phone")}
+                    />
+                  </label>
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.nationalityPlaceholder}
+                    <input
+                      className="field"
+                      placeholder={portal.application.form.nationalityPlaceholder}
+                      value={form.nationality}
+                      onChange={set("nationality")}
+                    />
+                  </label>
                 </div>
               )}
 
               {step === 1 && (
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  <select
-                    className="field"
-                    aria-label={portal.application.form.destinationOption}
-                    value={form.destination}
-                    onChange={(e) =>
-                      setForm((f) => ({
-                        ...f,
-                        destination: e.target.value,
-                        university: "",
-                        course: "",
-                      }))
-                    }
-                    required
-                  >
-                    <option value="">{portal.application.form.destinationOption}</option>
-                    {localizedDestinations.map((d) => (
-                      <option key={d.slug} value={d.slug}>
-                        {d.name}
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.destinationOption}
+                    <select
+                      className="field"
+                      value={form.destination}
+                      onChange={(e) =>
+                        setForm((f) => ({
+                          ...f,
+                          destination: e.target.value,
+                          university: "",
+                          course: "",
+                        }))
+                      }
+                      required
+                    >
+                      <option value="">{portal.application.form.destinationOption}</option>
+                      {localizedDestinations.map((d) => (
+                        <option key={d.slug} value={d.slug}>
+                          {d.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.universityOption}
+                    <select
+                      className="field"
+                      value={form.university}
+                      onChange={(e) =>
+                        setForm((f) => ({
+                          ...f,
+                          university: e.target.value,
+                          course: "",
+                        }))
+                      }
+                    >
+                      <option value="">{portal.application.form.universityOption}</option>
+                      {uniOptions.map((u) => (
+                        <option key={u.slug} value={u.slug}>
+                          {u.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.courseOption}
+                    <select className="field" value={form.course} onChange={set("course")}>
+                      <option value="">{portal.application.form.courseOption}</option>
+                      {courseOptions.map((c) => (
+                        <option key={c.slug} value={c.slug}>
+                          {c.title}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="grid gap-1 text-sm font-medium">
+                    {portal.application.form.intakeOption}
+                    <select className="field" value={form.intake} onChange={set("intake")} required>
+                      <option value="">{portal.application.form.intakeOption}</option>
+                      <option value="January 2027">
+                        {portal.application.form.intakeOptions.jan2027}
                       </option>
-                    ))}
-                  </select>
-                  <select
-                    className="field"
-                    aria-label={portal.application.form.universityOption}
-                    value={form.university}
-                    onChange={(e) =>
-                      setForm((f) => ({
-                        ...f,
-                        university: e.target.value,
-                        course: "",
-                      }))
-                    }
-                  >
-                    <option value="">{portal.application.form.universityOption}</option>
-                    {uniOptions.map((u) => (
-                      <option key={u.slug} value={u.slug}>
-                        {u.name}
+                      <option value="February 2027">
+                        {portal.application.form.intakeOptions.feb2027}
                       </option>
-                    ))}
-                  </select>
-                  <select
-                    className="field"
-                    aria-label={portal.application.form.courseOption}
-                    value={form.course}
-                    onChange={set("course")}
-                  >
-                    <option value="">{portal.application.form.courseOption}</option>
-                    {courseOptions.map((c) => (
-                      <option key={c.slug} value={c.slug}>
-                        {c.title}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    className="field"
-                    aria-label={portal.application.form.intakeOption}
-                    value={form.intake}
-                    onChange={set("intake")}
-                    required
-                  >
-                    <option value="">{portal.application.form.intakeOption}</option>
-                    <option value="January 2027">
-                      {portal.application.form.intakeOptions.jan2027}
-                    </option>
-                    <option value="September 2026">
-                      {portal.application.form.intakeOptions.sep2026}
-                    </option>
-                    <option value="February 2027">
-                      {portal.application.form.intakeOptions.feb2027}
-                    </option>
-                  </select>
+                    </select>
+                  </label>
                 </div>
               )}
 

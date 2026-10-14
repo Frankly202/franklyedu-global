@@ -11,8 +11,8 @@ import { pageMeta } from "@/lib/seo";
 export const Route = createFileRoute("/marketplace")({
   head: () =>
     pageMeta(
-      "Student Marketplace",
-      "Accommodation, real estate, essentials and services for students settling in.",
+      "Housing and Property Information",
+      "No marketplace listings are currently published. Contact us to ask about current options.",
       { path: "/marketplace" },
     ),
   component: MarketplacePage,
@@ -72,41 +72,57 @@ function MarketplacePage() {
           </Link>
         </div>
 
-        <div className="mb-6 flex flex-wrap gap-2">
-          {rawCategories.map((c, index) => (
-            <button
-              key={c}
-              type="button"
-              onClick={() => setCat(c)}
-              className={`btn btn-sm ${c === cat ? "btn-primary" : "btn-outline-dark"}`}
-            >
-              {c === "All" ? marketplace.marketplace.allCategories : categories[index]}
-            </button>
-          ))}
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {localizedItems.map((m) => (
-            <article key={m.slug} className="card-light flex flex-col p-5 sm:p-6">
-              <span className="self-start rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-navy">
-                {m.category}
-              </span>
-              <h3 className="mt-3 text-lg font-semibold">{m.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{m.location}</p>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/80">{m.description}</p>
-              <div className="mt-auto flex items-center justify-between pt-5">
-                <span className="font-display text-xl font-bold">{m.price}</span>
-                <a
-                  href={whatsappLink(common.cards.whatsappMessages.marketplace(m.title))}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-primary btn-sm"
+        {localizedItems.length ? (
+          <>
+            <div className="mb-6 flex flex-wrap gap-2">
+              {rawCategories.map((c, index) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCat(c)}
+                  className={`btn btn-sm ${c === cat ? "btn-primary" : "btn-outline-dark"}`}
                 >
-                  {marketplace.marketplace.enquireBtn}
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+                  {c === "All" ? marketplace.marketplace.allCategories : categories[index]}
+                </button>
+              ))}
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {localizedItems.map((m) => (
+                <article key={m.slug} className="card-light flex flex-col p-5 sm:p-6">
+                  <span className="self-start rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-navy">
+                    {m.category}
+                  </span>
+                  <h3 className="mt-3 text-lg font-semibold">{m.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{m.location}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80">{m.description}</p>
+                  <div className="mt-auto flex items-center justify-between pt-5">
+                    <span className="font-display text-xl font-bold">{m.price}</span>
+                    <a
+                      href={whatsappLink(common.cards.whatsappMessages.marketplace(m.title))}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-primary btn-sm"
+                    >
+                      {marketplace.marketplace.enquireBtn}
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="card-light mx-auto max-w-2xl p-8 text-center sm:p-10">
+            <h2 className="text-xl font-semibold text-navy">
+              {marketplace.marketplace.emptyListingsHeading}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {marketplace.marketplace.emptyListingsDesc}
+            </p>
+            <Link to="/contact" className="btn btn-primary mt-5">
+              {marketplace.marketplace.contactBtn}
+            </Link>
+          </div>
+        )}
       </Section>
       <WhatsAppCta />
     </>

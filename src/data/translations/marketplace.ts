@@ -17,6 +17,9 @@ export interface MarketplaceTranslation {
     };
     allCategories: string;
     enquireBtn: string;
+    emptyListingsHeading: string;
+    emptyListingsDesc: string;
+    contactBtn: string;
   };
   accommodation: {
     eyebrow: string;
@@ -41,7 +44,6 @@ export interface MarketplaceTranslation {
     defaultSubtitle: string;
     enquireWhatsapp: string;
     allProperties: string;
-    foreignBuyerPill: string;
     statusLabel: string;
     expandPhotoAria: string;
     prevPhotoAria: string;
@@ -51,18 +53,14 @@ export interface MarketplaceTranslation {
     selectPhotoAria: string;
     aboutHeading: string;
     highlightsHeading: string;
-    disclaimerTitle: string;
     summaryCard: {
       eyebrow: string;
       title: string;
       reference: string;
       propertyType: string;
       location: string;
-      mapLocation: string;
-      mapUponEnquiry: string;
       status: string;
       pricing: string;
-      buyerEligibility: string;
     };
     viewingCard: {
       title: string;
@@ -81,51 +79,54 @@ export const marketplaceTranslations: Record<"en" | "tr", MarketplaceTranslation
   en: {
     marketplace: {
       eyebrow: "Marketplace",
-      title: "Everything you need to settle in.",
-      subtitle: "Housing, essentials and trusted services from the Frankedu community.",
+      title: "Housing and property enquiries.",
+      subtitle:
+        "Browse the available sections below. Listings are shown only when current details are available.",
       housingCard: {
         eyebrow: "Housing",
         title: "Accommodation",
-        desc: "Dormitories, shared flats and private apartments near campus.",
-        cta: "Browse accommodation →",
+        desc: "Ask us whether current accommodation information is available.",
+        cta: "Ask about accommodation →",
       },
       propertyCard: {
         eyebrow: "Property",
         title: "Real Estate",
-        desc: "Buy or rent long-term — including student investment properties.",
-        cta: "Browse real estate →",
+        desc: "View the property listing and ask us to confirm its current details.",
+        cta: "View property information →",
       },
       allCategories: "All",
       enquireBtn: "Enquire",
+      emptyListingsHeading: "No marketplace listings",
+      emptyListingsDesc:
+        "No marketplace product listings are published at this time. Use the Real Estate section above to view the separate property listing.",
+      contactBtn: "Contact us",
     },
     accommodation: {
       eyebrow: "Accommodation",
-      title: "A place to live before you land.",
+      title: "Accommodation enquiries",
       subtitle:
-        "Verified student housing options near campus, managed separately from property investments.",
+        "No accommodation listings are currently published. Contact us to ask whether current information is available.",
       backToMarketplace: "Back to marketplace",
-      reserveBtn: "Reserve",
+      reserveBtn: "Ask about availability",
     },
     realEstate: {
-      eyebrow: "Property & Investment",
-      title: "Property for families, buyers and investors.",
+      eyebrow: "Property information",
+      title: "Property information",
       subtitle:
-        "Curated opportunities across North Cyprus, the UK, and selected Dubai/UAE markets. Student accommodation is managed separately.",
+        "One property listing is shown here. Contact us to confirm its current availability and details.",
       backToMarketplace: "Back to marketplace",
-      requestDetailsBtn: "Request details",
+      requestDetailsBtn: "Ask about this listing",
     },
     propertyDetail: {
       notFoundEyebrow: "Real Estate",
       notFoundTitle: "Property Listing Not Found",
       notFoundSubtitle: "The requested property is unavailable or may have been updated.",
       backToListings: "Back to Real Estate Listings",
-      notFoundBody:
-        "Please check our current property opportunities or contact our advisors directly for the latest available inventory.",
+      notFoundBody: "This property listing is not available. Contact us if you need assistance.",
       defaultSubtitle:
-        "A design-refurbished villa prepared for resale in North Cyprus. Complete verified property photography and viewing assistance available.",
+        "Ask us to confirm current availability and property details before proceeding.",
       enquireWhatsapp: "Enquire on WhatsApp",
       allProperties: "All properties",
-      foreignBuyerPill: "Foreign national eligible*",
       statusLabel: "Status:",
       expandPhotoAria: "Expand photo in fullscreen",
       prevPhotoAria: "Previous photo",
@@ -134,27 +135,23 @@ export const marketplaceTranslations: Record<"en" | "tr", MarketplaceTranslation
       photoCounterOf: "of",
       selectPhotoAria: "Select photo:",
       aboutHeading: "About",
-      highlightsHeading: "Verified Property Highlights",
-      disclaimerTitle: "Buyer & Title Eligibility Notice",
+      highlightsHeading: "Listing information",
       summaryCard: {
-        eyebrow: "Verified Listing",
+        eyebrow: "Property listing",
         title: "Key Information",
         reference: "Reference",
         propertyType: "Property type",
         location: "Location",
-        mapLocation: "Map location",
-        mapUponEnquiry: "Supplied upon enquiry",
         status: "Status",
         pricing: "Pricing",
-        buyerEligibility: "Buyer eligibility",
       },
       viewingCard: {
-        title: "Arrange a Viewing",
-        desc: "Frankedu Global provides direct assistance for property viewing, map location verification, and purchase coordination in North Cyprus.",
+        title: "Ask about this listing",
+        desc: "Contact us to ask about current availability, property details, and viewing arrangements.",
         chatWhatsapp: "Chat on WhatsApp",
-        advisoryTitle: "Official Advisory Support",
+        advisoryTitle: "Before proceeding",
         advisoryDesc:
-          "Independent conveyancing recommended for all real estate transactions. Contact our team for verified information and assistance.",
+          "Confirm the property particulars and seek independent professional advice before making a decision.",
       },
       lightbox: {
         closeAria: "Close photo preview",
@@ -164,52 +161,54 @@ export const marketplaceTranslations: Record<"en" | "tr", MarketplaceTranslation
   tr: {
     marketplace: {
       eyebrow: "Pazar Yeri",
-      title: "Yerleşmek ve yaşamak için ihtiyacınız olan her şey.",
+      title: "Konaklama ve gayrimenkul hakkında bilgi.",
       subtitle:
-        "Frankedu topluluğundan onaylı konutlar, temel ihtiyaçlar ve güvenilir öğrenci hizmetleri.",
+        "Aşağıdaki bölümlere göz atın. İlanlar yalnızca güncel ayrıntılar mevcut olduğunda yayımlanır.",
       housingCard: {
         eyebrow: "Konaklama",
         title: "Öğrenci Konaklaması",
-        desc: "Kampüse yakın yurtlar, paylaşımlı daireler ve özel stüdyolar.",
-        cta: "Konaklamaları incele →",
+        desc: "Güncel konaklama bilgisi olup olmadığını bize sorun.",
+        cta: "Konaklama hakkında bilgi alın →",
       },
       propertyCard: {
         eyebrow: "Yatırım",
         title: "Gayrimenkul",
-        desc: "Satılık ve uzun dönem kiralık — öğrenci yatırım mülkleri dahil.",
-        cta: "Gayrimenkulleri incele →",
+        desc: "Gayrimenkul ilanını inceleyin ve güncel ayrıntıları teyit edin.",
+        cta: "Gayrimenkul bilgilerini görüntüle →",
       },
       allCategories: "Tümü",
       enquireBtn: "Bilgi Al",
+      emptyListingsHeading: "Pazar yeri ilanı yok",
+      emptyListingsDesc:
+        "Şu anda yayımlanmış pazar yeri ürün ilanı yok. Ayrı gayrimenkul ilanını görüntülemek için yukarıdaki Gayrimenkul bölümünü kullanın.",
+      contactBtn: "Bize ulaşın",
     },
     accommodation: {
       eyebrow: "Öğrenci Konaklaması",
-      title: "Uçaktan inmeden eviniz hazır olsun.",
+      title: "Konaklama hakkında bilgi",
       subtitle:
-        "Kampüse yakın, mülk yatırımlarından ayrı yönetilen doğrulanmış öğrenci konut seçenekleri.",
+        "Şu anda yayımlanmış konaklama ilanı yok. Güncel bilgi olup olmadığını sormak için bizimle iletişime geçin.",
       backToMarketplace: "Pazar yerine dön",
-      reserveBtn: "Rezerve Et",
+      reserveBtn: "Uygunluğu sorun",
     },
     realEstate: {
-      eyebrow: "Gayrimenkul ve Yatırım",
-      title: "Aileler, alıcılar ve yatırımcılar için seçkin mülkler.",
+      eyebrow: "Gayrimenkul bilgileri",
+      title: "Gayrimenkul bilgileri",
       subtitle:
-        "Kuzey Kıbrıs, Birleşik Krallık ve Dubai/BAE genelinde özel yatırım fırsatları. Öğrenci konaklamaları ayrı yönetilmektedir.",
+        "Burada bir gayrimenkul ilanı gösterilmektedir. Güncel uygunluk ve ayrıntıları teyit etmek için bizimle iletişime geçin.",
       backToMarketplace: "Pazar yerine dön",
-      requestDetailsBtn: "Detay İsteyin",
+      requestDetailsBtn: "Bu ilan hakkında bilgi alın",
     },
     propertyDetail: {
       notFoundEyebrow: "Gayrimenkul",
       notFoundTitle: "İlan Bulunamadı",
       notFoundSubtitle: "Aradığınız gayrimenkul ilanı mevcut değil veya güncellenmiş olabilir.",
       backToListings: "Gayrimenkul İlanlarına Dön",
-      notFoundBody:
-        "Lütfen mevcut gayrimenkul fırsatlarımızı inceleyin veya güncel portföy için danışmanlarımızla iletişime geçin.",
+      notFoundBody: "Bu gayrimenkul ilanı mevcut değil. Yardım için bizimle iletişime geçin.",
       defaultSubtitle:
-        "Kuzey Kıbrıs'ta yeniden satışa hazır, mimari tasarımlı villa. Doğrulanmış mülk fotoğrafları ve yerinde gösterim desteği mevcuttur.",
+        "İlerlemeye karar vermeden önce güncel uygunluk ve mülk ayrıntılarını teyit edin.",
       enquireWhatsapp: "WhatsApp'tan Bilgi Alın",
       allProperties: "Tüm Mülkler",
-      foreignBuyerPill: "Yabancı alıcıya uygun*",
       statusLabel: "Durum:",
       expandPhotoAria: "Fotoğrafı tam ekranda büyüt",
       prevPhotoAria: "Önceki fotoğraf",
@@ -218,27 +217,23 @@ export const marketplaceTranslations: Record<"en" | "tr", MarketplaceTranslation
       photoCounterOf: "/",
       selectPhotoAria: "Fotoğrafı seç:",
       aboutHeading: "Hakkında",
-      highlightsHeading: "Öne Çıkan Doğrulanmış Özellikler",
-      disclaimerTitle: "Alıcı ve Koçan Uygunluk Bildirimi",
+      highlightsHeading: "İlan bilgileri",
       summaryCard: {
-        eyebrow: "Doğrulanmış İlan",
+        eyebrow: "Gayrimenkul ilanı",
         title: "Temel Bilgiler",
         reference: "Referans Kodu",
         propertyType: "Mülk Tipi",
         location: "Konum",
-        mapLocation: "Harita Konumu",
-        mapUponEnquiry: "Talep üzerine iletilir",
         status: "Durum",
         pricing: "Fiyat",
-        buyerEligibility: "Alıcı Uygunluğu",
       },
       viewingCard: {
-        title: "Mülk Gösterimi Ayarlayın",
-        desc: "Frankedu Global; Kuzey Kıbrıs'ta mülk gösterimi, yerinde lokasyon teyidi ve satın alma süreçlerinde doğrudan rehberlik eder.",
+        title: "Bu ilan hakkında bilgi alın",
+        desc: "Güncel uygunluk, mülk ayrıntıları ve gösterim düzenlemeleri hakkında bilgi almak için bizimle iletişime geçin.",
         chatWhatsapp: "WhatsApp'tan Yazın",
-        advisoryTitle: "Resmi Danışmanlık Desteği",
+        advisoryTitle: "İlerlemeye karar vermeden önce",
         advisoryDesc:
-          "Tüm gayrimenkul işlemlerinde bağımsız hukuki devir (conveyancing) desteği önerilir. Doğrulanmış bilgi ve randevu için ekibimizle iletişime geçin.",
+          "Karar vermeden önce mülk bilgilerini teyit edin ve bağımsız profesyonel danışmanlık almayı değerlendirin.",
       },
       lightbox: {
         closeAria: "Önizlemeyi kapat",

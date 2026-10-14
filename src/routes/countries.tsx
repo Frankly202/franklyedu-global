@@ -10,7 +10,7 @@ export const Route = createFileRoute("/countries")({
   head: () =>
     pageMeta(
       "Study Destinations",
-      "Compare study destinations by intakes, tuition ranges and post-study opportunities.",
+      "Browse study destinations and contact us to ask about current options.",
       { path: "/countries" },
     ),
   component: CountriesPage,
@@ -30,48 +30,14 @@ function CountriesPage() {
         subtitle={education.countries.subtitle}
       />
       <Section>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {localizedDestinations.map((d) => (
-            <article key={d.slug} id={d.slug} className="card-navy p-6">
-              <p className="eyebrow text-sky-contrast">{d.region}</p>
-              <h2 className="mt-2 text-2xl font-bold">{d.name}</h2>
-              <p className="mt-2 text-sm text-navy-muted">{d.blurb}</p>
-              <ul className="mt-4 space-y-1.5 text-sm">
-                {d.highlights.map((h) => (
-                  <li key={h} className="flex gap-2">
-                    <span className="text-sky-contrast font-bold">•</span>
-                    {h}
-                  </li>
-                ))}
-              </ul>
-              <dl className="mt-5 grid grid-cols-2 gap-3 rounded-lg border border-white/15 bg-white/10 p-4 text-sm">
-                <div>
-                  <dt className="eyebrow text-[0.7rem] text-navy-muted">
-                    {education.countries.intakesLabel}
-                  </dt>
-                  <dd className="mt-1 font-medium">{d.intakes}</dd>
-                </div>
-                <div>
-                  <dt className="eyebrow text-[0.7rem] text-navy-muted">
-                    {education.countries.tuitionRangeLabel}
-                  </dt>
-                  <dd className="mt-1 font-medium">{d.tuitionRange}</dd>
-                </div>
-              </dl>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Link
-                  to="/universities"
-                  search={{ country: d.slug }}
-                  className="btn btn-light btn-sm"
-                >
-                  {education.countries.viewUniversities}
-                </Link>
-                {d.slug !== "united-states" ? (
-                  <Link to="/scholarships" className="btn btn-outline-light btn-sm">
-                    {education.countries.scholarshipsBtn}
-                  </Link>
-                ) : null}
-              </div>
+            <article key={d.slug} id={d.slug} className="card-light flex flex-col p-5 sm:p-6">
+              <p className="eyebrow text-sky">{d.region}</p>
+              <h2 className="mt-2 text-xl font-semibold text-navy">{d.name}</h2>
+              <Link to="/contact" className="btn btn-outline-dark mt-5 self-start">
+                {education.countries.askAboutOptions}
+              </Link>
             </article>
           ))}
         </div>

@@ -9,8 +9,8 @@ import { pageMeta } from "@/lib/seo";
 export const Route = createFileRoute("/services")({
   head: () =>
     pageMeta(
-      "Student Services",
-      "Intake planning, admissions, visa, dependent and application support — explained step by step.",
+      "Services",
+      "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.",
       { path: "/services" },
     ),
   component: ServicesPage,
@@ -29,18 +29,15 @@ function ServicesPage() {
         title={education.services.title}
         subtitle={education.services.subtitle}
       >
-        <Link to="/application" className="btn btn-light">
-          {education.services.startApplication}
+        <Link to="/contact" className="btn btn-light">
+          {education.services.contactUs}
         </Link>
       </PageHero>
       <Section>
-        <div className="grid gap-4 md:grid-cols-2">
-          {localizedServices.map((s, i) => (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {localizedServices.map((s) => (
             <article key={s.slug} id={s.slug} className="card-light scroll-mt-24 p-6">
-              <span className="inline-block rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-white">
-                {education.services.stepPrefix} {String(i + 1).padStart(2, "0")}
-              </span>
-              <h2 className="mt-3 text-xl font-semibold text-navy">{s.title}</h2>
+              <h2 className="text-xl font-semibold text-navy">{s.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
               <ul className="mt-4 space-y-1.5 text-sm">
                 {s.details.map((d) => (

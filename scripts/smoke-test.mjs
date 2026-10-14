@@ -455,10 +455,10 @@ async function runSmokeTests() {
         sw: "Wasiliana nasi",
       }[locale];
       const trustBadgeLabel = {
-        en: "Personalized Guidance",
-        tr: "Kişiye özel danışmanlık",
-        fr: "Conseils personnalisés",
-        sw: "Mwongozo wa kibinafsi",
+        en: "Study and property information",
+        tr: "Eğitim ve gayrimenkul bilgileri",
+        fr: "Informations sur les études et l’immobilier",
+        sw: "Taarifa za masomo na mali",
       }[locale];
       assert.ok(
         (await page.getByRole("link", { name: aboutContactLabel, exact: true }).count()) > 0,
@@ -572,10 +572,25 @@ async function runSmokeTests() {
 
       await gotoReady(page, `${baseUrl}/scholarships`);
       const scholarshipCopy = await page.locator("main").innerText();
-      assert.match(
-        scholarshipCopy,
-        /Final International University|Final Uluslararası Üniversitesi|FIU/,
-        `${locale} scholarship page must identify FIU.`,
+      const scholarshipEmptyHeading = {
+        en: "No current scholarship listings",
+        tr: "Güncel burs ilanı yok",
+        fr: "Aucune annonce de bourse actuelle",
+        sw: "Hakuna matangazo ya sasa ya ufadhili",
+      }[locale];
+      const scholarshipNotPublished = {
+        en: "No current scholarship details are published.",
+        tr: "Güncel burs ayrıntıları yayımlanmamıştır.",
+        fr: "Aucun détail actuel sur les bourses n’est publié.",
+        sw: "Hakuna maelezo ya sasa ya ufadhili yaliyochapishwa.",
+      }[locale];
+      assert.ok(
+        scholarshipCopy.includes(scholarshipEmptyHeading),
+        `${locale} scholarship page must identify the empty catalogue.`,
+      );
+      assert.ok(
+        scholarshipCopy.includes(scholarshipNotPublished),
+        `${locale} scholarship page must state that current details are unpublished.`,
       );
     }
 
@@ -792,8 +807,8 @@ async function runSmokeTests() {
     console.log("Checking page heading hierarchy on listing pages...");
     for (const [route, heading] of [
       ["/universities", "Final International University (FIU)"],
-      ["/accommodation", "On-campus student residence"],
-      ["/real-estate", "Sarcon №87: Renovated Villa for Sale"],
+      ["/accommodation", "No marketplace listings"],
+      ["/real-estate", "Sarcon №87 Property Listing"],
     ]) {
       await gotoReady(page, `${baseUrl}${route}`);
       await page.getByRole("heading", { name: heading, level: 2 }).waitFor();
@@ -804,7 +819,7 @@ async function runSmokeTests() {
     await gotoReady(page, `${baseUrl}/`);
     assert.match(
       await page.locator("main h1").innerText(),
-      /Your Future\.\s*Global Opportunities\./,
+      /Clear information for\s*your next decision\./,
     );
 
     const desktopNav = page.getByRole("navigation", { name: "Main navigation" });
@@ -826,7 +841,7 @@ async function runSmokeTests() {
     await gotoReady(page, `${baseUrl}/`);
     await desktopNav.getByRole("link", { name: "Universities" }).click();
     await page.waitForFunction(() => window.location.pathname === "/universities");
-    await page.getByRole("heading", { name: "Find the right university." }).waitFor();
+    await page.getByRole("heading", { name: "University directory" }).waitFor();
 
     await gotoReady(page, `${baseUrl}/`);
     await page.getByLabel("Study destination").selectOption("cyprus");
@@ -896,7 +911,7 @@ async function runSmokeTests() {
     await selectLanguage(page, "Français", "fr");
     await selectLanguage(page, "Kiswahili", "sw");
     await selectLanguage(page, "English", "en");
-    await page.getByRole("heading", { name: /Your Future\./ }).waitFor();
+    await page.getByRole("heading", { name: /Clear information for/ }).waitFor();
     assert.equal(await page.locator("html").getAttribute("lang"), "en");
 
     for (const [locale, languageName] of [
@@ -1139,6 +1154,14 @@ async function runSmokeTests() {
       await submitButton.click();
 
       applicationSelects = applicationForm.locator("select");
+      assert.deepEqual(
+        await applicationSelects
+          .nth(3)
+          .locator("option")
+          .evaluateAll((options) => options.map((option) => option.value)),
+        ["", "January 2027", "February 2027"],
+        `${locale} application must not offer expired intake dates.`,
+      );
       assert.equal(
         await applicationForm.evaluate((form) => form.checkValidity()),
         false,
@@ -1262,8 +1285,26 @@ async function runSmokeTests() {
 
     console.log("Checking contextual listing CTAs and contact form validation...");
     await gotoReady(page, `${baseUrl}/accommodation`);
-    const reserveLink = page.getByRole("link", { name: "Reserve" }).first();
-    assert.match(await reserveLink.getAttribute("href"), /^https:\/\/wa\.me\/.*campus/i);
+    await page.getByRole("heading", { name: "No marketplace listings", level: 2 }).waitFor();
+    assert.equal(
+      await page.getByRole("link", { name: "Ask about availability" }).count(),
+      0,
+      "The accommodation page must not offer a reservation for an unpublished listing.",
+    );
+    assert.equal(
+      await page.getByRole("link", { name: "Contact us", exact: true }).getAttribute("href"),
+      "/contact",
+    );
+
+    await gotoReady(page, `${baseUrl}/real-estate`);
+    const propertyEnquiry = page.getByRole("link", { name: "Ask about this listing" });
+    const propertyEnquiryUrl = new URL(await propertyEnquiry.getAttribute("href"));
+    assert.match(propertyEnquiryUrl.hostname, /^wa\.me$/);
+    assert.match(
+      propertyEnquiryUrl.searchParams.get("text") ?? "",
+      /Sarcon №87 Property Listing/,
+      "The published property enquiry must retain its contextual WhatsApp message.",
+    );
 
     console.log("✓ Listing-specific WhatsApp enquiry and contact email fallback");
 

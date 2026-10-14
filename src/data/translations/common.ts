@@ -52,8 +52,6 @@ export interface CommonTranslation {
     home: string;
   };
   cards: {
-    verifiedListing: string;
-    templateListing: string;
     applyNow: string;
     closeDetails: string;
     askQuestion: string;
@@ -64,7 +62,7 @@ export interface CommonTranslation {
     availableFrom: string;
     whatsappMessages: {
       course: (title: string, university: string) => string;
-      listing: (title: string, location: string) => string;
+      listing: (title: string) => string;
       marketplace: (title: string) => string;
     };
     specs: {
@@ -122,19 +120,19 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       studyPathwaysTitle: "Study Pathways",
       servicesLivingTitle: "Services & Living",
       companyTitle: "Company",
-      universitiesDesc: "Explore university options & tuition",
-      coursesDesc: "Compare English-taught programmes",
-      destinationsDesc: "Compare countries, visas & intakes",
-      scholarshipsDesc: "Scholarship information",
-      studentServicesDesc: "Intake planning, visa & arrival support",
-      marketplaceDesc: "Student essentials & trusted community listings",
-      accommodationDesc: "Dorms & apartments near campus",
-      realEstateDesc: "Property purchases & rentals",
-      aboutDesc: "Our mission, team & personal guidance",
-      contactDesc: "Message our advisory team",
+      universitiesDesc: "Institution names and locations; admissions details on request",
+      coursesDesc: "Programme listings appear after their details are confirmed",
+      destinationsDesc: "Browse destinations and ask about current study options",
+      scholarshipsDesc: "Current award details are not published",
+      studentServicesDesc: "Study, property, and digital-service enquiries",
+      marketplaceDesc: "No marketplace listings are currently published",
+      accommodationDesc: "No accommodation listings are currently published",
+      realEstateDesc: "Ask about the property listing shown on this site",
+      aboutDesc: "Our approach and contact information",
+      contactDesc: "Send us a WhatsApp or email enquiry",
     },
     footer: {
-      tagline: "Clear guidance for students choosing where — and how — to study abroad.",
+      tagline: "Information on study options, property listings, and digital services.",
       exploreTitle: "Explore",
       studentsTitle: "Students",
       marketplaceTitle: "Marketplace",
@@ -145,14 +143,12 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       accommodation: "Accommodation",
       realEstate: "Real Estate",
       copyright: "All rights reserved.",
-      studyNotice: "Contact us about study destinations and university admissions.",
+      studyNotice: "Ask us to confirm current details before making a decision.",
     },
     breadcrumbs: {
       home: "Home",
     },
     cards: {
-      verifiedListing: "Verified listing",
-      templateListing: "Template — verify before publishing",
       applyNow: "Apply Now",
       closeDetails: "Close",
       askQuestion: "Ask a question",
@@ -164,8 +160,8 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       whatsappMessages: {
         course: (title, university) =>
           `Hello Frankedu Global, I'd like to ask about ${title} at ${university}.`,
-        listing: (title, location) =>
-          `Hello Frankedu Global, I'm interested in "${title}" (${location}). Could you share more information?`,
+        listing: (title) =>
+          `Hello Frankedu Global, I'm interested in "${title}". Could you share current information?`,
         marketplace: (title) =>
           `Hello Frankedu Global, I'm interested in "${title}" on the marketplace. Could you share more information?`,
       },
@@ -186,7 +182,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       titleLine1: "Not sure where to start?",
       titleLine2: "Let’s make a plan.",
       subtitle:
-        "Message Frankedu Global to discuss countries, courses, scholarships, tuition, and your application pathway.",
+        "Message Frankedu Global to ask about study information, property listings, or digital services.",
       button: "Chat on WhatsApp",
     },
     errors: {
@@ -223,20 +219,19 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       studyPathwaysTitle: "Eğitim Yolları",
       servicesLivingTitle: "Hizmetler ve Yaşam",
       companyTitle: "Kurumsal",
-      universitiesDesc: "Üniversite seçeneklerini ve harçları inceleyin",
-      coursesDesc: "İngilizce eğitim veren programları karşılaştırın",
-      destinationsDesc: "Ülkeleri, vizeleri ve başvuru dönemlerini karşılaştırın",
-      scholarshipsDesc: "Onaylı burs ve harç indirimi olanakları",
-      studentServicesDesc: "Dönem planlama, vize ve varış desteği",
-      marketplaceDesc: "Öğrenci ihtiyaçları ve topluluk ilanları",
-      accommodationDesc: "Kampüse yakın yurtlar ve daireler",
-      realEstateDesc: "Satılık ve kiralık onaylı gayrimenkuller",
-      aboutDesc: "Misyonumuz, ekibimiz ve onaylı danışmanlık",
-      contactDesc: "Danışman ekibimize mesaj gönderin",
+      universitiesDesc: "Kurum adları ve konumları; kabul bilgileri talep üzerine",
+      coursesDesc: "Program ayrıntıları teyit edildikten sonra yayımlanır",
+      destinationsDesc: "Destinasyonlara göz atın ve güncel seçenekleri sorun",
+      scholarshipsDesc: "Güncel burs ayrıntıları yayımlanmamıştır",
+      studentServicesDesc: "Eğitim, gayrimenkul ve dijital hizmet talepleri",
+      marketplaceDesc: "Şu anda pazar yeri ilanı yayımlanmamıştır",
+      accommodationDesc: "Şu anda konaklama ilanı yayımlanmamıştır",
+      realEstateDesc: "Bu sitedeki gayrimenkul ilanını sorun",
+      aboutDesc: "Yaklaşımımız ve iletişim bilgilerimiz",
+      contactDesc: "WhatsApp veya e-posta ile bize ulaşın",
     },
     footer: {
-      tagline:
-        "Yurtdışında nerede ve nasıl eğitim alacağını belirleyen öğrenciler için şeffaf ve güvenilir rehberlik.",
+      tagline: "Eğitim seçenekleri, gayrimenkul ilanları ve dijital hizmetler hakkında bilgi.",
       exploreTitle: "Keşfedin",
       studentsTitle: "Öğrenciler",
       marketplaceTitle: "Pazar Yeri",
@@ -247,14 +242,12 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       accommodation: "Konaklama",
       realEstate: "Gayrimenkul",
       copyright: "Tüm hakları saklıdır.",
-      studyNotice: "Eğitim ülkeleri ve üniversite başvuruları hakkında bizimle iletişime geçin.",
+      studyNotice: "Karar vermeden önce güncel ayrıntıları teyit etmek için bize ulaşın.",
     },
     breadcrumbs: {
       home: "Ana Sayfa",
     },
     cards: {
-      verifiedListing: "Doğrulanmış ilan",
-      templateListing: "Şablon — yayınlamadan önce doğrulayın",
       applyNow: "Hemen Başvur",
       closeDetails: "Kapat",
       askQuestion: "Soru Sor",
@@ -266,8 +259,8 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       whatsappMessages: {
         course: (title, university) =>
           `Merhaba Frankedu Global, ${university} bünyesindeki ${title} programı hakkında bilgi almak istiyorum.`,
-        listing: (title, location) =>
-          `Merhaba Frankedu Global, ${location} konumundaki "${title}" ilanıyla ilgileniyorum. Daha fazla bilgi alabilir miyim?`,
+        listing: (title) =>
+          `Merhaba Frankedu Global, "${title}" ilanıyla ilgileniyorum. Güncel bilgi alabilir miyim?`,
         marketplace: (title) =>
           `Merhaba Frankedu Global, pazaryerindeki "${title}" ilanıyla ilgileniyorum. Daha fazla bilgi alabilir miyim?`,
       },
@@ -288,7 +281,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       titleLine1: "Nereden başlayacağınızı",
       titleLine2: "birlikte planlayalım.",
       subtitle:
-        "Ülkeler, bölümler, burslar, harç ücretleri ve başvuru süreciniz hakkında Frankedu Global danışmanlarıyla doğrudan görüşün.",
+        "Eğitim bilgileri, gayrimenkul ilanları veya dijital hizmetler hakkında Frankedu Global'e WhatsApp'tan yazın.",
       button: "WhatsApp'tan Yazın",
     },
     errors: {

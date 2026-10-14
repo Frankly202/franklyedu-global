@@ -47,15 +47,14 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
   en: {
     about: {
       eyebrow: "About",
-      title: "Frank guidance for global study.",
+      title: "About Frankedu Global",
       getInTouch: "Get in touch",
-      trustBadgeTitle: "Personalized Guidance",
-      trustBadgeSubtitle:
-        "Direct advisory for university admissions, scholarships, and overseas property.",
-      heritageEyebrow: "Company & Approach",
-      heritageTitle: "Personal, transparent guidance from day one.",
+      trustBadgeTitle: "Study and property information",
+      trustBadgeSubtitle: "Ask us to confirm current details before making a decision.",
+      heritageEyebrow: "What we do",
+      heritageTitle: "Clear information for your next decision.",
       paragraph2:
-        "Frankedu Global provides guidance for students and families. Contact us for current admissions, tuition, and scholarship details.",
+        "We share study information and property details, and discuss digital-service enquiries. Ask us to confirm what is currently available.",
       brandLabel: "Brand",
       brandDesc: "Customer-facing brand",
       addressLabel: "Address",
@@ -69,7 +68,7 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
     contact: {
       eyebrow: "Contact",
       title: "Let’s talk about your next step.",
-      subtitle: "Reach us on WhatsApp for the fastest reply, or prepare an email below.",
+      subtitle: "Message us on WhatsApp or prepare an email using the form below.",
       emailSubject: "Frankedu Global website enquiry",
       whatsappCard: {
         button: "Chat on WhatsApp",
@@ -84,7 +83,7 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
         emailPlaceholder: "Email address",
         phonePlaceholder: "Phone / WhatsApp number",
         destinationPlaceholder: "Preferred destination",
-        messagePlaceholder: "Tell us about your study plans",
+        messagePlaceholder: "Tell us what you would like to ask",
         emailNotice:
           "This opens your email app with the message ready. You will need to send it there; the website does not submit or store it.",
         emailSubmitBtn: "Continue in email",
@@ -94,15 +93,14 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
   tr: {
     about: {
       eyebrow: "Hakkında",
-      title: "Küresel eğitimde dürüst ve şeffaf rehberlik.",
+      title: "Frankedu Global hakkında",
       getInTouch: "İletişime Geçin",
-      trustBadgeTitle: "Kişiye özel danışmanlık",
-      trustBadgeSubtitle:
-        "Üniversite kabulleri, burslar ve denizaşırı gayrimenkul yatırımları için doğrudan danışmanlık.",
-      heritageEyebrow: "Şirket ve Yaklaşım",
-      heritageTitle: "İlk günden itibaren şeffaf, güvenilir ve kişisel rehberlik.",
+      trustBadgeTitle: "Eğitim ve gayrimenkul bilgileri",
+      trustBadgeSubtitle: "Karar vermeden önce güncel ayrıntıları teyit edin.",
+      heritageEyebrow: "Ne yapıyoruz?",
+      heritageTitle: "Bir sonraki kararınız için açık bilgiler.",
       paragraph2:
-        "Frankedu Global, öğrencilere ve ailelere rehberlik sunar. Güncel kabul, öğrenim ücreti ve burs bilgileri için bizimle iletişime geçin.",
+        "Eğitim bilgileri ve gayrimenkul ayrıntılarını paylaşıyor, dijital hizmet taleplerini görüşüyoruz. Güncel olarak nelerin mevcut olduğunu teyit etmek için bize ulaşın.",
       brandLabel: "Marka",
       brandDesc: "Müşterilere sunulan marka",
       addressLabel: "Adres",
@@ -117,7 +115,7 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
       eyebrow: "İletişim",
       title: "Geleceğiniz için bir sonraki adımı konuşalım.",
       subtitle:
-        "En hızlı yanıt için bize WhatsApp'tan ulaşabilir veya aşağıdan e-posta taslağı oluşturabilirsiniz.",
+        "WhatsApp'tan mesaj gönderin veya aşağıdaki formu kullanarak e-posta taslağı oluşturun.",
       emailSubject: "Frankedu Global web sitesi iletişim talebi",
       whatsappCard: {
         button: "WhatsApp'tan Yazın",
@@ -132,7 +130,7 @@ export const companyTranslations: Record<"en" | "tr", CompanyTranslation> = {
         emailPlaceholder: "E-posta adresi",
         phonePlaceholder: "Telefon / WhatsApp numarası",
         destinationPlaceholder: "Tercih edilen ülke",
-        messagePlaceholder: "Eğitim veya mülk planlarınızdan bahsedin",
+        messagePlaceholder: "Ne sormak istediğinizi yazın",
         emailNotice:
           "Bu işlem e-posta uygulamanızı hazır bir mesaj taslağıyla açar. E-postayı oradan göndermeniz gerekir; web sitesi mesajı göndermez veya saklamaz.",
         emailSubmitBtn: "E-posta ile devam et",

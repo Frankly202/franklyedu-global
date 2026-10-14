@@ -13,6 +13,169 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study Pathways": "Eğitim Yolları",
     "Services & Living": "Hizmetler ve Yaşam",
     Company: "Kurumsal",
+    "Institution names and locations; admissions details on request":
+      "Kurum adları ve konumları; kabul ayrıntıları talep üzerine",
+    "Programme listings appear after their details are confirmed":
+      "Program ilanları ayrıntılar teyit edildikten sonra yayımlanır",
+    "Browse destinations and ask about current study options":
+      "Destinasyonlara göz atın ve güncel eğitim seçeneklerini sorun",
+    "Current award details are not published": "Güncel burs ayrıntıları yayımlanmamıştır",
+    "Study, property, and digital-service enquiries":
+      "Eğitim, gayrimenkul ve dijital hizmet talepleri",
+    "No marketplace listings are currently published": "Şu anda pazar yeri ilanı yayımlanmamıştır",
+    "No accommodation listings are currently published": "Şu anda konaklama ilanı yayımlanmamıştır",
+    "Ask about the property listing shown on this site": "Bu sitedeki gayrimenkul ilanını sorun",
+    "Our approach and contact information": "Yaklaşımımız ve iletişim bilgilerimiz",
+    "Send us a WhatsApp or email enquiry": "WhatsApp veya e-posta ile bize ulaşın",
+    "Information on study options, property listings, and digital services.":
+      "Eğitim seçenekleri, gayrimenkul ilanları ve dijital hizmetler hakkında bilgi.",
+    "Ask us to confirm current details before making a decision.":
+      "Karar vermeden önce güncel ayrıntıları teyit etmek için bize ulaşın.",
+    "Message Frankedu Global to ask about study information, property listings, or digital services.":
+      "Eğitim bilgileri, gayrimenkul ilanları veya dijital hizmetler hakkında Frankedu Global'e WhatsApp'tan yazın.",
+    "Education • Property • Digital Services": "Eğitim • Gayrimenkul • Dijital Hizmetler",
+    "Clear information for": "Açık bilgiler",
+    "your next decision.": "bir sonraki kararınız için.",
+    "Study options • Property information • Digital services":
+      "Eğitim seçenekleri • Gayrimenkul bilgileri • Dijital hizmetler",
+    "Frankedu Global helps students, families, and clients ask informed questions about study options, property information, and digital services.":
+      "Frankedu Global; öğrencilere, ailelere ve müşterilere eğitim seçenekleri, gayrimenkul bilgileri ve dijital hizmetler hakkında bilinçli sorular sormalarında yardımcı olur.",
+    "Straightforward enquiries": "Açık ve doğrudan talepler",
+    "Study options • Property information": "Eğitim seçenekleri • Gayrimenkul bilgileri",
+    "Study, property, and digital enquiries.": "Eğitim, gayrimenkul ve dijital hizmet talepleri.",
+    "Ask us about current study information, property details, or digital services. We will confirm what is available.":
+      "Güncel eğitim bilgilerini, gayrimenkul ayrıntılarını veya dijital hizmetleri sorun. Mevcut seçenekleri teyit ederiz.",
+    "Study information": "Eğitim bilgileri",
+    "Ask about current admissions information and study options. Final International University (FIU) is the only confirmed recruitment relationship.":
+      "Güncel kabul bilgilerini ve eğitim seçeneklerini sorun. Final International University (FIU), proje bağlamında doğrulanmış tek öğrenci alım ilişkisidir.",
+    "Current programmes and entry requirements need confirmation":
+      "Güncel programlar ve kabul koşulları teyit edilmelidir",
+    "Fees, scholarship terms, and intakes may change":
+      "Ücretler, burs koşulları ve kayıt dönemleri değişebilir",
+    "Check visa requirements with the relevant authorities":
+      "Vize koşullarını ilgili makamlarla kontrol edin",
+    "Property information": "Gayrimenkul bilgileri",
+    "Ask about the property listing shown on this site. Availability, price, and particulars need current confirmation.":
+      "Bu sitedeki gayrimenkul ilanını sorun. Uygunluk, fiyat ve ayrıntılar güncel olarak teyit edilmelidir.",
+    "Current availability on enquiry": "Güncel uygunluk talep üzerine teyit edilir",
+    "Details should be confirmed before proceeding":
+      "İlerlemeye karar vermeden önce ayrıntılar teyit edilmelidir",
+    "Independent advice may be appropriate": "Bağımsız danışmanlık almayı değerlendirin",
+    "Digital services": "Dijital hizmetler",
+    "Digital Services": "Dijital Hizmetler",
+    "Study Options & Admissions Enquiries": "Eğitim Seçenekleri ve Kabul Talepleri",
+    "Discuss your study plans and ask about current admissions information. Final International University (FIU) is the only confirmed recruitment relationship.":
+      "Eğitim planlarınızı görüşün ve güncel kabul bilgilerini sorun. Final International University (FIU), proje bağlamında doğrulanmış tek öğrenci alım ilişkisidir.",
+    "Available programmes, fees, and entry requirements need confirmation from the institution.":
+      "Mevcut programlar, ücretler ve kabul koşulları kurum tarafından teyit edilmelidir.",
+    "Visa and immigration requirements should be checked with the relevant authorities.":
+      "Vize ve göçmenlik koşulları ilgili makamlarla kontrol edilmelidir.",
+    "Property Information": "Gayrimenkul Bilgileri",
+    "Contact us to ask about property information and any current listing details.":
+      "Gayrimenkul bilgileri ve güncel ilan ayrıntıları için bize ulaşın.",
+    "Availability and pricing should be confirmed for each listing.":
+      "Uygunluk ve fiyat her ilan için teyit edilmelidir.",
+    "Property details should be reviewed independently before making a decision.":
+      "Karar vermeden önce gayrimenkul ayrıntıları bağımsız olarak incelenmelidir.",
+    "Contact us to discuss your digital service requirements.":
+      "Dijital hizmet ihtiyaçlarınızı görüşmek için bize ulaşın.",
+    "Scope, availability, and pricing are discussed per enquiry.":
+      "Kapsam, uygunluk ve fiyat her talep için ayrıca görüşülür.",
+    "Sarcon №87 Property Listing": "Sarcon №87 Gayrimenkul İlanı",
+    "Sarcon №87 Property Listing | Frankedu Global":
+      "Sarcon №87 Gayrimenkul İlanı | Frankedu Global",
+    "Sarcon №87 · Enquiry": "Sarcon №87 · Bilgi Talebi",
+    "View photographs associated with the Sarcon №87 property listing and contact Frankedu Global to ask about current details.":
+      "Sarcon №87 gayrimenkul ilanıyla ilişkili fotoğrafları inceleyin ve güncel ayrıntıları sormak için Frankedu Global'e ulaşın.",
+    "Price details not published": "Fiyat bilgileri yayımlanmamıştır",
+    "Photograph associated with the Sarcon №87 property listing.":
+      "Sarcon №87 gayrimenkul ilanıyla ilişkili fotoğraf.",
+    "This page shows photographs associated with the Sarcon №87 property listing. Contact us to ask about its current details.":
+      "Bu sayfada Sarcon №87 gayrimenkul ilanıyla ilişkili fotoğraflar gösterilir. Güncel ayrıntıları sormak için bize ulaşın.",
+    "Property particulars, price, location, and availability need confirmation before proceeding.":
+      "İlerlemeye karar vermeden önce gayrimenkul ayrıntıları, fiyat, konum ve uygunluk teyit edilmelidir.",
+    "Photographs available": "Fotoğraflar mevcut",
+    "Confirm current availability": "Güncel uygunluğu teyit edin",
+    "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.":
+      "Frankedu Global eğitim seçenekleri, gayrimenkul ve dijital hizmetler hakkında bilgi paylaşır. Güncel olarak nelerin mevcut olduğunu sormak için bize ulaşın.",
+    "Admissions, fees, availability, and other details can change. Ask us to confirm current information before making a decision.":
+      "Kabul, ücret, uygunluk ve diğer ayrıntılar değişebilir. Karar vermeden önce güncel bilgileri teyit etmek için bize ulaşın.",
+    "No assumed details": "Varsayımda bulunmamak",
+    "We distinguish confirmed information from details that still need to be checked.":
+      "Teyit edilmiş bilgileri henüz kontrol edilmesi gereken ayrıntılardan ayırırız.",
+    "A clear next step": "Açık bir sonraki adım",
+    "Contact us with your question and we will discuss the information or service you are looking for.":
+      "Sorunuzla bize ulaşın; aradığınız bilgi veya hizmet hakkında görüşelim.",
+    "Contact us to discuss a digital service request.":
+      "Dijital hizmet talebinizi görüşmek için bize ulaşın.",
+    "Scope and availability confirmed per enquiry":
+      "Kapsam ve uygunluk her talep için teyit edilir",
+    "Pricing discussed before work begins": "Fiyatlandırma işe başlamadan önce görüşülür",
+    "Study destinations.": "Eğitim destinasyonları.",
+    "Browse destinations listed on this site. Current programmes, admissions, costs, and dates vary; contact us to ask about specific options.":
+      "Bu sitede listelenen destinasyonlara göz atın. Güncel programlar, kabul koşulları, maliyetler ve tarihler değişebilir; belirli seçenekleri sormak için bize ulaşın.",
+    "Property listing.": "Gayrimenkul ilanı.",
+    "One property listing is shown here. Ask us to confirm its current availability and details.":
+      "Burada bir gayrimenkul ilanı gösterilmektedir. Güncel uygunluk ve ayrıntıları teyit etmek için bize ulaşın.",
+    "Listing information may change. Confirm current details before making a decision.":
+      "İlan bilgileri değişebilir. Karar vermeden önce güncel ayrıntıları teyit edin.",
+    "Have a question about your next step?": "Bir sonraki adımınızla ilgili sorunuz mu var?",
+    "Contact Frankedu Global to discuss study information, a property listing, or digital services.":
+      "Eğitim bilgilerini, gayrimenkul ilanını veya dijital hizmetleri görüşmek için Frankedu Global'e ulaşın.",
+    "University directory": "Üniversite rehberi",
+    "Browse institutions by destination. Final International University (FIU) is the only confirmed recruitment relationship; contact us about current admissions details.":
+      "Kurumlara destinasyona göre göz atın. Final International University (FIU), proje bağlamında doğrulanmış tek öğrenci alım ilişkisidir; güncel kabul ayrıntıları için bize ulaşın.",
+    "Destinations to ask about.": "Bilgi alabileceğiniz destinasyonlar.",
+    "Browse the destinations listed here. Contact us to ask about current study options; programmes, fees, and dates are not listed until confirmed.":
+      "Burada listelenen destinasyonlara göz atın. Güncel eğitim seçeneklerini sormak için bize ulaşın; programlar, ücretler ve tarihler teyit edilmeden yayımlanmaz.",
+    "Ask about options": "Seçenekleri sorun",
+    "No current scholarship details are published. Contact us to ask about information confirmed by the institution.":
+      "Güncel burs ayrıntıları yayımlanmamıştır. Kurum tarafından teyit edilen bilgileri sormak için bize ulaşın.",
+    "No current scholarship listings": "Güncel burs ilanı yok",
+    "Award amounts, eligibility, and deadlines need current confirmation before they can be published.":
+      "Burs miktarları, uygunluk koşulları ve son tarihler yayımlanmadan önce güncel olarak teyit edilmelidir.",
+    "How we can help": "Nasıl yardımcı olabiliriz?",
+    "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.":
+      "Eğitim bilgilerini, gayrimenkul ayrıntılarını veya dijital hizmetleri sorun. Kapsam ve uygunluk her talep için teyit edilir.",
+    "About Frankedu Global": "Frankedu Global hakkında",
+    "Study and property information": "Eğitim ve gayrimenkul bilgileri",
+    "What we do": "Ne yapıyoruz?",
+    "Clear information for your next decision.": "Bir sonraki kararınız için açık bilgiler.",
+    "We share study information and property details, and discuss digital-service enquiries. Ask us to confirm what is currently available.":
+      "Eğitim bilgilerini ve gayrimenkul ayrıntılarını paylaşıyor, dijital hizmet taleplerini görüşüyoruz. Güncel olarak nelerin mevcut olduğunu teyit etmek için bize ulaşın.",
+    "Message us on WhatsApp or prepare an email using the form below.":
+      "WhatsApp'tan mesaj gönderin veya aşağıdaki formu kullanarak e-posta taslağı oluşturun.",
+    "Tell us what you would like to ask": "Ne sormak istediğinizi yazın",
+    "Housing and property enquiries.": "Konaklama ve gayrimenkul talepleri.",
+    "Browse the available sections below. Listings are shown only when current details are available.":
+      "Aşağıdaki bölümlere göz atın. İlanlar yalnızca güncel ayrıntılar mevcut olduğunda yayımlanır.",
+    "Ask us whether current accommodation information is available.":
+      "Güncel konaklama bilgisi olup olmadığını bize sorun.",
+    "Ask about accommodation →": "Konaklama hakkında bilgi alın →",
+    "View the property listing and ask us to confirm its current details.":
+      "Gayrimenkul ilanını inceleyin ve güncel ayrıntıları teyit etmemizi isteyin.",
+    "View property information →": "Gayrimenkul bilgilerini görüntüle →",
+    "No current listings": "Güncel ilan yok",
+    "There are no marketplace listings published at this time. Contact us to ask about current options.":
+      "Şu anda yayımlanmış pazar yeri ilanı bulunmuyor. Güncel seçenekleri sormak için bize ulaşın.",
+    "Accommodation enquiries": "Konaklama hakkında bilgi",
+    "No accommodation listings are currently published. Contact us to ask whether current information is available.":
+      "Şu anda yayımlanmış konaklama ilanı yok. Güncel bilgi olup olmadığını sormak için bize ulaşın.",
+    "Ask about availability": "Uygunluğu sorun",
+    "One property listing is shown here. Contact us to confirm its current availability and details.":
+      "Burada bir gayrimenkul ilanı gösterilmektedir. Güncel uygunluk ve ayrıntıları teyit etmek için bize ulaşın.",
+    "Ask about this listing": "Bu ilan hakkında bilgi alın",
+    "This property listing is not available. Contact us if you need assistance.":
+      "Bu gayrimenkul ilanı mevcut değil. Yardıma ihtiyacınız olursa bize ulaşın.",
+    "Ask us to confirm current availability and property details before proceeding.":
+      "İlerlemeye karar vermeden önce güncel uygunluk ve gayrimenkul ayrıntılarını teyit etmek için bize ulaşın.",
+    "Listing information": "İlan bilgileri",
+    "Property listing": "Gayrimenkul ilanı",
+    "Contact us to ask about current availability, property details, and viewing arrangements.":
+      "Güncel uygunluk, gayrimenkul ayrıntıları ve görüntüleme düzenlemeleri hakkında bilgi almak için bize ulaşın.",
+    "Before proceeding": "İlerlemeye karar vermeden önce",
+    "Confirm the property particulars and seek independent professional advice before making a decision.":
+      "Karar vermeden önce gayrimenkul ayrıntılarını teyit edin ve bağımsız profesyonel danışmanlık alın.",
     "Compare English-taught programmes": "İngilizce programları karşılaştırın",
     "Compare countries, visas & intakes": "Ülkeleri, vizeleri ve dönemleri karşılaştırın",
     "Scholarship information": "Burs bilgileri",
@@ -101,12 +264,19 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Clear: "Temizle",
     "university found": "üniversite bulundu",
     "universities found": "üniversite bulundu",
-    "Compare programmes.": "Programları karşılaştırın.",
+    "Turn your ambitions into a study plan.": "Hedeflerinizi güçlü bir eğitim planına dönüştürün.",
+    "Study options at": "Eğitim seçenekleri:",
+    "Filter by field, study level, and university. Programme listings appear here once details are confirmed; contact us to discuss current study options.":
+      "Eğitim alanı, seviyesi ve üniversiteye göre filtreleyin. Programlar, ayrıntıları doğrulandıktan sonra burada yayımlanır; güncel seçenekleri görüşmek için bizimle iletişime geçin.",
+    "Field of Study": "Eğitim Alanı",
+    "Study Level": "Eğitim Seviyesi",
+    "No verified programme listings yet": "Henüz doğrulanmış program ilanı yok",
+    "We have not published programme listings because their details have not been confirmed. Contact us to discuss current study options.":
+      "Program ayrıntıları doğrulanmadığı için henüz listeleme yayımlamadık. Güncel eğitim seçeneklerini görüşmek için bizimle iletişime geçin.",
     Level: "Seviye",
     "All levels": "Tüm seviyeler",
     University: "Üniversite",
     "All universities": "Tüm üniversiteler",
-    "Programme catalogue updating": "Program kataloğu güncelleniyor",
     Foundation: "Hazırlık",
     "Bachelor's": "Lisans",
     "Master's": "Yüksek Lisans",
@@ -171,7 +341,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Programme (optional)": "Program (isteğe bağlı)",
     "Preferred intake": "Tercih edilen kayıt dönemi",
     "January 2027": "Ocak 2027",
-    "September 2026": "Eylül 2026",
     "February 2027": "Şubat 2027",
     "Passport copy": "Pasaport fotokopisi",
     "Academic transcripts": "Akademik transkriptler",
@@ -605,6 +774,177 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study Pathways": "Parcours d’études",
     "Services & Living": "Services et logement",
     Company: "Entreprise",
+    "Institution names and locations; admissions details on request":
+      "Noms et lieux des établissements ; renseignements sur les admissions sur demande",
+    "Programme listings appear after their details are confirmed":
+      "Les formations seront publiées après confirmation de leurs informations",
+    "Browse destinations and ask about current study options":
+      "Consultez les destinations et renseignez-vous sur les possibilités d’études actuelles",
+    "Current award details are not published": "Aucun détail actuel sur les bourses n’est publié",
+    "Study, property, and digital-service enquiries":
+      "Demandes concernant les études, l’immobilier et les services numériques",
+    "No marketplace listings are currently published":
+      "Aucune annonce de marché n’est publiée actuellement",
+    "No accommodation listings are currently published":
+      "Aucune annonce de logement n’est publiée actuellement",
+    "Ask about the property listing shown on this site":
+      "Renseignez-vous sur le bien présenté sur ce site",
+    "Our approach and contact information": "Notre approche et nos coordonnées",
+    "Send us a WhatsApp or email enquiry": "Écrivez-nous sur WhatsApp ou par e-mail",
+    "Information on study options, property listings, and digital services.":
+      "Informations sur les études, les annonces immobilières et les services numériques.",
+    "Ask us to confirm current details before making a decision.":
+      "Demandez-nous de confirmer les informations actuelles avant de prendre une décision.",
+    "Message Frankedu Global to ask about study information, property listings, or digital services.":
+      "Écrivez à Frankedu Global sur WhatsApp pour demander des informations sur les études, les annonces immobilières ou les services numériques.",
+    "Education • Property • Digital Services": "Études • Immobilier • Services numériques",
+    "Clear information for": "Des informations claires pour",
+    "your next decision.": "votre prochaine décision.",
+    "Study options • Property information • Digital services":
+      "Études • Informations immobilières • Services numériques",
+    "Frankedu Global helps students, families, and clients ask informed questions about study options, property information, and digital services.":
+      "Frankedu Global aide les étudiants, les familles et les clients à poser des questions éclairées sur les études, l’immobilier et les services numériques.",
+    "Straightforward enquiries": "Des demandes en toute simplicité",
+    "Study options • Property information": "Études • Informations immobilières",
+    "Study, property, and digital enquiries.":
+      "Demandes sur les études, l’immobilier et le numérique.",
+    "Ask us about current study information, property details, or digital services. We will confirm what is available.":
+      "Renseignez-vous sur les études, les biens immobiliers ou les services numériques. Nous confirmerons les options disponibles.",
+    "Study information": "Informations sur les études",
+    "Ask about current admissions information and study options. Final International University (FIU) is the only confirmed recruitment relationship.":
+      "Renseignez-vous sur les admissions et les études. Final International University (FIU) est la seule relation de recrutement confirmée dans le contexte du projet.",
+    "Current programmes and entry requirements need confirmation":
+      "Les formations et conditions d’admission actuelles doivent être confirmées",
+    "Fees, scholarship terms, and intakes may change":
+      "Les frais, conditions de bourse et périodes d’admission peuvent changer",
+    "Check visa requirements with the relevant authorities":
+      "Vérifiez les exigences de visa auprès des autorités compétentes",
+    "Property information": "Informations immobilières",
+    "Ask about the property listing shown on this site. Availability, price, and particulars need current confirmation.":
+      "Renseignez-vous sur le bien présenté sur ce site. Sa disponibilité, son prix et ses caractéristiques doivent être confirmés.",
+    "Current availability on enquiry": "Disponibilité actuelle à confirmer sur demande",
+    "Details should be confirmed before proceeding":
+      "Les détails doivent être confirmés avant toute démarche",
+    "Independent advice may be appropriate": "Un avis indépendant peut être utile",
+    "Digital services": "Services numériques",
+    "Digital Services": "Services numériques",
+    "Study Options & Admissions Enquiries": "Études et demandes d’admission",
+    "Discuss your study plans and ask about current admissions information. Final International University (FIU) is the only confirmed recruitment relationship.":
+      "Discutez de votre projet d’études et renseignez-vous sur les admissions actuelles. Final International University (FIU) est la seule relation de recrutement confirmée dans le contexte du projet.",
+    "Available programmes, fees, and entry requirements need confirmation from the institution.":
+      "Les formations, frais et conditions d’admission disponibles doivent être confirmés par l’établissement.",
+    "Visa and immigration requirements should be checked with the relevant authorities.":
+      "Vérifiez les exigences de visa et d’immigration auprès des autorités compétentes.",
+    "Property Information": "Informations immobilières",
+    "Contact us to ask about property information and any current listing details.":
+      "Contactez-nous pour vous renseigner sur les biens et les annonces actuelles.",
+    "Availability and pricing should be confirmed for each listing.":
+      "La disponibilité et le prix doivent être confirmés pour chaque annonce.",
+    "Property details should be reviewed independently before making a decision.":
+      "Les informations sur le bien doivent être vérifiées indépendamment avant toute décision.",
+    "Contact us to discuss your digital service requirements.":
+      "Contactez-nous pour discuter de vos besoins en services numériques.",
+    "Scope, availability, and pricing are discussed per enquiry.":
+      "Le périmètre, la disponibilité et le prix sont discutés pour chaque demande.",
+    "Sarcon №87 Property Listing": "Annonce immobilière Sarcon №87",
+    "Sarcon №87 Property Listing | Frankedu Global":
+      "Annonce immobilière Sarcon №87 | Frankedu Global",
+    "Sarcon №87 · Enquiry": "Sarcon №87 · Renseignements",
+    "View photographs associated with the Sarcon №87 property listing and contact Frankedu Global to ask about current details.":
+      "Consultez les photographies associées à l’annonce immobilière Sarcon №87 et contactez Frankedu Global pour connaître les informations actuelles.",
+    "Price details not published": "Informations sur le prix non publiées",
+    "Photograph associated with the Sarcon №87 property listing.":
+      "Photographie associée à l’annonce immobilière Sarcon №87.",
+    "This page shows photographs associated with the Sarcon №87 property listing. Contact us to ask about its current details.":
+      "Cette page présente des photographies associées à l’annonce immobilière Sarcon №87. Contactez-nous pour demander les informations actuelles.",
+    "Property particulars, price, location, and availability need confirmation before proceeding.":
+      "Les caractéristiques, le prix, le lieu et la disponibilité doivent être confirmés avant toute démarche.",
+    "Photographs available": "Photographies disponibles",
+    "Confirm current availability": "Confirmer la disponibilité actuelle",
+    "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.":
+      "Frankedu Global partage des informations sur les études, l’immobilier et les services numériques. Contactez-nous pour connaître les options actuelles.",
+    "Admissions, fees, availability, and other details can change. Ask us to confirm current information before making a decision.":
+      "Les admissions, frais, disponibilités et autres informations peuvent changer. Demandez confirmation avant toute décision.",
+    "No assumed details": "Aucune supposition",
+    "We distinguish confirmed information from details that still need to be checked.":
+      "Nous distinguons les informations confirmées de celles qui restent à vérifier.",
+    "A clear next step": "Une prochaine étape claire",
+    "Contact us with your question and we will discuss the information or service you are looking for.":
+      "Contactez-nous avec votre question pour discuter des informations ou du service recherché.",
+    "Contact us to discuss a digital service request.":
+      "Contactez-nous pour discuter de votre demande de service numérique.",
+    "Scope and availability confirmed per enquiry":
+      "Le périmètre et la disponibilité sont confirmés pour chaque demande",
+    "Pricing discussed before work begins": "Le prix est convenu avant le début du travail",
+    "Study destinations.": "Destinations d’études.",
+    "Browse destinations listed on this site. Current programmes, admissions, costs, and dates vary; contact us to ask about specific options.":
+      "Consultez les destinations présentées sur ce site. Les formations, admissions, coûts et dates varient ; contactez-nous pour connaître les options précises.",
+    "Property listing.": "Annonce immobilière.",
+    "One property listing is shown here. Ask us to confirm its current availability and details.":
+      "Une annonce immobilière est présentée ici. Demandez-nous de confirmer sa disponibilité et ses détails actuels.",
+    "Listing information may change. Confirm current details before making a decision.":
+      "Les informations de l’annonce peuvent changer. Confirmez les détails actuels avant de prendre une décision.",
+    "Have a question about your next step?": "Une question sur votre prochaine étape ?",
+    "Contact Frankedu Global to discuss study information, a property listing, or digital services.":
+      "Contactez Frankedu Global pour parler d’études, d’une annonce immobilière ou de services numériques.",
+    "University directory": "Répertoire des universités",
+    "Browse institutions by destination. Final International University (FIU) is the only confirmed recruitment relationship; contact us about current admissions details.":
+      "Consultez les établissements par destination. Final International University (FIU) est la seule relation de recrutement confirmée dans le contexte du projet ; contactez-nous pour connaître les admissions actuelles.",
+    "Destinations to ask about.": "Destinations sur lesquelles vous renseigner.",
+    "Browse the destinations listed here. Contact us to ask about current study options; programmes, fees, and dates are not listed until confirmed.":
+      "Consultez les destinations présentées ici. Contactez-nous pour connaître les études possibles ; les formations, frais et dates ne sont publiés qu’après confirmation.",
+    "Ask about options": "Demander des renseignements",
+    "No current scholarship details are published. Contact us to ask about information confirmed by the institution.":
+      "Aucun détail actuel sur les bourses n’est publié. Contactez-nous pour demander des informations confirmées par l’établissement.",
+    "No current scholarship listings": "Aucune annonce de bourse actuelle",
+    "Award amounts, eligibility, and deadlines need current confirmation before they can be published.":
+      "Les montants, critères d’admissibilité et dates limites doivent être confirmés avant publication.",
+    "How we can help": "Comment nous pouvons vous aider",
+    "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.":
+      "Renseignez-vous sur les études, l’immobilier ou les services numériques. Le périmètre et la disponibilité sont confirmés pour chaque demande.",
+    "About Frankedu Global": "À propos de Frankedu Global",
+    "Study and property information": "Informations sur les études et l’immobilier",
+    "What we do": "Notre activité",
+    "Clear information for your next decision.":
+      "Des informations claires pour votre prochaine décision.",
+    "We share study information and property details, and discuss digital-service enquiries. Ask us to confirm what is currently available.":
+      "Nous partageons des informations sur les études et l’immobilier, et discutons des demandes de services numériques. Contactez-nous pour confirmer les options actuelles.",
+    "Message us on WhatsApp or prepare an email using the form below.":
+      "Écrivez-nous sur WhatsApp ou préparez un e-mail à l’aide du formulaire ci-dessous.",
+    "Tell us what you would like to ask": "Indiquez votre question",
+    "Housing and property enquiries.": "Demandes sur le logement et l’immobilier.",
+    "Browse the available sections below. Listings are shown only when current details are available.":
+      "Consultez les rubriques ci-dessous. Les annonces ne sont affichées que lorsque leurs informations actuelles sont disponibles.",
+    "Ask us whether current accommodation information is available.":
+      "Demandez-nous si des informations actuelles sur le logement sont disponibles.",
+    "Ask about accommodation →": "Se renseigner sur le logement →",
+    "View the property listing and ask us to confirm its current details.":
+      "Consultez l’annonce immobilière et demandez-nous d’en confirmer les détails actuels.",
+    "View property information →": "Voir les informations immobilières →",
+    "No current listings": "Aucune annonce actuelle",
+    "There are no marketplace listings published at this time. Contact us to ask about current options.":
+      "Aucune annonce de marché n’est publiée actuellement. Contactez-nous pour connaître les options disponibles.",
+    "No marketplace listings": "Aucune annonce de produits disponible",
+    "No marketplace product listings are published at this time. Use the Real Estate section above to view the separate property listing.":
+      "Aucune annonce de produits n’est publiée pour le moment. Consultez la section Immobilier ci-dessus pour voir l’annonce immobilière distincte.",
+    "Accommodation enquiries": "Demandes sur le logement",
+    "No accommodation listings are currently published. Contact us to ask whether current information is available.":
+      "Aucune annonce de logement n’est publiée actuellement. Contactez-nous pour savoir si des informations sont disponibles.",
+    "Ask about availability": "Se renseigner sur la disponibilité",
+    "One property listing is shown here. Contact us to confirm its current availability and details.":
+      "Une annonce immobilière est présentée ici. Contactez-nous pour confirmer sa disponibilité et ses détails actuels.",
+    "Ask about this listing": "Se renseigner sur cette annonce",
+    "This property listing is not available. Contact us if you need assistance.":
+      "Cette annonce immobilière n’est pas disponible. Contactez-nous si vous avez besoin d’aide.",
+    "Ask us to confirm current availability and property details before proceeding.":
+      "Demandez-nous de confirmer la disponibilité et les détails du bien avant toute démarche.",
+    "Listing information": "Informations sur l’annonce",
+    "Property listing": "Annonce immobilière",
+    "Contact us to ask about current availability, property details, and viewing arrangements.":
+      "Contactez-nous pour connaître la disponibilité, les détails du bien et les modalités de visite.",
+    "Before proceeding": "Avant toute démarche",
+    "Confirm the property particulars and seek independent professional advice before making a decision.":
+      "Confirmez les caractéristiques du bien et demandez un avis professionnel indépendant avant toute décision.",
     "Compare English-taught programmes": "Comparer les formations en anglais",
     "Compare countries, visas & intakes": "Comparer les pays, visas et périodes d’admission",
     "Scholarship information": "Informations sur les bourses",
@@ -700,12 +1040,19 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Clear: "Effacer",
     "university found": "université trouvée",
     "universities found": "universités trouvées",
-    "Compare programmes.": "Comparer les formations.",
+    "Turn your ambitions into a study plan.": "Faites de vos ambitions un projet d’études concret.",
+    "Study options at": "Options d’études à",
+    "Filter by field, study level, and university. Programme listings appear here once details are confirmed; contact us to discuss current study options.":
+      "Filtrez par domaine, niveau d’études et université. Les formations seront publiées ici une fois leurs informations confirmées ; contactez-nous pour discuter des options actuelles.",
+    "Field of Study": "Domaine d’études",
+    "Study Level": "Niveau d’études",
+    "No verified programme listings yet": "Aucune formation vérifiée n’est encore publiée",
+    "We have not published programme listings because their details have not been confirmed. Contact us to discuss current study options.":
+      "Nous n’avons pas encore publié de formations, car leurs informations n’ont pas été confirmées. Contactez-nous pour discuter des options actuelles.",
     Level: "Niveau",
     "All levels": "Tous les niveaux",
     University: "Université",
     "All universities": "Toutes les universités",
-    "Programme catalogue updating": "Catalogue des formations en cours de mise à jour",
     Foundation: "Année préparatoire",
     "Bachelor's": "Licence",
     "Master's": "Master",
@@ -769,7 +1116,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Programme (optional)": "Formation (facultatif)",
     "Preferred intake": "Période souhaitée",
     "January 2027": "Janvier 2027",
-    "September 2026": "Septembre 2026",
     "February 2027": "Février 2027",
     "Passport copy": "Copie du passeport",
     "Academic transcripts": "Relevés de notes",
@@ -1329,6 +1675,175 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study Pathways": "Njia za masomo",
     "Services & Living": "Huduma na makazi",
     Company: "Kampuni",
+    "Institution names and locations; admissions details on request":
+      "Majina na maeneo ya taasisi; uliza kuhusu taarifa za udahili",
+    "Programme listings appear after their details are confirmed":
+      "Programu zitaorodheshwa baada ya maelezo yake kuthibitishwa",
+    "Browse destinations and ask about current study options":
+      "Vinjari nchi na uulizie chaguo za sasa za masomo",
+    "Current award details are not published": "Maelezo ya sasa ya ufadhili hayajachapishwa",
+    "Study, property, and digital-service enquiries":
+      "Maswali kuhusu masomo, mali na huduma za kidijitali",
+    "No marketplace listings are currently published":
+      "Hakuna matangazo ya soko yaliyochapishwa kwa sasa",
+    "No accommodation listings are currently published":
+      "Hakuna matangazo ya malazi yaliyochapishwa kwa sasa",
+    "Ask about the property listing shown on this site":
+      "Ulizia tangazo la mali lililoonyeshwa kwenye tovuti hii",
+    "Our approach and contact information": "Namna tunavyofanya kazi na mawasiliano",
+    "Send us a WhatsApp or email enquiry": "Tutumie ujumbe kupitia WhatsApp au barua pepe",
+    "Information on study options, property listings, and digital services.":
+      "Taarifa kuhusu chaguo za masomo, matangazo ya mali na huduma za kidijitali.",
+    "Ask us to confirm current details before making a decision.":
+      "Wasiliana nasi kuthibitisha taarifa za sasa kabla ya kufanya uamuzi.",
+    "Message Frankedu Global to ask about study information, property listings, or digital services.":
+      "Tuma ujumbe kwa Frankedu Global kupitia WhatsApp kuulizia masomo, matangazo ya mali au huduma za kidijitali.",
+    "Education • Property • Digital Services": "Elimu • Mali • Huduma za Kidijitali",
+    "Clear information for": "Taarifa zilizo wazi kwa",
+    "your next decision.": "uamuzi wako unaofuata.",
+    "Study options • Property information • Digital services":
+      "Chaguo za masomo • Taarifa za mali • Huduma za kidijitali",
+    "Frankedu Global helps students, families, and clients ask informed questions about study options, property information, and digital services.":
+      "Frankedu Global huwasaidia wanafunzi, familia na wateja kuuliza maswali yenye ufahamu kuhusu masomo, mali na huduma za kidijitali.",
+    "Straightforward enquiries": "Maswali ya moja kwa moja",
+    "Study options • Property information": "Chaguo za masomo • Taarifa za mali",
+    "Study, property, and digital enquiries.":
+      "Maswali kuhusu masomo, mali na huduma za kidijitali.",
+    "Ask us about current study information, property details, or digital services. We will confirm what is available.":
+      "Ulizia taarifa za sasa za masomo, mali au huduma za kidijitali. Tutathibitisha kinachopatikana.",
+    "Study information": "Taarifa za masomo",
+    "Ask about current admissions information and study options. Final International University (FIU) is the only confirmed recruitment relationship.":
+      "Ulizia taarifa za sasa za udahili na masomo. Final International University (FIU) ndiyo uhusiano pekee wa udahili uliothibitishwa katika muktadha wa mradi.",
+    "Current programmes and entry requirements need confirmation":
+      "Programu na masharti ya kujiunga ya sasa yanahitaji kuthibitishwa",
+    "Fees, scholarship terms, and intakes may change":
+      "Ada, masharti ya ufadhili na vipindi vya udahili vinaweza kubadilika",
+    "Check visa requirements with the relevant authorities":
+      "Thibitisha masharti ya visa kwa mamlaka husika",
+    "Property information": "Taarifa za mali",
+    "Ask about the property listing shown on this site. Availability, price, and particulars need current confirmation.":
+      "Ulizia tangazo la mali lililo kwenye tovuti hii. Upatikanaji, bei na maelezo vinahitaji uthibitisho wa sasa.",
+    "Current availability on enquiry": "Ulizia upatikanaji wa sasa",
+    "Details should be confirmed before proceeding": "Thibitisha maelezo kabla ya kuendelea",
+    "Independent advice may be appropriate": "Fikiria kupata ushauri huru",
+    "Digital services": "Huduma za kidijitali",
+    "Digital Services": "Huduma za Kidijitali",
+    "Study Options & Admissions Enquiries": "Chaguo za Masomo na Maswali ya Udahili",
+    "Discuss your study plans and ask about current admissions information. Final International University (FIU) is the only confirmed recruitment relationship.":
+      "Jadili mipango yako ya masomo na uulizie taarifa za sasa za udahili. Final International University (FIU) ndiyo uhusiano pekee wa udahili uliothibitishwa katika muktadha wa mradi.",
+    "Available programmes, fees, and entry requirements need confirmation from the institution.":
+      "Programu, ada na masharti ya kujiunga yanahitaji kuthibitishwa na taasisi.",
+    "Visa and immigration requirements should be checked with the relevant authorities.":
+      "Thibitisha masharti ya visa na uhamiaji kwa mamlaka husika.",
+    "Property Information": "Taarifa za Mali",
+    "Contact us to ask about property information and any current listing details.":
+      "Wasiliana nasi kuulizia taarifa za mali na maelezo ya matangazo ya sasa.",
+    "Availability and pricing should be confirmed for each listing.":
+      "Upatikanaji na bei vinapaswa kuthibitishwa kwa kila tangazo.",
+    "Property details should be reviewed independently before making a decision.":
+      "Maelezo ya mali yanapaswa kuchunguzwa kwa kujitegemea kabla ya kufanya uamuzi.",
+    "Contact us to discuss your digital service requirements.":
+      "Wasiliana nasi kujadili mahitaji yako ya huduma za kidijitali.",
+    "Scope, availability, and pricing are discussed per enquiry.":
+      "Wigo, upatikanaji na bei hujadiliwa kwa kila ombi.",
+    "Sarcon №87 Property Listing": "Tangazo la Mali la Sarcon №87",
+    "Sarcon №87 Property Listing | Frankedu Global":
+      "Tangazo la Mali la Sarcon №87 | Frankedu Global",
+    "Sarcon №87 · Enquiry": "Sarcon №87 · Ulizia",
+    "View photographs associated with the Sarcon №87 property listing and contact Frankedu Global to ask about current details.":
+      "Tazama picha zinazohusiana na tangazo la mali la Sarcon №87 na uwasiliane na Frankedu Global kuulizia maelezo ya sasa.",
+    "Price details not published": "Taarifa za bei hazijachapishwa",
+    "Photograph associated with the Sarcon №87 property listing.":
+      "Picha inayohusiana na tangazo la mali la Sarcon №87.",
+    "This page shows photographs associated with the Sarcon №87 property listing. Contact us to ask about its current details.":
+      "Ukurasa huu unaonyesha picha zinazohusiana na tangazo la mali la Sarcon №87. Wasiliana nasi kuulizia maelezo yake ya sasa.",
+    "Property particulars, price, location, and availability need confirmation before proceeding.":
+      "Maelezo ya mali, bei, eneo na upatikanaji vinahitaji kuthibitishwa kabla ya kuendelea.",
+    "Photographs available": "Picha zinapatikana",
+    "Confirm current availability": "Thibitisha upatikanaji wa sasa",
+    "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.":
+      "Frankedu Global hushiriki taarifa kuhusu masomo, mali na huduma za kidijitali. Wasiliana nasi kuulizia kinachopatikana kwa sasa.",
+    "Admissions, fees, availability, and other details can change. Ask us to confirm current information before making a decision.":
+      "Udahili, ada, upatikanaji na maelezo mengine yanaweza kubadilika. Wasiliana nasi kuthibitisha taarifa za sasa kabla ya kufanya uamuzi.",
+    "No assumed details": "Hakuna taarifa zinazodhaniwa",
+    "We distinguish confirmed information from details that still need to be checked.":
+      "Tunatofautisha taarifa zilizothibitishwa na maelezo ambayo bado yanahitaji kukaguliwa.",
+    "A clear next step": "Hatua inayofuata iliyo wazi",
+    "Contact us with your question and we will discuss the information or service you are looking for.":
+      "Wasiliana nasi ukiwa na swali lako ili tujadili taarifa au huduma unayotafuta.",
+    "Contact us to discuss a digital service request.":
+      "Wasiliana nasi kujadili ombi la huduma za kidijitali.",
+    "Scope and availability confirmed per enquiry":
+      "Wigo na upatikanaji huthibitishwa kwa kila ombi",
+    "Pricing discussed before work begins": "Bei hujadiliwa kabla ya kazi kuanza",
+    "Study destinations.": "Nchi za masomo.",
+    "Browse destinations listed on this site. Current programmes, admissions, costs, and dates vary; contact us to ask about specific options.":
+      "Vinjari nchi zilizoorodheshwa kwenye tovuti hii. Programu, udahili, gharama na tarehe za sasa hutofautiana; wasiliana nasi kuulizia chaguo mahususi.",
+    "Property listing.": "Tangazo la mali.",
+    "One property listing is shown here. Ask us to confirm its current availability and details.":
+      "Tangazo moja la mali linaonyeshwa hapa. Wasiliana nasi kuthibitisha upatikanaji na maelezo ya sasa.",
+    "Listing information may change. Confirm current details before making a decision.":
+      "Taarifa za tangazo zinaweza kubadilika. Thibitisha maelezo ya sasa kabla ya kufanya uamuzi.",
+    "Have a question about your next step?": "Una swali kuhusu hatua yako inayofuata?",
+    "Contact Frankedu Global to discuss study information, a property listing, or digital services.":
+      "Wasiliana na Frankedu Global kujadili taarifa za masomo, tangazo la mali au huduma za kidijitali.",
+    "University directory": "Orodha ya vyuo vikuu",
+    "Browse institutions by destination. Final International University (FIU) is the only confirmed recruitment relationship; contact us about current admissions details.":
+      "Vinjari taasisi kulingana na nchi. Final International University (FIU) ndiyo uhusiano pekee wa udahili uliothibitishwa katika muktadha wa mradi; wasiliana nasi kuhusu taarifa za sasa za udahili.",
+    "Destinations to ask about.": "Nchi za kuulizia.",
+    "Browse the destinations listed here. Contact us to ask about current study options; programmes, fees, and dates are not listed until confirmed.":
+      "Vinjari nchi zilizoorodheshwa hapa. Wasiliana nasi kuulizia chaguo za sasa za masomo; programu, ada na tarehe haziorodheshwi hadi zithibitishwe.",
+    "Ask about options": "Ulizia chaguo",
+    "No current scholarship details are published. Contact us to ask about information confirmed by the institution.":
+      "Hakuna maelezo ya sasa ya ufadhili yaliyochapishwa. Wasiliana nasi kuulizia taarifa zilizothibitishwa na taasisi.",
+    "No current scholarship listings": "Hakuna matangazo ya sasa ya ufadhili",
+    "Award amounts, eligibility, and deadlines need current confirmation before they can be published.":
+      "Kiasi cha ufadhili, ustahiki na tarehe za mwisho vinahitaji uthibitisho wa sasa kabla ya kuchapishwa.",
+    "How we can help": "Jinsi tunavyoweza kusaidia",
+    "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.":
+      "Ulizia taarifa za masomo, maelezo ya mali au huduma za kidijitali. Wigo na upatikanaji huthibitishwa kwa kila ombi.",
+    "About Frankedu Global": "Kuhusu Frankedu Global",
+    "Study and property information": "Taarifa za masomo na mali",
+    "What we do": "Tunachofanya",
+    "Clear information for your next decision.": "Taarifa zilizo wazi kwa uamuzi wako unaofuata.",
+    "We share study information and property details, and discuss digital-service enquiries. Ask us to confirm what is currently available.":
+      "Tunashiriki taarifa za masomo na mali, na kujadili maombi ya huduma za kidijitali. Wasiliana nasi kuthibitisha kinachopatikana kwa sasa.",
+    "Message us on WhatsApp or prepare an email using the form below.":
+      "Tutumie ujumbe kupitia WhatsApp au andaa barua pepe ukitumia fomu iliyo hapa chini.",
+    "Tell us what you would like to ask": "Tuambie ungependa kuuliza nini",
+    "Housing and property enquiries.": "Maswali kuhusu makazi na mali.",
+    "Browse the available sections below. Listings are shown only when current details are available.":
+      "Vinjari sehemu zilizo hapa chini. Matangazo huonyeshwa tu taarifa za sasa zinapopatikana.",
+    "Ask us whether current accommodation information is available.":
+      "Ulizia kama taarifa za sasa za malazi zinapatikana.",
+    "Ask about accommodation →": "Ulizia kuhusu malazi →",
+    "View the property listing and ask us to confirm its current details.":
+      "Tazama tangazo la mali na utuombe kuthibitisha maelezo yake ya sasa.",
+    "View property information →": "Tazama taarifa za mali →",
+    "No current listings": "Hakuna matangazo ya sasa",
+    "There are no marketplace listings published at this time. Contact us to ask about current options.":
+      "Hakuna matangazo ya soko yaliyochapishwa kwa sasa. Wasiliana nasi kuulizia chaguo za sasa.",
+    "No marketplace listings": "Hakuna matangazo ya bidhaa sokoni",
+    "No marketplace product listings are published at this time. Use the Real Estate section above to view the separate property listing.":
+      "Hakuna matangazo ya bidhaa sokoni yaliyochapishwa kwa sasa. Tumia sehemu ya Mali Isiyohamishika hapo juu kuona tangazo tofauti la nyumba.",
+    "Accommodation enquiries": "Maswali kuhusu malazi",
+    "No accommodation listings are currently published. Contact us to ask whether current information is available.":
+      "Hakuna matangazo ya malazi yaliyochapishwa kwa sasa. Wasiliana nasi kuulizia kama taarifa za sasa zinapatikana.",
+    "Ask about availability": "Ulizia upatikanaji",
+    "One property listing is shown here. Contact us to confirm its current availability and details.":
+      "Tangazo moja la mali linaonyeshwa hapa. Wasiliana nasi kuthibitisha upatikanaji na maelezo ya sasa.",
+    "Ask about this listing": "Ulizia kuhusu tangazo hili",
+    "This property listing is not available. Contact us if you need assistance.":
+      "Tangazo hili la mali halipatikani. Wasiliana nasi ukihitaji msaada.",
+    "Ask us to confirm current availability and property details before proceeding.":
+      "Wasiliana nasi kuthibitisha upatikanaji na maelezo ya mali kabla ya kuendelea.",
+    "Listing information": "Taarifa za tangazo",
+    "Property listing": "Tangazo la mali",
+    "Contact us to ask about current availability, property details, and viewing arrangements.":
+      "Wasiliana nasi kuulizia upatikanaji wa sasa, maelezo ya mali na mipango ya kuitembelea.",
+    "Before proceeding": "Kabla ya kuendelea",
+    "Confirm the property particulars and seek independent professional advice before making a decision.":
+      "Thibitisha maelezo ya mali na utafute ushauri huru wa kitaalamu kabla ya kufanya uamuzi.",
     "Compare English-taught programmes": "Linganisha programu zinazofundishwa kwa Kiingereza",
     "Compare countries, visas & intakes": "Linganisha nchi, visa na vipindi vya udahili",
     "Scholarship information": "Taarifa za ufadhili wa masomo",
@@ -1422,12 +1937,19 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Clear: "Futa",
     "university found": "chuo kimepatikana",
     "universities found": "vyuo vimepatikana",
-    "Compare programmes.": "Linganisha programu.",
+    "Turn your ambitions into a study plan.": "Geuza malengo yako kuwa mpango wa masomo.",
+    "Study options at": "Chaguo za masomo katika",
+    "Filter by field, study level, and university. Programme listings appear here once details are confirmed; contact us to discuss current study options.":
+      "Chuja kwa eneo la masomo, kiwango cha masomo na chuo kikuu. Programu zitaorodheshwa hapa baada ya maelezo yake kuthibitishwa; wasiliana nasi kujadili chaguo za sasa.",
+    "Field of Study": "Eneo la Masomo",
+    "Study Level": "Kiwango cha Masomo",
+    "No verified programme listings yet": "Bado hakuna programu zilizothibitishwa zilizochapishwa",
+    "We have not published programme listings because their details have not been confirmed. Contact us to discuss current study options.":
+      "Hatujachapisha orodha ya programu kwa sababu maelezo yake bado hayajathibitishwa. Wasiliana nasi kujadili chaguo za sasa za masomo.",
     Level: "Kiwango",
     "All levels": "Viwango vyote",
     University: "Chuo kikuu",
     "All universities": "Vyuo vyote",
-    "Programme catalogue updating": "Orodha ya programu inasasishwa",
     Foundation: "Msingi",
     "Bachelor's": "Shahada ya kwanza",
     "Master's": "Shahada ya uzamili",
@@ -1491,7 +2013,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Programme (optional)": "Programu (si lazima)",
     "Preferred intake": "Kipindi unachopendelea",
     "January 2027": "Januari 2027",
-    "September 2026": "Septemba 2026",
     "February 2027": "Februari 2027",
     "Passport copy": "Nakala ya pasipoti",
     "Academic transcripts": "Nakala za matokeo ya masomo",
@@ -2032,6 +2553,14 @@ export function localizeText(locale: Locale, value: string): string {
   if (translated) return translated;
   const applicationHelp = value.match(/^Hi, I need help with my application(?: (.*))?\.$/);
   const scholarshipEligibility = value.match(/^Hi, I'd like to know if I'm eligible for (.+)\.$/);
+  const propertyPhoto = value.match(/^Photo ([1-5])$/);
+  const propertyListingEnquiry = value.match(
+    /^Hello Frankedu Global, I'm interested in "(.+)"\. Could you share current information\?$/,
+  );
+  if (propertyPhoto) {
+    const photoLabel = locale === "tr" ? "Fotoğraf" : locale === "fr" ? "Photo" : "Picha";
+    return `${photoLabel} ${propertyPhoto[1]}`;
+  }
   if (locale === "tr") {
     if (value === "Hello Frankedu Global, I'd like to learn more about your services.")
       return "Merhaba Frankedu Global, hizmetleriniz hakkında daha fazla bilgi almak istiyorum.";
@@ -2039,6 +2568,8 @@ export function localizeText(locale: Locale, value: string): string {
       return `Merhaba, başvurumla ilgili yardıma ihtiyacım var.${applicationHelp[1] ? ` ${applicationHelp[1]}` : ""}`;
     if (scholarshipEligibility)
       return `${scholarshipEligibility[1]} için uygun olup olmadığımı öğrenmek istiyorum.`;
+    if (propertyListingEnquiry)
+      return `Merhaba Frankedu Global, "${propertyListingEnquiry[1]}" ilanıyla ilgileniyorum. Güncel bilgi alabilir miyim?`;
   }
   if (locale === "fr") {
     if (value === "Hello Frankedu Global, I'd like to learn more about your services.")
@@ -2047,6 +2578,8 @@ export function localizeText(locale: Locale, value: string): string {
       return `Bonjour, j’ai besoin d’aide pour ma candidature.${applicationHelp[1] ? ` ${applicationHelp[1]}` : ""}`;
     if (scholarshipEligibility)
       return `Je souhaiterais savoir si je suis admissible à ${scholarshipEligibility[1]}.`;
+    if (propertyListingEnquiry)
+      return `Bonjour Frankedu Global, l’annonce « ${propertyListingEnquiry[1]} » m’intéresse. Pourriez-vous partager les informations actuelles ?`;
     const course = value.match(/^Hello Frankedu Global, I'd like to ask about (.+) at (.+)\.$/);
     if (course)
       return `Bonjour Frankedu Global, je souhaite me renseigner sur ${course[1]} à ${course[2]}.`;
@@ -2067,6 +2600,8 @@ export function localizeText(locale: Locale, value: string): string {
       return `Habari, ninahitaji msaada kuhusu maombi yangu.${applicationHelp[1] ? ` ${applicationHelp[1]}` : ""}`;
     if (scholarshipEligibility)
       return `Ningependa kujua ikiwa ninastahiki ${scholarshipEligibility[1]}.`;
+    if (propertyListingEnquiry)
+      return `Habari Frankedu Global, ninavutiwa na tangazo la "${propertyListingEnquiry[1]}". Tafadhali shiriki taarifa za sasa.`;
     const course = value.match(/^Hello Frankedu Global, I'd like to ask about (.+) at (.+)\.$/);
     if (course)
       return `Habari Frankedu Global, ningependa kuuliza kuhusu ${course[1]} katika ${course[2]}.`;

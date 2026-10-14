@@ -23,7 +23,6 @@ export interface PortalTranslation {
       intakeOption: string;
       intakeOptions: {
         jan2027: string;
-        sep2026: string;
         feb2027: string;
       };
       documentsList: {
@@ -127,7 +126,6 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
         intakeOption: "Preferred intake",
         intakeOptions: {
           jan2027: "January 2027",
-          sep2026: "September 2026",
           feb2027: "February 2027",
         },
         documentsList: {
@@ -231,7 +229,6 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
         intakeOption: "Tercih Edilen Dönem",
         intakeOptions: {
           jan2027: "Ocak 2027",
-          sep2026: "Eylül 2026",
           feb2027: "Şubat 2027",
         },
         documentsList: {

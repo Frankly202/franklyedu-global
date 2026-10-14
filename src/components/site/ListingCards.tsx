@@ -211,7 +211,7 @@ export function ListingCard({
             l.title
           )}
         </Heading>
-        <p className="mt-1 text-sm text-muted-foreground">{l.location}</p>
+        {l.location ? <p className="mt-1 text-sm text-muted-foreground">{l.location}</p> : null}
         <p className="mt-3 font-display text-xl font-bold text-navy">{l.price}</p>
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {l.features.map((f) => (
@@ -229,13 +229,13 @@ export function ListingCard({
             >
               {common.cards.viewDetails}
             </Link>
-          ) : (
+          ) : l.availableFrom ? (
             <span className="text-sm text-muted-foreground">
               {common.cards.availableFrom} {l.availableFrom}
             </span>
-          )}
+          ) : null}
           <a
-            href={whatsappLink(common.cards.whatsappMessages.listing(l.title, l.location))}
+            href={whatsappLink(common.cards.whatsappMessages.listing(l.title))}
             target="_blank"
             rel="noreferrer"
             className="btn btn-primary btn-sm"

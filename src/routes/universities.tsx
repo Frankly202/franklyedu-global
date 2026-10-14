@@ -2,22 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/Section";
 import { UniversityCard } from "@/components/site/ListingCards";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
-import { destinations, subjects, universities } from "@/data/content";
+import { destinations, universities } from "@/data/content";
 import { useTranslations } from "@/data/translations";
-import { localizeText, localizeTree } from "@/data/translations/localize";
+import { localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 
-type Search = { country?: string | undefined; subject?: string | undefined };
+type Search = { country?: string | undefined };
 
 export const Route = createFileRoute("/universities")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     country: typeof s["country"] === "string" ? s["country"] : undefined,
-    subject: typeof s["subject"] === "string" ? s["subject"] : undefined,
   }),
   head: () =>
     pageMeta(
       "Universities",
-      "Explore university options by destination and subject. Contact us for current tuition, intake and scholarship information.",
+      "Browse institution names and locations. Final International University (FIU) is the only confirmed recruitment relationship.",
       { path: "/universities" },
     ),
   component: UniversitiesPage,
@@ -26,13 +25,10 @@ export const Route = createFileRoute("/universities")({
 function UniversitiesPage() {
   const { common, education, locale } = useTranslations();
   const localizedDestinations = localizeTree(locale, destinations);
-  const localizedUniversities = localizeTree(locale, universities);
-  const { country, subject } = Route.useSearch();
+  const { country } = Route.useSearch();
   const navigate = Route.useNavigate();
 
-  const results = universities.filter(
-    (u) => (!country || u.countrySlug === country) && (!subject || u.subjects.includes(subject)),
-  );
+  const results = universities.filter((u) => !country || u.countrySlug === country);
 
   return (
     <>
@@ -44,7 +40,7 @@ function UniversitiesPage() {
         subtitle={education.universities.subtitle}
       />
       <Section>
-        <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+        <div className="mb-8 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
           <label className="grid gap-1">
             <span className="eyebrow text-[0.7rem] text-muted-foreground">
               {education.universities.destinationLabel}
@@ -60,25 +56,6 @@ function UniversitiesPage() {
               {localizedDestinations.map((d) => (
                 <option key={d.slug} value={d.slug}>
                   {d.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">
-              {education.universities.subjectLabel}
-            </span>
-            <select
-              className="field"
-              value={subject ?? ""}
-              onChange={(e) =>
-                navigate({ search: (p) => ({ ...p, subject: e.target.value || undefined }) })
-              }
-            >
-              <option value="">{education.universities.allSubjects}</option>
-              {subjects.map((s) => (
-                <option key={s} value={s}>
-                  {localizeText(locale, s)}
                 </option>
               ))}
             </select>
@@ -105,6 +82,9 @@ function UniversitiesPage() {
           <div className="card-light p-10 text-center">
             <h2 className="text-lg font-semibold">{education.universities.emptyHeading}</h2>
             <p className="mt-2 text-sm text-muted-foreground">{education.universities.emptyDesc}</p>
+            <Link to="/contact" className="btn btn-outline-dark mt-4">
+              {common.nav.contact}
+            </Link>
           </div>
         )}
       </Section>

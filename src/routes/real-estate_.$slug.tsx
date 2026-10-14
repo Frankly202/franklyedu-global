@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getPropertyBySlug } from "@/data/content";
 import { whatsappLink, contact } from "@/data/site";
@@ -15,7 +15,6 @@ import {
   CheckCircle2,
   MapPin,
   Building2,
-  ShieldCheck,
   Phone,
   Mail,
   ArrowLeft,
@@ -45,6 +44,8 @@ function PropertyDetailPage() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const lightboxTriggerRef = useRef<HTMLButtonElement>(null);
 
   const galleryLength = property?.gallery.length ?? 0;
 
@@ -61,19 +62,12 @@ function PropertyDetailPage() {
   useEffect(() => {
     if (!isLightboxOpen) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsLightboxOpen(false);
-      } else if (e.key === "ArrowRight") {
-        nextImage();
-      } else if (e.key === "ArrowLeft") {
-        prevImage();
-      }
+    const previousFocus = document.activeElement;
+    lightboxRef.current?.focus();
+    return () => {
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) previousFocus.focus();
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isLightboxOpen, nextImage, prevImage]);
+  }, [isLightboxOpen]);
 
   if (!property) {
     return (
@@ -145,19 +139,14 @@ function PropertyDetailPage() {
             <Building2 className="h-3.5 w-3.5 text-sky-contrast" />
             {property.propertyType}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-cream-deep px-3 py-1 text-xs font-semibold text-navy">
-            <MapPin className="h-3.5 w-3.5 text-sky" />
-            {property.location}
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-cream-deep px-3 py-1 text-xs font-semibold text-navy">
-            {marketplace.propertyDetail.statusLabel} {property.status}
-          </span>
+          {property.location ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-cream-deep px-3 py-1 text-xs font-semibold text-navy">
+              <MapPin className="h-3.5 w-3.5 text-sky" />
+              {property.location}
+            </span>
+          ) : null}
           <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/15 px-3 py-1 text-xs font-semibold text-navy">
             {property.priceDisplay}
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-sky/15 px-3 py-1 text-xs font-semibold text-navy">
-            <ShieldCheck className="h-3.5 w-3.5 text-sky" />
-            {marketplace.propertyDetail.foreignBuyerPill}
           </span>
         </div>
 
@@ -188,6 +177,7 @@ function PropertyDetailPage() {
                 <button
                   type="button"
                   onClick={() => setIsLightboxOpen(true)}
+                  ref={lightboxTriggerRef}
                   className="absolute top-3 right-3 z-10 grid min-h-11 min-w-11 place-items-center rounded-full bg-navy-deep/80 p-2 text-navy-foreground backdrop-blur-xs transition-colors hover:bg-navy"
                   aria-label={marketplace.propertyDetail.expandPhotoAria}
                 >
@@ -247,7 +237,7 @@ function PropertyDetailPage() {
               </div>
             </div>
 
-            {/* Description & Verified Details */}
+            {/* Description and listing information */}
             <div className="mt-8 space-y-6">
               <div className="card-light p-6 sm:p-8">
                 <h2 className="text-2xl font-bold text-navy">
@@ -259,34 +249,21 @@ function PropertyDetailPage() {
                   ))}
                 </div>
 
-                <div className="mt-6 border-t border-border pt-6">
-                  <h3 className="text-lg font-semibold text-navy">
-                    {marketplace.propertyDetail.highlightsHeading}
-                  </h3>
-                  <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
-                    {property.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-navy">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Required Buyer / Title Eligibility Disclaimer */}
-              <div className="rounded-xl border border-gold/40 bg-gold/10 p-5 sm:p-6">
-                <div className="flex items-start gap-3">
-                  <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
-                  <div>
-                    <h4 className="text-sm font-semibold text-navy">
-                      {marketplace.propertyDetail.disclaimerTitle}
-                    </h4>
-                    <p className="mt-1 text-xs leading-relaxed text-navy/90">
-                      {property.disclaimer}
-                    </p>
+                {property.highlights.length > 0 ? (
+                  <div className="mt-6 border-t border-border pt-6">
+                    <h3 className="text-lg font-semibold text-navy">
+                      {marketplace.propertyDetail.highlightsHeading}
+                    </h3>
+                    <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                      {property.highlights.map((h, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-sm text-navy">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -315,39 +292,19 @@ function PropertyDetailPage() {
                   </dt>
                   <dd className="font-medium text-navy-foreground">{property.propertyType}</dd>
                 </div>
-                <div className="flex justify-between py-2.5">
-                  <dt className="text-navy-muted">
-                    {marketplace.propertyDetail.summaryCard.location}
-                  </dt>
-                  <dd className="font-medium text-navy-foreground">{property.location}</dd>
-                </div>
-                <div className="flex justify-between py-2.5">
-                  <dt className="text-navy-muted">
-                    {marketplace.propertyDetail.summaryCard.mapLocation}
-                  </dt>
-                  <dd className="font-medium text-navy-foreground">
-                    {marketplace.propertyDetail.summaryCard.mapUponEnquiry}
-                  </dd>
-                </div>
-                <div className="flex justify-between py-2.5">
-                  <dt className="text-navy-muted">
-                    {marketplace.propertyDetail.summaryCard.status}
-                  </dt>
-                  <dd className="font-medium text-navy-foreground">{property.status}</dd>
-                </div>
+                {property.location ? (
+                  <div className="flex justify-between py-2.5">
+                    <dt className="text-navy-muted">
+                      {marketplace.propertyDetail.summaryCard.location}
+                    </dt>
+                    <dd className="font-medium text-navy-foreground">{property.location}</dd>
+                  </div>
+                ) : null}
                 <div className="flex justify-between py-2.5">
                   <dt className="text-navy-muted">
                     {marketplace.propertyDetail.summaryCard.pricing}
                   </dt>
                   <dd className="font-semibold text-gold-contrast">{property.priceDisplay}</dd>
-                </div>
-                <div className="flex flex-col py-2.5">
-                  <dt className="text-navy-muted">
-                    {marketplace.propertyDetail.summaryCard.buyerEligibility}
-                  </dt>
-                  <dd className="mt-0.5 text-xs text-navy-foreground">
-                    {property.buyerEligibility}
-                  </dd>
                 </div>
               </dl>
             </div>
@@ -403,8 +360,10 @@ function PropertyDetailPage() {
       {/* Lightbox Modal */}
       {isLightboxOpen && (
         <div
+          ref={lightboxRef}
           role="dialog"
           aria-modal="true"
+          tabIndex={-1}
           aria-label={
             locale === "fr"
               ? "Galerie photo"
@@ -415,6 +374,30 @@ function PropertyDetailPage() {
                   : "Photo Gallery Lightbox"
           }
           className="fixed inset-0 z-50 flex items-center justify-center bg-navy-deep/95 p-4 backdrop-blur-md"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setIsLightboxOpen(false);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setIsLightboxOpen(false);
+            } else if (event.key === "ArrowRight") {
+              nextImage();
+            } else if (event.key === "ArrowLeft") {
+              prevImage();
+            } else if (event.key === "Tab") {
+              const buttons =
+                event.currentTarget.querySelectorAll<HTMLButtonElement>("button:not(:disabled)");
+              const first = buttons.item(0);
+              const last = buttons.item(buttons.length - 1);
+              if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+              } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+              }
+            }
+          }}
         >
           {/* Close button */}
           <button

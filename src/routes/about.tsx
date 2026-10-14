@@ -7,13 +7,13 @@ import { useTranslations } from "@/data/translations";
 import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
 import leadershipPhoto from "@/assets/background-photo.webp";
-import { Building2, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+import { Building2, MapPin, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () =>
     pageMeta(
       "About",
-      "Frankedu Global provides guidance on studying abroad and international opportunities for students and investors.",
+      "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.",
       { path: "/about" },
     ),
   component: AboutPage,
@@ -37,23 +37,23 @@ function AboutPage() {
         </Link>
       </PageHero>
 
-      {/* Visual Company & Trust Section */}
+      {/* Company information */}
       <Section className="py-12 sm:py-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-          {/* Authentic Portrait Column */}
+          {/* Brand portrait */}
           <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border-2 border-white bg-navy shadow-panel">
                 <img
                   src={leadershipPhoto}
-                  alt="Frankedu Global advisory in consultation with international education materials"
+                  alt="Portrait of a person at a desk with Frankedu Global branding"
                   className="h-full w-full object-cover object-[center_20%]"
                   loading="lazy"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 rounded-xl bg-white/95 p-3.5 text-navy shadow-card backdrop-blur-xs">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 shrink-0 text-sky" />
+                    <MessageCircle className="h-4 w-4 shrink-0 text-sky" />
                     <p className="font-display text-xs font-bold uppercase tracking-wider text-sky">
                       {company.about.trustBadgeTitle}
                     </p>
@@ -74,10 +74,6 @@ function AboutPage() {
                 {company.about.heritageTitle}
               </h2>
             </div>
-
-            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {content.mission}
-            </p>
 
             <p className="text-base leading-relaxed text-muted-foreground">
               {company.about.paragraph2}
@@ -126,17 +122,6 @@ function AboutPage() {
               </Link>
             </div>
           </div>
-        </div>
-      </Section>
-
-      <Section tone="dark">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {content.stats.map((s) => (
-            <div key={s.label} className="card-navy p-6 text-center">
-              <p className="font-display text-3xl font-bold">{s.value}</p>
-              <p className="mt-1 text-sm text-navy-muted">{s.label}</p>
-            </div>
-          ))}
         </div>
       </Section>
 

@@ -9,54 +9,56 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/": {
       title: "Your Future. Global Opportunities. | Frankedu Global",
       description:
-        "We help students, families, and investors explore study options, property information, and professional services.",
+        "Ask Frankedu Global about study information, property listings, and digital services.",
     },
     "/about": {
       title: "About",
       description:
-        "Frankedu Global provides guidance on studying abroad and international opportunities for students and investors.",
+        "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.",
     },
     "/courses": {
       title: "Courses",
       description:
-        "Compare English-taught programmes by level, subject and university, with duration, tuition and intake.",
+        "Ask about study options by field, level, and university. Programme listings are published after details are confirmed.",
     },
     "/universities": {
       title: "Universities",
       description:
-        "Explore university options by destination and subject. Contact us for current tuition, intake and scholarship information.",
+        "Browse institution names and locations. Final International University (FIU) is the only confirmed recruitment relationship.",
     },
     "/countries": {
       title: "Study Destinations",
       description:
-        "Compare study destinations by intakes, tuition ranges and post-study opportunities.",
+        "Browse study destinations and contact us to ask about current programmes, fees, and dates.",
     },
     "/scholarships": {
       title: "Scholarships",
       description:
-        "Find scholarship information for eligible students at Final International University (FIU). Contact us for current details.",
+        "No current scholarship details are published. Contact us to ask about information confirmed by the institution.",
     },
     "/services": {
       title: "Student Services",
       description:
-        "Intake planning, admissions, visa, dependent and application support — explained step by step.",
+        "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.",
     },
     "/marketplace": {
-      title: "Student Marketplace",
-      description: "Accommodation, real estate, essentials and services for students settling in.",
+      title: "Housing and Property Information",
+      description:
+        "No marketplace listings are currently published. Contact us to ask about current options.",
     },
     "/accommodation": {
       title: "Student Accommodation",
-      description: "Dormitories, shared flats, private apartments and homestays near campus.",
+      description:
+        "No accommodation listings are currently published. Contact us to ask about current information.",
     },
     "/real-estate": {
-      title: "Real Estate & Property Investment",
-      description:
-        "Property acquisition and investment opportunities across North Cyprus, the UK, and selected Dubai/UAE markets.",
+      title: "Property Information",
+      description: "View a property listing and contact us to ask about current details.",
     },
     "/contact": {
       title: "Contact",
-      description: "Message Frankedu Global on WhatsApp or email to plan your study pathway.",
+      description:
+        "Contact Frankedu Global by WhatsApp or email about study information, property listings, or digital services.",
     },
     "/application": {
       title: "Start Your Application",
@@ -84,52 +86,55 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/": {
       title: "Geleceğiniz. Küresel Fırsatlar. | Frankedu Global",
       description:
-        "Öğrencilere, ailelere ve yatırımcılara eğitim seçenekleri, gayrimenkul bilgileri ve profesyonel hizmetler hakkında rehberlik sunuyoruz.",
+        "Frankedu Global ile eğitim bilgileri, gayrimenkul ilanları ve dijital hizmetler hakkında görüşün.",
     },
     "/about": {
       title: "Hakkımızda",
       description:
-        "Frankedu Global, yurtdışında eğitim ve küresel fırsatlar için şeffaf danışmanlık sunar.",
+        "Frankedu Global eğitim seçenekleri, gayrimenkul ve dijital hizmetler hakkında bilgi paylaşır. Güncel seçenekleri sormak için bize ulaşın.",
     },
     "/courses": {
       title: "Programlar",
-      description: "İngilizce programları seviyeye, alana ve üniversiteye göre karşılaştırın.",
+      description:
+        "Eğitim alanı, seviyesi ve üniversiteye göre seçenekleri sorun. Program listeleri ayrıntıları doğrulandıktan sonra yayımlanır.",
     },
     "/universities": {
       title: "Üniversiteler",
       description:
-        "Üniversite seçeneklerini ülkeye ve alana göre inceleyin. Güncel ücret ve kabul bilgileri için bizimle iletişime geçin.",
+        "Kurum adlarını ve konumlarını inceleyin. Final International University (FIU), doğrulanmış tek öğrenci alım ilişkimizdir.",
     },
     "/countries": {
       title: "Eğitim Destinasyonları",
-      description: "Eğitim ülkelerini kayıt dönemleri ve öğrenim ücretlerine göre karşılaştırın.",
+      description: "Eğitim ülkelerine göz atın ve güncel program, ücret ve tarihleri sorun.",
     },
     "/scholarships": {
       title: "Burslar",
       description:
-        "Final International University (FIU) burs bilgilerini inceleyin. Güncel uygunluk ve ödül ayrıntıları için bizimle iletişime geçin.",
+        "Güncel burs bilgisi yayımlanmamıştır. Kurum tarafından teyit edilen ayrıntıları sormak için bize ulaşın.",
     },
     "/services": {
       title: "Öğrenci Hizmetleri",
-      description: "Kayıt dönemi planlama, kabul, vize ve başvuru desteği.",
+      description:
+        "Eğitim bilgileri, gayrimenkul ayrıntıları veya dijital hizmetleri sorun. Kapsam ve uygunluk talebe göre teyit edilir.",
     },
     "/marketplace": {
-      title: "Öğrenci Pazaryeri",
-      description: "Öğrenciler için konaklama, gayrimenkul, temel ihtiyaçlar ve hizmetler.",
+      title: "Konaklama ve Gayrimenkul Bilgileri",
+      description:
+        "Şu anda pazar yeri ilanı yayımlanmamıştır. Güncel seçenekleri sormak için bize ulaşın.",
     },
     "/accommodation": {
       title: "Öğrenci Konaklaması",
-      description: "Kampüs yakınında yurt, paylaşımlı daire, özel daire ve aile yanı konaklama.",
+      description:
+        "Şu anda konaklama ilanı yayımlanmamıştır. Güncel bilgiyi sormak için bize ulaşın.",
     },
     "/real-estate": {
-      title: "Gayrimenkul ve Yatırım",
-      description:
-        "Kuzey Kıbrıs, Birleşik Krallık ve seçili Dubai/BAE pazarlarında gayrimenkul fırsatları.",
+      title: "Gayrimenkul Bilgileri",
+      description: "Bir gayrimenkul ilanını görüntüleyin ve güncel ayrıntıları sorun.",
     },
     "/contact": {
       title: "İletişim",
       description:
-        "Eğitim planınızı konuşmak için Frankedu Global'e WhatsApp veya e-posta ile ulaşın.",
+        "Eğitim bilgileri, gayrimenkul ilanları veya dijital hizmetler hakkında Frankedu Global'e WhatsApp ya da e-posta ile ulaşın.",
     },
     "/application": {
       title: "Başvurunuzu Başlatın",
@@ -156,55 +161,57 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/": {
       title: "Votre avenir. Des possibilités internationales. | Frankedu Global",
       description:
-        "Nous vous accompagnons vers des possibilités internationales d’études, d’immobilier et de services professionnels.",
+        "Contactez Frankedu Global pour parler d’informations sur les études, d’annonces immobilières et de services numériques.",
     },
     "/about": {
       title: "À propos",
       description:
-        "Frankedu Global conseille les étudiants et investisseurs sur les études à l’étranger et les possibilités internationales.",
+        "Frankedu Global partage des informations sur les études, l’immobilier et les services numériques. Contactez-nous pour connaître les options actuelles.",
     },
     "/courses": {
       title: "Formations",
-      description: "Comparez les formations en anglais par niveau, domaine et université.",
+      description:
+        "Renseignez-vous sur les possibilités par domaine, niveau et université. Les formations sont publiées après confirmation de leurs informations.",
     },
     "/universities": {
       title: "Universités",
       description:
-        "Découvrez les options universitaires par destination et domaine. Contactez-nous pour obtenir les informations à jour sur les frais et les admissions.",
+        "Consultez les noms et lieux des établissements. Final International University (FIU) est le seul partenariat de recrutement confirmé.",
     },
     "/countries": {
       title: "Destinations d’études",
       description:
-        "Comparez les destinations selon les admissions, les frais et les possibilités après les études.",
+        "Consultez les destinations d’études et contactez-nous pour connaître les programmes, frais et dates actuels.",
     },
     "/scholarships": {
       title: "Bourses",
       description:
-        "Consultez les informations sur les bourses à Final International University (FIU). Contactez-nous pour connaître les critères et les montants actuels.",
+        "Aucune information actuelle sur les bourses n’est publiée. Contactez-nous pour demander des détails confirmés par l’établissement.",
     },
     "/services": {
       title: "Services étudiants",
       description:
-        "Planification des admissions, visas et candidatures, expliquée étape par étape.",
+        "Renseignez-vous sur les études, l’immobilier ou les services numériques. La portée et la disponibilité sont confirmées au cas par cas.",
     },
     "/marketplace": {
-      title: "Marché étudiant",
-      description: "Logement, immobilier, produits essentiels et services pour les étudiants.",
+      title: "Informations sur le logement et l’immobilier",
+      description:
+        "Aucune annonce du marché n’est publiée actuellement. Contactez-nous pour connaître les options actuelles.",
     },
     "/accommodation": {
       title: "Logement étudiant",
       description:
-        "Résidences, appartements partagés, logements privés et familles d’accueil près du campus.",
+        "Aucune annonce de logement n’est publiée actuellement. Contactez-nous pour obtenir des informations.",
     },
     "/real-estate": {
-      title: "Immobilier et investissement",
+      title: "Informations immobilières",
       description:
-        "Possibilités immobilières à Chypre du Nord, au Royaume-Uni et dans certains marchés des Émirats arabes unis.",
+        "Consultez une annonce immobilière et contactez-nous pour connaître les détails actuels.",
     },
     "/contact": {
       title: "Contact",
       description:
-        "Contactez Frankedu Global sur WhatsApp ou par e-mail pour parler de votre projet d’études.",
+        "Contactez Frankedu Global sur WhatsApp ou par e-mail au sujet des études, des annonces immobilières ou des services numériques.",
     },
     "/application": {
       title: "Commencer votre candidature",
@@ -230,54 +237,58 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
   },
   sw: {
     "/": {
-      title: "Mustakabali wako. Fursa za kimataifa. | Frankedu Global",
-      description: "Tunakuunganisha na fursa za kimataifa za masomo, mali na huduma za kitaalamu.",
+      title: "Frankedu Global | Taarifa za Masomo na Mali",
+      description:
+        "Wasiliana na Frankedu Global kuhusu masomo, matangazo ya mali na huduma za kidijitali.",
     },
     "/about": {
       title: "Kuhusu",
       description:
-        "Frankedu Global hutoa mwongozo kuhusu masomo nje ya nchi na fursa za kimataifa.",
+        "Frankedu Global hushiriki taarifa kuhusu masomo, mali na huduma za kidijitali. Wasiliana nasi kuuliza chaguo zilizopo sasa.",
     },
     "/courses": {
       title: "Programu za masomo",
       description:
-        "Linganisha programu zinazofundishwa kwa Kiingereza kulingana na kiwango, somo na chuo.",
+        "Ulizia chaguo za masomo kulingana na eneo, kiwango na chuo kikuu. Programu huchapishwa baada ya maelezo yake kuthibitishwa.",
     },
     "/universities": {
       title: "Vyuo vikuu",
       description:
-        "Chunguza chaguo za vyuo kulingana na nchi na somo. Wasiliana nasi kwa taarifa za sasa kuhusu ada na udahili.",
+        "Angalia majina na maeneo ya taasisi. Final International University (FIU) ndiyo uhusiano pekee wa udahili uliothibitishwa.",
     },
     "/countries": {
       title: "Nchi za masomo",
-      description: "Linganisha nchi za masomo kulingana na udahili, ada na fursa baada ya masomo.",
+      description:
+        "Angalia nchi za masomo na uwasiliane nasi kuuliza kuhusu programu, ada na tarehe za sasa.",
     },
     "/scholarships": {
       title: "Ufadhili wa masomo",
       description:
-        "Pata taarifa kuhusu ufadhili wa masomo kwa wanafunzi wanaostahiki katika Final International University (FIU). Wasiliana nasi kwa maelezo ya sasa.",
+        "Hakuna taarifa za sasa za ufadhili zilizochapishwa. Wasiliana nasi kuuliza kuhusu maelezo yaliyothibitishwa na taasisi.",
     },
     "/services": {
       title: "Huduma za wanafunzi",
-      description: "Mipango ya udahili, visa na maombi, ikielezwa hatua kwa hatua.",
+      description:
+        "Uliza kuhusu taarifa za masomo, mali au huduma za kidijitali. Wigo na upatikanaji huthibitishwa kwa kila ombi.",
     },
     "/marketplace": {
-      title: "Soko la wanafunzi",
-      description: "Malazi, mali, mahitaji na huduma kwa wanafunzi wanaoanza maisha mapya.",
+      title: "Taarifa za Malazi na Mali",
+      description:
+        "Hakuna matangazo ya soko yaliyochapishwa sasa. Wasiliana nasi kuuliza kuhusu chaguo zilizopo.",
     },
     "/accommodation": {
       title: "Malazi ya wanafunzi",
       description:
-        "Mabweni, vyumba vya pamoja, nyumba binafsi na makazi ya familia karibu na chuo.",
+        "Hakuna matangazo ya malazi yaliyochapishwa sasa. Wasiliana nasi kuuliza kuhusu taarifa za sasa.",
     },
     "/real-estate": {
-      title: "Mali na uwekezaji",
-      description: "Fursa za mali Kaskazini mwa Saiprasi, Uingereza na baadhi ya masoko ya UAE.",
+      title: "Taarifa za Mali",
+      description: "Tazama tangazo la mali na uwasiliane nasi kuuliza kuhusu maelezo ya sasa.",
     },
     "/contact": {
       title: "Mawasiliano",
       description:
-        "Wasiliana na Frankedu Global kupitia WhatsApp au barua pepe kuhusu mpango wako wa masomo.",
+        "Wasiliana na Frankedu Global kupitia WhatsApp au barua pepe kuhusu masomo, matangazo ya mali au huduma za kidijitali.",
     },
     "/application": {
       title: "Anza maombi yako",

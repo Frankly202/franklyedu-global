@@ -10,8 +10,8 @@ import { pageMeta } from "@/lib/seo";
 export const Route = createFileRoute("/real-estate")({
   head: () =>
     pageMeta(
-      "Real Estate & Property Investment",
-      "Property acquisition and investment opportunities across North Cyprus, the UK, and selected Dubai/UAE markets.",
+      "Property Information",
+      "View a property listing and contact us to ask about current details.",
       { path: "/real-estate" },
     ),
   component: RealEstatePage,
@@ -37,16 +37,30 @@ function RealEstatePage() {
         </Link>
       </PageHero>
       <Section>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {listings.map((l) => (
-            <ListingCard
-              key={l.slug}
-              l={l}
-              ctaLabel={marketplace.realEstate.requestDetailsBtn}
-              headingLevel="h2"
-            />
-          ))}
-        </div>
+        {listings.length ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {listings.map((l) => (
+              <ListingCard
+                key={l.slug}
+                l={l}
+                ctaLabel={marketplace.realEstate.requestDetailsBtn}
+                headingLevel="h2"
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="card-light mx-auto max-w-2xl p-8 text-center sm:p-10">
+            <h2 className="text-xl font-semibold text-navy">
+              {marketplace.marketplace.emptyListingsHeading}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {marketplace.marketplace.emptyListingsDesc}
+            </p>
+            <Link to="/contact" className="btn btn-primary mt-5">
+              {marketplace.marketplace.contactBtn}
+            </Link>
+          </div>
+        )}
       </Section>
       <WhatsAppCta />
     </>

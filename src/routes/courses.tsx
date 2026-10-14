@@ -22,7 +22,7 @@ export const Route = createFileRoute("/courses")({
   head: () =>
     pageMeta(
       "Courses",
-      "Compare English-taught programmes by level, subject and university, with duration, tuition and intake.",
+      "Ask about study options by field, study level, and university. Programme listings are published once their details are confirmed.",
       { path: "/courses" },
     ),
   component: CoursesPage,
@@ -55,19 +55,15 @@ function CoursesPage() {
         background="campus"
         breadcrumbs={[{ label: common.nav.courses }]}
         eyebrow={education.courses.eyebrow}
-        title={
-          uni ? `${education.courses.programmesAt} ${uni.name}` : education.courses.defaultTitle
-        }
+        title={uni ? `${education.courses.optionsAt} ${uni.name}` : education.courses.defaultTitle}
         subtitle={education.courses.subtitle}
       />
       <Section>
-        <div className="mb-8 grid gap-3 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-end">
-          <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">
-              {education.courses.subjectLabel}
-            </span>
+        <div className="mb-8 grid gap-4 rounded-2xl border border-border bg-white p-4 shadow-xs sm:grid-cols-2 sm:p-5 lg:grid-cols-[repeat(3,minmax(0,1fr))_auto] lg:items-end">
+          <label className="grid min-w-0 gap-2 text-sm font-semibold text-navy">
+            <span>{education.courses.subjectLabel}</span>
             <select
-              className="field"
+              className="field h-12 rounded-xl border-border shadow-xs transition-colors hover:border-navy/40 focus-visible:border-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30"
               value={subject ?? ""}
               onChange={(e) =>
                 navigate({ search: (p) => ({ ...p, subject: e.target.value || undefined }) })
@@ -81,12 +77,10 @@ function CoursesPage() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">
-              {education.courses.levelLabel}
-            </span>
+          <label className="grid min-w-0 gap-2 text-sm font-semibold text-navy">
+            <span>{education.courses.levelLabel}</span>
             <select
-              className="field"
+              className="field h-12 rounded-xl border-border shadow-xs transition-colors hover:border-navy/40 focus-visible:border-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30"
               value={level ?? ""}
               onChange={(e) =>
                 navigate({ search: (p) => ({ ...p, level: e.target.value || undefined }) })
@@ -100,12 +94,10 @@ function CoursesPage() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1">
-            <span className="eyebrow text-[0.7rem] text-muted-foreground">
-              {education.courses.universityLabel}
-            </span>
+          <label className="grid min-w-0 gap-2 text-sm font-semibold text-navy">
+            <span>{education.courses.universityLabel}</span>
             <select
-              className="field"
+              className="field h-12 rounded-xl border-border shadow-xs transition-colors hover:border-navy/40 focus-visible:border-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30"
               value={university ?? ""}
               onChange={(e) =>
                 navigate({ search: (p) => ({ ...p, university: e.target.value || undefined }) })
@@ -119,7 +111,11 @@ function CoursesPage() {
               ))}
             </select>
           </label>
-          <Link to="/courses" search={{}} className="btn btn-outline-dark">
+          <Link
+            to="/courses"
+            search={{}}
+            className="btn btn-outline-dark min-h-12 w-full lg:w-auto"
+          >
             {education.courses.clearBtn}
           </Link>
         </div>
@@ -137,6 +133,9 @@ function CoursesPage() {
           <div className="card-light p-10 text-center">
             <h2 className="text-lg font-semibold">{education.courses.emptyHeading}</h2>
             <p className="mt-2 text-sm text-muted-foreground">{education.courses.emptyDesc}</p>
+            <Link to="/contact" className="btn btn-outline-dark mt-5">
+              {common.nav.contact}
+            </Link>
           </div>
         )}
       </Section>

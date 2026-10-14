@@ -19,8 +19,6 @@ export interface HomeTranslation {
     search: {
       destinationLabel: string;
       destinationPlaceholder: string;
-      subjectLabel: string;
-      subjectPlaceholder: string;
       submitBtn: string;
     };
     trustBadge: {
@@ -36,7 +34,6 @@ export interface HomeTranslation {
     education: ServicePillarTranslation;
     properties: ServicePillarTranslation;
     creative: ServicePillarTranslation;
-    ecoLuxury: ServicePillarTranslation;
   };
   destinations: {
     eyebrow: string;
@@ -71,246 +68,196 @@ export interface HomeTranslation {
 export const homeTranslations: Record<"en" | "tr", HomeTranslation> = {
   en: {
     hero: {
-      eyebrow: "Education • Real Estate • Creative • Beyond",
-      titleLine1: "Your Future.",
-      titleHighlight: "Global Opportunities.",
-      subhead: "Study Abroad • Invest in Property • Build Your Brand • Live Better",
+      eyebrow: "Education • Property • Digital Services",
+      titleLine1: "Clear information for",
+      titleHighlight: "your next decision.",
+      subhead: "Study options • Property information • Digital services",
       description:
-        "We help students, families, and investors explore study options, property information, and professional services.",
+        "Frankedu Global helps students, families, and clients ask informed questions about study options, property information, and digital services.",
       applyCta: "Start Application",
       whatsappCta: "Chat on WhatsApp",
       search: {
         destinationLabel: "Study destination",
         destinationPlaceholder: "Germany, UK, Cyprus…",
-        subjectLabel: "Course or subject",
-        subjectPlaceholder: "Business, Engineering, IT…",
         submitBtn: "Find Universities",
       },
       trustBadge: {
-        title: "Personalized Guidance",
-        subtitle: "Study guidance • Property information",
+        title: "Straightforward enquiries",
+        subtitle: "Study options • Property information",
       },
     },
     services: {
       eyebrow: "Our Services",
-      title: "One Global Brand. Multiple Opportunities.",
+      title: "Study, property, and digital enquiries.",
       subtitle:
-        "Education, real estate, creative services, and property care — all delivered under one trusted name.",
+        "Ask us about current study information, property details, or digital services. We will confirm what is available.",
       exploreAll: "Explore All Services",
       education: {
         title: "Education & Admissions",
-        tagline: "Study options & scholarships",
-        description: "Guidance on study options based on your academic background and aspirations.",
+        tagline: "Study information",
+        description:
+          "Ask about current admissions information and study options. Final International University (FIU) is the only confirmed recruitment relationship.",
         points: [
-          "University Admissions & Matching",
-          "FIU scholarships up to 100% for eligible students",
-          "Visa Guidance & Interview Prep",
-          "Student Dorms & Accommodation",
-          "Airport Pickup & Arrival Reception",
+          "Current programmes and entry requirements need confirmation",
+          "Fees, scholarship terms, and intakes may change",
+          "Check visa requirements with the relevant authorities",
         ],
         ctaLabel: "Browse Universities",
         href: "/universities",
       },
       properties: {
-        title: "Properties & Investment",
-        tagline: "Property information & investment options",
+        title: "Property information",
+        tagline: "Property information",
         description:
-          "Strategic property acquisition, design-refurbished villas, and coastal residences across North Cyprus, UK, and UAE.",
+          "Ask about the property listing shown on this site. Availability, price, and particulars need current confirmation.",
         points: [
-          "North Cyprus Residential Villas",
-          "Seafront Resort Residences",
-          "Buyer Eligibility Information*",
-          "Property Acquisition Advisory",
-          "UK & Dubai Opportunities",
+          "Current availability on enquiry",
+          "Details should be confirmed before proceeding",
+          "Independent advice may be appropriate",
         ],
         ctaLabel: "Explore Properties",
         href: "/real-estate",
       },
       creative: {
-        title: "Creative & Digital",
-        tagline: "Brand identity, web & media",
-        description:
-          "Brand development, bespoke websites, student portfolio polish, and creative digital solutions by Frankedu.",
+        title: "Digital services",
+        tagline: "Digital services",
+        description: "Contact us to discuss a digital service request.",
         points: [
-          "Brand Identity & Logo Design",
-          "Modern Website Development",
-          "Academic CV & Portfolio Polish",
-          "Social & Digital Marketing",
-          "Creative Media Solutions",
-        ],
-        ctaLabel: "Get a Quote",
-        href: "/services",
-      },
-      ecoLuxury: {
-        title: "Eco Luxury & Property Care",
-        tagline: "Turnover cleaning & maintenance",
-        description:
-          "Professional residential cleaning, student move-in preparation, and dependable property care services in North Cyprus.",
-        points: [
-          "Move-in & Move-out Turnover Cleaning",
-          "Student Apartment Refresh",
-          "Residential & Commercial Care",
-          "Flexible Service Scheduling",
-          "Local On-the-Ground Team",
+          "Scope and availability confirmed per enquiry",
+          "Pricing discussed before work begins",
         ],
         ctaLabel: "Get a Quote",
         href: "/services",
       },
     },
     destinations: {
-      eyebrow: "Study & Living Destinations",
-      title: "Popular Destinations.",
+      eyebrow: "Study destinations",
+      title: "Study destinations.",
       subtitle:
-        "Explore study destinations and discuss options based on your academic goals, budget, and preferred intake.",
+        "Browse destinations listed on this site. Current programmes, admissions, costs, and dates vary; contact us to ask about specific options.",
       viewAll: "View All Destinations",
-      badge: "Study • Invest • Live",
+      badge: "Study destination",
     },
     universities: {
-      eyebrow: "Institutions & Pathways",
-      title: "University Pathways.",
+      eyebrow: "Universities",
+      title: "University directory",
       subtitle:
         "We have a confirmed recruitment relationship with Final International University (FIU). Contact us for current programme and admissions details.",
       browseAll: "Browse All Universities",
     },
     properties: {
-      eyebrow: "Real Estate Opportunities",
-      title: "Featured Properties.",
+      eyebrow: "Property listing",
+      title: "Property listing.",
       subtitle:
-        "Explore property opportunities across North Cyprus and selected international markets.",
+        "One property listing is shown here. Ask us to confirm its current availability and details.",
       viewAll: "Explore All Properties",
       disclaimer:
-        "*Buyer/title eligibility information is included in the listing and should be independently confirmed during legal conveyancing.",
+        "Listing information may change. Confirm current details before making a decision.",
     },
     ctaBanner: {
-      eyebrow: "Start Today",
-      title: "Let's Build Your Future Together.",
+      eyebrow: "Get in touch",
+      title: "Have a question about your next step?",
       subtitle:
-        "Contact us online about university applications, property viewings, and professional services.",
+        "Contact Frankedu Global to discuss study information, a property listing, or digital services.",
       whatsappCta: "Chat on WhatsApp",
-      consultationCta: "Book a Consultation",
-      applyCta: "Book a Consultation",
+      consultationCta: "Contact us",
+      applyCta: "Contact us",
     },
   },
   tr: {
     hero: {
-      eyebrow: "Eğitim • Gayrimenkul • Kreatif • Ötesi",
-      titleLine1: "Geleceğiniz.",
-      titleHighlight: "Küresel Fırsatlar.",
-      subhead: "Yurtdışında Eğitim • Gayrimenkul Yatırımı • Markanızı Büyütün • Daha İyi Yaşayın",
+      eyebrow: "Eğitim • Gayrimenkul • Dijital Hizmetler",
+      titleLine1: "Bir sonraki kararınız için",
+      titleHighlight: "açık bilgiler.",
+      subhead: "Eğitim seçenekleri • Gayrimenkul bilgileri • Dijital hizmetler",
       description:
-        "Öğrencileri, aileleri ve yatırımcıları dünya standartlarında üniversite kabulleri, güvenilir gayrimenkul danışmanlığı ve profesyonel hizmetlerle küresel fırsatlarla buluşturuyoruz.",
+        "Frankedu Global; öğrencilere, ailelere ve müşterilere eğitim seçenekleri, gayrimenkul bilgileri ve dijital hizmetler hakkında bilgi edinme konusunda yardımcı olur.",
       applyCta: "Başvuru Yap",
       whatsappCta: "WhatsApp'tan Yazın",
       search: {
         destinationLabel: "Eğitim ülkesi",
         destinationPlaceholder: "Almanya, İngiltere, Kıbrıs…",
-        subjectLabel: "Bölüm veya alan",
-        subjectPlaceholder: "İşletme, Mühendislik, Bilişim…",
         submitBtn: "Üniversite Bul",
       },
       trustBadge: {
-        title: "Doğrulanmış Küresel Danışmanlık",
+        title: "Açık ve doğrudan iletişim",
         subtitle: "Eğitim danışmanlığı • Gayrimenkul bilgileri",
       },
     },
     services: {
       eyebrow: "Hizmetlerimiz",
-      title: "Tek Küresel Marka. Sayısız Fırsat.",
+      title: "Eğitim, gayrimenkul ve dijital hizmetler.",
       subtitle:
-        "Eğitim, gayrimenkul, kreatif hizmetler ve mülk bakımı — tek bir güvenilir çatı altında onaylı rehberlik.",
+        "Güncel eğitim bilgileri, gayrimenkul ayrıntıları veya dijital hizmetler hakkında bilgi alın. Nelerin mevcut olduğunu teyit ederiz.",
       exploreAll: "Tüm Hizmetleri Gör",
       education: {
         title: "Eğitim ve Üniversite Kabulü",
-        tagline: "Eğitim seçenekleri ve burslar",
+        tagline: "Eğitim bilgileri",
         description:
-          "Akademik geçmişinize ve hedeflerinize göre eğitim seçenekleri hakkında danışmanlık.",
+          "Güncel kabul bilgileri ve eğitim seçeneklerini sorun. Final International University (FIU), doğrulanmış tek öğrenci alım ilişkimizdir.",
         points: [
-          "Üniversite Başvurusu ve Program Eşleştirme",
-          "FIU'da uygun öğrenciler için %100'e varan burslar",
-          "Öğrenci Vizesi ve Mülakat Hazırlığı",
-          "Öğrenci Yurtları ve Konaklama",
-          "Havalimanı Karşılama ve Oryantasyon",
+          "Program ve giriş koşulları güncel olarak teyit edilmelidir",
+          "Ücret, burs koşulları ve kayıt dönemleri değişebilir",
+          "Vize koşullarını ilgili resmi makamlarla kontrol edin",
         ],
         ctaLabel: "Üniversiteleri İncele",
         href: "/universities",
       },
       properties: {
-        title: "Gayrimenkul ve Yatırım",
-        tagline: "Konutlar ve yatırım fırsatları",
+        title: "Gayrimenkul bilgileri",
+        tagline: "Gayrimenkul bilgileri",
         description:
-          "Kuzey Kıbrıs, Birleşik Krallık ve BAE genelinde stratejik mülk edinimi, yenilenmiş villalar ve sahil konutları.",
+          "Bu sitedeki gayrimenkul ilanı hakkında bilgi alın. Uygunluk, fiyat ve ayrıntılar güncel olarak teyit edilmelidir.",
         points: [
-          "Kuzey Kıbrıs Müstakil Villalar",
-          "Deniz Manzaralı Rezidans Projeleri",
-          "Yabancı Alıcı Uygunluğu Bilgileri*",
-          "Mülk Edinimi ve Yatırım Danışmanlığı",
-          "İngiltere ve Dubai Fırsatları",
+          "Güncel uygunluk için bilgi alın",
+          "İlerlemeye karar vermeden önce ayrıntıları teyit edin",
+          "Bağımsız danışmanlık almayı değerlendirin",
         ],
         ctaLabel: "Mülkleri İncele",
         href: "/real-estate",
       },
       creative: {
-        title: "Kreatif ve Dijital Hizmetler",
-        tagline: "Marka kimliği, web ve medya",
-        description:
-          "Frankedu güvencesiyle marka kimliği geliştirme, modern web siteleri, öğrenci portföyü ve dijital varlık çözümleri.",
+        title: "Dijital hizmetler",
+        tagline: "Dijital hizmetler",
+        description: "Dijital hizmet talebinizi görüşmek için bizimle iletişime geçin.",
         points: [
-          "Marka Kimliği ve Logo Tasarımı",
-          "Modern Web Sitesi Geliştirme",
-          "Akademik CV ve Portföy Düzenleme",
-          "Sosyal Medya ve Dijital Pazarlama",
-          "Kreatif Medya Çözümleri",
-        ],
-        ctaLabel: "Fiyat Teklifi Alın",
-        href: "/services",
-      },
-      ecoLuxury: {
-        title: "Eco Luxury ve Mülk Bakımı",
-        tagline: "Dönemsel temizlik ve bakım",
-        description:
-          "Kuzey Kıbrıs'ta profesyonel konut temizliği, öğrenci dairesi hazırlığı ve güvenilir mülk bakım hizmetleri.",
-        points: [
-          "Giriş ve Çıkış Temizliği",
-          "Öğrenci Dairesi Yenileme ve Hazırlık",
-          "Konut ve Ticari Mülk Bakımı",
-          "Esnek Hizmet ve Rezervasyon Planlaması",
-          "Yerel Profesyonel Destek Ekibi",
+          "Kapsam ve uygunluk talebe göre teyit edilir",
+          "Fiyatlandırma işe başlamadan önce görüşülür",
         ],
         ctaLabel: "Fiyat Teklifi Alın",
         href: "/services",
       },
     },
     destinations: {
-      eyebrow: "Eğitim ve Yaşam Merkezleri",
-      title: "Popüler Ülkeler.",
+      eyebrow: "Eğitim destinasyonları",
+      title: "Eğitim destinasyonları.",
       subtitle:
-        "Eğitim ülkelerini keşfedin ve akademik hedeflerinize, bütçenize ve tercih ettiğiniz döneme göre seçenekleri görüşün.",
+        "Bu sitede listelenen destinasyonlara göz atın. Programlar, kabul koşulları, ücretler ve tarihler değişebilir; seçenekleri sorun.",
       viewAll: "Tüm Ülkeleri Gör",
-      badge: "Eğitim • Yatırım • Yaşam",
+      badge: "Eğitim destinasyonu",
     },
     universities: {
-      eyebrow: "Kurumlar ve Eğitim Yolları",
-      title: "Üniversite Eğitim Yolları.",
+      eyebrow: "Üniversiteler",
+      title: "Üniversite rehberi",
       subtitle:
         "Final Uluslararası Üniversitesi (FIU) ile doğrulanmış bir öğrenci alım ilişkimiz bulunmaktadır. Güncel program ve kabul bilgileri için bizimle iletişime geçin.",
       browseAll: "Tüm Üniversiteleri İncele",
     },
     properties: {
-      eyebrow: "Gayrimenkul Fırsatları",
-      title: "Öne Çıkan Mülkler.",
-      subtitle: "Kuzey Kıbrıs'taki gayrimenkul ilanlarını inceleyin.",
+      eyebrow: "Gayrimenkul ilanı",
+      title: "Gayrimenkul ilanı.",
+      subtitle: "Bir ilan gösterilmektedir. Güncel uygunluk ve ayrıntıları teyit edin.",
       viewAll: "Tüm Mülkleri Gör",
-      disclaimer:
-        "*Alıcı/koçan uygunluk bilgileri ilanda yer alır ve yasal devir sürecinde bağımsız olarak teyit edilmelidir.",
+      disclaimer: "İlan bilgileri değişebilir. Karar vermeden önce güncel ayrıntıları teyit edin.",
     },
     ctaBanner: {
-      eyebrow: "Bugün Başlayın",
-      title: "Geleceğinizi Birlikte İnşa Edelim.",
+      eyebrow: "İletişim",
+      title: "Bir sonraki adımınız hakkında sorunuz mu var?",
       subtitle:
-        "Üniversite başvuruları, mülk gösterimleri ve danışmanlık hizmetlerimiz hakkında çevrimiçi olarak bizimle iletişime geçin.",
+        "Eğitim bilgileri, gayrimenkul ilanı veya dijital hizmetler hakkında Frankedu Global ile iletişime geçin.",
       whatsappCta: "WhatsApp ile İletişim",
-      consultationCta: "Konsültasyon Randevusu Alın",
-      applyCta: "Konsültasyon Randevusu Alın",
+      consultationCta: "Bize ulaşın",
+      applyCta: "Bize ulaşın",
     },
   },
 };
