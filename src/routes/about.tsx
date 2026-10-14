@@ -26,6 +26,7 @@ function AboutPage() {
   return (
     <>
       <PageHero
+        background="contact"
         breadcrumbs={[{ label: common.nav.about }]}
         eyebrow={`${company.about.eyebrow} ${brand.shortName}`}
         title={company.about.title}

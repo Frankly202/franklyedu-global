@@ -24,6 +24,7 @@ function ScholarshipsPage() {
   return (
     <>
       <PageHero
+        background="campus"
         breadcrumbs={[{ label: common.nav.scholarships }]}
         eyebrow={education.scholarships.eyebrow}
         title={education.scholarships.title}

@@ -23,6 +23,7 @@ function CountriesPage() {
   return (
     <>
       <PageHero
+        background="marketplace"
         breadcrumbs={[{ label: common.nav.countries }]}
         eyebrow={education.countries.eyebrow}
         title={education.countries.title}

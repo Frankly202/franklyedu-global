@@ -20,6 +20,7 @@ function ContactPage() {
   return (
     <>
       <PageHero
+        background="contact"
         breadcrumbs={[{ label: common.nav.contact }]}
         eyebrow={company.contact.eyebrow}
         title={company.contact.title}

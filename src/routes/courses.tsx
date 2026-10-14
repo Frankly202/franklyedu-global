@@ -52,6 +52,7 @@ function CoursesPage() {
   return (
     <>
       <PageHero
+        background="campus"
         breadcrumbs={[{ label: common.nav.courses }]}
         eyebrow={education.courses.eyebrow}
         title={

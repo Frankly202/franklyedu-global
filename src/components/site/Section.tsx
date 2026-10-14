@@ -4,6 +4,13 @@ import type { BreadcrumbItem } from "./Breadcrumbs";
 import { Breadcrumbs } from "./Breadcrumbs";
 
 type Tone = "light" | "dark";
+type PageHeroBackground = "campus" | "contact" | "marketplace";
+
+const pageHeroBackgrounds: Record<PageHeroBackground, string> = {
+  campus: "/background/campus-background.png",
+  contact: "/background/contact-background.png",
+  marketplace: "/background/marketplace-background.png",
+};
 
 export function Section({
   tone = "light",
@@ -72,16 +79,32 @@ export function PageHero({
   subtitle,
   children,
   breadcrumbs,
+  background,
 }: {
   eyebrow?: string;
   title: ReactNode;
   subtitle?: string;
   children?: ReactNode;
   breadcrumbs?: BreadcrumbItem[];
+  background?: PageHeroBackground;
 }) {
   return (
-    <section className="bg-navy py-14 text-navy-foreground sm:py-18">
-      <div className="container-site max-w-3xl">
+    <section
+      data-hero-background={background}
+      className="relative isolate overflow-hidden bg-navy py-14 text-navy-foreground sm:py-18"
+    >
+      {background && (
+        <>
+          <div
+            aria-hidden="true"
+            data-hero-image
+            className="page-hero-image"
+            style={{ backgroundImage: `url("${pageHeroBackgrounds[background]}")` }}
+          />
+          <div aria-hidden="true" data-hero-overlay className="page-hero-overlay" />
+        </>
+      )}
+      <div className="container-site relative z-20 max-w-3xl">
         {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
         {eyebrow && <p className="eyebrow mb-3 text-sky-contrast">{eyebrow}</p>}
         <h1 className="text-[clamp(2rem,6vw,3rem)] font-bold leading-[1.08]">{title}</h1>

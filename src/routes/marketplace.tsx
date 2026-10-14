@@ -30,6 +30,7 @@ function MarketplacePage() {
   return (
     <>
       <PageHero
+        background="marketplace"
         breadcrumbs={[{ label: common.nav.marketplace }]}
         eyebrow={marketplace.marketplace.eyebrow}
         title={marketplace.marketplace.title}

@@ -325,6 +325,54 @@
   animation: mobile-drawer-enter 180ms ease-out both;
 }
 
+.page-hero-image,
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.page-hero-image {
+  z-index: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.page-hero-overlay {
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(10, 37, 64, 0.72) 0%, rgba(10, 37, 64, 0.78) 100%);
+}
+
+[data-hero-background="campus"] .page-hero-image {
+  background-position: 52% 52%;
+}
+
+[data-hero-background="contact"] .page-hero-image {
+  background-position: 38% 50%;
+}
+
+[data-hero-background="marketplace"] .page-hero-image {
+  background-position: 16% 50%;
+}
+
+@media (min-width: 640px) {
+  [data-hero-background] .page-hero-image {
+    background-position: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(10, 37, 64, 0.76) 0%,
+      rgba(10, 37, 64, 0.74) 36%,
+      rgba(10, 37, 64, 0.72) 62%,
+      rgba(10, 37, 64, 0.14) 100%
+    );
+  }
+}
+
 @utility container-site {
   margin-inline: auto;
   width: 100%;

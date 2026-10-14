@@ -23,6 +23,7 @@ function ServicesPage() {
   return (
     <>
       <PageHero
+        background="contact"
         breadcrumbs={[{ label: common.nav.services }]}
         eyebrow={education.services.eyebrow}
         title={education.services.title}

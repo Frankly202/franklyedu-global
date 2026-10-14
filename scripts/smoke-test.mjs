@@ -21,6 +21,17 @@ const routes = [
 ];
 
 const retiredRoutes = ["/student", "/login", "/signup"];
+const pageHeroBackgrounds = {
+  "/universities": { name: "campus", asset: "/background/campus-background.png" },
+  "/courses": { name: "campus", asset: "/background/campus-background.png" },
+  "/scholarships": { name: "campus", asset: "/background/campus-background.png" },
+  "/contact": { name: "contact", asset: "/background/contact-background.png" },
+  "/about": { name: "contact", asset: "/background/contact-background.png" },
+  "/services": { name: "contact", asset: "/background/contact-background.png" },
+  "/marketplace": { name: "marketplace", asset: "/background/marketplace-background.png" },
+  "/countries": { name: "marketplace", asset: "/background/marketplace-background.png" },
+};
+const checkedHeroAssets = new Set();
 const siteUrl = "https://franklyedu.com";
 const indexableRoutes = routes;
 const canonicalUrl = (route) => (route === "/" ? `${siteUrl}/` : `${siteUrl}${route}`);
@@ -45,6 +56,87 @@ async function gotoReady(page, url) {
   const response = await page.goto(url, { waitUntil: "networkidle" });
   await page.locator("main h1").waitFor();
   return response;
+}
+
+async function checkPageHeroBackground(page, route, locale) {
+  const expected = pageHeroBackgrounds[route];
+  if (!expected) return;
+
+  const viewportWidth = page.viewportSize().width;
+  const mobile = viewportWidth < 640;
+  const hero = page.locator(`main section[data-hero-background="${expected.name}"]`);
+  assert.equal(await hero.count(), 1, `${locale} ${route} must render its assigned hero image.`);
+
+  const image = hero.locator("[data-hero-image]");
+  const imageStyles = await image.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return {
+      image: styles.backgroundImage,
+      size: styles.backgroundSize,
+      position: styles.backgroundPosition,
+      repeat: styles.backgroundRepeat,
+      zIndex: styles.zIndex,
+      filter: styles.filter,
+    };
+  });
+  assert.ok(
+    imageStyles.image.includes(expected.asset),
+    `${locale} ${route} must use ${expected.asset}.`,
+  );
+  assert.equal(
+    imageStyles.size,
+    "cover",
+    `${locale} ${route} background must cover without distortion.`,
+  );
+  assert.equal(imageStyles.repeat, "no-repeat", `${locale} ${route} background must not tile.`);
+  assert.equal(
+    imageStyles.position,
+    mobile
+      ? {
+          campus: "52% 52%",
+          contact: "38% 50%",
+          marketplace: "16% 50%",
+        }[expected.name]
+      : "50% 50%",
+    `${locale} ${route} must use the responsive image focal position.`,
+  );
+  assert.equal(imageStyles.zIndex, "0", `${locale} ${route} image must stay behind hero content.`);
+  assert.equal(
+    imageStyles.filter,
+    "none",
+    `${locale} ${route} image must not be blurred or filtered.`,
+  );
+
+  const overlay = hero.locator("[data-hero-overlay]");
+  const overlayStyles = await overlay.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return { background: styles.backgroundImage, zIndex: styles.zIndex, filter: styles.filter };
+  });
+  const overlayPattern =
+    viewportWidth >= 1024
+      ? /linear-gradient\(90deg, rgba\(10,\s*37,\s*64,\s*0\.76\).*rgba\(10,\s*37,\s*64,\s*0\.72\).*rgba\(10,\s*37,\s*64,\s*0\.14\)/
+      : /linear-gradient\(rgba\(10,\s*37,\s*64,\s*0\.72\).*rgba\(10,\s*37,\s*64,\s*0\.78\)/;
+  assert.ok(
+    overlayPattern.test(overlayStyles.background),
+    `${locale} ${route} must use a lighter responsive navy overlay; got ${overlayStyles.background}`,
+  );
+  assert.equal(overlayStyles.zIndex, "10", `${locale} ${route} overlay must sit above its image.`);
+  assert.equal(overlayStyles.filter, "none", `${locale} ${route} overlay must not blur its image.`);
+  assert.ok(
+    await hero.locator("h1").isVisible(),
+    `${locale} ${route} hero heading and existing content must remain visible.`,
+  );
+
+  if (!checkedHeroAssets.has(expected.asset)) {
+    const assetResponse = await page.request.get(`${new URL(page.url()).origin}${expected.asset}`);
+    assert.equal(assetResponse.status(), 200, `${expected.asset} must be served.`);
+    assert.match(
+      assetResponse.headers()["content-type"] ?? "",
+      /image\/png/,
+      `${expected.asset} must retain its PNG content type.`,
+    );
+    checkedHeroAssets.add(expected.asset);
+  }
 }
 
 async function selectLanguage(page, languageName, expectedLocale) {
@@ -136,6 +228,9 @@ async function verifyProductionArtifacts() {
     "Uni-Logos/memphis-logo.png",
     "Uni-Logos/pace-logo.png",
     "Uni-Logos/university-sunderland-logo.png",
+    "background/campus-background.png",
+    "background/contact-background.png",
+    "background/marketplace-background.png",
   ]) {
     await readFile(`.output/public/${asset}`);
   }
@@ -488,10 +583,17 @@ async function runSmokeTests() {
     const englishMetadata = new Map();
     for (const route of routes) {
       await gotoReady(page, `${baseUrl}${route}`);
+      await checkPageHeroBackground(page, route, "en");
       englishMetadata.set(route, {
         title: await page.title(),
         description: await page.locator('meta[name="description"]').getAttribute("content"),
       });
+      if (pageHeroBackgrounds[route]) {
+        await page.setViewportSize({ width: 390, height: 844 });
+        await gotoReady(page, `${baseUrl}${route}`);
+        await checkPageHeroBackground(page, route, "en");
+        await page.setViewportSize({ width: 1440, height: 1000 });
+      }
     }
     for (const [locale, languageName] of [
       ["tr", "Türkçe"],
@@ -502,6 +604,7 @@ async function runSmokeTests() {
       await selectLanguage(page, languageName, locale);
       for (const route of routes) {
         const response = await gotoReady(page, `${baseUrl}${route}`);
+        await checkPageHeroBackground(page, route, locale);
         assert.ok(response && response.status() < 400, `${locale} route ${route} failed.`);
         assert.equal(
           await page.locator("html").getAttribute("lang"),
@@ -522,6 +625,12 @@ async function runSmokeTests() {
           localizedTitle !== english.title || localizedDescription !== english.description,
           `${locale} metadata for ${route} should be localized.`,
         );
+        if (pageHeroBackgrounds[route]) {
+          await page.setViewportSize({ width: 390, height: 844 });
+          await gotoReady(page, `${baseUrl}${route}`);
+          await checkPageHeroBackground(page, route, locale);
+          await page.setViewportSize({ width: 1440, height: 1000 });
+        }
       }
       await checkApprovedCompanyCopy(locale);
     }
@@ -529,6 +638,9 @@ async function runSmokeTests() {
     await selectLanguage(page, "English", "en");
     await checkApprovedCompanyCopy("en");
     console.log(`✓ ${routes.length} routes expose localized metadata in EN/TR/FR/SW`);
+    console.log(
+      "✓ Assigned page hero backgrounds, overlays, and responsive crops render in EN/TR/FR/SW",
+    );
 
     console.log("Checking language dropdown keyboard and outside-click behavior...");
     const languageTrigger = page.getByRole("button", {
