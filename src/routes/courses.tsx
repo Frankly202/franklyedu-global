@@ -22,7 +22,7 @@ export const Route = createFileRoute("/courses")({
   head: () =>
     pageMeta(
       "Courses",
-      "Ask about study options by field, study level, and university. Programme listings are published once their details are confirmed.",
+      "Review nursing Master's programmes in Germany, with links to university sources and clear notes on information that still needs confirmation.",
       { path: "/courses" },
     ),
   component: CoursesPage,
@@ -34,6 +34,8 @@ function CoursesPage() {
   const { university, subject, level } = Route.useSearch();
   const navigate = Route.useNavigate();
   const uni = localizedUniversities.find((u) => u.slug === university);
+  const universityHasCourses = courses.some((c) => c.universitySlug === university);
+  const unpublishedUniversity = uni && !universityHasCourses;
 
   const levelOptions = [
     { value: "Foundation", label: education.courses.levels.foundation },
@@ -56,7 +58,7 @@ function CoursesPage() {
         breadcrumbs={[{ label: common.nav.courses }]}
         eyebrow={education.courses.eyebrow}
         title={uni ? `${education.courses.optionsAt} ${uni.name}` : education.courses.defaultTitle}
-        subtitle={education.courses.subtitle}
+        subtitle={uni ? education.courses.universitySubtitle : education.courses.subtitle}
       />
       <Section>
         <div className="mb-8 grid gap-4 rounded-2xl border border-border bg-white p-4 shadow-xs sm:grid-cols-2 sm:p-5 lg:grid-cols-[repeat(3,minmax(0,1fr))_auto] lg:items-end">
@@ -124,20 +126,40 @@ function CoursesPage() {
           {results.length} {education.courses.foundCount}
         </p>
         {results.length ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-[repeat(2,minmax(0,1fr))] lg:grid-cols-[repeat(3,minmax(0,1fr))]">
             {results.map((c) => (
               <CourseCard key={c.slug} c={c} />
             ))}
           </div>
         ) : (
           <div className="card-light p-10 text-center">
-            <h2 className="text-lg font-semibold">{education.courses.emptyHeading}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">{education.courses.emptyDesc}</p>
-            <Link to="/contact" className="btn btn-outline-dark mt-5">
-              {common.nav.contact}
+            <h2 className="text-lg font-semibold">
+              {unpublishedUniversity
+                ? education.courses.universityEmptyHeading
+                : education.courses.emptyHeading}
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {unpublishedUniversity
+                ? education.courses.universityEmptyDesc
+                : education.courses.emptyDesc}
+            </p>
+            <Link
+              to={unpublishedUniversity ? "/application" : "/contact"}
+              search={unpublishedUniversity ? { university: uni.slug } : {}}
+              className="btn btn-outline-dark mt-5"
+            >
+              {unpublishedUniversity ? common.cards.enquire : common.nav.contact}
             </Link>
           </div>
         )}
+        <aside className="mt-8 rounded-2xl border border-border bg-cream p-5 sm:p-6">
+          <h2 className="font-display text-lg font-semibold text-navy">
+            {education.courses.disclaimerTitle}
+          </h2>
+          <p className="mt-2 max-w-4xl text-sm leading-relaxed text-foreground">
+            {education.courses.disclaimer}
+          </p>
+        </aside>
       </Section>
       <WhatsAppCta />
     </>

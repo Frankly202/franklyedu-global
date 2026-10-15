@@ -53,6 +53,10 @@ export interface CommonTranslation {
   };
   cards: {
     applyNow: string;
+    officialUniversityInfo: string;
+    officialProgrammeInfo: string;
+    officialAdmissionsInfo: string;
+    askAboutProgramme: string;
     closeDetails: string;
     askQuestion: string;
     enquire: string;
@@ -62,6 +66,7 @@ export interface CommonTranslation {
     availableFrom: string;
     whatsappMessages: {
       course: (title: string, university: string) => string;
+      university: (name: string) => string;
       listing: (title: string) => string;
       marketplace: (title: string) => string;
     };
@@ -150,6 +155,10 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
     },
     cards: {
       applyNow: "Apply Now",
+      officialUniversityInfo: "University site",
+      officialProgrammeInfo: "Programme source",
+      officialAdmissionsInfo: "Admissions info",
+      askAboutProgramme: "Ask about programme",
       closeDetails: "Close",
       askQuestion: "Ask a question",
       enquire: "Enquire",
@@ -160,6 +169,8 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       whatsappMessages: {
         course: (title, university) =>
           `Hello Frankedu Global, I'd like to ask about ${title} at ${university}.`,
+        university: (name) =>
+          `Hello Frankedu Global, I'd like to ask about current admissions information at ${name}.`,
         listing: (title) =>
           `Hello Frankedu Global, I'm interested in "${title}". Could you share current information?`,
         marketplace: (title) =>
@@ -249,6 +260,10 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
     },
     cards: {
       applyNow: "Hemen Başvur",
+      officialUniversityInfo: "Üniversite sitesi",
+      officialProgrammeInfo: "Program kaynağı",
+      officialAdmissionsInfo: "Kabul bilgileri",
+      askAboutProgramme: "Programı sorun",
       closeDetails: "Kapat",
       askQuestion: "Soru Sor",
       enquire: "Bilgi Al",
@@ -259,6 +274,8 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       whatsappMessages: {
         course: (title, university) =>
           `Merhaba Frankedu Global, ${university} bünyesindeki ${title} programı hakkında bilgi almak istiyorum.`,
+        university: (name) =>
+          `Merhaba Frankedu Global, ${name} kurumunun güncel kabul bilgileri hakkında bilgi almak istiyorum.`,
         listing: (title) =>
           `Merhaba Frankedu Global, "${title}" ilanıyla ilgileniyorum. Güncel bilgi alabilir miyim?`,
         marketplace: (title) =>

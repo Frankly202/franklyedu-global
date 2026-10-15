@@ -23,7 +23,10 @@ function Index() {
   const navigate = useNavigate();
   const { locale, home: t } = useTranslations();
   const localizedDestinations = localizeTree(locale, destinations);
-  const localizedUniversities = localizeTree(locale, universities);
+  const localizedUniversities = localizeTree(
+    locale,
+    universities.filter((university) => university.showOnHome !== false),
+  );
   const localizedProperties = localizeTree(locale, realEstateListings);
 
   const [country, setCountry] = useState("");

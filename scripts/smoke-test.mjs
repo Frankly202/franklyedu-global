@@ -58,6 +58,20 @@ async function gotoReady(page, url) {
   return response;
 }
 
+async function scrollState(page) {
+  return page.evaluate(() => ({
+    x: window.scrollX,
+    y: window.scrollY,
+    body: ["position", "top", "left", "width", "overflow", "padding-right"].map((property) => [
+      property,
+      document.body.style.getPropertyValue(property),
+      document.body.style.getPropertyPriority(property),
+    ]),
+    rootOverflow: document.documentElement.style.getPropertyValue("overflow"),
+    rootOverflowPriority: document.documentElement.style.getPropertyPriority("overflow"),
+  }));
+}
+
 async function checkPageHeroBackground(page, route, locale) {
   const expected = pageHeroBackgrounds[route];
   if (!expected) return;
@@ -228,6 +242,9 @@ async function verifyProductionArtifacts() {
     "Uni-Logos/memphis-logo.png",
     "Uni-Logos/pace-logo.png",
     "Uni-Logos/university-sunderland-logo.png",
+    "Uni-Logos/hof-logo.gif",
+    "Uni-Logos/oth-regensburg-logo.svg",
+    "Uni-Logos/ehs-dresden-logo.png",
     "background/campus-background.png",
     "background/contact-background.png",
     "background/marketplace-background.png",
@@ -960,6 +977,48 @@ async function runSmokeTests() {
           logo: "/Uni-Logos/university-sunderland-logo.png",
           location: "Sunderland, England",
         },
+        {
+          slug: "hof-university-of-applied-sciences",
+          name: "Hof University of Applied Sciences",
+          logo: "/Uni-Logos/hof-logo.gif",
+          location: "Hof",
+          officialUrl:
+            "https://www.hof-university.com/studying-at-hof-university/application-and-admission.html",
+          summary: {
+            en: "Refer to the institution's official site for current programmes and admissions information.",
+            tr: "Güncel program ve kabul bilgileri için kurumun resmî sitesine başvurun.",
+            fr: "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
+            sw: "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
+          },
+        },
+        {
+          slug: "oth-regensburg",
+          name: "OTH Regensburg",
+          logo: "/Uni-Logos/oth-regensburg-logo.svg",
+          location: "Regensburg",
+          officialUrl:
+            "https://www.oth-regensburg.de/studiengang/advanced-nursing-practice-studieren-master-1",
+          summary: {
+            en: "Refer to the institution's official site for current programmes and admissions information.",
+            tr: "Güncel program ve kabul bilgileri için kurumun resmî sitesine başvurun.",
+            fr: "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
+            sw: "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
+          },
+        },
+        {
+          slug: "evangelische-hochschule-dresden",
+          name: "Evangelische Hochschule Dresden",
+          logo: "/Uni-Logos/ehs-dresden-logo.png",
+          location: "Dresden",
+          officialUrl:
+            "https://ehs-dresden.de/studium/studiengaenge/pflege-und-gesundheit/pflege-schwerpunkt-community-health-nursing-chnadvanced-nursing-practice-anp-master-berufsbegleitend/eckdaten-des-studiengangs/",
+          summary: {
+            en: "Refer to the institution's official site for current programmes and admissions information.",
+            tr: "Güncel program ve kabul bilgileri için kurumun resmî sitesine başvurun.",
+            fr: "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
+            sw: "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
+          },
+        },
       ];
       const detailLabel = {
         en: "View Details",
@@ -983,34 +1042,65 @@ async function runSmokeTests() {
       const universityCards = page.locator("main article.card-light");
       assert.equal(
         await universityCards.count(),
-        6,
-        `${locale} directory must show six universities.`,
+        9,
+        `${locale} directory must show nine universities.`,
       );
       for (const university of expectedUniversities) {
         const card = universityCards.filter({
           has: page.getByRole("heading", { name: university.name, exact: true }),
         });
         assert.equal(await card.count(), 1, `${locale} must render ${university.name}.`);
-        assert.equal(
-          await card.locator("img").getAttribute("src"),
-          university.logo,
-          `${university.name} must use its matching logo asset.`,
-        );
-        assert.equal(
-          await card.locator("img").evaluate((image) => getComputedStyle(image).objectFit),
-          "contain",
-          `${university.name} logo must fit without cropping.`,
-        );
-        assert.ok(
-          await card.locator("img").evaluate((image) => image.complete && image.naturalWidth > 0),
-          `${university.name} logo must load successfully.`,
-        );
-        await card.getByText(localizedLocation(university), { exact: false }).waitFor();
-        assert.equal(
-          await card.locator('a[href^="/application?university="]').getAttribute("href"),
-          `/application?university=${university.slug}`,
-          `${university.name} must link to its existing application-prefill path.`,
-        );
+        if (university.logo) {
+          assert.equal(
+            await card.locator("img").getAttribute("src"),
+            university.logo,
+            `${university.name} must use its matching logo asset.`,
+          );
+          assert.equal(
+            await card.locator("img").evaluate((image) => getComputedStyle(image).objectFit),
+            "contain",
+            `${university.name} logo must fit without cropping.`,
+          );
+          assert.ok(
+            await card.locator("img").evaluate((image) => image.complete && image.naturalWidth > 0),
+            `${university.name} logo must load successfully.`,
+          );
+        } else {
+          assert.equal(
+            await card.locator("img").count(),
+            0,
+            `${university.name} must not use an unprovided logo asset.`,
+          );
+          assert.equal(await card.getByText(university.logoMark, { exact: true }).count(), 1);
+        }
+        await card
+          .locator("p")
+          .filter({ hasText: localizedLocation(university) })
+          .first()
+          .waitFor();
+        if (university.officialUrl) {
+          assert.equal(
+            await card.locator('a[target="_blank"]').first().getAttribute("href"),
+            university.officialUrl,
+            `${university.name} must link to its official information.`,
+          );
+          assert.equal(
+            await card.locator('a[href^="/application?university="]').count(),
+            0,
+            `${university.name} must not imply that Frankedu can submit its application.`,
+          );
+          assert.match(
+            await card.locator('a[href^="https://wa.me/"]').getAttribute("href"),
+            /wa\.me/,
+            `${university.name} must offer an enquiry-only WhatsApp action.`,
+          );
+        } else {
+          assert.equal(
+            await card.locator('a[href^="/application?university="]').getAttribute("href"),
+            `/application?university=${university.slug}`,
+            `${university.name} must retain its existing application-prefill path.`,
+          );
+        }
       }
       await gotoReady(page, `${baseUrl}/countries`);
       assert.equal(
@@ -1022,7 +1112,7 @@ async function runSmokeTests() {
 
       assert.equal(
         await universityCards.getByRole("button", { name: detailLabel }).count(),
-        6,
+        9,
         `${locale} must localize View Details on every card.`,
       );
       const detailsDialog = page.getByRole("dialog");
@@ -1030,29 +1120,131 @@ async function runSmokeTests() {
         const detailsButton = universityCards
           .filter({ has: page.getByRole("heading", { name: university.name, exact: true }) })
           .getByRole("button", { name: detailLabel });
+        await detailsButton.scrollIntoViewIfNeeded();
+        const originalScroll = await scrollState(page);
         await detailsButton.click();
         await detailsDialog.waitFor({ state: "visible" });
+        assert.equal(
+          await page.locator("body").evaluate((body) => getComputedStyle(body).position),
+          "fixed",
+          `${locale} ${university.name} must lock background scrolling.`,
+        );
+        await detailsDialog.getByRole("heading", { name: university.name }).click();
+        assert.ok(await detailsDialog.isVisible(), "Clicking inside must not dismiss the modal.");
+        const lockedScroll = await scrollState(page);
+        await page.mouse.move(2, 2);
+        await page.mouse.wheel(0, 400);
+        await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+        assert.deepEqual(
+          await scrollState(page),
+          lockedScroll,
+          "Backdrop wheel must not scroll the page.",
+        );
         await detailsDialog.getByRole("heading", { name: university.name }).waitFor();
         assert.ok(
           await detailsDialog.getByText(localizedLocation(university), { exact: false }).count(),
         );
-        assert.ok(await detailsDialog.getByText(summaryText, { exact: true }).count());
+        assert.ok(
+          await detailsDialog
+            .getByText(university.summary?.[locale] ?? summaryText, { exact: true })
+            .count(),
+        );
+        if (university.officialUrl) {
+          assert.equal(
+            await detailsDialog.locator('a[href^="/application?university="]').count(),
+            0,
+            `${university.name} details must not expose an application-prefill CTA.`,
+          );
+        }
+        assert.equal(
+          await detailsDialog.locator('a[href^="/courses?university="]').getAttribute("href"),
+          `/courses?university=${university.slug}`,
+          `${locale} Explore Courses must preserve the university filter.`,
+        );
+        assert.equal(
+          await detailsDialog.locator("li").count(),
+          university.slug === "cyprus-international-university"
+            ? 10
+            : university.officialUrl
+              ? 1
+              : 0,
+          `${locale} modal must show only supplied or sourced study areas.`,
+        );
         assert.doesNotMatch(
           await detailsDialog.innerText(),
-          /degree level|programmes?|courses?|tuition|fees?|intakes?|scholarships?/i,
-          `${locale} modal must omit unverified programme, fee, intake, and scholarship fields.`,
+          /[€£$]\s*\d|\d+\s*(?:semesters?|years?)|Cross-Cultural Nursing Practice|Advanced Nursing Practice \(M|Community Health Nursing \(CHN\)/i,
+          `${locale} modals must not contain invented prices, durations, or catalogue programmes.`,
         );
+        if (university.slug === "cyprus-international-university") {
+          assert.equal(
+            await detailsDialog
+              .locator(
+                'a[href="https://ciu.edu.tr/en/become-student/international/fees-and-scholarships"]',
+              )
+              .count(),
+            1,
+          );
+          const scholarship = await detailsDialog.locator("section").nth(1).innerText();
+          assert.match(scholarship, /50\s*%|%50/);
+          assert.match(
+            scholarship,
+            {
+              en: /Eligibility and payable tuition require confirmation/,
+              tr: /uygunluk ve ödenecek öğrenim ücreti.*teyit edilmelidir/,
+              fr: /L’éligibilité et les frais de scolarité à payer doivent être confirmés/,
+              sw: /Ustahiki na ada ya masomo inayopaswa kulipwa lazima vithibitishwe/,
+            }[locale],
+          );
+          if (locale === "en") {
+            assert.deepEqual(await detailsDialog.locator("li").allTextContents(), [
+              "Business Administration",
+              "International Relations",
+              "Computer and Information Technologies",
+              "Engineering",
+              "Nursing and Health Sciences",
+              "Education",
+              "Pharmacy",
+              "Architecture",
+              "Tourism and Hospitality",
+              "Master’s and PhD programmes",
+            ]);
+          }
+        }
         await page.keyboard.press("Escape");
         await detailsDialog.waitFor({ state: "hidden" });
+        assert.deepEqual(
+          await scrollState(page),
+          originalScroll,
+          "Escape must restore scroll styles and position.",
+        );
         assert.equal(
           await detailsButton.evaluate((button) => button === document.activeElement),
           true,
           `${locale} modal must return focus to its trigger after closing.`,
         );
+        for (const dismissal of ["backdrop", "close"]) {
+          await detailsButton.click();
+          await detailsDialog.waitFor({ state: "visible" });
+          if (dismissal === "backdrop") {
+            await page.mouse.click(2, 2);
+          } else {
+            await detailsDialog.getByRole("button", { name: closeLabel }).click();
+          }
+          await detailsDialog.waitFor({ state: "hidden" });
+          assert.deepEqual(
+            await scrollState(page),
+            originalScroll,
+            `${locale} ${university.name}: ${dismissal} dismissal must restore scroll styles and position.`,
+          );
+        }
       }
 
       await page.setViewportSize({ width: 320, height: 844 });
-      const detailsButton = universityCards.first().getByRole("button", { name: detailLabel });
+      const detailsButton = universityCards
+        .filter({
+          has: page.getByRole("heading", { name: "Cyprus International University", exact: true }),
+        })
+        .getByRole("button", { name: detailLabel });
       await detailsButton.click();
       const dialogBounds = await detailsDialog.boundingBox();
       assert.ok(dialogBounds);
@@ -1063,9 +1255,54 @@ async function runSmokeTests() {
           dialogBounds.y + dialogBounds.height <= 844,
         `${locale} university details modal must fit a 320px viewport.`,
       );
+      assert.ok(
+        await detailsDialog.evaluate((dialog) => dialog.scrollWidth <= dialog.clientWidth),
+        `${locale} CIU modal must not overflow horizontally at 320px.`,
+      );
+      const applyLink = detailsDialog.locator('a[href^="/application?university="]');
+      await applyLink.scrollIntoViewIfNeeded();
+      assert.ok(await applyLink.isVisible(), `${locale} CIU Apply Now must remain reachable.`);
+      assert.equal(
+        await applyLink.getAttribute("href"),
+        "/application?university=cyprus-international-university",
+      );
       await detailsDialog.getByRole("button", { name: closeLabel }).click();
       await detailsDialog.waitFor({ state: "hidden" });
       await page.setViewportSize({ width: 1440, height: 1000 });
+
+      for (const slug of ["cyprus-international-university", "oth-regensburg"]) {
+        await universityCards
+          .filter({
+            has: page.getByRole("heading", {
+              name:
+                slug === "oth-regensburg" ? "OTH Regensburg" : "Cyprus International University",
+              exact: true,
+            }),
+          })
+          .getByRole("button", { name: detailLabel })
+          .click();
+        await detailsDialog.locator('a[href^="/courses?university="]').click();
+        await page.waitForURL(`**/courses?university=${slug}`);
+        assert.equal(await page.locator("main select").nth(2).inputValue(), slug);
+        assert.equal(
+          await page.locator("main article.card-light").count(),
+          slug === "oth-regensburg" ? 1 : 0,
+          `${locale} Explore Courses must show only published programmes for that university.`,
+        );
+        if (slug === "cyprus-international-university") {
+          assert.ok(
+            (await page.locator("main").innerText()).includes(
+              {
+                en: "No verified programme listings yet for this university",
+                tr: "Bu üniversite için henüz doğrulanmış program ilanı yok",
+                fr: "Aucune formation vérifiée n’est encore publiée pour cette université",
+                sw: "Bado hakuna programu zilizothibitishwa zilizoorodheshwa kwa chuo hiki",
+              }[locale],
+            ),
+          );
+        }
+        await gotoReady(page, `${baseUrl}/universities`);
+      }
 
       async function openApplicationStudyPlan(url) {
         await gotoReady(page, url);
@@ -1076,6 +1313,22 @@ async function runSmokeTests() {
         return form.locator("select");
       }
 
+      await gotoReady(page, `${baseUrl}/universities`);
+      await page
+        .getByLabel(
+          {
+            en: "Destination",
+            tr: "Eğitim Ülkesi",
+            fr: "Destination",
+            sw: "Nchi",
+          }[locale],
+        )
+        .selectOption("germany");
+      assert.equal(
+        await page.locator("main article.card-light").count(),
+        3,
+        `${locale} Germany directory filter must show the three institutions.`,
+      );
       await gotoReady(page, `${baseUrl}/universities`);
       const universityApplicationHref = await page
         .locator('a[href^="/application?university="]')
@@ -1121,6 +1374,159 @@ async function runSmokeTests() {
       );
 
       await gotoReady(page, `${baseUrl}/courses`);
+      const expectedCourseTitles = [
+        "Cross-Cultural Nursing Practice (M.Sc.)",
+        "Advanced Nursing Practice (M.Sc.)",
+        "Pflege – Schwerpunkt Community Health Nursing (CHN)/Advanced Nursing Practice (ANP) (M.Sc.)",
+      ];
+      const courseCards = page.locator("main article.card-light");
+      assert.equal(
+        await courseCards.count(),
+        3,
+        `${locale} must show the three programme records.`,
+      );
+      for (const title of expectedCourseTitles) {
+        const card = courseCards.filter({ has: page.getByRole("heading", { name: title }) });
+        assert.equal(await card.count(), 1, `${locale} must render ${title}.`);
+        assert.equal(
+          await card.locator('a[href^="https://wa.me/"]').count(),
+          1,
+          `${locale} ${title} must have a programme-specific WhatsApp enquiry.`,
+        );
+        assert.equal(
+          await card.locator('a[href^="/application?course="]').count(),
+          0,
+          `${locale} ${title} must not imply that Frankedu submits university applications.`,
+        );
+        assert.ok(
+          await card
+            .getByRole("link", {
+              name: {
+                en: "Programme source",
+                tr: "Program kaynağı",
+                fr: "Source de la formation",
+                sw: "Chanzo cha programu",
+              }[locale],
+            })
+            .count(),
+          `${locale} ${title} must link to its official source.`,
+        );
+      }
+      const hofCourseCard = courseCards.filter({
+        has: page.getByRole("heading", { name: expectedCourseTitles[0] }),
+      });
+      assert.ok(
+        (await hofCourseCard.innerText()).includes(
+          {
+            en: "15 November 2026",
+            tr: "15 Kasım 2026",
+            fr: "15 novembre 2026",
+            sw: "15 Novemba 2026",
+          }[locale],
+        ),
+        `${locale} Hof card must distinguish Frankedu's document-sharing date.`,
+      );
+      assert.equal(
+        await courseCards.locator('a[href^="/application?course="]').count(),
+        0,
+        `${locale} course directory must not label enquiry as university application submission.`,
+      );
+      const programmeFacts = {
+        en: [
+          "3 theoretical study semesters; full-time",
+          "German; DSH 3 or equivalent is required by the start of study.",
+          "5 January annually; confirm the 2027 deadline with EHS.",
+        ],
+        tr: [
+          "3 teorik dönem; tam zamanlı",
+          "Almanca; eğitimin başlangıcına kadar DSH 3 veya eşdeğeri gerekir.",
+          "Her yıl 5 Ocak; 2027 son tarihini EHS'den teyit edin.",
+        ],
+        fr: [
+          "3 semestres théoriques ; à temps plein",
+          "Allemand ; un niveau DSH 3 ou équivalent est requis avant le début des études.",
+          "Le 5 janvier chaque année ; confirmez la date limite 2027 auprès de l’EHS.",
+        ],
+        sw: [
+          "Muhula 3 wa masomo ya nadharia; muda wote",
+          "Kijerumani; DSH 3 au kiwango kinacholingana kinahitajika kabla ya masomo kuanza.",
+          "Tarehe 5 Januari kila mwaka; thibitisha tarehe ya mwisho ya 2027 na EHS.",
+        ],
+      }[locale];
+      const renderedProgrammeFacts = (await courseCards.allInnerTexts()).join("\n");
+      if (locale !== "en") {
+        const requirementItems = await courseCards.locator("li").allTextContents();
+        assert.equal(requirementItems.length, 7);
+        for (const requirement of requirementItems) {
+          assert.doesNotMatch(
+            requirement,
+            /^(?:Current programme-specific|Hof's general admissions|A nursing-science|Permission to use|A first higher-education|Relevant professional work|A motivation letter)/,
+            `${locale} entry requirements must not fall back to English.`,
+          );
+        }
+      }
+      for (const fact of programmeFacts) {
+        assert.ok(
+          renderedProgrammeFacts.includes(fact),
+          `${locale} programme cards must show localized official facts.`,
+        );
+      }
+      await page
+        .getByRole("heading", {
+          name: {
+            en: "Before you apply",
+            tr: "Başvurmadan önce",
+            fr: "Avant de postuler",
+            sw: "Kabla ya kutuma maombi",
+          }[locale],
+        })
+        .waitFor();
+      const courseMetaDescription = await page
+        .locator('meta[name="description"]')
+        .getAttribute("content");
+      assert.equal(
+        courseMetaDescription,
+        {
+          en: "Review nursing Master's programmes in Germany, with university source links and clear notes on details that still need confirmation.",
+          tr: "Almanya'daki hemşirelik yüksek lisans programlarını ve üniversite kaynaklarını inceleyin; teyit edilmesi gereken ayrıntılar açıkça belirtilir.",
+          fr: "Consultez les masters en soins infirmiers en Allemagne, les sources universitaires et les informations qui restent à confirmer.",
+          sw: "Pitia programu za uzamili za uuguzi nchini Ujerumani, viungo vya vyanzo vya vyuo na maelezo ambayo bado yanahitaji kuthibitishwa.",
+        }[locale],
+        `${locale} course metadata must use its approved localized description.`,
+      );
+      await page
+        .getByLabel(
+          {
+            en: "University",
+            tr: "Üniversite",
+            fr: "Université",
+            sw: "Chuo kikuu",
+          }[locale],
+        )
+        .selectOption("hof-university-of-applied-sciences");
+      assert.equal(
+        await courseCards.count(),
+        1,
+        `${locale} university filter must show the matching Hof programme only.`,
+      );
+      await page.setViewportSize({ width: 320, height: 844 });
+      const courseLayout = await page.evaluate(() => ({
+        fits: document.documentElement.scrollWidth <= window.innerWidth,
+        overflow: [...document.querySelectorAll("body *")]
+          .map((element) => ({
+            tag: element.tagName,
+            className: element.getAttribute("class"),
+            right: element.getBoundingClientRect().right,
+            text: element.textContent?.trim().slice(0, 80),
+          }))
+          .filter((element) => element.right > window.innerWidth + 1)
+          .slice(0, 5),
+      }));
+      assert.ok(
+        courseLayout.fits,
+        `${locale} course content must fit a 320px viewport: ${JSON.stringify(courseLayout.overflow)}`,
+      );
+      await page.setViewportSize({ width: 1440, height: 1000 });
       const courseApplicationLink = page.locator('a[href^="/application?course="]').first();
       if ((await courseApplicationLink.count()) > 0) {
         const courseApplicationHref = await courseApplicationLink.getAttribute("href");
@@ -1282,6 +1688,120 @@ async function runSmokeTests() {
 
     await gotoReady(page, `${baseUrl}/`);
     await selectLanguage(page, "English", "en");
+
+    console.log("Checking university modal touch scrolling and unmount cleanup...");
+    const touchContext = await browser.newContext({
+      viewport: { width: 390, height: 664 },
+      isMobile: true,
+      hasTouch: true,
+    });
+    try {
+      const touchPage = await touchContext.newPage();
+      touchPage.on("pageerror", (error) => browserErrors.push(error.message));
+      await gotoReady(touchPage, `${baseUrl}/universities`);
+      const ciuButton = touchPage
+        .locator("main article")
+        .filter({
+          has: touchPage.getByRole("heading", {
+            name: "Cyprus International University",
+            exact: true,
+          }),
+        })
+        .getByRole("button", { name: "View Details" });
+      const touchDialog = touchPage.getByRole("dialog");
+      await touchPage.evaluate(() => {
+        document.body.style.setProperty("overflow", "auto", "important");
+        document.body.style.setProperty("padding-right", "7px", "important");
+        document.documentElement.style.setProperty("overflow", "auto", "important");
+        window.scrollTo({ top: 200, behavior: "instant" });
+      });
+      const originalScroll = await scrollState(touchPage);
+      await ciuButton.evaluate((button) => button.click());
+      await touchDialog.waitFor({ state: "visible" });
+      assert.ok(
+        await touchDialog.evaluate((dialog) => dialog.scrollHeight > dialog.clientHeight),
+        "CIU content must overflow in the mobile test viewport.",
+      );
+      const bounds = await touchDialog.boundingBox();
+      assert.ok(bounds);
+      await touchPage.touchscreen.tap(bounds.x + 8, bounds.y + 8);
+      assert.ok(
+        await touchDialog.isVisible(),
+        "Dialog padding clicks must not be treated as backdrop clicks.",
+      );
+      const touchSession = await touchContext.newCDPSession(touchPage);
+      const swipeUp = async (x, startY, endY) => {
+        await touchSession.send("Input.dispatchTouchEvent", {
+          type: "touchStart",
+          touchPoints: [{ x, y: startY }],
+        });
+        for (let step = 1; step <= 10; step++) {
+          await touchSession.send("Input.dispatchTouchEvent", {
+            type: "touchMove",
+            touchPoints: [{ x, y: startY + ((endY - startY) * step) / 10 }],
+          });
+          await new Promise((resolve) => setTimeout(resolve, 20));
+        }
+        await touchSession.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+      };
+      const lockedScroll = await scrollState(touchPage);
+      await swipeUp(2, 500, 150);
+      assert.deepEqual(
+        await scrollState(touchPage),
+        lockedScroll,
+        "Backdrop touch gestures must not move the page.",
+      );
+      await swipeUp(bounds.x + bounds.width / 2, bounds.y + bounds.height - 60, bounds.y + 80);
+      await touchPage.waitForFunction(() => document.querySelector("dialog[open]")?.scrollTop > 0);
+      assert.deepEqual(
+        await scrollState(touchPage),
+        lockedScroll,
+        "Modal touch scrolling must leave the background fixed.",
+      );
+      await touchDialog.evaluate((dialog) => {
+        dialog.scrollTop = dialog.scrollHeight;
+      });
+      await swipeUp(bounds.x + bounds.width / 2, bounds.y + bounds.height - 60, bounds.y + 80);
+      assert.deepEqual(
+        await scrollState(touchPage),
+        lockedScroll,
+        "Touch scrolling at the modal boundary must not chain to the page.",
+      );
+      await touchPage.touchscreen.tap(2, 2);
+      await touchDialog.waitFor({ state: "hidden" });
+      assert.deepEqual(
+        await scrollState(touchPage),
+        originalScroll,
+        "Touch backdrop dismissal must restore prior styles and position.",
+      );
+
+      await ciuButton.evaluate((button) => button.click());
+      await touchDialog.waitFor({ state: "visible" });
+      assert.equal(
+        await touchDialog.evaluate((dialog) => dialog.scrollTop),
+        0,
+        "Reopening must start at the top.",
+      );
+      // Removing the open card through the existing filter exercises unmount without a close event.
+      await touchPage.locator("main select").evaluate((select) => {
+        select.value = "united-states";
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      await touchPage.waitForURL("**/universities?country=united-states");
+      await touchPage.waitForFunction(() => document.body.style.position !== "fixed");
+      assert.equal(await touchPage.locator("dialog[open]").count(), 0);
+      assert.deepEqual(
+        await scrollState(touchPage),
+        originalScroll,
+        "Unmount must restore prior styles, priorities, and position.",
+      );
+      await touchSession.detach();
+    } finally {
+      await touchContext.close();
+    }
+    console.log(
+      "✓ University modal mobile touch isolation, internal scrolling, backdrop dismissal, and unmount cleanup",
+    );
 
     console.log("Checking contextual listing CTAs and contact form validation...");
     await gotoReady(page, `${baseUrl}/accommodation`);

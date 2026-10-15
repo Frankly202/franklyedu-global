@@ -10,6 +10,14 @@ export interface EducationTranslation {
     foundPlural: string;
     emptyHeading: string;
     emptyDesc: string;
+    studyAreasLabel: string;
+    studyAreasPending: string;
+    studyAreasSource: string;
+    scholarshipLabel: string;
+    scholarshipPending: string;
+    scholarshipSource: string;
+    exploreCourses: string;
+    externalApplicationNote: string;
   };
   courses: {
     eyebrow: string;
@@ -26,6 +34,16 @@ export interface EducationTranslation {
     foundCount: string;
     emptyHeading: string;
     emptyDesc: string;
+    universitySubtitle: string;
+    universityEmptyHeading: string;
+    universityEmptyDesc: string;
+    startLabel: string;
+    applicationWindowLabel: string;
+    requirementsLabel: string;
+    noticeLabel: string;
+    frankeduDeadlineLabel: string;
+    disclaimerTitle: string;
+    disclaimer: string;
     levels: {
       foundation: string;
       bachelors: string;
@@ -74,13 +92,22 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       foundPlural: "universities found",
       emptyHeading: "Inquire for this destination",
       emptyDesc: "Contact us to discuss study options for this destination.",
+      studyAreasLabel: "Study areas",
+      studyAreasPending: "Study areas require confirmation with the university.",
+      studyAreasSource: "University study information",
+      scholarshipLabel: "Scholarship information",
+      scholarshipPending: "No confirmed scholarship details are published for this university.",
+      scholarshipSource: "University scholarship information",
+      exploreCourses: "Explore Courses",
+      externalApplicationNote:
+        "Apply Now opens the university's official information. Frankedu enquiries do not submit a university application.",
     },
     courses: {
       eyebrow: "Courses",
-      defaultTitle: "Turn your ambitions into a study plan.",
+      defaultTitle: "Compare programme details before you take the next step.",
       optionsAt: "Study options at",
       subtitle:
-        "Filter by field, study level, and university. Programme listings appear here once details are confirmed; contact us to discuss current study options.",
+        "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.",
       subjectLabel: "Field of Study",
       allSubjects: "All subjects",
       levelLabel: "Study Level",
@@ -89,9 +116,22 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       allUniversities: "All universities",
       clearBtn: "Clear",
       foundCount: "programmes found",
-      emptyHeading: "No verified programme listings yet",
+      emptyHeading: "No programmes match these filters",
       emptyDesc:
-        "We have not published programme listings because their details have not been confirmed. Contact us to discuss current study options.",
+        "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.",
+      universitySubtitle:
+        "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.",
+      universityEmptyHeading: "No verified programme listings yet for this university",
+      universityEmptyDesc:
+        "This does not mean the university has no programmes. Contact us for current information; individual programmes are added only after their details have been verified.",
+      startLabel: "Start / intake",
+      applicationWindowLabel: "Application window",
+      requirementsLabel: "Entry requirements",
+      noticeLabel: "Information to confirm",
+      frankeduDeadlineLabel: "Frankedu document-sharing deadline",
+      disclaimerTitle: "Before you apply",
+      disclaimer:
+        "Programme details and admission decisions belong to each university and may change. This website does not submit an application. Visa decisions are made by the relevant authorities; admission, visas, professional recognition, employment, and job outcomes are not guaranteed. Confirm current requirements and fees with the university before applying.",
       levels: {
         foundation: "Foundation",
         bachelors: "Bachelor's",
@@ -142,13 +182,22 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       foundPlural: "üniversite bulundu",
       emptyHeading: "Bu ülke için doğrudan danışın",
       emptyDesc: "Bu ülkeyle ilgili eğitim seçeneklerini görüşmek için bizimle iletişime geçin.",
+      studyAreasLabel: "Eğitim alanları",
+      studyAreasPending: "Eğitim alanları üniversiteden teyit edilmelidir.",
+      studyAreasSource: "Üniversitenin eğitim bilgileri",
+      scholarshipLabel: "Burs bilgileri",
+      scholarshipPending: "Bu üniversite için teyit edilmiş burs ayrıntıları yayımlanmamıştır.",
+      scholarshipSource: "Üniversitenin burs bilgileri",
+      exploreCourses: "Programları İncele",
+      externalApplicationNote:
+        "Hemen Başvur, üniversitenin resmî bilgilerini açar. Frankedu'ya yapılan bilgi talepleri üniversiteye başvuru göndermez.",
     },
     courses: {
       eyebrow: "Bölümler ve Programlar",
-      defaultTitle: "Hedeflerinizi güçlü bir eğitim planına dönüştürün.",
+      defaultTitle: "Sonraki adımınızı atmadan önce program ayrıntılarını karşılaştırın.",
       optionsAt: "Eğitim seçenekleri:",
       subtitle:
-        "Eğitim alanı, seviyesi ve üniversiteye göre filtreleyin. Programlar, ayrıntıları doğrulandıktan sonra burada yayımlanır; güncel seçenekleri görüşmek için bizimle iletişime geçin.",
+        "Almanya'daki kurumların hemşirelik yüksek lisans bilgilerini inceleyin. Üniversite kaynaklarına bağlantı veriyoruz; başvurmadan önce tarihleri, ücretleri ve koşulları teyit edin.",
       subjectLabel: "Eğitim Alanı",
       allSubjects: "Tüm alanlar",
       levelLabel: "Eğitim Seviyesi",
@@ -157,9 +206,22 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       allUniversities: "Tüm üniversiteler",
       clearBtn: "Temizle",
       foundCount: "program bulundu",
-      emptyHeading: "Henüz doğrulanmış program ilanı yok",
+      emptyHeading: "Bu filtrelerle eşleşen program yok",
       emptyDesc:
-        "Program ayrıntıları doğrulanmadığı için henüz listeleme yayımlamadık. Güncel eğitim seçeneklerini görüşmek için bizimle iletişime geçin.",
+        "Güncel programları görmek için bir filtreyi temizleyin. Kayıt ve kabul bilgilerinin bazıları kurumdan doğrudan teyit edilmelidir.",
+      universitySubtitle:
+        "Bu üniversitenin yayımlanan programlarını inceleyin. Eğitim alanları ayrı program ilanları değildir; güncel uygunluğu ve kabul koşullarını kurumdan teyit edin.",
+      universityEmptyHeading: "Bu üniversite için henüz doğrulanmış program ilanı yok",
+      universityEmptyDesc:
+        "Bu, üniversitede program olmadığı anlamına gelmez. Güncel bilgi için bize ulaşın; programlar yalnızca ayrıntıları doğrulandıktan sonra eklenir.",
+      startLabel: "Başlangıç / kayıt dönemi",
+      applicationWindowLabel: "Başvuru dönemi",
+      requirementsLabel: "Kabul koşulları",
+      noticeLabel: "Teyit edilmesi gereken bilgi",
+      frankeduDeadlineLabel: "Frankedu belge paylaşım son tarihi",
+      disclaimerTitle: "Başvurmadan önce",
+      disclaimer:
+        "Program ayrıntıları ve kabul kararları ilgili üniversiteye aittir ve değişebilir. Bu web sitesi başvuru göndermez. Vize kararları ilgili makamlarca verilir; kabul, vize, mesleki tanınma, iş veya istihdam sonucu garanti edilmez. Başvurmadan önce güncel koşulları ve ücretleri üniversiteden teyit edin.",
       levels: {
         foundation: "Hazırlık",
         bachelors: "Lisans",

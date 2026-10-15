@@ -92,12 +92,18 @@ export const subjects = [
 export interface University {
   slug: string;
   name: string;
-  src: string;
+  src?: string;
+  logoMark?: string;
   summary: string;
   country: string;
   countrySlug: string;
   city: string;
   intake?: string;
+  officialUrl?: string;
+  showOnHome?: boolean;
+  studyAreas?: string[];
+  studyAreasUrl?: string;
+  scholarship?: { summary: string; sourceUrl: string };
 }
 
 export const universities: University[] = [
@@ -118,6 +124,24 @@ export const universities: University[] = [
     country: "Cyprus / North Cyprus",
     countrySlug: "cyprus",
     city: "Nicosia",
+    studyAreas: [
+      "Business Administration",
+      "International Relations",
+      "Computer and Information Technologies",
+      "Engineering",
+      "Nursing and Health Sciences",
+      "Education",
+      "Pharmacy",
+      "Architecture",
+      "Tourism and Hospitality",
+      "Master’s and PhD programmes",
+    ],
+    studyAreasUrl: "https://ciu.edu.tr/en/study",
+    scholarship: {
+      summary:
+        "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.",
+      sourceUrl: "https://ciu.edu.tr/en/become-student/international/fees-and-scholarships",
+    },
   },
   {
     slug: "university-of-kyrenia",
@@ -155,6 +179,54 @@ export const universities: University[] = [
     countrySlug: "united-kingdom",
     city: "Sunderland, England",
   },
+  {
+    slug: "hof-university-of-applied-sciences",
+    name: "Hof University of Applied Sciences",
+    src: "/Uni-Logos/hof-logo.gif",
+    summary:
+      "Refer to the institution's official site for current programmes and admissions information.",
+    country: "Germany",
+    countrySlug: "germany",
+    city: "Hof",
+    studyAreas: ["Nursing and Health Sciences"],
+    studyAreasUrl:
+      "https://www.hof-university.com/fileadmin/user_upload/ask/Flyer_internat_Stdg/Flyer_CCN_web_01-2025.pdf",
+    showOnHome: false,
+    officialUrl:
+      "https://www.hof-university.com/studying-at-hof-university/application-and-admission.html",
+  },
+  {
+    slug: "oth-regensburg",
+    name: "OTH Regensburg",
+    src: "/Uni-Logos/oth-regensburg-logo.svg",
+    summary:
+      "Refer to the institution's official site for current programmes and admissions information.",
+    country: "Germany",
+    countrySlug: "germany",
+    city: "Regensburg",
+    studyAreas: ["Nursing and Health Sciences"],
+    studyAreasUrl:
+      "https://www.oth-regensburg.de/studiengang/advanced-nursing-practice-studieren-master-1",
+    showOnHome: false,
+    officialUrl:
+      "https://www.oth-regensburg.de/studiengang/advanced-nursing-practice-studieren-master-1",
+  },
+  {
+    slug: "evangelische-hochschule-dresden",
+    name: "Evangelische Hochschule Dresden",
+    src: "/Uni-Logos/ehs-dresden-logo.png",
+    summary:
+      "Refer to the institution's official site for current programmes and admissions information.",
+    country: "Germany",
+    countrySlug: "germany",
+    city: "Dresden",
+    studyAreas: ["Nursing and Health Sciences"],
+    studyAreasUrl:
+      "https://ehs-dresden.de/studium/studiengaenge/pflege-und-gesundheit/pflege-schwerpunkt-community-health-nursing-chnadvanced-nursing-practice-anp-master-berufsbegleitend/eckdaten-des-studiengangs/",
+    showOnHome: false,
+    officialUrl:
+      "https://ehs-dresden.de/studium/studiengaenge/pflege-und-gesundheit/pflege-schwerpunkt-community-health-nursing-chnadvanced-nursing-practice-anp-master-berufsbegleitend/eckdaten-des-studiengangs/",
+  },
 ];
 
 export interface Course {
@@ -169,10 +241,92 @@ export interface Course {
   tuition: string;
   intake: string;
   language: string;
+  applicationWindow: string;
+  requirements: string[];
+  notice: string;
+  officialUrl: string;
+  admissionsUrl?: string;
+  frankeduDeadline?: string;
 }
 
-/** Specific courses will be populated once individual programme details are confirmed. */
-export const courses: Course[] = [];
+export const courses: Course[] = [
+  {
+    slug: "cross-cultural-nursing-practice-hof",
+    title: "Cross-Cultural Nursing Practice (M.Sc.)",
+    university: "Hof University of Applied Sciences",
+    universitySlug: "hof-university-of-applied-sciences",
+    country: "Germany",
+    level: "Master's",
+    subject: "Health Sciences & Nursing",
+    duration: "Current duration not confirmed",
+    tuition: "Current fees not confirmed",
+    intake: "Spring 2027 availability not confirmed",
+    applicationWindow: "Not confirmed in current official sources",
+    language: "Programme-specific language requirements need confirmation",
+    requirements: [
+      "Current programme-specific entry requirements need confirmation from Hof.",
+      "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.",
+    ],
+    notice:
+      "The available official programme flyer is dated 2025, and the programme-specific page is currently unavailable. Confirm that the programme and Spring 2027 intake are open directly with Hof.",
+    officialUrl:
+      "https://www.hof-university.com/fileadmin/user_upload/ask/Flyer_internat_Stdg/Flyer_CCN_web_01-2025.pdf",
+    admissionsUrl:
+      "https://www.hof-university.com/studying-at-hof-university/application-and-admission.html",
+    frankeduDeadline:
+      "Frankedu document-sharing deadline: 15 November 2026. This is a preparation target set by Frankedu, not a confirmed Hof application deadline.",
+  },
+  {
+    slug: "advanced-nursing-practice-oth-regensburg",
+    title: "Advanced Nursing Practice (M.Sc.)",
+    university: "OTH Regensburg",
+    universitySlug: "oth-regensburg",
+    country: "Germany",
+    level: "Master's",
+    subject: "Health Sciences & Nursing",
+    duration: "3 theoretical study semesters; full-time",
+    tuition:
+      "A student-services contribution is payable at OTH; see the current fee schedule for the amount.",
+    intake: "Summer semester 2027; exact start date not specified by OTH",
+    applicationWindow:
+      "15 November–15 January for summer semesters; confirm the year-specific dates in the OTH portal.",
+    language: "German; DSH 3 or equivalent is required by the start of study.",
+    requirements: [
+      "A nursing-science or nursing-related higher-education degree with 210 ECTS; at least 180 ECTS is required, including at least 30 ECTS in nursing-science modules.",
+      "Permission to use a professional title under §1(1), sentence 1 of the German Nursing Professions Act (PflBG) is required.",
+    ],
+    notice:
+      "The university states that the programme is offered subject to a sufficient number of qualified applications. Confirm current availability and requirements directly with OTH.",
+    officialUrl:
+      "https://www.oth-regensburg.de/studiengang/advanced-nursing-practice-studieren-master-1",
+  },
+  {
+    slug: "community-health-nursing-ehs-dresden",
+    title:
+      "Pflege – Schwerpunkt Community Health Nursing (CHN)/Advanced Nursing Practice (ANP) (M.Sc.)",
+    university: "Evangelische Hochschule Dresden",
+    universitySlug: "evangelische-hochschule-dresden",
+    country: "Germany",
+    level: "Master's",
+    subject: "Health Sciences & Nursing",
+    duration: "5 semesters; part-time",
+    tuition: "Current fees and semester contributions need confirmation with EHS.",
+    intake: "Summer semester; the university lists 1 March as the start date.",
+    applicationWindow: "5 January annually; confirm the 2027 deadline with EHS.",
+    language: "German; C1 is required for applicants with foreign qualifications.",
+    requirements: [
+      "A first higher-education degree in nursing or a related field; alternatively, another higher-education degree together with completed nursing vocational training.",
+      "Relevant professional work alongside study: at least 12 hours per week; 20 hours are recommended.",
+      "A motivation letter of about three pages is part of the application.",
+    ],
+    notice:
+      "Confirm the 2027 intake, application requirements and current fees directly with EHS before making plans.",
+    officialUrl:
+      "https://ehs-dresden.de/studium/studiengaenge/pflege-und-gesundheit/pflege-schwerpunkt-community-health-nursing-chnadvanced-nursing-practice-anp-master-berufsbegleitend/eckdaten-des-studiengangs/",
+    admissionsUrl:
+      "https://ehs-dresden.de/studium/studiengaenge/pflege-und-gesundheit/pflege-schwerpunkt-community-health-nursing-chnadvanced-nursing-practice-anp-master-berufsbegleitend/studienvoraussetzungen/",
+  },
+];
 
 export interface Scholarship {
   slug: string;

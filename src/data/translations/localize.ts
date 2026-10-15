@@ -2,6 +2,99 @@ import type { Locale } from "@/lib/locale";
 
 const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = {
   tr: {
+    "Current programme-specific entry requirements need confirmation from Hof.":
+      "Programa özgü güncel kabul koşulları Hof'tan teyit edilmelidir.",
+    "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.":
+      "Hof'un genel kabul sayfasında İngilizce programlar için TOEFL iBT 90 veya IELTS 6.5, Almanca programlar için Almanca B2 belirtilir; bu bilgiler söz konusu programın özel eşiklerini doğrulamaz.",
+    "A nursing-science or nursing-related higher-education degree with 210 ECTS; at least 180 ECTS is required, including at least 30 ECTS in nursing-science modules.":
+      "Hemşirelik bilimi veya hemşirelikle ilgili bir alanda 210 AKTS'lik yükseköğretim derecesi; hemşirelik bilimi modüllerinde en az 30 AKTS dahil olmak üzere en az 180 AKTS gereklidir.",
+    "Permission to use a professional title under §1(1), sentence 1 of the German Nursing Professions Act (PflBG) is required.":
+      "Alman Hemşirelik Meslekleri Yasası (PflBG) §1(1) cümle 1 uyarınca meslek unvanını kullanma izni gerekir.",
+    "A first higher-education degree in nursing or a related field; alternatively, another higher-education degree together with completed nursing vocational training.":
+      "Hemşirelik veya ilgili bir alanda ilk yükseköğretim derecesi; alternatif olarak başka bir yükseköğretim derecesi ve tamamlanmış hemşirelik meslek eğitimi.",
+    "Relevant professional work alongside study: at least 12 hours per week; 20 hours are recommended.":
+      "Eğitimle birlikte ilgili alanda haftada en az 12 saat çalışma; 20 saat önerilir.",
+    "A motivation letter of about three pages is part of the application.":
+      "Başvuruya yaklaşık üç sayfalık bir motivasyon mektubu eklenmelidir.",
+    "Business Administration": "İşletme",
+    "International Relations": "Uluslararası İlişkiler",
+    "Computer and Information Technologies": "Bilgisayar ve Bilgi Teknolojileri",
+    Engineering: "Mühendislik",
+    "Nursing and Health Sciences": "Hemşirelik ve Sağlık Bilimleri",
+    Education: "Eğitim",
+    Pharmacy: "Eczacılık",
+    Architecture: "Mimarlık",
+    "Tourism and Hospitality": "Turizm ve Otelcilik",
+    "Master’s and PhD programmes": "Yüksek lisans ve doktora programları",
+    "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
+      "CIU, uluslararası lisans öğrencilerine %50 öğrenim ücreti bursu verildiğini belirtmektedir. Başvuru yapmadan veya herhangi bir ödeme gerçekleştirmeden önce uygunluk ve ödenecek öğrenim ücreti doğrudan CIU'dan teyit edilmelidir.",
+    "Refer to the institution's official site for current programmes and admissions information.":
+      "Güncel program ve kabul bilgileri için kurumun resmî sitesine başvurun.",
+    "University site": "Üniversite sitesi",
+    "Programme source": "Program kaynağı",
+    "Admissions info": "Kabul bilgileri",
+    "Ask about programme": "Programı sorun",
+    "Compare programme details before you take the next step.":
+      "Sonraki adımınızı atmadan önce program ayrıntılarını karşılaştırın.",
+    "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.":
+      "Almanya'daki kurumların hemşirelik yüksek lisans bilgilerini inceleyin. Üniversite kaynaklarına bağlantı veriyoruz; başvurmadan önce tarihleri, ücretleri ve koşulları teyit edin.",
+    "No programmes match these filters": "Bu filtrelerle eşleşen program yok",
+    "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.":
+      "Güncel programları görmek için bir filtreyi temizleyin. Kayıt ve kabul bilgilerinin bazıları kurumdan doğrudan teyit edilmelidir.",
+    "Start / intake": "Başlangıç / kayıt dönemi",
+    "Application window": "Başvuru dönemi",
+    "Entry requirements": "Kabul koşulları",
+    "Information to confirm": "Teyit edilmesi gereken bilgi",
+    "Frankedu document-sharing deadline": "Frankedu belge paylaşım son tarihi",
+    "Before you apply": "Başvurmadan önce",
+    "Programme details and admission decisions belong to each university and may change. This website does not submit an application. Visa decisions are made by the relevant authorities; admission, visas, professional recognition, employment, and job outcomes are not guaranteed. Confirm current requirements and fees with the university before applying.":
+      "Program ayrıntıları ve kabul kararları ilgili üniversiteye aittir ve değişebilir. Bu web sitesi başvuru göndermez. Vize kararları ilgili makamlarca verilir; kabul, vize, mesleki tanınma, iş veya istihdam sonucu garanti edilmez. Başvurmadan önce güncel koşulları ve ücretleri üniversiteden teyit edin.",
+    "Spring 2027 availability not confirmed": "2027 Bahar dönemi uygunluğu teyit edilmedi",
+    "Not confirmed in current official sources": "Mevcut resmî kaynaklarda teyit edilmedi",
+    "Current duration not confirmed": "Güncel program süresi teyit edilmedi",
+    "Current fees not confirmed": "Güncel ücretler teyit edilmedi",
+    "Programme-specific language requirements need confirmation":
+      "Programa özgü dil koşulları teyit edilmelidir",
+    "Ask Hof to confirm current programme-specific academic and language requirements.":
+      "Güncel programa özgü akademik ve dil koşullarını Hof'tan teyit edin.",
+    "General Hof language rules: English-taught programmes require TOEFL iBT 90 or IELTS 6.5; German-taught programmes require B2. These do not confirm the requirements for this programme.":
+      "Hof'un genel dil kuralları: İngilizce programlarda TOEFL iBT 90 veya IELTS 6.5; Almanca programlarda B2 gerekir. Bu bilgiler söz konusu programın özel koşullarını doğrulamaz.",
+    "The available official programme flyer is dated 2025, and the programme-specific page is currently unavailable. Confirm that the programme and Spring 2027 intake are open directly with Hof.":
+      "Erişilebilen resmî program broşürü 2025 tarihlidir ve programa özel sayfa şu anda kullanılamamaktadır. Programın ve 2027 Bahar dönemi alımının açık olduğunu doğrudan Hof'tan teyit edin.",
+    "Frankedu document-sharing deadline: 15 November 2026. This is a preparation target set by Frankedu, not a confirmed Hof application deadline.":
+      "Frankedu belge paylaşım son tarihi: 15 Kasım 2026. Bu, Frankedu'nun belirlediği hazırlık hedefidir; Hof tarafından teyit edilmiş başvuru son tarihi değildir.",
+    "3 theoretical study semesters; full-time": "3 teorik dönem; tam zamanlı",
+    "A student-services contribution is payable at OTH; see the current fee schedule for the amount.":
+      "OTH'ye öğrenci hizmetleri katkı payı ödenir; tutar için güncel ücret çizelgesine bakın.",
+    "Summer semester 2027; exact start date not specified by OTH":
+      "2027 Yaz dönemi; kesin başlangıç tarihi OTH tarafından belirtilmemiştir",
+    "15 November–15 January for summer semesters; confirm the year-specific dates in the OTH portal.":
+      "Yaz dönemleri için 15 Kasım–15 Ocak; yıla özgü tarihleri OTH portalından teyit edin.",
+    "German; DSH 3 or equivalent is required by the start of study.":
+      "Almanca; eğitimin başlangıcına kadar DSH 3 veya eşdeğeri gerekir.",
+    "A higher-education degree with 210 ECTS; at least 180 ECTS must be in nursing or a related field, including at least 30 ECTS in nursing-science modules.":
+      "210 AKTS'lik yükseköğretim derecesi; en az 180 AKTS hemşirelik veya ilgili bir alanda, en az 30 AKTS ise hemşirelik bilimi modüllerinde olmalıdır.",
+    "A permit to use a professional title under §1(1), sentence 1 PflBG is required.":
+      "PflBG §1(1) cümle 1 uyarınca meslek unvanını kullanma izni gerekir.",
+    "The university states that the programme is offered subject to a sufficient number of qualified applications. Confirm current availability and requirements directly with OTH.":
+      "Üniversite, programın yeterli sayıda nitelikli başvuruya bağlı olarak açıldığını belirtir. Güncel uygunluğu ve koşulları doğrudan OTH'den teyit edin.",
+    "5 semesters; part-time": "5 dönem; yarı zamanlı",
+    "Current fees and semester contributions need confirmation with EHS.":
+      "Güncel ücretler ve dönem katkı payı EHS'den teyit edilmelidir.",
+    "Summer semester; the university lists 1 March as the start date.":
+      "Yaz dönemi; üniversite başlangıç tarihini 1 Mart olarak belirtir.",
+    "5 January annually; confirm the 2027 deadline with EHS.":
+      "Her yıl 5 Ocak; 2027 son tarihini EHS'den teyit edin.",
+    "German; C1 is required for applicants with foreign qualifications.":
+      "Almanca; yabancı yeterliliklerle başvuranlar için C1 gerekir.",
+    "First degree in nursing or a related field; alternatively, another degree plus completed nursing vocational training.":
+      "Hemşirelik veya ilgili bir alanda ilk yükseköğretim derecesi; alternatif olarak başka bir derece ve tamamlanmış hemşirelik meslek eğitimi.",
+    "Relevant professional work alongside study: at least 12 hours weekly; 20 hours recommended.":
+      "Eğitimle birlikte ilgili alanda haftada en az 12 saat çalışma; 20 saat önerilir.",
+    "Application includes a motivation letter of about three pages.":
+      "Başvuruya yaklaşık üç sayfalık bir motivasyon mektubu eklenmelidir.",
+    "Confirm the 2027 intake, application requirements and current fees directly with EHS before making plans.":
+      "Plan yapmadan önce 2027 alımını, başvuru koşullarını ve güncel ücretleri doğrudan EHS'den teyit edin.",
     "Main navigation": "Ana gezinme",
     "Language / Dil": "Dil / Language",
     "Mobile navigation": "Mobil gezinme",
@@ -754,6 +847,116 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Kampüs yakınındaki öğrenci yurtları ve kiralık konutlar, yatırım amaçlı gayrimenkullerden ayrı tutulur.",
   },
   fr: {
+    "Current programme-specific entry requirements need confirmation from Hof.":
+      "Les conditions d’admission actuelles propres à cette formation doivent être confirmées auprès de Hof.",
+    "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.":
+      "La page générale d’admission de Hof indique TOEFL iBT 90 ou IELTS 6.5 pour les formations en anglais et un niveau B2 en allemand pour celles en allemand ; elle ne confirme pas les seuils propres à cette formation.",
+    "A nursing-science or nursing-related higher-education degree with 210 ECTS; at least 180 ECTS is required, including at least 30 ECTS in nursing-science modules.":
+      "Un diplôme d’enseignement supérieur en sciences infirmières ou dans un domaine lié aux soins infirmiers de 210 ECTS ; au moins 180 ECTS sont requis, dont au moins 30 ECTS en modules de sciences infirmières.",
+    "Permission to use a professional title under §1(1), sentence 1 of the German Nursing Professions Act (PflBG) is required.":
+      "Une autorisation d’utiliser un titre professionnel au titre du §1(1), phrase 1 de la loi allemande sur les professions infirmières (PflBG) est requise.",
+    "A first higher-education degree in nursing or a related field; alternatively, another higher-education degree together with completed nursing vocational training.":
+      "Un premier diplôme d’enseignement supérieur en soins infirmiers ou dans un domaine connexe ; sinon, un autre diplôme d’enseignement supérieur accompagné d’une formation professionnelle infirmière achevée.",
+    "Relevant professional work alongside study: at least 12 hours per week; 20 hours are recommended.":
+      "Activité professionnelle pertinente pendant les études : au moins 12 heures par semaine ; 20 heures recommandées.",
+    "A motivation letter of about three pages is part of the application.":
+      "La candidature comprend une lettre de motivation d’environ trois pages.",
+    "Study areas": "Domaines d’études",
+    "Study areas require confirmation with the university.":
+      "Les domaines d’études doivent être confirmés auprès de l’université.",
+    "University study information": "Informations universitaires sur les études",
+    "No confirmed scholarship details are published for this university.":
+      "Aucun détail confirmé sur les bourses n’est publié pour cette université.",
+    "University scholarship information": "Informations universitaires sur les bourses",
+    "Explore Courses": "Explorer les formations",
+    "Apply Now opens the university's official information. Frankedu enquiries do not submit a university application.":
+      "Postuler ouvre les informations officielles de l’université. Les demandes adressées à Frankedu ne déposent pas de candidature universitaire.",
+    "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.":
+      "Consultez les formations publiées pour cette université. Les domaines d’études ne sont pas des fiches de formation ; confirmez les disponibilités et conditions d’admission auprès de l’établissement.",
+    "No verified programme listings yet for this university":
+      "Aucune formation vérifiée n’est encore publiée pour cette université",
+    "This does not mean the university has no programmes. Contact us for current information; individual programmes are added only after their details have been verified.":
+      "Cela ne signifie pas que l’université ne propose aucune formation. Contactez-nous pour des informations actuelles ; les formations sont ajoutées uniquement après vérification de leurs détails.",
+    "Business Administration": "Administration des entreprises",
+    "International Relations": "Relations internationales",
+    "Computer and Information Technologies": "Informatique et technologies de l’information",
+    Engineering: "Ingénierie",
+    "Nursing and Health Sciences": "Soins infirmiers et sciences de la santé",
+    Education: "Sciences de l’éducation",
+    Pharmacy: "Pharmacie",
+    Architecture: "Architecture",
+    "Tourism and Hospitality": "Tourisme et hôtellerie",
+    "Master’s and PhD programmes": "Masters et doctorats",
+    "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
+      "CIU indique que les étudiants internationaux en licence bénéficient d’une bourse couvrant 50 % des frais de scolarité. L’éligibilité et les frais de scolarité à payer doivent être confirmés directement auprès de CIU avant toute candidature ou tout paiement.",
+    "Refer to the institution's official site for current programmes and admissions information.":
+      "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
+    "University site": "Site de l’université",
+    "Programme source": "Source de la formation",
+    "Admissions info": "Admissions",
+    "Ask about programme": "Se renseigner",
+    "Compare programme details before you take the next step.":
+      "Comparez les détails des formations avant de poursuivre.",
+    "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.":
+      "Consultez les informations sur les masters en soins infirmiers en Allemagne. Les liens renvoient aux sources universitaires ; vérifiez les dates, frais et conditions avant de postuler.",
+    "No programmes match these filters": "Aucune formation ne correspond à ces filtres",
+    "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.":
+      "Supprimez un filtre pour voir les formations disponibles. Certaines dates et informations d’admission doivent encore être confirmées auprès de l’établissement.",
+    "Start / intake": "Début / rentrée",
+    "Application window": "Période de candidature",
+    "Entry requirements": "Conditions d’admission",
+    "Information to confirm": "Informations à confirmer",
+    "Frankedu document-sharing deadline": "Date limite d’envoi des documents à Frankedu",
+    "Before you apply": "Avant de postuler",
+    "Programme details and admission decisions belong to each university and may change. This website does not submit an application. Visa decisions are made by the relevant authorities; admission, visas, professional recognition, employment, and job outcomes are not guaranteed. Confirm current requirements and fees with the university before applying.":
+      "Les détails des formations et les décisions d’admission relèvent de chaque université et peuvent changer. Ce site ne dépose pas de candidature. Les autorités compétentes prennent les décisions de visa ; l’admission, les visas, la reconnaissance professionnelle, l’emploi et les débouchés ne sont pas garantis. Vérifiez les conditions et frais actuels auprès de l’université avant de postuler.",
+    "Spring 2027 availability not confirmed": "Disponibilité au printemps 2027 non confirmée",
+    "Not confirmed in current official sources":
+      "Non confirmé par les sources officielles consultées",
+    "Current duration not confirmed": "Durée actuelle non confirmée",
+    "Current fees not confirmed": "Frais actuels non confirmés",
+    "Programme-specific language requirements need confirmation":
+      "Les exigences linguistiques propres à la formation doivent être confirmées",
+    "Ask Hof to confirm current programme-specific academic and language requirements.":
+      "Demandez à Hof de confirmer les conditions académiques et linguistiques actuelles de la formation.",
+    "General Hof language rules: English-taught programmes require TOEFL iBT 90 or IELTS 6.5; German-taught programmes require B2. These do not confirm the requirements for this programme.":
+      "Règles linguistiques générales de Hof : TOEFL iBT 90 ou IELTS 6.5 pour les formations en anglais ; niveau B2 en allemand pour celles en allemand. Ces règles ne confirment pas les exigences propres à cette formation.",
+    "The available official programme flyer is dated 2025, and the programme-specific page is currently unavailable. Confirm that the programme and Spring 2027 intake are open directly with Hof.":
+      "La brochure officielle disponible date de 2025 et la page dédiée à la formation n’est actuellement pas accessible. Vérifiez directement auprès de Hof que la formation et la rentrée du printemps 2027 sont ouvertes.",
+    "Frankedu document-sharing deadline: 15 November 2026. This is a preparation target set by Frankedu, not a confirmed Hof application deadline.":
+      "Date limite d’envoi des documents à Frankedu : 15 novembre 2026. Il s’agit d’un objectif de préparation fixé par Frankedu, et non d’une date limite de candidature confirmée par Hof.",
+    "3 theoretical study semesters; full-time": "3 semestres théoriques ; à temps plein",
+    "A student-services contribution is payable at OTH; see the current fee schedule for the amount.":
+      "Une contribution aux services étudiants est due à l’OTH ; consultez le barème actuel pour connaître son montant.",
+    "Summer semester 2027; exact start date not specified by OTH":
+      "Semestre d’été 2027 ; la date exacte de début n’est pas précisée par l’OTH",
+    "15 November–15 January for summer semesters; confirm the year-specific dates in the OTH portal.":
+      "Du 15 novembre au 15 janvier pour les semestres d’été ; vérifiez les dates annuelles sur le portail de l’OTH.",
+    "German; DSH 3 or equivalent is required by the start of study.":
+      "Allemand ; un niveau DSH 3 ou équivalent est requis avant le début des études.",
+    "A higher-education degree with 210 ECTS; at least 180 ECTS must be in nursing or a related field, including at least 30 ECTS in nursing-science modules.":
+      "Un diplôme d’enseignement supérieur de 210 ECTS ; au moins 180 ECTS en soins infirmiers ou domaine connexe, dont au moins 30 ECTS en sciences infirmières.",
+    "A permit to use a professional title under §1(1), sentence 1 PflBG is required.":
+      "Une autorisation d’utiliser un titre professionnel au titre du §1(1), phrase 1 de la PflBG est requise.",
+    "The university states that the programme is offered subject to a sufficient number of qualified applications. Confirm current availability and requirements directly with OTH.":
+      "L’université indique que la formation dépend d’un nombre suffisant de candidatures qualifiées. Vérifiez sa disponibilité et ses conditions directement auprès de l’OTH.",
+    "5 semesters; part-time": "5 semestres ; à temps partiel",
+    "Current fees and semester contributions need confirmation with EHS.":
+      "Les frais actuels et contributions semestrielles doivent être confirmés auprès de l’EHS.",
+    "Summer semester; the university lists 1 March as the start date.":
+      "Semestre d’été ; l’université indique le 1er mars comme date de début.",
+    "5 January annually; confirm the 2027 deadline with EHS.":
+      "Le 5 janvier chaque année ; confirmez la date limite 2027 auprès de l’EHS.",
+    "German; C1 is required for applicants with foreign qualifications.":
+      "Allemand ; le niveau C1 est requis pour les candidats titulaires de qualifications étrangères.",
+    "First degree in nursing or a related field; alternatively, another degree plus completed nursing vocational training.":
+      "Premier diplôme en soins infirmiers ou domaine connexe ; sinon, un autre diplôme accompagné d’une formation professionnelle infirmière achevée.",
+    "Relevant professional work alongside study: at least 12 hours weekly; 20 hours recommended.":
+      "Activité professionnelle pertinente pendant les études : au moins 12 heures par semaine ; 20 heures recommandées.",
+    "Application includes a motivation letter of about three pages.":
+      "La candidature comprend une lettre de motivation d’environ trois pages.",
+    "Confirm the 2027 intake, application requirements and current fees directly with EHS before making plans.":
+      "Avant tout projet, confirmez directement auprès de l’EHS la rentrée 2027, les conditions de candidature et les frais actuels.",
     Universities: "Universités",
     Countries: "Pays",
     Scholarships: "Bourses",
@@ -1654,6 +1857,116 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Résidences et locations étudiantes près du campus, distinctes des biens d’investissement.",
   },
   sw: {
+    "Current programme-specific entry requirements need confirmation from Hof.":
+      "Masharti ya sasa ya kujiunga na programu hii yanahitaji kuthibitishwa na Hof.",
+    "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.":
+      "Ukurasa wa jumla wa udahili wa Hof unataja TOEFL iBT 90 au IELTS 6.5 kwa programu za Kiingereza na Kijerumani B2 kwa programu za Kijerumani; hauthibitishi viwango mahususi vya programu hii.",
+    "A nursing-science or nursing-related higher-education degree with 210 ECTS; at least 180 ECTS is required, including at least 30 ECTS in nursing-science modules.":
+      "Shahada ya elimu ya juu ya sayansi ya uuguzi au fani inayohusiana na uuguzi yenye ECTS 210; angalau ECTS 180 zinahitajika, ikijumuisha angalau ECTS 30 za masomo ya sayansi ya uuguzi.",
+    "Permission to use a professional title under §1(1), sentence 1 of the German Nursing Professions Act (PflBG) is required.":
+      "Kibali cha kutumia cheo cha kitaaluma chini ya §1(1), sentensi ya 1 ya Sheria ya Ujerumani ya Taaluma za Uuguzi (PflBG) kinahitajika.",
+    "A first higher-education degree in nursing or a related field; alternatively, another higher-education degree together with completed nursing vocational training.":
+      "Shahada ya kwanza ya elimu ya juu ya uuguzi au fani inayohusiana; au shahada nyingine ya elimu ya juu pamoja na mafunzo kamili ya kitaaluma ya uuguzi.",
+    "Relevant professional work alongside study: at least 12 hours per week; 20 hours are recommended.":
+      "Kazi husika sambamba na masomo: angalau saa 12 kwa wiki; saa 20 zinapendekezwa.",
+    "A motivation letter of about three pages is part of the application.":
+      "Maombi yanajumuisha barua ya motisha ya takriban kurasa tatu.",
+    "Study areas": "Maeneo ya masomo",
+    "Study areas require confirmation with the university.":
+      "Maeneo ya masomo yanahitaji kuthibitishwa na chuo kikuu.",
+    "University study information": "Taarifa za masomo za chuo kikuu",
+    "No confirmed scholarship details are published for this university.":
+      "Hakuna maelezo yaliyothibitishwa ya ufadhili yaliyochapishwa kwa chuo hiki.",
+    "University scholarship information": "Taarifa za ufadhili za chuo kikuu",
+    "Explore Courses": "Angalia programu",
+    "Apply Now opens the university's official information. Frankedu enquiries do not submit a university application.":
+      "Tuma Maombi Sasa hufungua taarifa rasmi za chuo kikuu. Maswali kwa Frankedu hayatumi maombi kwa chuo kikuu.",
+    "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.":
+      "Angalia programu zilizochapishwa kwa chuo hiki. Maeneo ya masomo si orodha ya programu mahususi; thibitisha upatikanaji na masharti ya sasa ya udahili na taasisi.",
+    "No verified programme listings yet for this university":
+      "Bado hakuna programu zilizothibitishwa zilizoorodheshwa kwa chuo hiki",
+    "This does not mean the university has no programmes. Contact us for current information; individual programmes are added only after their details have been verified.":
+      "Hii haimaanishi kuwa chuo hakina programu. Wasiliana nasi kwa taarifa za sasa; programu mahususi huongezwa tu baada ya maelezo yake kuthibitishwa.",
+    "Business Administration": "Usimamizi wa Biashara",
+    "International Relations": "Uhusiano wa Kimataifa",
+    "Computer and Information Technologies": "Teknolojia za Kompyuta na Habari",
+    Engineering: "Uhandisi",
+    "Nursing and Health Sciences": "Uuguzi na Sayansi za Afya",
+    Education: "Elimu",
+    Pharmacy: "Famasia",
+    Architecture: "Usanifu Majengo",
+    "Tourism and Hospitality": "Utalii na Ukarimu",
+    "Master’s and PhD programmes": "Programu za uzamili na uzamivu",
+    "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
+      "CIU inaeleza kuwa wanafunzi wa kimataifa wa shahada ya kwanza hupata ufadhili wa 50% wa ada ya masomo. Ustahiki na ada ya masomo inayopaswa kulipwa lazima vithibitishwe moja kwa moja na CIU kabla ya kutuma maombi au kufanya malipo yoyote.",
+    "Refer to the institution's official site for current programmes and admissions information.":
+      "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
+    "University site": "Tovuti ya chuo",
+    "Programme source": "Chanzo cha programu",
+    "Admissions info": "Taarifa za udahili",
+    "Ask about programme": "Uliza kuhusu programu",
+    "Compare programme details before you take the next step.":
+      "Linganisha maelezo ya programu kabla ya kuendelea.",
+    "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.":
+      "Pitia taarifa za shahada za uzamili za uuguzi katika taasisi za Ujerumani. Viungo vinaelekeza kwenye vyanzo vya vyuo; thibitisha tarehe, ada na masharti kabla ya kutuma maombi.",
+    "No programmes match these filters": "Hakuna programu zinazolingana na vichujio hivi",
+    "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.":
+      "Ondoa kichujio ili kuona programu zilizoorodheshwa. Baadhi ya tarehe na taarifa za udahili zinahitaji kuthibitishwa moja kwa moja na taasisi.",
+    "Start / intake": "Mwanzo / kipindi cha masomo",
+    "Application window": "Kipindi cha kutuma maombi",
+    "Entry requirements": "Masharti ya kujiunga",
+    "Information to confirm": "Taarifa za kuthibitisha",
+    "Frankedu document-sharing deadline": "Tarehe ya mwisho ya kutuma nyaraka kwa Frankedu",
+    "Before you apply": "Kabla ya kutuma maombi",
+    "Programme details and admission decisions belong to each university and may change. This website does not submit an application. Visa decisions are made by the relevant authorities; admission, visas, professional recognition, employment, and job outcomes are not guaranteed. Confirm current requirements and fees with the university before applying.":
+      "Maelezo ya programu na maamuzi ya udahili huamuliwa na kila chuo kikuu na yanaweza kubadilika. Tovuti hii haiwasilishi maombi. Maamuzi ya visa hufanywa na mamlaka husika; udahili, visa, utambuzi wa taaluma, ajira na matokeo ya kazi hayajahakikishwa. Thibitisha masharti na ada za sasa na chuo kabla ya kutuma maombi.",
+    "Spring 2027 availability not confirmed":
+      "Upatikanaji wa muhula wa Machi 2027 haujathibitishwa",
+    "Not confirmed in current official sources": "Haijathibitishwa katika vyanzo rasmi vya sasa",
+    "Current duration not confirmed": "Muda wa sasa wa programu haujathibitishwa",
+    "Current fees not confirmed": "Ada za sasa hazijathibitishwa",
+    "Programme-specific language requirements need confirmation":
+      "Masharti ya lugha ya programu hii yanahitaji kuthibitishwa",
+    "Ask Hof to confirm current programme-specific academic and language requirements.":
+      "Uliza Hof ithibitishe masharti ya sasa ya kitaaluma na lugha ya programu hii.",
+    "General Hof language rules: English-taught programmes require TOEFL iBT 90 or IELTS 6.5; German-taught programmes require B2. These do not confirm the requirements for this programme.":
+      "Masharti ya jumla ya lugha ya Hof: programu za Kiingereza zinahitaji TOEFL iBT 90 au IELTS 6.5; programu za Kijerumani zinahitaji B2. Haya hayathibitishi masharti ya programu hii.",
+    "The available official programme flyer is dated 2025, and the programme-specific page is currently unavailable. Confirm that the programme and Spring 2027 intake are open directly with Hof.":
+      "Kijitabu rasmi cha programu kinachopatikana ni cha mwaka 2025, na ukurasa maalum wa programu haupatikani kwa sasa. Thibitisha moja kwa moja na Hof kuwa programu na kipindi cha Machi 2027 vimefunguliwa.",
+    "Frankedu document-sharing deadline: 15 November 2026. This is a preparation target set by Frankedu, not a confirmed Hof application deadline.":
+      "Tarehe ya mwisho ya kutuma nyaraka kwa Frankedu: 15 Novemba 2026. Hii ni tarehe ya maandalizi iliyowekwa na Frankedu, si tarehe ya mwisho ya maombi iliyothibitishwa na Hof.",
+    "3 theoretical study semesters; full-time": "Muhula 3 wa masomo ya nadharia; muda wote",
+    "A student-services contribution is payable at OTH; see the current fee schedule for the amount.":
+      "Mchango wa huduma za wanafunzi hulipwa kwa OTH; tazama jedwali la ada za sasa kwa kiasi.",
+    "Summer semester 2027; exact start date not specified by OTH":
+      "Muhula wa kiangazi 2027; OTH haijataja tarehe kamili ya kuanza",
+    "15 November–15 January for summer semesters; confirm the year-specific dates in the OTH portal.":
+      "Tarehe 15 Novemba–15 Januari kwa mihula ya kiangazi; thibitisha tarehe za mwaka husika kwenye tovuti ya OTH.",
+    "German; DSH 3 or equivalent is required by the start of study.":
+      "Kijerumani; DSH 3 au kiwango kinacholingana kinahitajika kabla ya masomo kuanza.",
+    "A higher-education degree with 210 ECTS; at least 180 ECTS must be in nursing or a related field, including at least 30 ECTS in nursing-science modules.":
+      "Shahada ya elimu ya juu yenye ECTS 210; angalau ECTS 180 ziwe za uuguzi au fani inayohusiana, ikijumuisha angalau ECTS 30 za masomo ya sayansi ya uuguzi.",
+    "A permit to use a professional title under §1(1), sentence 1 PflBG is required.":
+      "Kibali cha kutumia cheo cha kitaaluma chini ya §1(1), sentensi ya 1 ya PflBG kinahitajika.",
+    "The university states that the programme is offered subject to a sufficient number of qualified applications. Confirm current availability and requirements directly with OTH.":
+      "Chuo kinasema programu itatolewa ikiwa kutakuwa na idadi ya kutosha ya maombi yanayokidhi vigezo. Thibitisha upatikanaji na masharti ya sasa moja kwa moja na OTH.",
+    "5 semesters; part-time": "Mihula 5; muda wa sehemu",
+    "Current fees and semester contributions need confirmation with EHS.":
+      "Ada na michango ya muhula ya sasa inahitaji kuthibitishwa na EHS.",
+    "Summer semester; the university lists 1 March as the start date.":
+      "Muhula wa kiangazi; chuo kimetaja tarehe 1 Machi kuwa tarehe ya kuanza.",
+    "5 January annually; confirm the 2027 deadline with EHS.":
+      "Tarehe 5 Januari kila mwaka; thibitisha tarehe ya mwisho ya 2027 na EHS.",
+    "German; C1 is required for applicants with foreign qualifications.":
+      "Kijerumani; kiwango cha C1 kinahitajika kwa waombaji wenye sifa za kigeni.",
+    "First degree in nursing or a related field; alternatively, another degree plus completed nursing vocational training.":
+      "Shahada ya kwanza ya uuguzi au fani inayohusiana; au shahada nyingine pamoja na mafunzo kamili ya kitaaluma ya uuguzi.",
+    "Relevant professional work alongside study: at least 12 hours weekly; 20 hours recommended.":
+      "Kazi husika sambamba na masomo: angalau saa 12 kwa wiki; saa 20 zinapendekezwa.",
+    "Application includes a motivation letter of about three pages.":
+      "Maombi yanajumuisha barua ya motisha ya takriban kurasa tatu.",
+    "Confirm the 2027 intake, application requirements and current fees directly with EHS before making plans.":
+      "Kabla ya kupanga, thibitisha moja kwa moja na EHS kipindi cha 2027, masharti ya maombi na ada za sasa.",
     Universities: "Vyuo vikuu",
     Courses: "Programu za masomo",
     Countries: "Nchi",
@@ -2557,11 +2870,16 @@ export function localizeText(locale: Locale, value: string): string {
   const propertyListingEnquiry = value.match(
     /^Hello Frankedu Global, I'm interested in "(.+)"\. Could you share current information\?$/,
   );
+  const universityEnquiry = value.match(
+    /^Hello Frankedu Global, I'd like to ask about current admissions information at (.+)\.$/,
+  );
   if (propertyPhoto) {
     const photoLabel = locale === "tr" ? "Fotoğraf" : locale === "fr" ? "Photo" : "Picha";
     return `${photoLabel} ${propertyPhoto[1]}`;
   }
   if (locale === "tr") {
+    if (universityEnquiry)
+      return `Merhaba Frankedu Global, ${universityEnquiry[1]} kurumunun güncel kabul bilgileri hakkında bilgi almak istiyorum.`;
     if (value === "Hello Frankedu Global, I'd like to learn more about your services.")
       return "Merhaba Frankedu Global, hizmetleriniz hakkında daha fazla bilgi almak istiyorum.";
     if (applicationHelp)
@@ -2572,6 +2890,8 @@ export function localizeText(locale: Locale, value: string): string {
       return `Merhaba Frankedu Global, "${propertyListingEnquiry[1]}" ilanıyla ilgileniyorum. Güncel bilgi alabilir miyim?`;
   }
   if (locale === "fr") {
+    if (universityEnquiry)
+      return `Bonjour Frankedu Global, je souhaite me renseigner sur les admissions actuelles à ${universityEnquiry[1]}.`;
     if (value === "Hello Frankedu Global, I'd like to learn more about your services.")
       return "Bonjour Frankedu Global, je souhaiterais en savoir plus sur vos services.";
     if (applicationHelp)
@@ -2594,6 +2914,8 @@ export function localizeText(locale: Locale, value: string): string {
     if (market)
       return `Bonjour Frankedu Global, l’article « ${market[1]} » sur le marché m’intéresse. Pourriez-vous m’en dire plus ?`;
   } else if (locale === "sw") {
+    if (universityEnquiry)
+      return `Habari Frankedu Global, ningependa kuuliza kuhusu udahili wa sasa katika ${universityEnquiry[1]}.`;
     if (value === "Hello Frankedu Global, I'd like to learn more about your services.")
       return "Habari Frankedu Global, ningependa kupata maelezo zaidi kuhusu huduma zenu.";
     if (applicationHelp)

@@ -19,7 +19,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Courses",
       description:
-        "Ask about study options by field, level, and university. Programme listings are published after details are confirmed.",
+        "Review nursing Master's programmes in Germany, with university source links and clear notes on details that still need confirmation.",
     },
     "/universities": {
       title: "Universities",
@@ -96,7 +96,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Programlar",
       description:
-        "Eğitim alanı, seviyesi ve üniversiteye göre seçenekleri sorun. Program listeleri ayrıntıları doğrulandıktan sonra yayımlanır.",
+        "Almanya'daki hemşirelik yüksek lisans programlarını ve üniversite kaynaklarını inceleyin; teyit edilmesi gereken ayrıntılar açıkça belirtilir.",
     },
     "/universities": {
       title: "Üniversiteler",
@@ -171,7 +171,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Formations",
       description:
-        "Renseignez-vous sur les possibilités par domaine, niveau et université. Les formations sont publiées après confirmation de leurs informations.",
+        "Consultez les masters en soins infirmiers en Allemagne, les sources universitaires et les informations qui restent à confirmer.",
     },
     "/universities": {
       title: "Universités",
@@ -249,7 +249,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Programu za masomo",
       description:
-        "Ulizia chaguo za masomo kulingana na eneo, kiwango na chuo kikuu. Programu huchapishwa baada ya maelezo yake kuthibitishwa.",
+        "Pitia programu za uzamili za uuguzi nchini Ujerumani, viungo vya vyanzo vya vyuo na maelezo ambayo bado yanahitaji kuthibitishwa.",
     },
     "/universities": {
       title: "Vyuo vikuu",
