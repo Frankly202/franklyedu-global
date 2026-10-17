@@ -117,6 +117,7 @@ export const universities: University[] = [
     country: "Cyprus / North Cyprus",
     countrySlug: "cyprus",
     city: "Kyrenia (Girne)",
+    officialUrl: "https://www.final.edu.tr/",
   },
   {
     slug: "cyprus-international-university",
@@ -126,6 +127,7 @@ export const universities: University[] = [
     country: "Cyprus / North Cyprus",
     countrySlug: "cyprus",
     city: "Nicosia",
+    officialUrl: "https://ciu.edu.tr/en",
     studyAreas: [
       "Business Administration",
       "International Relations",
@@ -153,6 +155,7 @@ export const universities: University[] = [
     country: "Cyprus / North Cyprus",
     countrySlug: "cyprus",
     city: "Kyrenia (Girne)",
+    officialUrl: "https://kyrenia.edu.tr/?lang=en",
   },
   {
     slug: "near-east-university",
@@ -253,6 +256,7 @@ export const universities: University[] = [
     country: "United States",
     countrySlug: "united-states",
     city: "Memphis, Tennessee",
+    officialUrl: "https://www.memphis.edu/",
   },
   {
     slug: "pace-university",
@@ -262,6 +266,7 @@ export const universities: University[] = [
     country: "United States",
     countrySlug: "united-states",
     city: "New York City and Westchester County",
+    officialUrl: "https://www.pace.edu/",
   },
   {
     slug: "university-of-sunderland",
@@ -271,6 +276,7 @@ export const universities: University[] = [
     country: "United Kingdom",
     countrySlug: "united-kingdom",
     city: "Sunderland, England",
+    officialUrl: "https://www.sunderland.ac.uk/",
   },
   {
     slug: "hof-university-of-applied-sciences",

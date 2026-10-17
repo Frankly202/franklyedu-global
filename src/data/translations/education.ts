@@ -104,7 +104,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       scholarshipSource: "University scholarship information",
       exploreCourses: "Explore Courses",
       externalApplicationNote:
-        "Apply Now opens the university's official information. Frankedu enquiries do not submit a university application.",
+        "FranklyEdu provides application guidance and does not directly submit applications to universities. Visit University Website opens the official site in a new tab.",
     },
     courses: {
       eyebrow: "Courses",
@@ -196,7 +196,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       scholarshipSource: "Üniversitenin burs bilgileri",
       exploreCourses: "Programları İncele",
       externalApplicationNote:
-        "Hemen Başvur, üniversitenin resmî bilgilerini açar. Frankedu'ya yapılan bilgi talepleri üniversiteye başvuru göndermez.",
+        "FranklyEdu başvuru rehberliği sağlar ve üniversitelere doğrudan başvuru göndermez. Üniversitenin Web Sitesini Ziyaret Et, resmî siteyi yeni bir sekmede açar.",
     },
     courses: {
       eyebrow: "Bölümler ve Programlar",

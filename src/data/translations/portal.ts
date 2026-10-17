@@ -108,7 +108,7 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
         "Complete four short steps, then send your details to our advisor on WhatsApp.",
       whatsappIntro: "Hello Frankedu Global, I'd like guidance with my study application.",
       whatsappNotice:
-        "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step.",
+        "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step. FranklyEdu provides application guidance and does not directly submit applications to universities.",
       steps: {
         details: "Your details",
         studyPlan: "Study plan",
@@ -211,7 +211,7 @@ export const portalTranslations: Record<"en" | "tr", PortalTranslation> = {
         "Dört kısa adımı tamamlayın ve bilgilerinizi WhatsApp üzerinden danışmanımıza iletin.",
       whatsappIntro: "Merhaba Frankedu Global, eğitim başvurum için rehberlik almak istiyorum.",
       whatsappNotice:
-        "Devam ettiğinizde bu bilgileri inceleyip gönderebilmeniz için WhatsApp açılır. Belgeler bu adımda yüklenmez veya gönderilmez.",
+        "Devam ettiğinizde bu bilgileri inceleyip gönderebilmeniz için WhatsApp açılır. Belgeler bu adımda yüklenmez veya gönderilmez. FranklyEdu başvuru rehberliği sağlar ve üniversitelere doğrudan başvuru göndermez.",
       steps: {
         details: "Kişisel Bilgiler",
         studyPlan: "Eğitim Planı",

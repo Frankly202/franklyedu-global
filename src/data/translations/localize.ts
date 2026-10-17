@@ -909,8 +909,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Aucun détail confirmé sur les bourses n’est publié pour cette université.",
     "University scholarship information": "Informations universitaires sur les bourses",
     "Explore Courses": "Explorer les formations",
-    "Apply Now opens the university's official information. Frankedu enquiries do not submit a university application.":
-      "Postuler ouvre les informations officielles de l’université. Les demandes adressées à Frankedu ne déposent pas de candidature universitaire.",
+    "Apply Through FranklyEdu": "Postuler avec FranklyEdu",
+    "Visit University Website": "Visiter le site de l’université",
+    "FranklyEdu provides application guidance and does not directly submit applications to universities. Visit University Website opens the official site in a new tab.":
+      "FranklyEdu accompagne votre candidature et ne la dépose pas directement auprès des universités. Visiter le site de l’université ouvre le site officiel dans un nouvel onglet.",
     "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.":
       "Consultez les formations publiées pour cette université. Les domaines d’études ne sont pas des fiches de formation ; confirmez les disponibilités et conditions d’admission auprès de l’établissement.",
     "No verified programme listings yet for this university":
@@ -1634,8 +1636,8 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Suivez quatre étapes simples, puis envoyez vos informations à notre conseiller sur WhatsApp.",
     "Hello Frankedu Global, I'd like guidance with my study application.":
       "Bonjour Frankedu Global, je souhaite être accompagné dans ma candidature aux études.",
-    "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step.":
-      "Continuer ouvre WhatsApp avec ces informations pour que vous puissiez les vérifier et les envoyer. Aucun document n’est téléversé ni envoyé à cette étape.",
+    "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step. FranklyEdu provides application guidance and does not directly submit applications to universities.":
+      "Continuer ouvre WhatsApp avec ces informations pour que vous puissiez les vérifier et les envoyer. Aucun document n’est téléversé ni envoyé à cette étape. FranklyEdu accompagne votre candidature et ne la dépose pas directement auprès des universités.",
     Email: "E-mail",
     Phone: "Téléphone",
     "Demonstration tracker for programme applications and document checklists.":
@@ -1938,8 +1940,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Hakuna maelezo yaliyothibitishwa ya ufadhili yaliyochapishwa kwa chuo hiki.",
     "University scholarship information": "Taarifa za ufadhili za chuo kikuu",
     "Explore Courses": "Angalia programu",
-    "Apply Now opens the university's official information. Frankedu enquiries do not submit a university application.":
-      "Tuma Maombi Sasa hufungua taarifa rasmi za chuo kikuu. Maswali kwa Frankedu hayatumi maombi kwa chuo kikuu.",
+    "Apply Through FranklyEdu": "Omba Kupitia FranklyEdu",
+    "Visit University Website": "Tembelea Tovuti ya Chuo",
+    "FranklyEdu provides application guidance and does not directly submit applications to universities. Visit University Website opens the official site in a new tab.":
+      "FranklyEdu hutoa mwongozo wa maombi na haitumi maombi moja kwa moja kwa vyuo vikuu. Tembelea Tovuti ya Chuo hufungua tovuti rasmi katika kichupo kipya.",
     "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.":
       "Angalia programu zilizochapishwa kwa chuo hiki. Maeneo ya masomo si orodha ya programu mahususi; thibitisha upatikanaji na masharti ya sasa ya udahili na taasisi.",
     "No verified programme listings yet for this university":
@@ -2636,8 +2640,8 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Kamilisha hatua nne fupi kisha utume taarifa zako kwa mshauri kupitia WhatsApp.",
     "Hello Frankedu Global, I'd like guidance with my study application.":
       "Habari Frankedu Global, ningependa kupata mwongozo kuhusu maombi yangu ya masomo.",
-    "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step.":
-      "Ukiendelea, WhatsApp itafunguka na taarifa hizi ili uzikague na kuzituma. Nyaraka hazipakwi wala kutumwa katika hatua hii.",
+    "Continue opens WhatsApp with these details for you to review and send. Documents are not uploaded or sent in this step. FranklyEdu provides application guidance and does not directly submit applications to universities.":
+      "Ukiendelea, WhatsApp itafunguka na taarifa hizi ili uzikague na kuzituma. Nyaraka hazipakwi wala kutumwa katika hatua hii. FranklyEdu hutoa mwongozo wa maombi na haitumi maombi moja kwa moja kwa vyuo vikuu.",
     Email: "Barua pepe",
     Phone: "Simu",
     "Demonstration tracker for programme applications and document checklists.":

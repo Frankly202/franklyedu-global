@@ -952,6 +952,7 @@ async function runSmokeTests() {
           name: "Final International University (FIU)",
           logo: "/Uni-Logos/FIU-logo.png",
           location: "Kyrenia (Girne)",
+          officialUrl: "https://www.final.edu.tr/",
         },
         {
           slug: "cyprus-international-university",
@@ -959,12 +960,14 @@ async function runSmokeTests() {
           logo: "/Uni-Logos/CIU-logo.png",
           location: "Nicosia",
           studyAreaCount: 10,
+          officialUrl: "https://ciu.edu.tr/en",
         },
         {
           slug: "university-of-kyrenia",
           name: "University of Kyrenia (Girne Üniversitesi)",
           logo: "/Uni-Logos/girne-uni-logo.png",
           location: "Kyrenia (Girne)",
+          officialUrl: "https://kyrenia.edu.tr/?lang=en",
         },
         {
           slug: "near-east-university",
@@ -1020,18 +1023,21 @@ async function runSmokeTests() {
           name: "University of Memphis",
           logo: "/Uni-Logos/memphis-logo.png",
           location: "Memphis, Tennessee",
+          officialUrl: "https://www.memphis.edu/",
         },
         {
           slug: "pace-university",
           name: "Pace University",
           logo: "/Uni-Logos/pace-logo.png",
           location: "New York City and Westchester County",
+          officialUrl: "https://www.pace.edu/",
         },
         {
           slug: "university-of-sunderland",
           name: "University of Sunderland",
           logo: "/Uni-Logos/university-sunderland-logo.png",
           location: "Sunderland, England",
+          officialUrl: "https://www.sunderland.ac.uk/",
         },
         {
           slug: "hof-university-of-applied-sciences",
@@ -1086,6 +1092,89 @@ async function runSmokeTests() {
         sw: "Tazama maelezo",
       }[locale];
       const closeLabel = { en: "Close", tr: "Kapat", fr: "Fermer", sw: "Funga" }[locale];
+      const applyLabel = {
+        en: "Apply Through FranklyEdu",
+        tr: "FranklyEdu ile Başvur",
+        fr: "Postuler avec FranklyEdu",
+        sw: "Omba Kupitia FranklyEdu",
+      }[locale];
+      const websiteLabel = {
+        en: "Visit University Website",
+        tr: "Üniversitenin Web Sitesini Ziyaret Et",
+        fr: "Visiter le site de l’université",
+        sw: "Tembelea Tovuti ya Chuo",
+      }[locale];
+      const enquiryLabel = {
+        en: "Enquire",
+        tr: "Bilgi Al",
+        fr: "Demander des renseignements",
+        sw: "Uliza maelezo",
+      }[locale];
+      const guidanceNote = {
+        en: "FranklyEdu provides application guidance and does not directly submit applications to universities.",
+        tr: "FranklyEdu başvuru rehberliği sağlar ve üniversitelere doğrudan başvuru göndermez.",
+        fr: "FranklyEdu accompagne votre candidature et ne la dépose pas directement auprès des universités.",
+        sw: "FranklyEdu hutoa mwongozo wa maombi na haitumi maombi moja kwa moja kwa vyuo vikuu.",
+      }[locale];
+      async function assertUniversityActions(container, university) {
+        const apply = container.getByRole("link", { name: applyLabel, exact: true });
+        assert.equal(
+          await apply.getAttribute("href"),
+          `/application?university=${university.slug}`,
+          `${locale} ${university.name} must carry its selection into the internal application.`,
+        );
+        assert.match(await apply.getAttribute("class"), /\bbtn-primary\b/);
+        assert.equal(await apply.getAttribute("target"), null);
+        assert.equal(await container.locator("a.btn-primary").count(), 1);
+        const website = container.getByRole("link", { name: websiteLabel, exact: true });
+        assert.equal(await website.getAttribute("href"), university.officialUrl);
+        assert.equal(await website.getAttribute("target"), "_blank");
+        assert.match(await website.getAttribute("rel"), /\bnoopener\b/);
+        assert.match(await website.getAttribute("rel"), /\bnoreferrer\b/);
+        assert.match(await website.getAttribute("class"), /\bbtn-outline-dark\b/);
+        const enquiry = container.getByRole("link", { name: enquiryLabel, exact: true });
+        assert.match(await enquiry.getAttribute("href"), /^https:\/\/wa\.me\//);
+        assert.match(await enquiry.getAttribute("class"), /\bbtn-outline-dark\b/);
+      }
+      async function assertWebsiteTab(container, university) {
+        const website = container.getByRole("link", { name: websiteLabel, exact: true });
+        await website.scrollIntoViewIfNeeded();
+        const originalUrl = page.url();
+        const originalScroll = await scrollState(page);
+        const originalFilter = await page.locator("main select").inputValue();
+        const dialogState = () =>
+          page.locator("dialog[open]").evaluateAll((dialogs) =>
+            dialogs.map((dialog) => ({
+              title: dialog.querySelector("h2")?.textContent,
+              scrollTop: dialog.scrollTop,
+            })),
+          );
+        const originalDialog = await dialogState();
+        // Stub the destination, not the click, so the real new-tab behavior is tested offline.
+        const serveWebsite = (route) =>
+          route.fulfill({
+            status: 200,
+            contentType: "text/html",
+            body: "<title>University</title>",
+          });
+        await page.context().route(university.officialUrl, serveWebsite);
+        try {
+          const [popup] = await Promise.all([page.waitForEvent("popup"), website.click()]);
+          try {
+            await popup.waitForLoadState("domcontentloaded");
+            assert.equal(popup.url(), university.officialUrl);
+            assert.equal(await popup.evaluate(() => window.opener === null), true);
+          } finally {
+            await popup.close();
+          }
+          assert.equal(page.url(), originalUrl);
+          assert.equal(await page.locator("main select").inputValue(), originalFilter);
+          assert.deepEqual(await scrollState(page), originalScroll);
+          assert.deepEqual(await dialogState(), originalDialog);
+        } finally {
+          await page.context().unroute(university.officialUrl, serveWebsite);
+        }
+      }
       const summaryText = {
         en: "Ask us for current admissions information for this institution.",
         tr: "Bu kurumun güncel kabul bilgileri için bize danışın.",
@@ -1184,29 +1273,8 @@ async function runSmokeTests() {
           .filter({ hasText: localizedLocation(university) })
           .first()
           .waitFor();
-        if (university.officialUrl) {
-          assert.equal(
-            await card.locator('a[target="_blank"]').first().getAttribute("href"),
-            university.officialUrl,
-            `${university.name} must link to its official information.`,
-          );
-          assert.equal(
-            await card.locator('a[href^="/application?university="]').count(),
-            0,
-            `${university.name} must not imply that Frankedu can submit its application.`,
-          );
-          assert.match(
-            await card.locator('a[href^="https://wa.me/"]').getAttribute("href"),
-            /wa\.me/,
-            `${university.name} must offer an enquiry-only WhatsApp action.`,
-          );
-        } else {
-          assert.equal(
-            await card.locator('a[href^="/application?university="]').getAttribute("href"),
-            `/application?university=${university.slug}`,
-            `${university.name} must retain its existing application-prefill path.`,
-          );
-        }
+        await assertUniversityActions(card, university);
+        await assertWebsiteTab(card, university);
       }
       await gotoReady(page, `${baseUrl}/countries`);
       assert.equal(
@@ -1269,13 +1337,9 @@ async function runSmokeTests() {
             .getByText(university.summary?.[locale] ?? summaryText, { exact: true })
             .count(),
         );
-        if (university.officialUrl) {
-          assert.equal(
-            await detailsDialog.locator('a[href^="/application?university="]').count(),
-            0,
-            `${university.name} details must not expose an application-prefill CTA.`,
-          );
-        }
+        await assertUniversityActions(detailsDialog, university);
+        assert.ok((await detailsDialog.innerText()).includes(guidanceNote));
+        await assertWebsiteTab(detailsDialog, university);
         assert.equal(
           await detailsDialog.locator('a[href^="/courses?university="]').getAttribute("href"),
           `/courses?university=${university.slug}`,
@@ -1406,6 +1470,43 @@ async function runSmokeTests() {
             `${locale} ${university.name}: ${dismissal} dismissal must restore scroll styles and position.`,
           );
         }
+        await detailsButton.click();
+        await detailsDialog.getByRole("link", { name: applyLabel, exact: true }).click();
+        await page.waitForURL(`**/application?university=${university.slug}`);
+        assert.notEqual(
+          await page.locator("body").evaluate((body) => getComputedStyle(body).position),
+          "fixed",
+          "Applying through FranklyEdu must release the modal scroll lock.",
+        );
+        const form = page.locator("form");
+        await form.locator('input[autocomplete="name"]').fill("Prefill Test");
+        await form.locator('input[type="email"]').fill("prefill@example.test");
+        await form.locator('button[type="submit"]').click();
+        const studyPlan = form.locator("select");
+        assert.equal(
+          await studyPlan.nth(0).inputValue(),
+          ["university-of-memphis", "pace-university"].includes(university.slug)
+            ? "united-states"
+            : university.slug === "university-of-sunderland"
+              ? "united-kingdom"
+              : university.slug === "hof-university-of-applied-sciences" ||
+                  university.slug === "oth-regensburg" ||
+                  university.slug === "evangelische-hochschule-dresden"
+                ? "germany"
+                : "cyprus",
+        );
+        assert.equal(
+          await studyPlan.nth(1).inputValue(),
+          university.slug,
+          `${locale} ${university.name} modal must prefill its university.`,
+        );
+        assert.equal(await studyPlan.nth(2).inputValue(), "");
+        await studyPlan.nth(3).selectOption("January 2027");
+        await form.locator('button[type="submit"]').click();
+        await form.locator('button[type="submit"]').click();
+        assert.ok((await form.innerText()).includes(university.name));
+        assert.ok((await form.innerText()).includes(guidanceNote));
+        await gotoReady(page, `${baseUrl}/universities`);
       }
 
       await page.setViewportSize({ width: 320, height: 844 });
@@ -1430,10 +1531,21 @@ async function runSmokeTests() {
       );
       const applyLink = detailsDialog.locator('a[href^="/application?university="]');
       await applyLink.scrollIntoViewIfNeeded();
-      assert.ok(await applyLink.isVisible(), `${locale} CIU Apply Now must remain reachable.`);
+      assert.ok(
+        await applyLink.isVisible(),
+        `${locale} CIU application guidance must remain reachable.`,
+      );
       assert.equal(
         await applyLink.getAttribute("href"),
         "/application?university=cyprus-international-university",
+      );
+      await assertWebsiteTab(
+        detailsDialog,
+        expectedUniversities.find(({ slug }) => slug === "cyprus-international-university"),
+      );
+      assert.ok(
+        await detailsDialog.evaluate((dialog) => dialog.scrollWidth <= dialog.clientWidth),
+        `${locale} translated university actions must fit the mobile modal.`,
       );
       await detailsDialog.getByRole("button", { name: closeLabel }).click();
       await detailsDialog.waitFor({ state: "hidden" });
@@ -1522,6 +1634,17 @@ async function runSmokeTests() {
         3,
         `${locale} Germany directory filter must show the three institutions.`,
       );
+      const hofUniversity = expectedUniversities.find(
+        ({ slug }) => slug === "hof-university-of-applied-sciences",
+      );
+      const hofUniversityCard = universityCards.filter({
+        has: page.getByRole("heading", { name: hofUniversity.name, exact: true }),
+      });
+      await assertWebsiteTab(hofUniversityCard, hofUniversity);
+      await hofUniversityCard.getByRole("button", { name: detailLabel }).click();
+      await assertWebsiteTab(detailsDialog, hofUniversity);
+      assert.equal(await universityCards.count(), 3);
+      await detailsDialog.getByRole("button", { name: closeLabel }).click();
       await gotoReady(page, `${baseUrl}/universities`);
       const universityApplicationHref = await page
         .locator('a[href^="/application?university="]')

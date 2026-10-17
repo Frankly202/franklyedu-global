@@ -107,38 +107,35 @@ export function UniversityCard({
         <Heading className="mt-4 text-xl font-semibold leading-snug text-navy">{u.name}</Heading>
         <p className="mt-1 text-sm text-muted-foreground">{location}</p>
         <p className="mt-3 text-sm leading-relaxed text-foreground">{u.summary}</p>
-        <div className="mt-auto flex flex-wrap gap-2 pt-5">
+        <div className="mt-auto flex flex-wrap gap-2 pt-5 [&>a]:max-w-full [&>a]:whitespace-normal [&>a]:text-center [&>a]:leading-snug">
+          <Link
+            to="/application"
+            search={{ university: u.slug }}
+            className="btn btn-primary btn-sm"
+          >
+            {common.cards.applyThroughFranklyEdu}
+          </Link>
           <button type="button" onClick={openDetails} className="btn btn-outline-dark btn-sm">
             {common.cards.viewDetails}
           </button>
           {u.officialUrl ? (
-            <>
-              <a
-                href={u.officialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline-dark btn-sm"
-              >
-                {common.cards.officialUniversityInfo}
-              </a>
-              <a
-                href={universityEnquiry}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary btn-sm"
-              >
-                {common.cards.enquire}
-              </a>
-            </>
-          ) : (
-            <Link
-              to="/application"
-              search={{ university: u.slug }}
-              className="btn btn-primary btn-sm"
+            <a
+              href={u.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline-dark btn-sm"
             >
-              {common.cards.applyNow}
-            </Link>
-          )}
+              {common.cards.officialUniversityInfo}
+            </a>
+          ) : null}
+          <a
+            href={universityEnquiry}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline-dark btn-sm"
+          >
+            {common.cards.enquire}
+          </a>
         </div>
       </article>
 
@@ -267,7 +264,15 @@ export function UniversityCard({
               </a>
             ) : null}
           </section>
-          <div className="mt-5 grid gap-2 sm:flex sm:flex-wrap">
+          <div className="mt-5 grid gap-2 sm:flex sm:flex-wrap [&>a]:max-w-full [&>a]:whitespace-normal [&>a]:text-center [&>a]:leading-snug">
+            <Link
+              to="/application"
+              search={{ university: u.slug }}
+              onClick={closeDetails}
+              className="btn btn-primary min-h-11"
+            >
+              {common.cards.applyThroughFranklyEdu}
+            </Link>
             <Link
               to="/courses"
               search={{ university: u.slug }}
@@ -276,42 +281,28 @@ export function UniversityCard({
             >
               {education.universities.exploreCourses}
             </Link>
-            {!u.officialUrl ? (
-              <Link
-                to="/application"
-                search={{ university: u.slug }}
-                onClick={closeDetails}
-                className="btn btn-primary min-h-11"
-              >
-                {common.cards.applyNow}
-              </Link>
-            ) : null}
             {u.officialUrl ? (
-              <>
-                <a
-                  href={u.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline-dark btn-sm"
-                >
-                  {common.cards.applyNow}
-                </a>
-                <a
-                  href={universityEnquiry}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary btn-sm"
-                >
-                  {common.cards.enquire}
-                </a>
-              </>
+              <a
+                href={u.officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline-dark min-h-11"
+              >
+                {common.cards.officialUniversityInfo}
+              </a>
             ) : null}
+            <a
+              href={universityEnquiry}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline-dark min-h-11"
+            >
+              {common.cards.enquire}
+            </a>
           </div>
-          {u.officialUrl ? (
-            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-              {education.universities.externalApplicationNote}
-            </p>
-          ) : null}
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            {education.universities.externalApplicationNote}
+          </p>
         </div>
       </dialog>
     </>
