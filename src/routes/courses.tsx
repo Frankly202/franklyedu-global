@@ -22,7 +22,7 @@ export const Route = createFileRoute("/courses")({
   head: () =>
     pageMeta(
       "Courses",
-      "Review nursing Master's programmes in Germany, with links to university sources and clear notes on information that still needs confirmation.",
+      "Browse published programmes with university source links. Confirm current programme availability, fees, and admission requirements with each institution.",
       { path: "/courses" },
     ),
   component: CoursesPage,

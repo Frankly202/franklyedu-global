@@ -94,6 +94,7 @@ export interface University {
   name: string;
   src?: string;
   logoMark?: string;
+  logoSurface?: "dark";
   summary: string;
   country: string;
   countrySlug: string;
@@ -104,6 +105,7 @@ export interface University {
   studyAreas?: string[];
   studyAreasUrl?: string;
   scholarship?: { summary: string; sourceUrl: string };
+  feeInfo?: { summary: string; sourceUrl: string };
 }
 
 export const universities: University[] = [
@@ -151,6 +153,97 @@ export const universities: University[] = [
     country: "Cyprus / North Cyprus",
     countrySlug: "cyprus",
     city: "Kyrenia (Girne)",
+  },
+  {
+    slug: "near-east-university",
+    name: "Near East University",
+    src: "/Uni-Logos/Near_East_University-logo.svg",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Nicosia",
+    officialUrl: "https://neu.edu.tr/?lang=en",
+  },
+  {
+    slug: "eastern-mediterranean-university",
+    name: "Eastern Mediterranean University",
+    src: "/Uni-Logos/emu-logo-horizontalwhite-en.svg",
+    logoSurface: "dark",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Famagusta",
+    officialUrl: "https://www.emu.edu.tr/en",
+    studyAreas: [
+      "Arts & Sciences",
+      "Business and Economics",
+      "Communication",
+      "Computer and Information Sciences",
+      "Tourism",
+      "Engineering",
+      "Architecture",
+      "Education",
+      "Law",
+      "Health Sciences",
+    ],
+    scholarship: {
+      summary:
+        "EMU's 2026/27 schedule shows scholarship-priced tiers of 60%, 65%, and 70% for most faculties, 30%–45% for Medicine and Dentistry, and 75% for Turkmenistan. It does not define individual eligibility; confirm your tier and payable amount with EMU.",
+      sourceUrl:
+        "https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1",
+    },
+    feeInfo: {
+      summary:
+        "EMU's official 2026/27 schedule lists annual advance-payment tuition in USD by faculty and scholarship tier. For most faculties, it lists $6,400 at 60%, $5,750 at 65%, and $5,100 at 70%; a separate 75% tier is listed for Turkmenistan. Medicine and Dentistry use 30%–45% tiers in the schedule. Fees include the Student Services Fund, VAT and filing fee; English-preparation books and exams add $250 per semester. Confirm the applicable faculty, award eligibility and payable amount with EMU.",
+      sourceUrl:
+        "https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1",
+    },
+  },
+  {
+    slug: "girne-american-university",
+    name: "Girne American University",
+    src: "/Uni-Logos/girne-american-university-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Kyrenia",
+    officialUrl: "https://www.gau.edu.tr/en/",
+  },
+  {
+    slug: "european-university-of-lefke",
+    name: "European University of Lefke",
+    src: "/Uni-Logos/european-university-of-lefke-logo.png",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Lefke",
+    officialUrl: "https://www.eul.edu.tr/en/",
+  },
+  {
+    slug: "cyprus-health-and-social-sciences-university",
+    name: "Cyprus Health and Social Sciences University (KSTU)",
+    src: "/Uni-Logos/kstu-logo.webp",
+    logoSurface: "dark",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Güzelyurt",
+    officialUrl: "https://www.kstu.edu.tr/",
+  },
+  {
+    slug: "bahcesehir-cyprus-university",
+    name: "Bahçeşehir Cyprus University",
+    src: "/Uni-Logos/bau-cyprus-logo.webp",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "Cyprus / North Cyprus",
+    countrySlug: "cyprus",
+    city: "Nicosia",
+    officialUrl: "https://baucyprus.edu.tr/",
+    feeInfo: {
+      summary:
+        "BAU's official international fee page lists a Master's course-registration fee of $600 per course (at least three courses plus a $300 annual social fund paid in advance: $2,100) and a PhD course-registration fee of $1,200 per course (at least two courses plus the fund: $2,700). The page does not identify an academic year. These course-based advance payments are not confirmed acceptance or visa deposits, or full programme costs; the page states that 5% VAT is included. Confirm the intake and payable amount with BAU.",
+      sourceUrl: "https://www.baucyprus.edu.tr/tuition-fees",
+    },
   },
   {
     slug: "university-of-memphis",

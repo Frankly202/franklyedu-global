@@ -19,7 +19,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Courses",
       description:
-        "Review nursing Master's programmes in Germany, with university source links and clear notes on details that still need confirmation.",
+        "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.",
     },
     "/universities": {
       title: "Universities",
@@ -96,7 +96,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Programlar",
       description:
-        "Almanya'daki hemşirelik yüksek lisans programlarını ve üniversite kaynaklarını inceleyin; teyit edilmesi gereken ayrıntılar açıkça belirtilir.",
+        "Üniversite kaynak bağlantılarıyla yayımlanan programları inceleyin. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; program uygunluğunu, ücretleri ve kabul koşullarını her kurumdan teyit edin.",
     },
     "/universities": {
       title: "Üniversiteler",
@@ -171,7 +171,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Formations",
       description:
-        "Consultez les masters en soins infirmiers en Allemagne, les sources universitaires et les informations qui restent à confirmer.",
+        "Consultez les formations publiées et leurs sources universitaires. Les formations nommées actuellement répertoriées sont des masters en sciences infirmières en Allemagne ; confirmez auprès de chaque établissement la disponibilité, les frais et les conditions d’admission.",
     },
     "/universities": {
       title: "Universités",
@@ -249,7 +249,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Programu za masomo",
       description:
-        "Pitia programu za uzamili za uuguzi nchini Ujerumani, viungo vya vyanzo vya vyuo na maelezo ambayo bado yanahitaji kuthibitishwa.",
+        "Angalia programu zilizochapishwa pamoja na viungo vya vyanzo vya vyuo vikuu. Programu zenye majina zilizoorodheshwa sasa ni programu za uzamili za uuguzi nchini Ujerumani; thibitisha upatikanaji, ada na masharti ya udahili na kila taasisi.",
     },
     "/universities": {
       title: "Vyuo vikuu",

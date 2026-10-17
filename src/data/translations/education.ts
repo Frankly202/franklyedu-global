@@ -13,6 +13,8 @@ export interface EducationTranslation {
     studyAreasLabel: string;
     studyAreasPending: string;
     studyAreasSource: string;
+    feeInfoLabel: string;
+    feeInfoSource: string;
     scholarshipLabel: string;
     scholarshipPending: string;
     scholarshipSource: string;
@@ -95,6 +97,8 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       studyAreasLabel: "Study areas",
       studyAreasPending: "Study areas require confirmation with the university.",
       studyAreasSource: "University study information",
+      feeInfoLabel: "Fee information",
+      feeInfoSource: "University fee source",
       scholarshipLabel: "Scholarship information",
       scholarshipPending: "No confirmed scholarship details are published for this university.",
       scholarshipSource: "University scholarship information",
@@ -107,7 +111,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       defaultTitle: "Compare programme details before you take the next step.",
       optionsAt: "Study options at",
       subtitle:
-        "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.",
+        "Browse the published programme catalogue. Current named listings are German nursing Master's programmes; other programmes appear after their details are verified. Confirm current availability, fees, and admission requirements directly with the institution.",
       subjectLabel: "Field of Study",
       allSubjects: "All subjects",
       levelLabel: "Study Level",
@@ -185,6 +189,8 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       studyAreasLabel: "Eğitim alanları",
       studyAreasPending: "Eğitim alanları üniversiteden teyit edilmelidir.",
       studyAreasSource: "Üniversitenin eğitim bilgileri",
+      feeInfoLabel: "Ücret bilgileri",
+      feeInfoSource: "Üniversitenin ücret kaynağı",
       scholarshipLabel: "Burs bilgileri",
       scholarshipPending: "Bu üniversite için teyit edilmiş burs ayrıntıları yayımlanmamıştır.",
       scholarshipSource: "Üniversitenin burs bilgileri",
@@ -197,7 +203,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       defaultTitle: "Sonraki adımınızı atmadan önce program ayrıntılarını karşılaştırın.",
       optionsAt: "Eğitim seçenekleri:",
       subtitle:
-        "Almanya'daki kurumların hemşirelik yüksek lisans bilgilerini inceleyin. Üniversite kaynaklarına bağlantı veriyoruz; başvurmadan önce tarihleri, ücretleri ve koşulları teyit edin.",
+        "Yayımlanan program kataloğuna göz atın. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; diğer programlar ayrıntıları doğrulandıktan sonra eklenir. Güncel uygunluk, ücretler ve kabul koşullarını doğrudan kurumdan teyit edin.",
       subjectLabel: "Eğitim Alanı",
       allSubjects: "Tüm alanlar",
       levelLabel: "Eğitim Seviyesi",

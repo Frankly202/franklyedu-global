@@ -245,6 +245,12 @@ async function verifyProductionArtifacts() {
     "Uni-Logos/hof-logo.gif",
     "Uni-Logos/oth-regensburg-logo.svg",
     "Uni-Logos/ehs-dresden-logo.png",
+    "Uni-Logos/Near_East_University-logo.svg",
+    "Uni-Logos/emu-logo-horizontalwhite-en.svg",
+    "Uni-Logos/girne-american-university-logo.png",
+    "Uni-Logos/european-university-of-lefke-logo.png",
+    "Uni-Logos/kstu-logo.webp",
+    "Uni-Logos/bau-cyprus-logo.webp",
     "background/campus-background.png",
     "background/contact-background.png",
     "background/marketplace-background.png",
@@ -952,12 +958,62 @@ async function runSmokeTests() {
           name: "Cyprus International University",
           logo: "/Uni-Logos/CIU-logo.png",
           location: "Nicosia",
+          studyAreaCount: 10,
         },
         {
           slug: "university-of-kyrenia",
           name: "University of Kyrenia (Girne Üniversitesi)",
           logo: "/Uni-Logos/girne-uni-logo.png",
           location: "Kyrenia (Girne)",
+        },
+        {
+          slug: "near-east-university",
+          name: "Near East University",
+          logo: "/Uni-Logos/Near_East_University-logo.svg",
+          logoAspectRatio: 1,
+          location: "Nicosia",
+          officialUrl: "https://neu.edu.tr/?lang=en",
+        },
+        {
+          slug: "eastern-mediterranean-university",
+          name: "Eastern Mediterranean University",
+          logo: "/Uni-Logos/emu-logo-horizontalwhite-en.svg",
+          logoSurface: "navy",
+          location: "Famagusta",
+          officialUrl: "https://www.emu.edu.tr/en",
+          studyAreaCount: 10,
+          feeSourceUrl:
+            "https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1",
+        },
+        {
+          slug: "girne-american-university",
+          name: "Girne American University",
+          logo: "/Uni-Logos/girne-american-university-logo.png",
+          location: "Kyrenia",
+          officialUrl: "https://www.gau.edu.tr/en/",
+        },
+        {
+          slug: "european-university-of-lefke",
+          name: "European University of Lefke",
+          logo: "/Uni-Logos/european-university-of-lefke-logo.png",
+          location: "Lefke",
+          officialUrl: "https://www.eul.edu.tr/en/",
+        },
+        {
+          slug: "cyprus-health-and-social-sciences-university",
+          name: "Cyprus Health and Social Sciences University (KSTU)",
+          logo: "/Uni-Logos/kstu-logo.webp",
+          logoSurface: "navy",
+          location: "Güzelyurt",
+          officialUrl: "https://www.kstu.edu.tr/",
+        },
+        {
+          slug: "bahcesehir-cyprus-university",
+          name: "Bahçeşehir Cyprus University",
+          logo: "/Uni-Logos/bau-cyprus-logo.webp",
+          location: "Nicosia",
+          officialUrl: "https://baucyprus.edu.tr/",
+          feeSourceUrl: "https://www.baucyprus.edu.tr/tuition-fees",
         },
         {
           slug: "university-of-memphis",
@@ -990,6 +1046,7 @@ async function runSmokeTests() {
             fr: "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
             sw: "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
           },
+          studyAreaCount: 1,
         },
         {
           slug: "oth-regensburg",
@@ -1004,6 +1061,7 @@ async function runSmokeTests() {
             fr: "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
             sw: "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
           },
+          studyAreaCount: 1,
         },
         {
           slug: "evangelische-hochschule-dresden",
@@ -1018,6 +1076,7 @@ async function runSmokeTests() {
             fr: "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
             sw: "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
           },
+          studyAreaCount: 1,
         },
       ];
       const detailLabel = {
@@ -1038,12 +1097,38 @@ async function runSmokeTests() {
           ? "Girne (Kyrenia)"
           : university.location;
 
+      for (const name of [
+        "Near East University",
+        "Eastern Mediterranean University",
+        "Girne American University",
+        "European University of Lefke",
+        "Cyprus Health and Social Sciences University (KSTU)",
+        "Bahçeşehir Cyprus University",
+      ]) {
+        assert.equal(
+          await page.getByRole("heading", { name, exact: true }).count(),
+          1,
+          `${locale} homepage must include ${name}.`,
+        );
+      }
+      for (const name of [
+        "Hof University of Applied Sciences",
+        "OTH Regensburg",
+        "Evangelische Hochschule Dresden",
+      ]) {
+        assert.equal(
+          await page.getByRole("heading", { name, exact: true }).count(),
+          0,
+          `${locale} homepage must keep ${name} excluded.`,
+        );
+      }
+
       await gotoReady(page, `${baseUrl}/universities`);
       const universityCards = page.locator("main article.card-light");
       assert.equal(
         await universityCards.count(),
-        9,
-        `${locale} directory must show nine universities.`,
+        15,
+        `${locale} directory must show all fifteen universities.`,
       );
       for (const university of expectedUniversities) {
         const card = universityCards.filter({
@@ -1051,6 +1136,8 @@ async function runSmokeTests() {
         });
         assert.equal(await card.count(), 1, `${locale} must render ${university.name}.`);
         if (university.logo) {
+          await card.scrollIntoViewIfNeeded();
+          await card.locator("img").evaluate((image) => image.decode());
           assert.equal(
             await card.locator("img").getAttribute("src"),
             university.logo,
@@ -1065,6 +1152,25 @@ async function runSmokeTests() {
             await card.locator("img").evaluate((image) => image.complete && image.naturalWidth > 0),
             `${university.name} logo must load successfully.`,
           );
+          if (university.logoAspectRatio) {
+            assert.ok(
+              await card
+                .locator("img")
+                .evaluate(
+                  (image, aspectRatio) =>
+                    Math.abs(image.naturalWidth / image.naturalHeight - aspectRatio) < 0.01,
+                  university.logoAspectRatio,
+                ),
+              `${university.name} logo must preserve its intrinsic aspect ratio.`,
+            );
+          }
+          if (university.logoSurface === "navy") {
+            assert.match(
+              await card.locator("div").first().getAttribute("class"),
+              /bg-navy/,
+              `${university.name} white logo must have its official dark surface.`,
+            );
+          }
         } else {
           assert.equal(
             await card.locator("img").count(),
@@ -1112,7 +1218,7 @@ async function runSmokeTests() {
 
       assert.equal(
         await universityCards.getByRole("button", { name: detailLabel }).count(),
-        9,
+        15,
         `${locale} must localize View Details on every card.`,
       );
       const detailsDialog = page.getByRole("dialog");
@@ -1124,6 +1230,20 @@ async function runSmokeTests() {
         const originalScroll = await scrollState(page);
         await detailsButton.click();
         await detailsDialog.waitFor({ state: "visible" });
+        if (university.logo) {
+          const modalLogo = detailsDialog.locator("img");
+          assert.equal(
+            await modalLogo.getAttribute("src"),
+            university.logo,
+            `${university.name} modal must use its matching logo asset.`,
+          );
+          await modalLogo.evaluate((image) => image.decode());
+          assert.equal(
+            await modalLogo.evaluate((image) => getComputedStyle(image).objectFit),
+            "contain",
+            `${university.name} modal logo must fit without cropping.`,
+          );
+        }
         assert.equal(
           await page.locator("body").evaluate((body) => getComputedStyle(body).position),
           "fixed",
@@ -1163,18 +1283,67 @@ async function runSmokeTests() {
         );
         assert.equal(
           await detailsDialog.locator("li").count(),
-          university.slug === "cyprus-international-university"
-            ? 10
-            : university.officialUrl
-              ? 1
-              : 0,
+          university.studyAreaCount ?? 0,
           `${locale} modal must show only supplied or sourced study areas.`,
         );
+        const modalText = await detailsDialog.innerText();
         assert.doesNotMatch(
-          await detailsDialog.innerText(),
-          /[€£$]\s*\d|\d+\s*(?:semesters?|years?)|Cross-Cultural Nursing Practice|Advanced Nursing Practice \(M|Community Health Nursing \(CHN\)/i,
-          `${locale} modals must not contain invented prices, durations, or catalogue programmes.`,
+          modalText,
+          /\d+\s*(?:semesters?|years?)|Cross-Cultural Nursing Practice|Advanced Nursing Practice \(M|Community Health Nursing \(CHN\)/i,
+          `${locale} modals must not contain invented durations or catalogue programmes.`,
         );
+        if (university.feeSourceUrl) {
+          const feeSourceLinks = detailsDialog.locator(`a[href="${university.feeSourceUrl}"]`);
+          assert.equal(
+            await feeSourceLinks.count(),
+            university.slug === "eastern-mediterranean-university" ? 2 : 1,
+            `${locale} ${university.name} fee details must link to their official source.`,
+          );
+          const feeText = await feeSourceLinks.first().evaluate((link) => {
+            return link.closest("section")?.innerText ?? "";
+          });
+          assert.ok(feeText.length > 0);
+          if (locale === "en" && university.slug === "eastern-mediterranean-university") {
+            assert.match(feeText, /\$6,400.*\$5,100/s);
+            assert.match(feeText, /annual advance-payment tuition in USD/);
+            assert.match(feeText, /most faculties/);
+            assert.match(feeText, /\$250 per semester/);
+          }
+          if (locale === "en" && university.slug === "bahcesehir-cyprus-university") {
+            assert.match(feeText, /\$2,100.*\$2,700/s);
+            assert.match(feeText, /does not identify an academic year/);
+            assert.match(feeText, /not confirmed acceptance or visa deposits/);
+          }
+        } else {
+          assert.doesNotMatch(
+            modalText,
+            /[€£$]\s*\d/,
+            `${locale} modal must not show unverified tuition amounts.`,
+          );
+        }
+        if (university.slug === "eastern-mediterranean-university") {
+          const scholarship = await detailsDialog.locator("section").last().innerText();
+          for (const tier of ["60", "65", "70", "30", "45", "75"]) {
+            assert.ok(
+              scholarship.includes(tier),
+              `${locale} EMU scholarship information must preserve the ${tier}% tier.`,
+            );
+          }
+          if (locale === "en") {
+            assert.deepEqual(await detailsDialog.locator("li").allTextContents(), [
+              "Arts & Sciences",
+              "Business and Economics",
+              "Communication",
+              "Computer and Information Sciences",
+              "Tourism",
+              "Engineering",
+              "Architecture",
+              "Education",
+              "Law",
+              "Health Sciences",
+            ]);
+          }
+        }
         if (university.slug === "cyprus-international-university") {
           assert.equal(
             await detailsDialog
@@ -1268,16 +1437,40 @@ async function runSmokeTests() {
       );
       await detailsDialog.getByRole("button", { name: closeLabel }).click();
       await detailsDialog.waitFor({ state: "hidden" });
+      const emuDetailsButton = universityCards
+        .filter({
+          has: page.getByRole("heading", { name: "Eastern Mediterranean University", exact: true }),
+        })
+        .getByRole("button", { name: detailLabel });
+      await emuDetailsButton.click();
+      assert.ok(
+        await detailsDialog.evaluate((dialog) => dialog.scrollHeight > dialog.clientHeight),
+        `${locale} EMU fee details must remain internally scrollable on mobile.`,
+      );
+      const emuFeeLink = detailsDialog.locator(
+        'a[href="https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1"]',
+      );
+      await emuFeeLink.first().scrollIntoViewIfNeeded();
+      assert.ok(await emuFeeLink.first().isVisible());
+      await detailsDialog.getByRole("button", { name: closeLabel }).click();
+      await detailsDialog.waitFor({ state: "hidden" });
       await page.setViewportSize({ width: 1440, height: 1000 });
 
-      for (const slug of ["cyprus-international-university", "oth-regensburg"]) {
+      for (const slug of [
+        "cyprus-international-university",
+        "oth-regensburg",
+        "near-east-university",
+        "eastern-mediterranean-university",
+        "girne-american-university",
+        "european-university-of-lefke",
+        "cyprus-health-and-social-sciences-university",
+        "bahcesehir-cyprus-university",
+      ]) {
+        const university = expectedUniversities.find((candidate) => candidate.slug === slug);
+        assert.ok(university, `${locale} course filter test must reference ${slug}.`);
         await universityCards
           .filter({
-            has: page.getByRole("heading", {
-              name:
-                slug === "oth-regensburg" ? "OTH Regensburg" : "Cyprus International University",
-              exact: true,
-            }),
+            has: page.getByRole("heading", { name: university.name, exact: true }),
           })
           .getByRole("button", { name: detailLabel })
           .click();
@@ -1289,7 +1482,7 @@ async function runSmokeTests() {
           slug === "oth-regensburg" ? 1 : 0,
           `${locale} Explore Courses must show only published programmes for that university.`,
         );
-        if (slug === "cyprus-international-university") {
+        if (slug !== "oth-regensburg") {
           assert.ok(
             (await page.locator("main").innerText()).includes(
               {
@@ -1487,10 +1680,10 @@ async function runSmokeTests() {
       assert.equal(
         courseMetaDescription,
         {
-          en: "Review nursing Master's programmes in Germany, with university source links and clear notes on details that still need confirmation.",
-          tr: "Almanya'daki hemşirelik yüksek lisans programlarını ve üniversite kaynaklarını inceleyin; teyit edilmesi gereken ayrıntılar açıkça belirtilir.",
-          fr: "Consultez les masters en soins infirmiers en Allemagne, les sources universitaires et les informations qui restent à confirmer.",
-          sw: "Pitia programu za uzamili za uuguzi nchini Ujerumani, viungo vya vyanzo vya vyuo na maelezo ambayo bado yanahitaji kuthibitishwa.",
+          en: "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.",
+          tr: "Üniversite kaynak bağlantılarıyla yayımlanan programları inceleyin. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; program uygunluğunu, ücretleri ve kabul koşullarını her kurumdan teyit edin.",
+          fr: "Consultez les formations publiées et leurs sources universitaires. Les formations nommées actuellement répertoriées sont des masters en sciences infirmières en Allemagne ; confirmez auprès de chaque établissement la disponibilité, les frais et les conditions d’admission.",
+          sw: "Angalia programu zilizochapishwa pamoja na viungo vya vyanzo vya vyuo vikuu. Programu zenye majina zilizoorodheshwa sasa ni programu za uzamili za uuguzi nchini Ujerumani; thibitisha upatikanaji, ada na masharti ya udahili na kila taasisi.",
         }[locale],
         `${locale} course metadata must use its approved localized description.`,
       );

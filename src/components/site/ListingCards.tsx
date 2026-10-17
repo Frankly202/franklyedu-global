@@ -21,6 +21,7 @@ export function UniversityCard({
   const backdropPressRef = useRef(false);
   const dialogTitleId = useId();
   const location = `${u.city}, ${u.country}`;
+  const logoSurface = u.logoSurface === "dark" ? "bg-navy" : "bg-white";
   const universityEnquiry = whatsappLink(common.cards.whatsappMessages.university(u.name));
 
   useEffect(() => () => restoreScrollRef.current?.(), []);
@@ -84,7 +85,9 @@ export function UniversityCard({
   return (
     <>
       <article className="card-light flex h-full flex-col p-5 sm:p-6">
-        <div className="flex h-24 items-center justify-center rounded-lg bg-white p-3 sm:h-28">
+        <div
+          className={`flex h-24 items-center justify-center rounded-lg ${logoSurface} p-3 sm:h-28`}
+        >
           {u.src ? (
             <img
               src={u.src}
@@ -177,7 +180,9 @@ export function UniversityCard({
       >
         <div className="p-5 sm:p-6">
           <div className="flex items-start justify-between gap-4">
-            <div className="flex h-20 w-full max-w-xs items-center justify-center rounded-lg bg-white p-3 sm:h-24">
+            <div
+              className={`flex h-20 w-full max-w-xs items-center justify-center rounded-lg ${logoSurface} p-3 sm:h-24`}
+            >
               {u.src ? (
                 <img src={u.src} alt={`${u.name} logo`} className="h-full w-full object-contain" />
               ) : (
@@ -228,6 +233,22 @@ export function UniversityCard({
               </a>
             ) : null}
           </section>
+          {u.feeInfo ? (
+            <section className="mt-4 rounded-xl border border-border bg-cream p-3">
+              <h3 className="text-sm font-semibold text-navy">
+                {education.universities.feeInfoLabel}
+              </h3>
+              <p className="mt-1 text-sm leading-relaxed">{u.feeInfo.summary}</p>
+              <a
+                href={u.feeInfo.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-block text-sm font-semibold text-navy underline underline-offset-4"
+              >
+                {education.universities.feeInfoSource}
+              </a>
+            </section>
+          ) : null}
           <section className="mt-4 rounded-xl border border-border bg-cream p-3">
             <h3 className="text-sm font-semibold text-navy">
               {education.universities.scholarshipLabel}

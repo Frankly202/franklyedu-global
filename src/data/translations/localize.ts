@@ -26,6 +26,27 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Architecture: "Mimarlık",
     "Tourism and Hospitality": "Turizm ve Otelcilik",
     "Master’s and PhD programmes": "Yüksek lisans ve doktora programları",
+    "Arts & Sciences": "Sanat ve Fen Bilimleri",
+    "Business and Economics": "İşletme ve Ekonomi",
+    Communication: "İletişim",
+    "Computer and Information Sciences": "Bilgisayar ve Bilgi Bilimleri",
+    Tourism: "Turizm",
+    Law: "Hukuk",
+    "Health Sciences": "Sağlık Bilimleri",
+    Dentistry: "Diş Hekimliği",
+    Medicine: "Tıp",
+    "Fee information": "Ücret bilgileri",
+    "University fee source": "Üniversitenin ücret kaynağı",
+    "EMU's 2026/27 schedule shows scholarship-priced tiers of 60%, 65%, and 70% for most faculties, 30%–45% for Medicine and Dentistry, and 75% for Turkmenistan. It does not define individual eligibility; confirm your tier and payable amount with EMU.":
+      "EMU'nun 2026/27 çizelgesinde çoğu fakülte için %60, %65 ve %70; Tıp ve Diş Hekimliği için %30–%45, Türkmenistan için %75 burs kademeleriyle fiyatlar listelenir. Bireysel uygunluk koşulları belirtilmemiştir; burs kademenizi ve ödenecek tutarı EMU'dan teyit edin.",
+    "EMU's official 2026/27 schedule lists annual advance-payment tuition in USD by faculty and scholarship tier. For most faculties, it lists $6,400 at 60%, $5,750 at 65%, and $5,100 at 70%; a separate 75% tier is listed for Turkmenistan. Medicine and Dentistry use 30%–45% tiers in the schedule. Fees include the Student Services Fund, VAT and filing fee; English-preparation books and exams add $250 per semester. Confirm the applicable faculty, award eligibility and payable amount with EMU.":
+      "EMU'nun resmi 2026/27 çizelgesi, fakülte ve burs kademesine göre yıllık peşin öğrenim ücretlerini USD cinsinden listeler. Çoğu fakültede %60 için $6,400, %65 için $5,750 ve %70 için $5,100; Türkmenistan için ayrı %75 kademesi yer alır. Tıp ve Diş Hekimliği için çizelgede %30–%45 kademeleri bulunur. Ücrete Öğrenci Hizmetleri Fonu, KDV ve kayıt dosyalama ücreti dahildir; İngilizce hazırlık kitap ve sınav ücretleri dönem başına $250 eklenir. Uygun fakülteyi, burs kademesini ve ödenecek tutarı EMU'dan teyit edin.",
+    "BAU's official international fee page lists a Master's course-registration fee of $600 per course (at least three courses plus a $300 annual social fund paid in advance: $2,100) and a PhD course-registration fee of $1,200 per course (at least two courses plus the fund: $2,700). The page does not identify an academic year. These course-based advance payments are not confirmed acceptance or visa deposits, or full programme costs; the page states that 5% VAT is included. Confirm the intake and payable amount with BAU.":
+      "BAU'nun resmi uluslararası ücret sayfasında yüksek lisans ders kayıt ücreti ders başına $600 (en az üç ders ve yıllık $300 sosyal fonun peşin ödenmesi: $2.100), doktora ders kayıt ücreti ise ders başına $1.200 (en az iki ders ve fon: $2.700) olarak belirtilir. Sayfa akademik yılı belirtmez. Ders esaslı bu peşin ödemeler, teyit edilmiş kabul veya vize depozitosu ya da programın toplam ücreti değildir; sayfaya göre %5 KDV dahildir. Kayıt dönemini ve ödenecek tutarı BAU'dan teyit edin.",
+    "Browse the published programme catalogue. Current named listings are German nursing Master's programmes; other programmes appear after their details are verified. Confirm current availability, fees, and admission requirements directly with the institution.":
+      "Yayımlanan program kataloğuna göz atın. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; diğer programlar ayrıntıları doğrulandıktan sonra eklenir. Güncel uygunluk, ücretler ve kabul koşullarını doğrudan kurumdan teyit edin.",
+    "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.":
+      "Üniversite kaynak bağlantılarıyla yayımlanan programları inceleyin. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; program uygunluğunu, ücretleri ve kabul koşullarını her kurumdan teyit edin.",
     "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
       "CIU, uluslararası lisans öğrencilerine %50 öğrenim ücreti bursu verildiğini belirtmektedir. Başvuru yapmadan veya herhangi bir ödeme gerçekleştirmeden önce uygunluk ve ödenecek öğrenim ücreti doğrudan CIU'dan teyit edilmelidir.",
     "Refer to the institution's official site for current programmes and admissions information.":
@@ -36,8 +57,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Ask about programme": "Programı sorun",
     "Compare programme details before you take the next step.":
       "Sonraki adımınızı atmadan önce program ayrıntılarını karşılaştırın.",
-    "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.":
-      "Almanya'daki kurumların hemşirelik yüksek lisans bilgilerini inceleyin. Üniversite kaynaklarına bağlantı veriyoruz; başvurmadan önce tarihleri, ücretleri ve koşulları teyit edin.",
     "No programmes match these filters": "Bu filtrelerle eşleşen program yok",
     "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.":
       "Güncel programları görmek için bir filtreyi temizleyin. Kayıt ve kabul bilgilerinin bazıları kurumdan doğrudan teyit edilmelidir.",
@@ -865,6 +884,27 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study areas require confirmation with the university.":
       "Les domaines d’études doivent être confirmés auprès de l’université.",
     "University study information": "Informations universitaires sur les études",
+    "Fee information": "Informations sur les frais",
+    "University fee source": "Source des frais universitaires",
+    "Arts & Sciences": "Arts et sciences",
+    "Business and Economics": "Commerce et économie",
+    Communication: "Communication",
+    "Computer and Information Sciences": "Informatique et sciences de l’information",
+    Tourism: "Tourisme",
+    Law: "Droit",
+    "Health Sciences": "Sciences de la santé",
+    Dentistry: "Dentisterie",
+    Medicine: "Médecine",
+    "EMU's 2026/27 schedule shows scholarship-priced tiers of 60%, 65%, and 70% for most faculties, 30%–45% for Medicine and Dentistry, and 75% for Turkmenistan. It does not define individual eligibility; confirm your tier and payable amount with EMU.":
+      "Le barème EMU 2026/27 présente des tarifs selon des niveaux de bourse de 60 %, 65 % et 70 % pour la plupart des facultés, de 30 % à 45 % pour la médecine et la dentisterie, ainsi qu’un niveau de 75 % pour le Turkménistan. Les critères d’éligibilité individuels ne sont pas précisés ; confirmez votre niveau et le montant à payer auprès de l’EMU.",
+    "EMU's official 2026/27 schedule lists annual advance-payment tuition in USD by faculty and scholarship tier. For most faculties, it lists $6,400 at 60%, $5,750 at 65%, and $5,100 at 70%; a separate 75% tier is listed for Turkmenistan. Medicine and Dentistry use 30%–45% tiers in the schedule. Fees include the Student Services Fund, VAT and filing fee; English-preparation books and exams add $250 per semester. Confirm the applicable faculty, award eligibility and payable amount with EMU.":
+      "Le barème officiel EMU 2026/27 indique les frais annuels payables à l’avance, en USD, selon la faculté et le niveau de bourse. Pour la plupart des facultés : 6 400 $ à 60 %, 5 750 $ à 65 % et 5 100 $ à 70 % ; un niveau distinct de 75 % est indiqué pour le Turkménistan. Les facultés de médecine et de dentisterie utilisent des niveaux de 30 % à 45 %. Les frais incluent le fonds des services étudiants, la TVA et les frais de dossier d’inscription ; les livres et examens de préparation en anglais coûtent 250 $ par semestre en supplément. Confirmez la faculté, l’éligibilité et le montant à payer auprès de l’EMU.",
+    "BAU's official international fee page lists a Master's course-registration fee of $600 per course (at least three courses plus a $300 annual social fund paid in advance: $2,100) and a PhD course-registration fee of $1,200 per course (at least two courses plus the fund: $2,700). The page does not identify an academic year. These course-based advance payments are not confirmed acceptance or visa deposits, or full programme costs; the page states that 5% VAT is included. Confirm the intake and payable amount with BAU.":
+      "La page officielle des frais internationaux de BAU indique des frais d’inscription de 600 $ par cours de master (au moins trois cours et 300 $ de fonds social annuel payés à l’avance : 2 100 $) et de 1 200 $ par cours de doctorat (au moins deux cours et le fonds : 2 700 $). La page ne précise pas l’année universitaire. Ces paiements anticipés calculés par cours ne sont ni un dépôt d’admission ou de visa confirmé ni le coût total de la formation ; la page indique que la TVA de 5 % est incluse. Confirmez l’année d’admission et le montant à payer auprès de BAU.",
+    "Browse the published programme catalogue. Current named listings are German nursing Master's programmes; other programmes appear after their details are verified. Confirm current availability, fees, and admission requirements directly with the institution.":
+      "Consultez le catalogue des formations publiées. Les formations nommées actuellement répertoriées sont des masters en sciences infirmières en Allemagne ; les autres formations seront ajoutées après vérification de leurs détails. Confirmez auprès de l’établissement la disponibilité, les frais et les conditions d’admission actuels.",
+    "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.":
+      "Consultez les formations publiées et leurs sources universitaires. Les formations nommées actuellement répertoriées sont des masters en sciences infirmières en Allemagne ; confirmez auprès de chaque établissement la disponibilité, les frais et les conditions d’admission.",
     "No confirmed scholarship details are published for this university.":
       "Aucun détail confirmé sur les bourses n’est publié pour cette université.",
     "University scholarship information": "Informations universitaires sur les bourses",
@@ -897,8 +937,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Ask about programme": "Se renseigner",
     "Compare programme details before you take the next step.":
       "Comparez les détails des formations avant de poursuivre.",
-    "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.":
-      "Consultez les informations sur les masters en soins infirmiers en Allemagne. Les liens renvoient aux sources universitaires ; vérifiez les dates, frais et conditions avant de postuler.",
     "No programmes match these filters": "Aucune formation ne correspond à ces filtres",
     "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.":
       "Supprimez un filtre pour voir les formations disponibles. Certaines dates et informations d’admission doivent encore être confirmées auprès de l’établissement.",
@@ -1875,6 +1913,27 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Study areas require confirmation with the university.":
       "Maeneo ya masomo yanahitaji kuthibitishwa na chuo kikuu.",
     "University study information": "Taarifa za masomo za chuo kikuu",
+    "Fee information": "Taarifa za ada",
+    "University fee source": "Chanzo cha ada cha chuo kikuu",
+    "Arts & Sciences": "Sanaa na Sayansi",
+    "Business and Economics": "Biashara na Uchumi",
+    Communication: "Mawasiliano",
+    "Computer and Information Sciences": "Sayansi za Kompyuta na Habari",
+    Tourism: "Utalii",
+    Law: "Sheria",
+    "Health Sciences": "Sayansi za Afya",
+    Dentistry: "Udaktari wa Meno",
+    Medicine: "Udaktari",
+    "EMU's 2026/27 schedule shows scholarship-priced tiers of 60%, 65%, and 70% for most faculties, 30%–45% for Medicine and Dentistry, and 75% for Turkmenistan. It does not define individual eligibility; confirm your tier and payable amount with EMU.":
+      "Ratiba ya EMU ya 2026/27 inaonyesha bei za viwango vya ufadhili vya 60%, 65% na 70% kwa vitivo vingi, 30%–45% kwa Udaktari na Udaktari wa Meno, na 75% kwa Turkmenistan. Haielezi ustahiki wa mtu binafsi; thibitisha kiwango chako na kiasi cha kulipa na EMU.",
+    "EMU's official 2026/27 schedule lists annual advance-payment tuition in USD by faculty and scholarship tier. For most faculties, it lists $6,400 at 60%, $5,750 at 65%, and $5,100 at 70%; a separate 75% tier is listed for Turkmenistan. Medicine and Dentistry use 30%–45% tiers in the schedule. Fees include the Student Services Fund, VAT and filing fee; English-preparation books and exams add $250 per semester. Confirm the applicable faculty, award eligibility and payable amount with EMU.":
+      "Ratiba rasmi ya EMU ya 2026/27 inaonyesha ada za mwaka za kulipwa mapema kwa USD kulingana na kitivo na kiwango cha ufadhili. Kwa vitivo vingi: $6,400 kwa 60%, $5,750 kwa 65% na $5,100 kwa 70%; kiwango tofauti cha 75% kimeorodheshwa kwa Turkmenistan. Vitivo vya udaktari na udaktari wa meno vina viwango vya 30%–45%. Ada zinajumuisha Mfuko wa Huduma za Wanafunzi, VAT na ada ya usajili; vitabu na mitihani ya maandalizi ya Kiingereza ni $250 kwa muhula wa ziada. Thibitisha kitivo, ustahiki na kiasi cha kulipa na EMU.",
+    "BAU's official international fee page lists a Master's course-registration fee of $600 per course (at least three courses plus a $300 annual social fund paid in advance: $2,100) and a PhD course-registration fee of $1,200 per course (at least two courses plus the fund: $2,700). The page does not identify an academic year. These course-based advance payments are not confirmed acceptance or visa deposits, or full programme costs; the page states that 5% VAT is included. Confirm the intake and payable amount with BAU.":
+      "Ukurasa rasmi wa ada za wanafunzi wa kimataifa wa BAU unaonyesha ada ya usajili wa kozi ya uzamili ni $600 kwa kozi (angalau kozi tatu pamoja na mfuko wa kijamii wa mwaka wa $300 hulipwa mapema: $2,100), na ada ya usajili wa kozi ya uzamivu ni $1,200 kwa kozi (angalau kozi mbili pamoja na mfuko: $2,700). Ukurasa hautaji mwaka wa masomo. Malipo haya ya mapema yanayokokotolewa kwa kozi si amana iliyothibitishwa ya kukubaliwa au visa, wala gharama kamili ya programu; ukurasa unasema VAT ya 5% imejumuishwa. Thibitisha muhula wa kujiunga na kiasi cha kulipa na BAU.",
+    "Browse the published programme catalogue. Current named listings are German nursing Master's programmes; other programmes appear after their details are verified. Confirm current availability, fees, and admission requirements directly with the institution.":
+      "Angalia katalogi ya programu zilizochapishwa. Programu zenye majina zilizoorodheshwa sasa ni programu za uzamili za uuguzi nchini Ujerumani; programu nyingine huongezwa baada ya maelezo yake kuthibitishwa. Thibitisha upatikanaji wa sasa, ada na masharti ya udahili moja kwa moja na taasisi.",
+    "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.":
+      "Angalia programu zilizochapishwa pamoja na viungo vya vyanzo vya vyuo vikuu. Programu zenye majina zilizoorodheshwa sasa ni programu za uzamili za uuguzi nchini Ujerumani; thibitisha upatikanaji, ada na masharti ya udahili na kila taasisi.",
     "No confirmed scholarship details are published for this university.":
       "Hakuna maelezo yaliyothibitishwa ya ufadhili yaliyochapishwa kwa chuo hiki.",
     "University scholarship information": "Taarifa za ufadhili za chuo kikuu",
@@ -1907,8 +1966,6 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Ask about programme": "Uliza kuhusu programu",
     "Compare programme details before you take the next step.":
       "Linganisha maelezo ya programu kabla ya kuendelea.",
-    "Review nursing Master's information for German institutions. We link to university sources; verify dates, fees, and entry requirements before applying.":
-      "Pitia taarifa za shahada za uzamili za uuguzi katika taasisi za Ujerumani. Viungo vinaelekeza kwenye vyanzo vya vyuo; thibitisha tarehe, ada na masharti kabla ya kutuma maombi.",
     "No programmes match these filters": "Hakuna programu zinazolingana na vichujio hivi",
     "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.":
       "Ondoa kichujio ili kuona programu zilizoorodheshwa. Baadhi ya tarehe na taarifa za udahili zinahitaji kuthibitishwa moja kwa moja na taasisi.",
