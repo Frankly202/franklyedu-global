@@ -100,6 +100,22 @@ git diff --check
 
 ### Playwright setup and scope
 
+For focused EMU refinement checks after a production build, run `bun run test:smoke --emu`.
+This checks the supplied fees and caveats in EN/TR/FR/SW, mobile modal layout and dismissal,
+external-tab isolation, application prefill, and the unchanged empty EMU Courses catalogue.
+Use `bun run test:smoke --gau` for equivalent focused GAU checks, including the historical
+2025/2026 tuition figures and separate €500 yearly charge caveat.
+The default command still runs the full regression suite.
+
+Use `bun run test:smoke --kyrenia` for focused University of Kyrenia study-area, fee-basis,
+coverage-caveat, mobile-modal and application-flow checks in EN/TR/FR/SW.
+
+Use `bun run test:smoke --ciu` for CIU catalogue examples, combined filters, localized admissions
+guidance, modal consistency and university-only application prefill. Examples are not Course records.
+
+Use `bun run test:smoke --neu` for NEU's 31 level-unassigned examples, nine selected fee
+breakdowns, missing-scholarship caveats, mobile layout, filters and application handoff in EN/TR/FR/SW.
+
 If Playwright reports that its Chromium executable is missing, install the browser:
 
 ```sh
@@ -134,33 +150,37 @@ the availability of third-party sites. This is not a unit-test suite or a comple
 
 ## Routes and available features
 
-| Route                | Current implementation                                                                                                                                                                          |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                  | Brand/service overview, destination search into the university directory, destination and university cards, property listing, and contact CTAs.                                                 |
-| `/universities`      | 15 universities with local logos, locations, details modals, and a `country` query filter.                                                                                                      |
-| `/courses`           | Three named German nursing master's programmes; filters use `university`, `subject`, and `level` query parameters.                                                                              |
-| `/countries`         | Ten destination entries with contact links; listing a destination does not establish a recruitment relationship.                                                                                |
-| `/scholarships`      | Empty-state enquiry page: the standalone scholarship listing array is currently empty.                                                                                                          |
-| `/services`          | Study/admissions enquiries, property information, and digital-service enquiries.                                                                                                                |
-| `/marketplace`       | Links to accommodation/property sections and an empty inventory state; no checkout.                                                                                                             |
-| `/accommodation`     | Empty-state enquiry page; no accommodation inventory or booking flow is published.                                                                                                              |
-| `/real-estate`       | One published Sarcon No. 87 property listing.                                                                                                                                                   |
-| `/real-estate/$slug` | Data-driven property detail page with five photos, responsive image variants, thumbnails, keyboard-controlled lightbox, and contact actions. Unknown slugs show a non-indexable not-found view. |
-| `/about`             | Brand information, address, values, and contact links.                                                                                                                                          |
-| `/contact`           | Public contact/social links and a form that creates a `mailto:` message; no server-side email delivery.                                                                                         |
-| `/application`       | Four-step application-guidance enquiry: details, study plan, document checklist information, and review before WhatsApp handoff.                                                                |
+| Route                | Current implementation                                                                                                                                                                                  |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                  | Brand/service overview, destination search into the university directory, destination and university cards, property listing, and contact CTAs.                                                         |
+| `/universities`      | 16 universities with local logos, locations, details modals, and a `country` query filter.                                                                                                              |
+| `/courses`           | Three source-linked German nursing master's records; separate CIU (38), NEU (31) and Florida International University (23) catalogue examples, with existing query filters and distinct fee/cost notes. |
+| `/countries`         | Ten destination entries with contact links; listing a destination does not establish a recruitment relationship.                                                                                        |
+| `/scholarships`      | Empty-state enquiry page: the standalone scholarship listing array is currently empty.                                                                                                                  |
+| `/services`          | Study/admissions enquiries, property information, and digital-service enquiries.                                                                                                                        |
+| `/marketplace`       | Links to accommodation/property sections and an empty inventory state; no checkout.                                                                                                                     |
+| `/accommodation`     | Empty-state enquiry page; no accommodation inventory or booking flow is published.                                                                                                                      |
+| `/real-estate`       | One published Sarcon No. 87 property listing.                                                                                                                                                           |
+| `/real-estate/$slug` | Data-driven property detail page with five photos, responsive image variants, thumbnails, keyboard-controlled lightbox, and contact actions. Unknown slugs show a non-indexable not-found view.         |
+| `/about`             | Brand information, address, values, and contact links.                                                                                                                                                  |
+| `/contact`           | Public contact/social links and a form that creates a `mailto:` message; no server-side email delivery.                                                                                                 |
+| `/application`       | Four-step application-guidance enquiry: details, study plan, document checklist information, and review before WhatsApp handoff.                                                                        |
 
 `/login`, `/signup`, and `/student` **redirect to `/application`**. Their old prototype components
 and mock student data remain in the source but are not an available account/dashboard service.
 
 ### University and application behavior
 
-- Every university card and modal offers **Apply Through FranklyEdu** as the primary internal action.
+- Every university card, modal and catalogue-examples section offers **Apply Now** as the primary internal action.
   It passes `?university=<slug>` to the application form and prefills the destination and university.
-- **Visit University Website** opens the configured official URL in a new tab with
-  `noopener noreferrer`. **Enquire** is a separate contextual WhatsApp action.
-- **Explore Courses** opens `/courses?university=<slug>`. Universities without published programmes
-  get a specific empty state rather than invented course listings.
+- University website navigation CTAs are not displayed; official URLs remain in the data.
+  Fee, scholarship, programme and admissions source links remain available for verification.
+  **Enquire** is a separate, secondary contextual WhatsApp action on cards and modals.
+- **View Courses** opens `/courses?university=<slug>` in the same tab from cards, modals and
+  catalogue-examples sections. CIU shows separately labelled catalogue
+  examples, not confirmed Course records. NEU also shows level-unassigned examples and selected
+  fee breakdowns. Universities without records or examples get a specific
+  empty state rather than invented course listings.
 - Details modals contain study areas and source-linked fee/scholarship summaries where supplied.
   Individual programme records remain in Courses. Modal scrolling, Close/Escape/backdrop dismissal,
   focus return, and body-scroll restoration are handled in the shared university component.
@@ -175,12 +195,64 @@ and mock student data remain in the source but are not an available account/dash
 
 ### Content verification boundaries
 
+Florida International University (Miami, Florida, USA) is distinct from Final International
+University in Cyprus. Its 14 undergraduate and nine level-unassigned graduate examples must be
+confirmed against the [official degree catalogue](https://www.fiu.edu/academics/degrees-and-programs/).
+The local white-on-navy logo was downloaded from the [official homepage asset](https://www.fiu.edu/_assets/images/fiu-white-logo.png).
+Its supplied 2026/2027 non-Florida-resident on-campus budget rows are **per semester**; $46,198
+undergraduate and $44,006 graduate are estimated **fall-and-spring annual totals**.
+The [official OneStop page](https://onestop.fiu.edu/finances/estimate-your-costs/) has multiple
+budgets and includes loan-origination allowances omitted from the supplied rows. Annual totals
+are not recalculated from the partial rows, and allowances are not universal payable charges.
+These are not scholarship prices or guaranteed invoices. Confirm the applicable FIU budget,
+deposits, deadlines and financial documents. Document guidance comes from FIU's
+[international documents page](https://admissions.fiu.edu/international/submit-documents/) and
+[graduate admissions page](https://admissions.fiu.edu/international/graduate-school/);
+requirements vary by pathway and programme. Run `bun run test:smoke --florida` after building
+for focused EN/TR/FR/SW checks. No new confirmed Course records or recruitment claims were added.
+
+CIU has 38 Frank-supplied catalogue examples (24 Bachelor's, 8 Master's, 6 PhD), displayed
+separately from the three source-linked German Course records. They appear on `/courses` and
+the CIU-filtered page and follow the existing university, level and subject query filters.
+`University.catalogueExamples` holds grouped titles and level-specific document guidance without
+inventing duration, intake, teaching language, programme URLs or availability. The application form
+does not offer these examples as confirmed courses; its CIU link prefills the university only.
+IELTS 5.5 / TOEFL iBT 65 and the possible on-campus exam are supplied guidance requiring
+reconfirmation, not programme-specific thresholds. Tuition requires CIU's official calculator;
+the student's official offer letter determines the exact initial payment.
+
+University of Kyrenia notes use Frank's supplied 2026/2027 regular Master's tuition of €1,272
+per semester for international students with a 25% scholarship. Published programme-fee coverage
+is four academic semesters, subject to university conditions; no total is calculated or claimed.
+Undergraduate tuition and initial payments require selected-programme confirmation. Courses is unchanged.
+
+GAU's modal shows Frank's supplied published **2025/2026** annual tuition schedule, not confirmed
+2026/2027 rates. The €500 yearly registration and activity fee for the listed degree programmes is
+shown separately and is not added to tuition. Its application to every category is not independently
+verified; current tuition and applicable charges require GAU confirmation. No GAU Courses records
+or scholarship claims were added.
+
 The data identifies FIU as the only confirmed recruitment relationship. Other directory entries and
 application-guidance actions must not be described as confirmed partnerships.
 
 CIU and EMU have source-linked scholarship notes in their university details even though the
-standalone Scholarships page has no listings. EMU's fee notes reference its 2026/27 schedule; BAU's
-graduate-fee page has no stated academic year. Programme availability, payable fees, scholarship
+standalone Scholarships page has no listings. CIU's Frank-supplied notes describe the 50%
+international undergraduate tuition scholarship, possible additional academic scholarships, and
+programme-/scholarship-dependent payable tuition. Its exact initial payment must be confirmed using
+the student's official offer letter; no CIU prices or individual Course records are
+published. EMU's modal shows Frank-supplied 2026/2027 annual advance-payment fees in USD for
+eligible new international students with a 75% scholarship. The linked general EMU schedule has
+different tiers and country-specific conditions; confirm applicability, payable fees, the current
+registration deposit, and instalment arrangements with EMU. No EMU Courses records were added. BAU's
+graduate-fee page has no stated academic year. NEU's concise modal links to 31 level-unassigned
+catalogue examples and nine selected annual fee examples from the supplied 2026/2027 schedule on
+Courses. The breakdown distinguishes tuition before scholarship, the listed 50%/special-scholarship
+figure and total including VAT/administrative fee. Missing scholarship figures are not zero; Pharmacy's
+special-scholarship figure is not supplied. Associate/Bachelor's/Master's/PhD coverage is stated without
+assigning named examples to levels. Selecting a level hides the unassigned names; selected fees remain
+clearly separate from filtered examples. No NEU Course records or application course choices were added.
+Availability, instruction language, eligibility, initial deposit and payment schedule need confirmation.
+Programme availability, payable fees, scholarship
 eligibility, dates, and property particulars retain explicit confirmation caveats. Do not replace
 these caveats with assumed fees, deposits, guaranteed scholarships, or admissions promises.
 

@@ -53,8 +53,7 @@ export interface CommonTranslation {
   };
   cards: {
     applyNow: string;
-    applyThroughFranklyEdu: string;
-    officialUniversityInfo: string;
+    viewCourses: string;
     officialProgrammeInfo: string;
     officialAdmissionsInfo: string;
     askAboutProgramme: string;
@@ -156,8 +155,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
     },
     cards: {
       applyNow: "Apply Now",
-      applyThroughFranklyEdu: "Apply Through FranklyEdu",
-      officialUniversityInfo: "Visit University Website",
+      viewCourses: "View Courses",
       officialProgrammeInfo: "Programme source",
       officialAdmissionsInfo: "Admissions info",
       askAboutProgramme: "Ask about programme",
@@ -262,8 +260,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
     },
     cards: {
       applyNow: "Hemen Başvur",
-      applyThroughFranklyEdu: "FranklyEdu ile Başvur",
-      officialUniversityInfo: "Üniversitenin Web Sitesini Ziyaret Et",
+      viewCourses: "Programları Gör",
       officialProgrammeInfo: "Program kaynağı",
       officialAdmissionsInfo: "Kabul bilgileri",
       askAboutProgramme: "Programı sorun",

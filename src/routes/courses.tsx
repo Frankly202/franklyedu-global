@@ -36,9 +36,37 @@ function CoursesPage() {
   const uni = localizedUniversities.find((u) => u.slug === university);
   const universityHasCourses = courses.some((c) => c.universitySlug === university);
   const unpublishedUniversity = uni && !universityHasCourses;
+  const exampleUniversities = universities.flatMap((u) =>
+    !u.catalogueExamples || (university && u.slug !== university)
+      ? []
+      : [
+          {
+            university: u,
+            levels: u.catalogueExamples.levels
+              .filter((entry) => !level || entry.level === level)
+              .map((entry) => ({
+                ...entry,
+                groups: entry.groups.filter((group) => !subject || group.subject === subject),
+              }))
+              .filter((entry) => entry.groups.length),
+          },
+        ],
+  );
+  const exampleCount = exampleUniversities.reduce(
+    (total, entry) =>
+      total +
+      entry.levels.reduce(
+        (count, entryLevel) =>
+          count +
+          entryLevel.groups.reduce((groupCount, group) => groupCount + group.programmes.length, 0),
+        0,
+      ),
+    0,
+  );
 
   const levelOptions = [
     { value: "Foundation", label: education.courses.levels.foundation },
+    { value: "Associate degree", label: localizeText(locale, "Associate degree") },
     { value: "Bachelor's", label: education.courses.levels.bachelors },
     { value: "Master's", label: education.courses.levels.masters },
     { value: "PhD", label: education.courses.levels.phd },
@@ -131,7 +159,7 @@ function CoursesPage() {
               <CourseCard key={c.slug} c={c} />
             ))}
           </div>
-        ) : (
+        ) : !exampleCount ? (
           <div className="card-light p-10 text-center">
             <h2 className="text-lg font-semibold">
               {unpublishedUniversity
@@ -146,12 +174,198 @@ function CoursesPage() {
             <Link
               to={unpublishedUniversity ? "/application" : "/contact"}
               search={unpublishedUniversity ? { university: uni.slug } : {}}
-              className="btn btn-outline-dark mt-5"
+              className={`btn ${unpublishedUniversity ? "btn-primary" : "btn-outline-dark"} mt-5`}
             >
-              {unpublishedUniversity ? common.cards.enquire : common.nav.contact}
+              {unpublishedUniversity ? common.cards.applyNow : common.nav.contact}
             </Link>
           </div>
-        )}
+        ) : null}
+        {exampleUniversities.map(({ university: exampleUniversity, levels }) => {
+          const u = localizeTree(locale, exampleUniversity);
+          const catalogue = u.catalogueExamples;
+          if (!catalogue) return null;
+          return (
+            <section
+              key={u.slug}
+              data-university-examples={u.slug}
+              className="mt-8 min-w-0 rounded-2xl border border-border bg-cream p-5 sm:p-6"
+            >
+              <h2 className="font-display text-xl font-semibold text-navy">
+                {u.name} — {localizeText(locale, "Catalogue examples — availability unconfirmed")}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed">{catalogue.notice}</p>
+              {catalogue.levelCoverage ? (
+                <p className="mt-2 text-sm leading-relaxed">{catalogue.levelCoverage}</p>
+              ) : null}
+              <p className="mt-2 text-sm text-muted-foreground">
+                {levels.reduce(
+                  (count, entry) =>
+                    count +
+                    entry.groups.reduce((total, group) => total + group.programmes.length, 0),
+                  0,
+                )}{" "}
+                {localizeText(locale, "catalogue examples match these filters")}
+              </p>
+              {levels.length ? (
+                levels.map((entry) => {
+                  const localized = localizeTree(locale, entry);
+                  const levelLabel = entry.level
+                    ? {
+                        Foundation: education.courses.levels.foundation,
+                        "Bachelor's": education.courses.levels.bachelors,
+                        "Master's": education.courses.levels.masters,
+                        PhD: education.courses.levels.phd,
+                      }[entry.level]
+                    : localizeText(locale, "Programme examples — level unassigned");
+                  return (
+                    <div
+                      key={entry.level ?? "unassigned"}
+                      data-example-level={entry.level ?? "unassigned"}
+                      className="mt-5 rounded-xl border border-border bg-white p-4"
+                    >
+                      <h3 className="text-lg font-semibold text-navy">{levelLabel}</h3>
+                      <div className="mt-3 grid min-w-0 gap-4 sm:grid-cols-2">
+                        {localized.groups.map((group) => (
+                          <div key={group.subject} className="min-w-0">
+                            <h4 className="font-semibold">{group.subject}</h4>
+                            <ul className="mt-1 list-disc pl-5 text-sm leading-relaxed">
+                              {group.programmes.map((programme) => (
+                                <li key={programme} className="break-words">
+                                  {programme}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                      {localized.documents ? (
+                        <>
+                          <h4 className="mt-4 font-semibold">
+                            {localizeText(
+                              locale,
+                              "Admissions document guidance — confirm with the university",
+                            )}
+                          </h4>
+                          <p className="mt-1 text-sm leading-relaxed">{localized.documents}</p>
+                        </>
+                      ) : null}
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="mt-4 font-medium">{education.courses.emptyHeading}</p>
+              )}
+              {catalogue.englishGuidance ? (
+                <p className="mt-4 text-sm leading-relaxed">{catalogue.englishGuidance}</p>
+              ) : null}
+              <p className="mt-3 text-sm leading-relaxed">{u.scholarship?.summary}</p>
+              <p className="mt-3 text-sm leading-relaxed">{u.feeInfo?.summary}</p>
+              {u.feeInfo?.costEstimate ? (
+                <section data-cost-estimate className="mt-5">
+                  <h3 className="text-lg font-semibold text-navy">
+                    {u.feeInfo.costEstimate.caption}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed">{u.feeInfo.costEstimate.note}</p>
+                  <div className="mt-3 grid min-w-0 gap-4 sm:grid-cols-2">
+                    {u.feeInfo.costEstimate.rows.map((row) => (
+                      <div
+                        key={row.expense}
+                        data-cost-row
+                        className="min-w-0 rounded-xl border border-border bg-white p-4"
+                      >
+                        <h4 className="break-words font-semibold">{row.expense}</h4>
+                        <dl className="mt-2 grid gap-2 text-sm">
+                          <div>
+                            <dt>{localizeText(locale, "Undergraduate estimate")}</dt>
+                            <dd className="font-medium">{row.undergraduate}</dd>
+                          </div>
+                          <div>
+                            <dt>{localizeText(locale, "Graduate estimate")}</dt>
+                            <dd className="font-medium">{row.graduate}</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+              {catalogue.sources?.length ? (
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {catalogue.sources.map((source) => (
+                    <a
+                      key={source.url}
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-navy underline underline-offset-4"
+                    >
+                      {source.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+              {u.feeInfo?.selectedSchedule ? (
+                <section data-selected-fees className="mt-5">
+                  <h3 className="text-lg font-semibold text-navy">
+                    {u.feeInfo.selectedSchedule.caption}
+                  </h3>
+                  <p className="mt-2 text-sm">
+                    {localizeText(
+                      locale,
+                      "Selected fee examples below are separate from the filtered catalogue names; they do not confirm a programme level or current availability.",
+                    )}
+                  </p>
+                  <div className="mt-3 grid min-w-0 gap-4 md:grid-cols-2">
+                    {u.feeInfo.selectedSchedule.rows.map((row) => (
+                      <div
+                        key={row.programme}
+                        data-fee-programme
+                        className="min-w-0 rounded-xl border border-border bg-white p-4"
+                      >
+                        <h4 className="break-words font-semibold">{row.programme}</h4>
+                        <dl className="mt-3 grid gap-3 text-sm">
+                          {(
+                            [
+                              ["Annual tuition before scholarship", row.beforeScholarship],
+                              [
+                                "Listed 50% scholarship figure / special scholarship",
+                                row.scholarshipFigure,
+                              ],
+                              ["Total including VAT/administrative fee", row.total],
+                            ] as const
+                          ).map(([label, value]) => (
+                            <div key={label}>
+                              <dt className="break-words text-muted-foreground">
+                                {localizeText(locale, label)}
+                              </dt>
+                              <dd className="mt-1 break-words font-medium">{value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+              <div className="mt-5 flex flex-wrap gap-2 [&>a]:max-w-full [&>a]:whitespace-normal [&>a]:text-center">
+                <Link
+                  to="/application"
+                  search={{ university: u.slug }}
+                  className="btn btn-primary btn-sm"
+                >
+                  {common.cards.applyNow}
+                </Link>
+                <Link
+                  to="/courses"
+                  search={{ university: u.slug }}
+                  className="btn btn-outline-dark btn-sm"
+                >
+                  {common.cards.viewCourses}
+                </Link>
+              </div>
+            </section>
+          );
+        })}
         <aside className="mt-8 rounded-2xl border border-border bg-cream p-5 sm:p-6">
           <h2 className="font-display text-lg font-semibold text-navy">
             {education.courses.disclaimerTitle}

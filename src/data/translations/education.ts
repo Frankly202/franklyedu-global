@@ -15,11 +15,12 @@ export interface EducationTranslation {
     studyAreasSource: string;
     feeInfoLabel: string;
     feeInfoSource: string;
+    feeProgrammeLabel: string;
+    annualTuitionLabel: string;
     scholarshipLabel: string;
     scholarshipPending: string;
     scholarshipSource: string;
-    exploreCourses: string;
-    externalApplicationNote: string;
+    applicationGuidanceNote: string;
   };
   courses: {
     eyebrow: string;
@@ -99,19 +100,20 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       studyAreasSource: "University study information",
       feeInfoLabel: "Fee information",
       feeInfoSource: "University fee source",
+      feeProgrammeLabel: "Programme / category",
+      annualTuitionLabel: "Annual tuition after scholarship",
       scholarshipLabel: "Scholarship information",
       scholarshipPending: "No confirmed scholarship details are published for this university.",
       scholarshipSource: "University scholarship information",
-      exploreCourses: "Explore Courses",
-      externalApplicationNote:
-        "FranklyEdu provides application guidance and does not directly submit applications to universities. Visit University Website opens the official site in a new tab.",
+      applicationGuidanceNote:
+        "FranklyEdu provides application guidance and does not directly submit applications to universities.",
     },
     courses: {
       eyebrow: "Courses",
       defaultTitle: "Compare programme details before you take the next step.",
       optionsAt: "Study options at",
       subtitle:
-        "Browse the published programme catalogue. Current named listings are German nursing Master's programmes; other programmes appear after their details are verified. Confirm current availability, fees, and admission requirements directly with the institution.",
+        "Browse source-linked programme records and clearly labelled university catalogue examples. Confirm current availability, fees and requirements with the university.",
       subjectLabel: "Field of Study",
       allSubjects: "All subjects",
       levelLabel: "Study Level",
@@ -124,7 +126,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       emptyDesc:
         "Clear a filter to see the current listings. Some intake and admissions details still need confirmation directly with the institution.",
       universitySubtitle:
-        "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.",
+        "Browse this university’s programme records or labelled catalogue examples. Examples do not confirm current availability; check details with the institution.",
       universityEmptyHeading: "No verified programme listings yet for this university",
       universityEmptyDesc:
         "This does not mean the university has no programmes. Contact us for current information; individual programmes are added only after their details have been verified.",
@@ -191,19 +193,20 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       studyAreasSource: "Üniversitenin eğitim bilgileri",
       feeInfoLabel: "Ücret bilgileri",
       feeInfoSource: "Üniversitenin ücret kaynağı",
+      feeProgrammeLabel: "Program / kategori",
+      annualTuitionLabel: "Burs sonrası yıllık öğrenim ücreti",
       scholarshipLabel: "Burs bilgileri",
       scholarshipPending: "Bu üniversite için teyit edilmiş burs ayrıntıları yayımlanmamıştır.",
       scholarshipSource: "Üniversitenin burs bilgileri",
-      exploreCourses: "Programları İncele",
-      externalApplicationNote:
-        "FranklyEdu başvuru rehberliği sağlar ve üniversitelere doğrudan başvuru göndermez. Üniversitenin Web Sitesini Ziyaret Et, resmî siteyi yeni bir sekmede açar.",
+      applicationGuidanceNote:
+        "FranklyEdu başvuru rehberliği sağlar ve üniversitelere doğrudan başvuru göndermez.",
     },
     courses: {
       eyebrow: "Bölümler ve Programlar",
       defaultTitle: "Sonraki adımınızı atmadan önce program ayrıntılarını karşılaştırın.",
       optionsAt: "Eğitim seçenekleri:",
       subtitle:
-        "Yayımlanan program kataloğuna göz atın. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; diğer programlar ayrıntıları doğrulandıktan sonra eklenir. Güncel uygunluk, ücretler ve kabul koşullarını doğrudan kurumdan teyit edin.",
+        "Kaynak bağlantılı program kayıtlarını ve açıkça etiketlenmiş üniversite katalog örneklerini inceleyin. Güncel uygunluğu, ücretleri ve koşulları üniversiteyle teyit edin.",
       subjectLabel: "Eğitim Alanı",
       allSubjects: "Tüm alanlar",
       levelLabel: "Eğitim Seviyesi",
@@ -216,7 +219,7 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
       emptyDesc:
         "Güncel programları görmek için bir filtreyi temizleyin. Kayıt ve kabul bilgilerinin bazıları kurumdan doğrudan teyit edilmelidir.",
       universitySubtitle:
-        "Bu üniversitenin yayımlanan programlarını inceleyin. Eğitim alanları ayrı program ilanları değildir; güncel uygunluğu ve kabul koşullarını kurumdan teyit edin.",
+        "Bu üniversitenin program kayıtlarını veya etiketlenmiş katalog örneklerini inceleyin. Örnekler güncel uygunluğu teyit etmez; ayrıntıları kurumdan kontrol edin.",
       universityEmptyHeading: "Bu üniversite için henüz doğrulanmış program ilanı yok",
       universityEmptyDesc:
         "Bu, üniversitede program olmadığı anlamına gelmez. Güncel bilgi için bize ulaşın; programlar yalnızca ayrıntıları doğrulandıktan sonra eklenir.",

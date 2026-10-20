@@ -19,7 +19,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Courses",
       description:
-        "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.",
+        "Browse source-linked programme records and clearly labelled university catalogue examples. Confirm current availability, fees and requirements with the university.",
     },
     "/universities": {
       title: "Universities",
@@ -96,7 +96,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Programlar",
       description:
-        "Üniversite kaynak bağlantılarıyla yayımlanan programları inceleyin. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; program uygunluğunu, ücretleri ve kabul koşullarını her kurumdan teyit edin.",
+        "Kaynak bağlantılı program kayıtlarını ve açıkça etiketlenmiş üniversite katalog örneklerini inceleyin. Güncel uygunluğu, ücretleri ve koşulları üniversiteyle teyit edin.",
     },
     "/universities": {
       title: "Üniversiteler",
@@ -171,7 +171,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Formations",
       description:
-        "Consultez les formations publiées et leurs sources universitaires. Les formations nommées actuellement répertoriées sont des masters en sciences infirmières en Allemagne ; confirmez auprès de chaque établissement la disponibilité, les frais et les conditions d’admission.",
+        "Consultez les fiches de formations avec leurs sources et les exemples des catalogues universitaires clairement identifiés. Confirmez la disponibilité, les frais et les conditions actuels auprès de l’université.",
     },
     "/universities": {
       title: "Universités",
@@ -249,7 +249,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/courses": {
       title: "Programu za masomo",
       description:
-        "Angalia programu zilizochapishwa pamoja na viungo vya vyanzo vya vyuo vikuu. Programu zenye majina zilizoorodheshwa sasa ni programu za uzamili za uuguzi nchini Ujerumani; thibitisha upatikanaji, ada na masharti ya udahili na kila taasisi.",
+        "Angalia rekodi za programu zenye viungo vya vyanzo na mifano ya katalogi za vyuo vikuu iliyowekwa alama wazi. Thibitisha upatikanaji wa sasa, ada na mahitaji na chuo kikuu.",
     },
     "/universities": {
       title: "Vyuo vikuu",

@@ -2,6 +2,146 @@ import type { Locale } from "@/lib/locale";
 
 const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = {
   tr: {
+    "Admissions document guidance — confirm with the university":
+      "Başvuru belgesi rehberi — üniversiteyle teyit edin",
+    "Computing and Engineering": "Bilişim ve Mühendislik",
+    "Health and Life Sciences": "Sağlık ve Yaşam Bilimleri",
+    "Social Sciences and Humanities": "Sosyal ve Beşerî Bilimler",
+    Accounting: "Muhasebe",
+    "Computer Science": "Bilgisayar Bilimi",
+    IT: "Bilgi Teknolojisi",
+    "Biological Sciences": "Biyolojik Bilimler",
+    "Public Health": "Halk Sağlığı",
+    "Undergraduate estimate": "Lisans tahmini",
+    "Graduate estimate": "Lisansüstü tahmini",
+    "Tuition — per semester": "Öğrenim ücreti — dönem başına",
+    "Fees — per semester": "Harçlar — dönem başına",
+    "Books and supplies — per semester": "Kitaplar ve malzemeler — dönem başına",
+    "Housing — per semester": "Barınma — dönem başına",
+    "Food — per semester": "Yemek — dönem başına",
+    "Transportation — per semester": "Ulaşım — dönem başına",
+    "Personal expenses — per semester": "Kişisel giderler — dönem başına",
+    "Estimated annual total — fall and spring": "Tahmini yıllık toplam — güz ve bahar",
+    "Official degree catalogue": "Resmî derece programı kataloğu",
+    "Official cost estimates": "Resmî maliyet tahminleri",
+    "Official international document guidance": "Resmî uluslararası belge rehberi",
+    "Official graduate admissions guidance": "Resmî lisansüstü kabul rehberi",
+    "FIU 2026/2027 — supplied non-Florida-resident on-campus estimates (USD)":
+      "FIU 2026/2027 — sağlanan Florida dışı ikamet edenler için kampüs içi tahminler (USD)",
+    "FIU’s supplied 2026/2027 non-Florida-resident on-campus cost estimates are shown on View Courses. These are estimates, not guaranteed final costs. F-1/J-1 students generally pay applicable non-Florida-resident rates; additional charges may apply. Confirm deposits, deadlines and financial-documentation requirements directly with FIU; no fixed initial payment is stated.":
+      "FIU'nun sağlanan 2026/2027 Florida dışı ikamet edenler için kampüs içi maliyet tahminleri Programları Gör bölümünde gösterilir. Bunlar tahminlerdir, garanti edilmiş nihai maliyetler değildir. F-1/J-1 öğrencileri genellikle geçerli Florida dışı ikamet tarifelerini öder; ek ücretler uygulanabilir. Depozitoları, son tarihleri ve mali belge koşullarını doğrudan FIU ile teyit edin; sabit ilk ödeme belirtilmemiştir.",
+    "Expense rows are per semester; estimated annual totals cover fall and spring. The official annual budgets include other allowances, including loan-origination allowances omitted from these supplied rows; not every budget allowance is a charge payable by every student. FIU publishes multiple budgets; confirm the applicable pathway, programme and budget with FIU. These estimates are not scholarship prices or guaranteed invoices.":
+      "Gider satırları dönem başınadır; tahmini yıllık toplamlar güz ve baharı kapsar. Resmî yıllık bütçeler, sağlanan satırlarda yer almayan kredi kullandırım payları dahil diğer payları içerir; her bütçe kalemi her öğrencinin ödeyeceği bir ücret değildir. FIU birden fazla bütçe yayımlar; geçerli başvuru yolunu, programı ve bütçeyi FIU ile teyit edin. Bu tahminler burslu fiyatlar veya garanti edilmiş faturalar değildir.",
+    "FIU catalogue examples supplied by Frank, not confirmed current degree records. Confirm exact degree titles, availability, teaching language, duration, intake and requirements against FIU’s official degree catalogue. Undergraduate examples are grouped at Bachelor’s level; graduate examples have no confirmed Master’s or doctoral assignment.":
+      "Frank'ın sağladığı FIU katalog örnekleridir; teyit edilmiş güncel derece kayıtları değildir. Kesin derece adlarını, uygunluğu, eğitim dilini, süreyi, öğrenci alımını ve koşulları FIU'nun resmî kataloğuyla teyit edin. Lisans örnekleri lisans seviyesinde gruplandırılmıştır; lisansüstü örneklerinin teyit edilmiş yüksek lisans veya doktora ataması yoktur.",
+    "Supplied levels: Bachelor’s, Master’s and doctoral. Graduate examples appear only without a study-level filter; they are not duplicated as confirmed Master’s or PhD programmes.":
+      "Sağlanan seviyeler: lisans, yüksek lisans ve doktora. Lisansüstü örnekleri yalnızca eğitim seviyesi filtresi yokken görünür; teyit edilmiş yüksek lisans veya doktora programları olarak çoğaltılmaz.",
+    "Bachelor’s document guidance: official secondary-school records and English translations where needed; transfer applicants may need post-secondary transcripts and course-by-course evaluations. Confirm the application, test evidence and immigration documents for your admission pathway with FIU. Requirements vary by pathway and programme.":
+      "Lisans belgesi rehberi: resmî ortaöğretim kayıtları ve gerektiğinde İngilizce çevirileri; yatay geçiş adayları yükseköğretim transkriptleri ve ders bazında değerlendirmelere ihtiyaç duyabilir. Başvuru yolunuz için başvuruyu, sınav belgelerini ve göçmenlik belgelerini FIU ile teyit edin. Koşullar başvuru yoluna ve programa göre değişir.",
+    "Master’s and PhD document guidance: official post-secondary transcripts and degree records, with translations and evaluations where required. Departments may request a statement of purpose, recommendation letters, CV and research/writing samples, or a separate application, interview or audition. Confirm English evidence and immigration/financial documents with FIU. Requirements vary by admission pathway and programme; this is not a universal checklist or eligibility guarantee.":
+      "Yüksek lisans ve doktora belgesi rehberi: gerektiğinde çeviri ve değerlendirmelerle resmî yükseköğretim transkriptleri ve derece kayıtları. Bölümler amaç yazısı, referans mektupları, özgeçmiş ve araştırma/yazı örnekleri veya ayrı başvuru, mülakat ya da seçme isteyebilir. İngilizce belgelerini ve göçmenlik/mali belgeleri FIU ile teyit edin. Koşullar başvuru yoluna ve programa göre değişir; bu evrensel kontrol listesi veya uygunluk garantisi değildir.",
+    "Selected fee examples below are separate from the filtered catalogue names; they do not confirm a programme level or current availability.":
+      "Aşağıdaki seçili ücret örnekleri filtrelenen katalog adlarından ayrıdır; program seviyesini veya güncel uygunluğu teyit etmez.",
+    "Associate degree": "Ön lisans",
+    "Programme examples — level unassigned": "Program örnekleri — seviye atanmamış",
+    "NEU 2026/2027 — selected programme annual fee examples (EUR)":
+      "NEU 2026/2027 — seçili programların yıllık ücret örnekleri (EUR)",
+    "Annual tuition before scholarship": "Burs öncesi yıllık öğrenim ücreti",
+    "Listed 50% scholarship figure / special scholarship":
+      "Listelenen %50 burslu tutar / özel burs",
+    "Total including VAT/administrative fee": "KDV/idari ücret dahil toplam",
+    "No scholarship figure listed": "Burslu tutar listelenmemiş",
+    "Special scholarship listed; figure not supplied": "Özel burs listelenmiş; tutar sağlanmamış",
+    "Selected programmes from the supplied NEU 2026/2027 schedule are shown on View Courses, separating annual tuition before scholarship, the listed scholarship figure and total including VAT/administrative fee. Unlisted scholarship figures are not zero; Pharmacy has a special scholarship listed without a tuition figure. Programme availability and language of instruction vary and require confirmation. The initial deposit and payment schedule remain unconfirmed; contact FranklyEdu to confirm payable fees with NEU.":
+      "Sağlanan NEU 2026/2027 çizelgesindeki seçili programlar Programları Gör bölümünde gösterilir; burs öncesi yıllık öğrenim ücreti, listelenen burslu tutar ve KDV/idari ücret dahil toplam ayrı tutulur. Listelenmeyen burslu tutarlar sıfır değildir; Eczacılık için burslu öğrenim tutarı verilmeden özel burs listelenmiştir. Programların açık olması ve eğitim dili değişir, teyit gerektirir. İlk depozito ve ödeme takvimi teyit edilmemiştir; ödenecek ücretleri NEU ile teyit etmek için FranklyEdu ile iletişime geçin.",
+    "NEU catalogue examples supplied by Frank, not confirmed current programme-level records. Programme availability and language of instruction vary and must be confirmed with NEU. Duration, intake, programme-specific requirements and current fees require confirmation. Named examples have no confirmed level assignment and are shown only when no study-level filter is selected.":
+      "Frank'ın sağladığı NEU katalog örnekleridir; teyit edilmiş güncel program kayıtları değildir. Programların açık olması ve eğitim dili değişir ve NEU ile teyit edilmelidir. Süre, öğrenci alımı, programa özgü koşullar ve güncel ücretler teyit gerektirir. İsimli örneklerin teyit edilmiş seviye ataması yoktur; yalnızca eğitim seviyesi filtresi seçilmediğinde gösterilir.",
+    "Supplied level coverage: Associate degree, Bachelor’s, Master’s and PhD. No named Associate degree, Master’s or PhD offerings are confirmed here; no named example is assigned to a level.":
+      "Sağlanan seviye kapsamı: Ön lisans, lisans, yüksek lisans ve doktora. Burada isimli ön lisans, yüksek lisans veya doktora programı teyit edilmemektedir; hiçbir isimli örnek bir seviyeye atanmamıştır.",
+    "Banking and Finance": "Bankacılık ve Finans",
+    "Artificial Intelligence Engineering": "Yapay Zekâ Mühendisliği",
+    "Cyber Security Engineering": "Siber Güvenlik Mühendisliği",
+    "Information Systems Engineering": "Bilişim Sistemleri Mühendisliği",
+    "Management Information Systems": "Yönetim Bilişim Sistemleri",
+    "Data Analysis Engineering": "Veri Analizi Mühendisliği",
+    "Biomedical Engineering": "Biyomedikal Mühendisliği",
+    "Industrial Engineering": "Endüstri Mühendisliği",
+    "Veterinary Medicine": "Veteriner Hekimliği",
+    "Catalogue examples — availability unconfirmed":
+      "Katalog örnekleri — güncel uygunluk teyit edilmemiştir",
+    "catalogue examples match these filters": "katalog örneği bu filtrelerle eşleşiyor",
+    "Admissions document guidance — reconfirm with CIU":
+      "Başvuru belgesi rehberi — CIU ile yeniden teyit edin",
+    "CIU catalogue examples supplied by Frank, not confirmed current programme-level records. Availability, duration, intake, teaching language, programme-specific requirements and fees require confirmation with CIU. These examples are not selectable confirmed courses in the application form.":
+      "Frank'ın sağladığı CIU katalog örnekleridir; teyit edilmiş güncel program kayıtları değildir. Programın açık olması, süre, öğrenci alımı, eğitim dili, programa özgü koşullar ve ücretler CIU ile teyit edilmelidir. Bu örnekler başvuru formunda teyit edilmiş dersler olarak seçilemez.",
+    "Supplied notes cite IELTS 5.5 or TOEFL iBT 65; some applicants may take an on-campus proficiency exam. These are not confirmed programme-specific thresholds. Reconfirm accepted English evidence and any exam option with CIU.":
+      "Sağlanan notlarda IELTS 5.5 veya TOEFL iBT 65 belirtilir; bazı adaylar kampüste yeterlik sınavına girebilir. Bunlar teyit edilmiş programa özgü eşikler değildir. Kabul edilen İngilizce belgelerini ve varsa sınav seçeneğini CIU ile yeniden teyit edin.",
+    "Bachelor’s document guidance: application form, secondary certificate (WAEC/NECO/equivalent), passport or accepted ID, English evidence where required, and other requested documents. Confirm the exact list with CIU.":
+      "Lisans belgesi rehberi: başvuru formu, ortaöğretim diploması (WAEC/NECO/eşdeğeri), pasaport veya kabul edilen kimlik, gerektiğinde İngilizce belgesi ve talep edilen diğer belgeler. Kesin listeyi CIU ile teyit edin.",
+    "Master’s document guidance: bachelor’s certificate, transcripts, passport or accepted ID, CV, and English evidence where required. Confirm the exact list with CIU.":
+      "Yüksek lisans belgesi rehberi: lisans diploması, transkriptler, pasaport veya kabul edilen kimlik, özgeçmiş ve gerektiğinde İngilizce belgesi. Kesin listeyi CIU ile teyit edin.",
+    "PhD document guidance: bachelor’s and master’s qualifications, transcripts, CV, research proposal, and English evidence where required. Confirm the exact list with CIU.":
+      "Doktora belgesi rehberi: lisans ve yüksek lisans yeterlikleri, transkriptler, özgeçmiş, araştırma önerisi ve gerektiğinde İngilizce belgesi. Kesin listeyi CIU ile teyit edin.",
+    "Tuition varies by programme, scholarship and academic year; use CIU’s tuition calculator on its official website. Confirm the exact initial payment from the student’s official offer letter. Contact FranklyEdu for guidance on confirming these details with CIU.":
+      "Öğrenim ücreti programa, bursa ve akademik yıla göre değişir; CIU'nun resmî web sitesindeki öğrenim ücreti hesaplayıcısını kullanın. Kesin ilk ödemeyi öğrencinin resmî kabul teklif mektubundan teyit edin. Bu ayrıntıları CIU ile teyit etme konusunda rehberlik için FranklyEdu ile iletişime geçin.",
+    "North Nicosia": "Kuzey Lefkoşa",
+    "Northern Cyprus": "Kuzey Kıbrıs",
+    "Accounting and Finance": "Muhasebe ve Finans",
+    "Human Resource Management": "İnsan Kaynakları Yönetimi",
+    Economics: "Ekonomi",
+    "Computer Engineering": "Bilgisayar Mühendisliği",
+    "Software Engineering": "Yazılım Mühendisliği",
+    "Civil Engineering": "İnşaat Mühendisliği",
+    "Electrical and Electronic Engineering": "Elektrik ve Elektronik Mühendisliği",
+    "Mechanical Engineering": "Makine Mühendisliği",
+    "Information Technology": "Bilgi Teknolojisi",
+    "Physiotherapy and Rehabilitation": "Fizyoterapi ve Rehabilitasyon",
+    "Nutrition and Dietetics": "Beslenme ve Diyetetik",
+    Psychology: "Psikoloji",
+    "English Language Teaching": "İngilizce Öğretmenliği",
+    "Tourism and Hotel Management": "Turizm ve Otel İşletmeciliği",
+    "Graphic Design": "Grafik Tasarım",
+    MBA: "İşletme Yüksek Lisansı (MBA)",
+    Finance: "Finans",
+    Aviation: "Havacılık",
+    "Postgraduate studies": "Lisansüstü eğitim",
+    "The supplied 2026/2027 regular Master’s tuition for international students is quoted with a 25% scholarship. The university’s stated conditions apply; confirm applicability with the University of Kyrenia through FranklyEdu.":
+      "Uluslararası öğrenciler için sağlanan 2026/2027 standart yüksek lisans öğrenim ücreti %25 burslu olarak belirtilmiştir. Üniversitenin belirttiği koşullar geçerlidir; geçerliliğini FranklyEdu aracılığıyla Girne Üniversitesi ile teyit edin.",
+    "For 2026/2027, the published regular Master’s tuition for international students with a 25% scholarship is €1,272 per semester. The published regular Master’s programme fee covers four academic semesters, subject to the university’s stated conditions. No total programme fee is stated here. Undergraduate tuition and initial payments must be confirmed for the selected programme with the University of Kyrenia through FranklyEdu.":
+      "2026/2027 için uluslararası öğrencilere yönelik yayımlanmış %25 burslu standart yüksek lisans öğrenim ücreti dönem başına €1,272'dir. Yayımlanmış standart yüksek lisans program ücreti, üniversitenin belirttiği koşullara tabi olarak dört akademik dönemi kapsar. Burada toplam program ücreti belirtilmemektedir. Lisans öğrenim ücreti ve ilk ödemeler, seçilen program için FranklyEdu aracılığıyla Girne Üniversitesi ile teyit edilmelidir.",
+    "GAU 2025/2026 — published annual tuition schedule (EUR)":
+      "GAU 2025/2026 — yayımlanmış yıllık öğrenim ücreti çizelgesi (EUR)",
+    "Annual tuition (2025/2026)": "Yıllık öğrenim ücreti (2025/2026)",
+    "This Frank-supplied published fee schedule is for 2025/2026 only. These figures are not confirmed 2026/2027 rates. Separately from tuition, the supplied schedule lists an additional registration and activity fee of €500 yearly for the listed degree programmes. This charge is not included in the tuition figures; its applicability has not been independently verified for every category. Ask FranklyEdu to confirm current tuition and applicable charges with GAU.":
+      "Frank'ın sağladığı bu yayımlanmış ücret çizelgesi yalnızca 2025/2026 içindir. Bu tutarlar teyit edilmiş 2026/2027 ücretleri değildir. Sağlanan çizelgede, öğrenim ücretinden ayrı olarak listelenen derece programları için yıllık €500 ek kayıt ve etkinlik ücreti yer alır. Bu ücret öğrenim ücreti tutarlarına dahil değildir; her kategori için geçerliliği bağımsız olarak doğrulanmamıştır. Güncel öğrenim ücretini ve geçerli ek ücretleri GAU ile teyit etmek için FranklyEdu ile iletişime geçin.",
+    Business: "İşletme",
+    "Architecture and several other faculties": "Mimarlık ve diğer bazı fakülteler",
+    "Civil Aviation Management": "Sivil Havacılık İşletmeciliği",
+    Pilotage: "Pilotaj",
+    "Master’s programmes": "Yüksek lisans programları",
+    "PhD programmes": "Doktora programları",
+    "Annual advance-payment fee (75% scholarship)": "Yıllık peşin ücret (%75 burs)",
+    "EMU 2026/2027 — supplied annual advance-payment fees with a 75% scholarship (USD)":
+      "EMU 2026/2027 — sağlanan %75 burslu yıllık peşin ücretler (USD)",
+    "Frank's supplied 2026/2027 fees are for eligible new international students with a 75% scholarship, not a guaranteed award for every applicant. The linked general EMU schedule lists other scholarship tiers and a country-specific 75% tier for Turkmenistan. Confirm eligibility for the supplied 75% fees and your payable amount with EMU through FranklyEdu.":
+      "Frank'ın sağladığı 2026/2027 ücretleri, %75 burslu uygun yeni uluslararası öğrenciler içindir; her başvuru sahibine garanti edilen bir burs değildir. Bağlantı verilen genel EMU çizelgesinde diğer burs kademeleri ve Türkmenistan'a özgü %75 kademesi yer alır. Sağlanan %75 burslu ücretlere uygunluğunuzu ve ödenecek tutarı FranklyEdu aracılığıyla EMU ile teyit edin.",
+    "These Frank-supplied published 2026/2027 annual advance-payment fees in USD apply to eligible new international students with a 75% scholarship. They are not instalment prices or registration deposit amounts. Confirm the applicable faculty or category, scholarship eligibility and payable amount with EMU. The current registration deposit and instalment arrangements must be confirmed with EMU.":
+      "Frank'ın sağladığı yayımlanmış 2026/2027 yıllık peşin ücretleri USD cinsindedir ve %75 burslu uygun yeni uluslararası öğrenciler için geçerlidir. Bunlar taksit tutarları veya kayıt depozitosu tutarları değildir. Geçerli fakülteyi veya kategoriyi, burs uygunluğunu ve ödenecek tutarı EMU ile teyit edin. Güncel kayıt depozitosu ve taksit düzenlemeleri EMU ile teyit edilmelidir.",
+    "Arts and Sciences": "Fen ve Edebiyat",
+    "Associate degree programmes": "Ön lisans programları",
+    "NEU 2026/2027 — supplied annual tuition after scholarship (EUR)":
+      "NEU 2026/2027 — sağlanan burs sonrası yıllık öğrenim ücretleri (EUR)",
+    "The supplied NEU 2026/2027 information states that the standard undergraduate scholarship is up to 50% for international students in most departments, excluding Medicine and Dentistry. Ask FranklyEdu to confirm eligibility and payable fees with the university.":
+      "Sağlanan NEU 2026/2027 bilgilerine göre, Tıp ve Diş Hekimliği hariç çoğu bölümde uluslararası öğrencilere standart lisans bursu %50'ye kadar sunulmaktadır. Uygunluk koşullarını ve ödenecek ücretleri üniversiteyle teyit etmek için FranklyEdu ile iletişime geçin.",
+    "Additional administrative and other fees may apply. The published total fee for most programmes with €2,800 annual tuition is €3,225 per year; this is distinct from tuition alone and is not a confirmed total for every programme. The initial deposit and payment schedule are unconfirmed. Contact FranklyEdu to confirm these details with the university.":
+      "Ek idari ve diğer ücretler uygulanabilir. Yıllık öğrenim ücreti €2,800 olan çoğu program için yayımlanan toplam ücret yıllık €3,225'tir; bu tutar yalnızca öğrenim ücretinden farklıdır ve her program için teyit edilmiş bir toplam değildir. İlk depozito ve ödeme takvimi teyit edilmemiştir. Bu ayrıntıları üniversiteyle teyit etmek için FranklyEdu ile iletişime geçin.",
+    "International Business": "Uluslararası İşletme",
+    "Human Resources Management": "İnsan Kaynakları Yönetimi",
+    Marketing: "Pazarlama",
+    "Computer Information Systems": "Bilgisayar Bilgi Sistemleri",
+    Nursing: "Hemşirelik",
+    "Engineering programmes": "Mühendislik programları",
+    "Dentistry (English)": "Diş Hekimliği (İngilizce)",
     "Current programme-specific entry requirements need confirmation from Hof.":
       "Programa özgü güncel kabul koşulları Hof'tan teyit edilmelidir.",
     "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.":
@@ -47,8 +187,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Yayımlanan program kataloğuna göz atın. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; diğer programlar ayrıntıları doğrulandıktan sonra eklenir. Güncel uygunluk, ücretler ve kabul koşullarını doğrudan kurumdan teyit edin.",
     "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.":
       "Üniversite kaynak bağlantılarıyla yayımlanan programları inceleyin. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; program uygunluğunu, ücretleri ve kabul koşullarını her kurumdan teyit edin.",
-    "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
-      "CIU, uluslararası lisans öğrencilerine %50 öğrenim ücreti bursu verildiğini belirtmektedir. Başvuru yapmadan veya herhangi bir ödeme gerçekleştirmeden önce uygunluk ve ödenecek öğrenim ücreti doğrudan CIU'dan teyit edilmelidir.",
+    "CIU offers a 50% international undergraduate tuition scholarship; additional academic scholarships may be available. Exact payable tuition depends on the programme and scholarship. Confirm eligibility and payable tuition with CIU through FranklyEdu before applying or making any payment.":
+      "CIU, uluslararası lisans öğrencilerine %50 öğrenim ücreti bursu sunar; ek akademik burslar da mevcut olabilir. Ödenecek kesin öğrenim ücreti programa ve bursa bağlıdır. Başvuru yapmadan veya herhangi bir ödeme gerçekleştirmeden önce uygunluk koşullarını ve ödenecek öğrenim ücretini FranklyEdu aracılığıyla CIU ile teyit edin.",
+    "Confirm the exact initial payment amount using the student's official acceptance letter or invoice. Contact FranklyEdu for guidance on confirming this amount with CIU.":
+      "Kesin ilk ödeme tutarını öğrencinin resmî kabul mektubunu veya faturasını kullanarak teyit edin. Bu tutarı CIU ile teyit etme konusunda rehberlik için FranklyEdu ile iletişime geçin.",
     "Refer to the institution's official site for current programmes and admissions information.":
       "Güncel program ve kabul bilgileri için kurumun resmî sitesine başvurun.",
     "University site": "Üniversite sitesi",
@@ -866,6 +1008,154 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Kampüs yakınındaki öğrenci yurtları ve kiralık konutlar, yatırım amaçlı gayrimenkullerden ayrı tutulur.",
   },
   fr: {
+    "Admissions document guidance — confirm with the university":
+      "Documents de candidature — à confirmer auprès de l’université",
+    "Computing and Engineering": "Informatique et ingénierie",
+    "Health and Life Sciences": "Santé et sciences de la vie",
+    "Social Sciences and Humanities": "Sciences sociales et humaines",
+    Accounting: "Comptabilité",
+    "Computer Science": "Informatique",
+    IT: "Technologies de l’information",
+    "Biological Sciences": "Sciences biologiques",
+    "Public Health": "Santé publique",
+    "Undergraduate estimate": "Estimation de premier cycle",
+    "Graduate estimate": "Estimation de cycles supérieurs",
+    "Tuition — per semester": "Scolarité — par semestre",
+    "Fees — per semester": "Frais — par semestre",
+    "Books and supplies — per semester": "Livres et fournitures — par semestre",
+    "Housing — per semester": "Logement — par semestre",
+    "Food — per semester": "Alimentation — par semestre",
+    "Transportation — per semester": "Transport — par semestre",
+    "Personal expenses — per semester": "Dépenses personnelles — par semestre",
+    "Estimated annual total — fall and spring": "Total annuel estimé — automne et printemps",
+    "Official degree catalogue": "Catalogue officiel des diplômes",
+    "Official cost estimates": "Estimations officielles des coûts",
+    "Official international document guidance": "Documents internationaux : guide officiel",
+    "Official graduate admissions guidance": "Admissions aux cycles supérieurs : guide officiel",
+    "FIU 2026/2027 — supplied non-Florida-resident on-campus estimates (USD)":
+      "FIU 2026/2027 — estimations communiquées sur campus pour non-résidents de Floride (USD)",
+    "FIU’s supplied 2026/2027 non-Florida-resident on-campus cost estimates are shown on View Courses. These are estimates, not guaranteed final costs. F-1/J-1 students generally pay applicable non-Florida-resident rates; additional charges may apply. Confirm deposits, deadlines and financial-documentation requirements directly with FIU; no fixed initial payment is stated.":
+      "Les estimations FIU 2026/2027 communiquées pour les non-résidents de Floride sur campus figurent dans Voir les formations. Ce sont des estimations, non des coûts finaux garantis. Les étudiants F-1/J-1 paient généralement les tarifs applicables aux non-résidents de Floride ; des frais supplémentaires peuvent s’appliquer. Confirmez dépôts, échéances et justificatifs financiers directement auprès de FIU ; aucun paiement initial fixe n’est indiqué.",
+    "Expense rows are per semester; estimated annual totals cover fall and spring. The official annual budgets include other allowances, including loan-origination allowances omitted from these supplied rows; not every budget allowance is a charge payable by every student. FIU publishes multiple budgets; confirm the applicable pathway, programme and budget with FIU. These estimates are not scholarship prices or guaranteed invoices.":
+      "Les lignes de dépenses sont par semestre ; les totaux annuels estimés couvrent l’automne et le printemps. Les budgets annuels officiels incluent d’autres provisions, dont les frais de mise en place de prêt omis des lignes communiquées ; chaque provision n’est pas une somme due par chaque étudiant. FIU publie plusieurs budgets ; confirmez le parcours, la formation et le budget applicables auprès de FIU. Ces estimations ne sont ni des tarifs avec bourse ni des factures garanties.",
+    "FIU catalogue examples supplied by Frank, not confirmed current degree records. Confirm exact degree titles, availability, teaching language, duration, intake and requirements against FIU’s official degree catalogue. Undergraduate examples are grouped at Bachelor’s level; graduate examples have no confirmed Master’s or doctoral assignment.":
+      "Exemples du catalogue FIU communiqués par Frank, non des fiches de diplômes actuels confirmés. Confirmez les intitulés exacts, la disponibilité, la langue, la durée, la rentrée et les conditions dans le catalogue officiel de FIU. Les exemples de premier cycle sont regroupés au niveau licence ; aucun niveau master ou doctorat n’est confirmé pour les exemples de cycles supérieurs.",
+    "Supplied levels: Bachelor’s, Master’s and doctoral. Graduate examples appear only without a study-level filter; they are not duplicated as confirmed Master’s or PhD programmes.":
+      "Niveaux communiqués : licence, master et doctorat. Les exemples de cycles supérieurs apparaissent uniquement sans filtre de niveau ; ils ne sont pas dupliqués comme masters ou doctorats confirmés.",
+    "Bachelor’s document guidance: official secondary-school records and English translations where needed; transfer applicants may need post-secondary transcripts and course-by-course evaluations. Confirm the application, test evidence and immigration documents for your admission pathway with FIU. Requirements vary by pathway and programme.":
+      "Documents indicatifs pour la licence : dossiers officiels du secondaire et traductions anglaises si nécessaires ; les candidats en transfert peuvent devoir fournir des relevés postsecondaires et des évaluations cours par cours. Confirmez la candidature, les justificatifs de tests et les documents d’immigration selon votre parcours auprès de FIU. Les conditions varient selon le parcours et la formation.",
+    "Master’s and PhD document guidance: official post-secondary transcripts and degree records, with translations and evaluations where required. Departments may request a statement of purpose, recommendation letters, CV and research/writing samples, or a separate application, interview or audition. Confirm English evidence and immigration/financial documents with FIU. Requirements vary by admission pathway and programme; this is not a universal checklist or eligibility guarantee.":
+      "Documents indicatifs pour le master et le doctorat : relevés postsecondaires et diplômes officiels, avec traductions et évaluations si requises. Les départements peuvent demander une lettre de motivation, des recommandations, un CV et des travaux de recherche/rédaction, ou une candidature distincte, un entretien ou une audition. Confirmez les justificatifs d’anglais et documents d’immigration/financiers auprès de FIU. Les conditions varient selon le parcours et la formation ; ce n’est ni une liste universelle ni une garantie d’éligibilité.",
+    "Selected fee examples below are separate from the filtered catalogue names; they do not confirm a programme level or current availability.":
+      "Les exemples de frais sélectionnés ci-dessous sont distincts des noms filtrés du catalogue ; ils ne confirment ni le niveau ni la disponibilité actuelle d’une formation.",
+    "Associate degree": "Diplôme de cycle court",
+    "Programme examples — level unassigned": "Exemples de formations — niveau non attribué",
+    "NEU 2026/2027 — selected programme annual fee examples (EUR)":
+      "NEU 2026/2027 — exemples de frais annuels de formations sélectionnées (EUR)",
+    "Annual tuition before scholarship": "Frais de scolarité annuels avant bourse",
+    "Listed 50% scholarship figure / special scholarship":
+      "Montant indiqué avec bourse de 50 % / bourse spéciale",
+    "Total including VAT/administrative fee": "Total incluant TVA/frais administratifs",
+    "No scholarship figure listed": "Aucun montant avec bourse indiqué",
+    "Special scholarship listed; figure not supplied":
+      "Bourse spéciale indiquée ; montant non communiqué",
+    "Selected programmes from the supplied NEU 2026/2027 schedule are shown on View Courses, separating annual tuition before scholarship, the listed scholarship figure and total including VAT/administrative fee. Unlisted scholarship figures are not zero; Pharmacy has a special scholarship listed without a tuition figure. Programme availability and language of instruction vary and require confirmation. The initial deposit and payment schedule remain unconfirmed; contact FranklyEdu to confirm payable fees with NEU.":
+      "Les formations sélectionnées du barème NEU 2026/2027 communiqué figurent dans Voir les formations, en distinguant les frais de scolarité annuels avant bourse, le montant indiqué avec bourse et le total incluant TVA/frais administratifs. Les montants avec bourse non indiqués ne sont pas nuls ; une bourse spéciale est indiquée en pharmacie sans montant de scolarité avec bourse. La disponibilité et la langue d’enseignement varient et sont à confirmer. Le dépôt initial et l’échéancier restent non confirmés ; contactez FranklyEdu pour confirmer les frais à payer auprès de NEU.",
+    "NEU catalogue examples supplied by Frank, not confirmed current programme-level records. Programme availability and language of instruction vary and must be confirmed with NEU. Duration, intake, programme-specific requirements and current fees require confirmation. Named examples have no confirmed level assignment and are shown only when no study-level filter is selected.":
+      "Exemples du catalogue NEU communiqués par Frank, et non des fiches de formations actuelles confirmées. La disponibilité et la langue d’enseignement varient et doivent être confirmées auprès de NEU. Durée, rentrée, conditions propres aux formations et frais actuels sont à confirmer. Aucun niveau n’est confirmé pour les exemples nommés ; ils ne sont affichés que sans filtre de niveau d’études.",
+    "Supplied level coverage: Associate degree, Bachelor’s, Master’s and PhD. No named Associate degree, Master’s or PhD offerings are confirmed here; no named example is assigned to a level.":
+      "Niveaux communiqués : diplôme de cycle court, licence, master et doctorat. Aucune formation nommée de cycle court, master ou doctorat n’est confirmée ici ; aucun exemple nommé n’est attribué à un niveau.",
+    "Banking and Finance": "Banque et finance",
+    "Artificial Intelligence Engineering": "Génie de l’intelligence artificielle",
+    "Cyber Security Engineering": "Génie de la cybersécurité",
+    "Information Systems Engineering": "Génie des systèmes d’information",
+    "Management Information Systems": "Systèmes d’information de gestion",
+    "Data Analysis Engineering": "Génie de l’analyse de données",
+    "Biomedical Engineering": "Génie biomédical",
+    "Industrial Engineering": "Génie industriel",
+    "Veterinary Medicine": "Médecine vétérinaire",
+    "Browse source-linked programme records and clearly labelled university catalogue examples. Confirm current availability, fees and requirements with the university.":
+      "Consultez les fiches de formations avec leurs sources et les exemples des catalogues universitaires clairement identifiés. Confirmez la disponibilité, les frais et les conditions actuels auprès de l’université.",
+    "Browse this university’s programme records or labelled catalogue examples. Examples do not confirm current availability; check details with the institution.":
+      "Consultez les fiches de formations ou les exemples du catalogue identifiés pour cette université. Les exemples ne confirment pas la disponibilité actuelle ; vérifiez les détails auprès de l’établissement.",
+    "Catalogue examples — availability unconfirmed":
+      "Exemples du catalogue — disponibilité non confirmée",
+    "catalogue examples match these filters": "exemples du catalogue correspondent à ces filtres",
+    "Admissions document guidance — reconfirm with CIU":
+      "Documents de candidature — à reconfirmer auprès de CIU",
+    "CIU catalogue examples supplied by Frank, not confirmed current programme-level records. Availability, duration, intake, teaching language, programme-specific requirements and fees require confirmation with CIU. These examples are not selectable confirmed courses in the application form.":
+      "Exemples du catalogue CIU communiqués par Frank, et non des fiches de formations actuelles confirmées. Disponibilité, durée, rentrée, langue d’enseignement, conditions et frais propres à chaque formation sont à confirmer auprès de CIU. Ces exemples ne sont pas sélectionnables comme formations confirmées dans le formulaire de candidature.",
+    "Supplied notes cite IELTS 5.5 or TOEFL iBT 65; some applicants may take an on-campus proficiency exam. These are not confirmed programme-specific thresholds. Reconfirm accepted English evidence and any exam option with CIU.":
+      "Les notes communiquées citent IELTS 5.5 ou TOEFL iBT 65 ; certains candidats peuvent passer un examen de compétence sur le campus. Ces seuils ne sont pas confirmés pour chaque formation. Reconfirmez les justificatifs d’anglais acceptés et toute possibilité d’examen auprès de CIU.",
+    "Bachelor’s document guidance: application form, secondary certificate (WAEC/NECO/equivalent), passport or accepted ID, English evidence where required, and other requested documents. Confirm the exact list with CIU.":
+      "Documents indicatifs pour la licence : formulaire de candidature, diplôme du secondaire (WAEC/NECO/équivalent), passeport ou pièce d’identité acceptée, justificatif d’anglais si requis et autres documents demandés. Confirmez la liste exacte auprès de CIU.",
+    "Master’s document guidance: bachelor’s certificate, transcripts, passport or accepted ID, CV, and English evidence where required. Confirm the exact list with CIU.":
+      "Documents indicatifs pour le master : diplôme de licence, relevés de notes, passeport ou pièce d’identité acceptée, CV et justificatif d’anglais si requis. Confirmez la liste exacte auprès de CIU.",
+    "PhD document guidance: bachelor’s and master’s qualifications, transcripts, CV, research proposal, and English evidence where required. Confirm the exact list with CIU.":
+      "Documents indicatifs pour le doctorat : diplômes de licence et de master, relevés de notes, CV, projet de recherche et justificatif d’anglais si requis. Confirmez la liste exacte auprès de CIU.",
+    "Tuition varies by programme, scholarship and academic year; use CIU’s tuition calculator on its official website. Confirm the exact initial payment from the student’s official offer letter. Contact FranklyEdu for guidance on confirming these details with CIU.":
+      "Les frais de scolarité varient selon la formation, la bourse et l’année universitaire ; utilisez le calculateur de frais sur le site officiel de CIU. Confirmez le paiement initial exact à partir de la lettre officielle d’offre d’admission de l’étudiant. Contactez FranklyEdu pour être accompagné dans la confirmation de ces détails auprès de CIU.",
+    "North Nicosia": "Nicosie-Nord",
+    "Northern Cyprus": "Chypre du Nord",
+    "Accounting and Finance": "Comptabilité et finance",
+    "Human Resource Management": "Gestion des ressources humaines",
+    Economics: "Économie",
+    "Computer Engineering": "Génie informatique",
+    "Software Engineering": "Génie logiciel",
+    "Civil Engineering": "Génie civil",
+    "Electrical and Electronic Engineering": "Génie électrique et électronique",
+    "Mechanical Engineering": "Génie mécanique",
+    "Information Technology": "Technologies de l’information",
+    "Physiotherapy and Rehabilitation": "Kinésithérapie et réadaptation",
+    "Nutrition and Dietetics": "Nutrition et diététique",
+    Psychology: "Psychologie",
+    "English Language Teaching": "Enseignement de l’anglais",
+    "Tourism and Hotel Management": "Gestion du tourisme et de l’hôtellerie",
+    "Graphic Design": "Design graphique",
+    MBA: "Master en administration des affaires (MBA)",
+    Finance: "Finance",
+    Aviation: "Aviation",
+    "Postgraduate studies": "Études de deuxième et troisième cycles",
+    "The supplied 2026/2027 regular Master’s tuition for international students is quoted with a 25% scholarship. The university’s stated conditions apply; confirm applicability with the University of Kyrenia through FranklyEdu.":
+      "Les frais de scolarité du master standard 2026/2027 communiqués pour les étudiants internationaux sont indiqués avec une bourse de 25 %. Les conditions énoncées par l’université s’appliquent ; confirmez leur applicabilité auprès de l’Université de Kyrenia par l’intermédiaire de FranklyEdu.",
+    "For 2026/2027, the published regular Master’s tuition for international students with a 25% scholarship is €1,272 per semester. The published regular Master’s programme fee covers four academic semesters, subject to the university’s stated conditions. No total programme fee is stated here. Undergraduate tuition and initial payments must be confirmed for the selected programme with the University of Kyrenia through FranklyEdu.":
+      "Pour 2026/2027, les frais de scolarité publiés du master standard pour les étudiants internationaux avec une bourse de 25 % sont de €1,272 par semestre. Les frais publiés du programme de master standard couvrent quatre semestres universitaires, sous réserve des conditions énoncées par l’université. Aucun montant total du programme n’est indiqué ici. Les frais de scolarité de premier cycle et les paiements initiaux doivent être confirmés pour la formation choisie auprès de l’Université de Kyrenia par l’intermédiaire de FranklyEdu.",
+    "GAU 2025/2026 — published annual tuition schedule (EUR)":
+      "GAU 2025/2026 — barème publié des frais de scolarité annuels (EUR)",
+    "Annual tuition (2025/2026)": "Frais de scolarité annuels (2025/2026)",
+    "This Frank-supplied published fee schedule is for 2025/2026 only. These figures are not confirmed 2026/2027 rates. Separately from tuition, the supplied schedule lists an additional registration and activity fee of €500 yearly for the listed degree programmes. This charge is not included in the tuition figures; its applicability has not been independently verified for every category. Ask FranklyEdu to confirm current tuition and applicable charges with GAU.":
+      "Ce barème publié, communiqué par Frank, concerne uniquement 2025/2026. Ces montants ne sont pas des tarifs confirmés pour 2026/2027. Séparément des frais de scolarité, le barème communiqué indique des frais supplémentaires d’inscription et d’activités de €500 par an pour les formations diplômantes mentionnées. Ces frais ne sont pas inclus dans les montants de scolarité ; leur application à chaque catégorie n’a pas été vérifiée de manière indépendante. Contactez FranklyEdu pour confirmer les frais de scolarité actuels et les frais applicables auprès de GAU.",
+    Business: "Commerce",
+    "Architecture and several other faculties": "Architecture et plusieurs autres facultés",
+    "Civil Aviation Management": "Gestion de l’aviation civile",
+    Pilotage: "Pilotage",
+    "Master’s programmes": "Formations de master",
+    "PhD programmes": "Formations doctorales",
+    "Annual advance-payment fee (75% scholarship)":
+      "Frais annuels payables à l’avance (bourse de 75 %)",
+    "EMU 2026/2027 — supplied annual advance-payment fees with a 75% scholarship (USD)":
+      "EMU 2026/2027 — frais annuels communiqués, payables à l’avance, avec une bourse de 75 % (USD)",
+    "Frank's supplied 2026/2027 fees are for eligible new international students with a 75% scholarship, not a guaranteed award for every applicant. The linked general EMU schedule lists other scholarship tiers and a country-specific 75% tier for Turkmenistan. Confirm eligibility for the supplied 75% fees and your payable amount with EMU through FranklyEdu.":
+      "Les frais 2026/2027 communiqués par Frank concernent les nouveaux étudiants internationaux éligibles avec une bourse de 75 %, sans garantie d’attribution à chaque candidat. Le barème général EMU en lien présente d’autres niveaux de bourse et un niveau de 75 % propre au Turkménistan. Confirmez votre éligibilité aux tarifs communiqués avec une bourse de 75 % et le montant à payer auprès de l’EMU par l’intermédiaire de FranklyEdu.",
+    "These Frank-supplied published 2026/2027 annual advance-payment fees in USD apply to eligible new international students with a 75% scholarship. They are not instalment prices or registration deposit amounts. Confirm the applicable faculty or category, scholarship eligibility and payable amount with EMU. The current registration deposit and instalment arrangements must be confirmed with EMU.":
+      "Ces frais annuels publiés pour 2026/2027, communiqués par Frank, payables à l’avance en USD, concernent les nouveaux étudiants internationaux éligibles avec une bourse de 75 %. Ce ne sont ni des montants d’échéances ni des dépôts d’inscription. Confirmez la faculté ou catégorie applicable, l’éligibilité à la bourse et le montant à payer auprès de l’EMU. Le dépôt d’inscription actuel et les modalités de paiement échelonné doivent être confirmés auprès de l’EMU.",
+    "Arts and Sciences": "Arts et sciences",
+    "Associate degree programmes": "Formations de diplôme de cycle court",
+    "Programme / category": "Formation / catégorie",
+    "Annual tuition after scholarship": "Frais de scolarité annuels après bourse",
+    "NEU 2026/2027 — supplied annual tuition after scholarship (EUR)":
+      "NEU 2026/2027 — frais de scolarité annuels après bourse communiqués (EUR)",
+    "The supplied NEU 2026/2027 information states that the standard undergraduate scholarship is up to 50% for international students in most departments, excluding Medicine and Dentistry. Ask FranklyEdu to confirm eligibility and payable fees with the university.":
+      "Selon les informations NEU 2026/2027 communiquées, la bourse standard de premier cycle peut atteindre 50 % pour les étudiants internationaux dans la plupart des départements, hors médecine et dentisterie. Contactez FranklyEdu pour confirmer l’éligibilité et les frais à payer auprès de l’université.",
+    "Additional administrative and other fees may apply. The published total fee for most programmes with €2,800 annual tuition is €3,225 per year; this is distinct from tuition alone and is not a confirmed total for every programme. The initial deposit and payment schedule are unconfirmed. Contact FranklyEdu to confirm these details with the university.":
+      "Des frais administratifs et autres frais supplémentaires peuvent s’appliquer. Pour la plupart des formations dont les frais de scolarité annuels sont de €2,800, le montant total publié est de €3,225 par an ; il se distingue des seuls frais de scolarité et n’est pas un total confirmé pour chaque formation. Le dépôt initial et l’échéancier de paiement ne sont pas confirmés. Contactez FranklyEdu pour confirmer ces détails auprès de l’université.",
+    "International Business": "Commerce international",
+    "Human Resources Management": "Gestion des ressources humaines",
+    Marketing: "Marketing",
+    "Computer Information Systems": "Systèmes d’information informatiques",
+    Nursing: "Soins infirmiers",
+    "Engineering programmes": "Formations en ingénierie",
+    "Dentistry (English)": "Dentisterie (en anglais)",
     "Current programme-specific entry requirements need confirmation from Hof.":
       "Les conditions d’admission actuelles propres à cette formation doivent être confirmées auprès de Hof.",
     "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.":
@@ -908,11 +1198,9 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "No confirmed scholarship details are published for this university.":
       "Aucun détail confirmé sur les bourses n’est publié pour cette université.",
     "University scholarship information": "Informations universitaires sur les bourses",
-    "Explore Courses": "Explorer les formations",
-    "Apply Through FranklyEdu": "Postuler avec FranklyEdu",
-    "Visit University Website": "Visiter le site de l’université",
-    "FranklyEdu provides application guidance and does not directly submit applications to universities. Visit University Website opens the official site in a new tab.":
-      "FranklyEdu accompagne votre candidature et ne la dépose pas directement auprès des universités. Visiter le site de l’université ouvre le site officiel dans un nouvel onglet.",
+    "View Courses": "Voir les formations",
+    "FranklyEdu provides application guidance and does not directly submit applications to universities.":
+      "FranklyEdu accompagne votre candidature et ne la dépose pas directement auprès des universités.",
     "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.":
       "Consultez les formations publiées pour cette université. Les domaines d’études ne sont pas des fiches de formation ; confirmez les disponibilités et conditions d’admission auprès de l’établissement.",
     "No verified programme listings yet for this university":
@@ -929,8 +1217,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Architecture: "Architecture",
     "Tourism and Hospitality": "Tourisme et hôtellerie",
     "Master’s and PhD programmes": "Masters et doctorats",
-    "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
-      "CIU indique que les étudiants internationaux en licence bénéficient d’une bourse couvrant 50 % des frais de scolarité. L’éligibilité et les frais de scolarité à payer doivent être confirmés directement auprès de CIU avant toute candidature ou tout paiement.",
+    "CIU offers a 50% international undergraduate tuition scholarship; additional academic scholarships may be available. Exact payable tuition depends on the programme and scholarship. Confirm eligibility and payable tuition with CIU through FranklyEdu before applying or making any payment.":
+      "CIU propose une bourse couvrant 50 % des frais de scolarité de premier cycle pour les étudiants internationaux ; des bourses académiques supplémentaires peuvent être disponibles. Les frais de scolarité exacts à payer dépendent de la formation et de la bourse. Confirmez l’éligibilité et les frais à payer auprès de CIU par l’intermédiaire de FranklyEdu avant toute candidature ou tout paiement.",
+    "Confirm the exact initial payment amount using the student's official acceptance letter or invoice. Contact FranklyEdu for guidance on confirming this amount with CIU.":
+      "Confirmez le montant exact du paiement initial à l’aide de la lettre officielle d’admission ou de la facture de l’étudiant. Contactez FranklyEdu pour être accompagné dans la confirmation de ce montant auprès de CIU.",
     "Refer to the institution's official site for current programmes and admissions information.":
       "Consultez le site officiel de l’établissement pour connaître les formations et admissions actuelles.",
     "University site": "Site de l’université",
@@ -1897,6 +2187,154 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
       "Résidences et locations étudiantes près du campus, distinctes des biens d’investissement.",
   },
   sw: {
+    "Admissions document guidance — confirm with the university":
+      "Mwongozo wa hati za udahili — thibitisha na chuo kikuu",
+    "Computing and Engineering": "Kompyuta na Uhandisi",
+    "Health and Life Sciences": "Afya na Sayansi za Uhai",
+    "Social Sciences and Humanities": "Sayansi za Jamii na Binadamu",
+    Accounting: "Uhasibu",
+    "Computer Science": "Sayansi ya Kompyuta",
+    IT: "Teknolojia ya Habari",
+    "Biological Sciences": "Sayansi za Biolojia",
+    "Public Health": "Afya ya Umma",
+    "Undergraduate estimate": "Makadirio ya shahada ya kwanza",
+    "Graduate estimate": "Makadirio ya masomo ya uzamili na uzamivu",
+    "Tuition — per semester": "Ada ya masomo — kwa muhula",
+    "Fees — per semester": "Ada nyingine — kwa muhula",
+    "Books and supplies — per semester": "Vitabu na vifaa — kwa muhula",
+    "Housing — per semester": "Makazi — kwa muhula",
+    "Food — per semester": "Chakula — kwa muhula",
+    "Transportation — per semester": "Usafiri — kwa muhula",
+    "Personal expenses — per semester": "Matumizi binafsi — kwa muhula",
+    "Estimated annual total — fall and spring": "Jumla ya mwaka iliyokadiriwa — vuli na masika",
+    "Official degree catalogue": "Katalogi rasmi ya shahada",
+    "Official cost estimates": "Makadirio rasmi ya gharama",
+    "Official international document guidance": "Mwongozo rasmi wa hati za kimataifa",
+    "Official graduate admissions guidance": "Mwongozo rasmi wa udahili wa uzamili na uzamivu",
+    "FIU 2026/2027 — supplied non-Florida-resident on-campus estimates (USD)":
+      "FIU 2026/2027 — makadirio yaliyotolewa ya chuoni kwa wasio wakazi wa Florida (USD)",
+    "FIU’s supplied 2026/2027 non-Florida-resident on-campus cost estimates are shown on View Courses. These are estimates, not guaranteed final costs. F-1/J-1 students generally pay applicable non-Florida-resident rates; additional charges may apply. Confirm deposits, deadlines and financial-documentation requirements directly with FIU; no fixed initial payment is stated.":
+      "Makadirio ya FIU ya 2026/2027 yaliyotolewa ya gharama za chuoni kwa wasio wakazi wa Florida yanaonyeshwa kwenye Angalia programu. Haya ni makadirio, si gharama za mwisho zilizohakikishwa. Wanafunzi wa F-1/J-1 kwa kawaida hulipa viwango vinavyotumika kwa wasio wakazi wa Florida; ada za ziada zinaweza kutumika. Thibitisha amana, tarehe za mwisho na mahitaji ya hati za fedha moja kwa moja na FIU; hakuna malipo ya awali ya kudumu yaliyotajwa.",
+    "Expense rows are per semester; estimated annual totals cover fall and spring. The official annual budgets include other allowances, including loan-origination allowances omitted from these supplied rows; not every budget allowance is a charge payable by every student. FIU publishes multiple budgets; confirm the applicable pathway, programme and budget with FIU. These estimates are not scholarship prices or guaranteed invoices.":
+      "Mistari ya matumizi ni kwa muhula; jumla za mwaka zilizokadiriwa zinahusu vuli na masika. Bajeti rasmi za mwaka zinajumuisha makadirio mengine, yakiwemo ya kuanzisha mkopo yaliyoachwa katika mistari iliyotolewa; si kila kipengele cha bajeti ni ada inayolipwa na kila mwanafunzi. FIU huchapisha bajeti nyingi; thibitisha njia, programu na bajeti inayotumika na FIU. Makadirio haya si bei za ufadhili au ankara zilizohakikishwa.",
+    "FIU catalogue examples supplied by Frank, not confirmed current degree records. Confirm exact degree titles, availability, teaching language, duration, intake and requirements against FIU’s official degree catalogue. Undergraduate examples are grouped at Bachelor’s level; graduate examples have no confirmed Master’s or doctoral assignment.":
+      "Mifano ya katalogi ya FIU iliyotolewa na Frank, si rekodi za sasa za shahada zilizothibitishwa. Thibitisha majina halisi ya shahada, upatikanaji, lugha, muda, udahili na mahitaji katika katalogi rasmi ya FIU. Mifano ya shahada ya kwanza imepangwa katika ngazi hiyo; mifano ya masomo ya juu haina mgawanyo uliothibitishwa wa uzamili au uzamivu.",
+    "Supplied levels: Bachelor’s, Master’s and doctoral. Graduate examples appear only without a study-level filter; they are not duplicated as confirmed Master’s or PhD programmes.":
+      "Ngazi zilizotolewa: shahada ya kwanza, uzamili na uzamivu. Mifano ya masomo ya juu huonekana tu bila kichujio cha ngazi; hairudiwi kama programu zilizothibitishwa za uzamili au uzamivu.",
+    "Bachelor’s document guidance: official secondary-school records and English translations where needed; transfer applicants may need post-secondary transcripts and course-by-course evaluations. Confirm the application, test evidence and immigration documents for your admission pathway with FIU. Requirements vary by pathway and programme.":
+      "Mwongozo wa hati za shahada ya kwanza: rekodi rasmi za sekondari na tafsiri za Kiingereza inapohitajika; waombaji wanaohama wanaweza kuhitaji nakala za matokeo ya baada ya sekondari na tathmini ya kila kozi. Thibitisha maombi, ushahidi wa mitihani na hati za uhamiaji kwa njia yako ya udahili na FIU. Mahitaji hutofautiana kwa njia na programu.",
+    "Master’s and PhD document guidance: official post-secondary transcripts and degree records, with translations and evaluations where required. Departments may request a statement of purpose, recommendation letters, CV and research/writing samples, or a separate application, interview or audition. Confirm English evidence and immigration/financial documents with FIU. Requirements vary by admission pathway and programme; this is not a universal checklist or eligibility guarantee.":
+      "Mwongozo wa hati za uzamili na uzamivu: nakala rasmi za matokeo na rekodi za shahada baada ya sekondari, pamoja na tafsiri na tathmini inapohitajika. Idara zinaweza kuomba barua ya malengo, barua za mapendekezo, wasifu na mifano ya utafiti/uandishi, au maombi tofauti, mahojiano au majaribio. Thibitisha ushahidi wa Kiingereza na hati za uhamiaji/fedha na FIU. Mahitaji hutofautiana kwa njia ya udahili na programu; huu si orodha ya jumla au dhamana ya ustahiki.",
+    "Selected fee examples below are separate from the filtered catalogue names; they do not confirm a programme level or current availability.":
+      "Mifano ya ada zilizochaguliwa hapa chini ni tofauti na majina ya katalogi yaliyochujwa; haithibitishi ngazi ya programu au upatikanaji wa sasa.",
+    "Associate degree": "Shahada ya ngazi ya associate",
+    "Programme examples — level unassigned": "Mifano ya programu — ngazi haijapangiwa",
+    "NEU 2026/2027 — selected programme annual fee examples (EUR)":
+      "NEU 2026/2027 — mifano ya ada za mwaka za programu zilizochaguliwa (EUR)",
+    "Annual tuition before scholarship": "Ada ya masomo ya mwaka kabla ya ufadhili",
+    "Listed 50% scholarship figure / special scholarship":
+      "Kiasi kilichoorodheshwa kwa ufadhili wa 50% / ufadhili maalumu",
+    "Total including VAT/administrative fee": "Jumla ikijumuisha VAT/ada ya utawala",
+    "No scholarship figure listed": "Hakuna kiasi cha ufadhili kilichoorodheshwa",
+    "Special scholarship listed; figure not supplied":
+      "Ufadhili maalumu umeorodheshwa; kiasi hakijatolewa",
+    "Selected programmes from the supplied NEU 2026/2027 schedule are shown on View Courses, separating annual tuition before scholarship, the listed scholarship figure and total including VAT/administrative fee. Unlisted scholarship figures are not zero; Pharmacy has a special scholarship listed without a tuition figure. Programme availability and language of instruction vary and require confirmation. The initial deposit and payment schedule remain unconfirmed; contact FranklyEdu to confirm payable fees with NEU.":
+      "Programu zilizochaguliwa kutoka ratiba ya NEU 2026/2027 iliyotolewa zinaonyeshwa kwenye Angalia programu, zikitenganisha ada ya masomo ya mwaka kabla ya ufadhili, kiasi kilichoorodheshwa kwa ufadhili na jumla ikijumuisha VAT/ada ya utawala. Kiasi cha ufadhili kisichoorodheshwa si sifuri; Famasia ina ufadhili maalumu ulioorodheshwa bila kiasi cha ada ya masomo baada ya ufadhili. Upatikanaji wa programu na lugha ya kufundishia hutofautiana na vinahitaji uthibitisho. Amana ya awali na ratiba ya malipo bado hazijathibitishwa; wasiliana na FranklyEdu ili kuthibitisha ada zinazolipwa na NEU.",
+    "NEU catalogue examples supplied by Frank, not confirmed current programme-level records. Programme availability and language of instruction vary and must be confirmed with NEU. Duration, intake, programme-specific requirements and current fees require confirmation. Named examples have no confirmed level assignment and are shown only when no study-level filter is selected.":
+      "Mifano ya katalogi ya NEU iliyotolewa na Frank, si rekodi za sasa za programu zilizothibitishwa. Upatikanaji wa programu na lugha ya kufundishia hutofautiana na lazima vithibitishwe na NEU. Muda, udahili, mahitaji ya kila programu na ada za sasa zinahitaji uthibitisho. Mifano yenye majina haina ngazi iliyothibitishwa na huonyeshwa tu wakati hakuna kichujio cha ngazi ya masomo kilichochaguliwa.",
+    "Supplied level coverage: Associate degree, Bachelor’s, Master’s and PhD. No named Associate degree, Master’s or PhD offerings are confirmed here; no named example is assigned to a level.":
+      "Ngazi zilizotolewa: shahada ya ngazi ya associate, shahada ya kwanza, uzamili na uzamivu. Hakuna programu zenye majina za associate, uzamili au uzamivu zilizothibitishwa hapa; hakuna mfano wenye jina uliopangiwa ngazi.",
+    "Banking and Finance": "Benki na Fedha",
+    "Artificial Intelligence Engineering": "Uhandisi wa Akili Bandia",
+    "Cyber Security Engineering": "Uhandisi wa Usalama wa Mtandao",
+    "Information Systems Engineering": "Uhandisi wa Mifumo ya Habari",
+    "Management Information Systems": "Mifumo ya Habari ya Usimamizi",
+    "Data Analysis Engineering": "Uhandisi wa Uchambuzi wa Data",
+    "Biomedical Engineering": "Uhandisi wa Tiba",
+    "Industrial Engineering": "Uhandisi wa Viwanda",
+    "Veterinary Medicine": "Udaktari wa Mifugo",
+    "Browse source-linked programme records and clearly labelled university catalogue examples. Confirm current availability, fees and requirements with the university.":
+      "Angalia rekodi za programu zenye viungo vya vyanzo na mifano ya katalogi za vyuo vikuu iliyowekwa alama wazi. Thibitisha upatikanaji wa sasa, ada na mahitaji na chuo kikuu.",
+    "Browse this university’s programme records or labelled catalogue examples. Examples do not confirm current availability; check details with the institution.":
+      "Angalia rekodi za programu au mifano ya katalogi iliyowekwa alama ya chuo hiki. Mifano haithibitishi upatikanaji wa sasa; hakiki maelezo na taasisi.",
+    "Catalogue examples — availability unconfirmed":
+      "Mifano ya katalogi — upatikanaji haujathibitishwa",
+    "catalogue examples match these filters": "mifano ya katalogi inalingana na vichujio hivi",
+    "Admissions document guidance — reconfirm with CIU":
+      "Mwongozo wa hati za udahili — thibitisha tena na CIU",
+    "CIU catalogue examples supplied by Frank, not confirmed current programme-level records. Availability, duration, intake, teaching language, programme-specific requirements and fees require confirmation with CIU. These examples are not selectable confirmed courses in the application form.":
+      "Mifano ya katalogi ya CIU iliyotolewa na Frank, si rekodi za sasa za programu zilizothibitishwa. Upatikanaji, muda, udahili, lugha ya kufundishia, mahitaji na ada za kila programu zinahitaji uthibitisho na CIU. Mifano hii haiwezi kuchaguliwa kama kozi zilizothibitishwa katika fomu ya maombi.",
+    "Supplied notes cite IELTS 5.5 or TOEFL iBT 65; some applicants may take an on-campus proficiency exam. These are not confirmed programme-specific thresholds. Reconfirm accepted English evidence and any exam option with CIU.":
+      "Maelezo yaliyotolewa yanataja IELTS 5.5 au TOEFL iBT 65; baadhi ya waombaji wanaweza kufanya mtihani wa umahiri chuoni. Hivi si viwango vilivyothibitishwa kwa kila programu. Thibitisha tena ushahidi wa Kiingereza unaokubalika na chaguo lolote la mtihani na CIU.",
+    "Bachelor’s document guidance: application form, secondary certificate (WAEC/NECO/equivalent), passport or accepted ID, English evidence where required, and other requested documents. Confirm the exact list with CIU.":
+      "Mwongozo wa hati za shahada ya kwanza: fomu ya maombi, cheti cha sekondari (WAEC/NECO/sawa), pasipoti au kitambulisho kinachokubalika, ushahidi wa Kiingereza unapohitajika na hati nyingine zinazoombwa. Thibitisha orodha kamili na CIU.",
+    "Master’s document guidance: bachelor’s certificate, transcripts, passport or accepted ID, CV, and English evidence where required. Confirm the exact list with CIU.":
+      "Mwongozo wa hati za uzamili: cheti cha shahada ya kwanza, nakala za matokeo, pasipoti au kitambulisho kinachokubalika, wasifu na ushahidi wa Kiingereza unapohitajika. Thibitisha orodha kamili na CIU.",
+    "PhD document guidance: bachelor’s and master’s qualifications, transcripts, CV, research proposal, and English evidence where required. Confirm the exact list with CIU.":
+      "Mwongozo wa hati za uzamivu: sifa za shahada ya kwanza na uzamili, nakala za matokeo, wasifu, pendekezo la utafiti na ushahidi wa Kiingereza unapohitajika. Thibitisha orodha kamili na CIU.",
+    "Tuition varies by programme, scholarship and academic year; use CIU’s tuition calculator on its official website. Confirm the exact initial payment from the student’s official offer letter. Contact FranklyEdu for guidance on confirming these details with CIU.":
+      "Ada ya masomo hutofautiana kwa programu, ufadhili na mwaka wa masomo; tumia kikokotoo cha ada cha CIU kwenye tovuti yake rasmi. Thibitisha malipo halisi ya awali kutoka barua rasmi ya ofa ya udahili ya mwanafunzi. Wasiliana na FranklyEdu kwa mwongozo wa kuthibitisha maelezo haya na CIU.",
+    "North Nicosia": "Nicosia Kaskazini",
+    "Northern Cyprus": "Saiprasi ya Kaskazini",
+    "Accounting and Finance": "Uhasibu na Fedha",
+    "Human Resource Management": "Usimamizi wa Rasilimali Watu",
+    Economics: "Uchumi",
+    "Computer Engineering": "Uhandisi wa Kompyuta",
+    "Software Engineering": "Uhandisi wa Programu",
+    "Civil Engineering": "Uhandisi wa Ujenzi",
+    "Electrical and Electronic Engineering": "Uhandisi wa Umeme na Elektroniki",
+    "Mechanical Engineering": "Uhandisi wa Mitambo",
+    "Information Technology": "Teknolojia ya Habari",
+    "Physiotherapy and Rehabilitation": "Tiba ya Viungo na Urekebishaji",
+    "Nutrition and Dietetics": "Lishe na Sayansi ya Ulaji",
+    Psychology: "Saikolojia",
+    "English Language Teaching": "Ufundishaji wa Kiingereza",
+    "Tourism and Hotel Management": "Usimamizi wa Utalii na Hoteli",
+    "Graphic Design": "Ubunifu wa Picha",
+    MBA: "Uzamili wa Usimamizi wa Biashara (MBA)",
+    Finance: "Fedha",
+    Aviation: "Usafiri wa Anga",
+    "Postgraduate studies": "Masomo ya uzamili na uzamivu",
+    "The supplied 2026/2027 regular Master’s tuition for international students is quoted with a 25% scholarship. The university’s stated conditions apply; confirm applicability with the University of Kyrenia through FranklyEdu.":
+      "Ada iliyotolewa ya masomo ya kawaida ya uzamili ya 2026/2027 kwa wanafunzi wa kimataifa imetajwa kwa ufadhili wa 25%. Masharti yaliyotajwa na chuo kikuu yanatumika; thibitisha matumizi yake na Chuo Kikuu cha Kyrenia kupitia FranklyEdu.",
+    "For 2026/2027, the published regular Master’s tuition for international students with a 25% scholarship is €1,272 per semester. The published regular Master’s programme fee covers four academic semesters, subject to the university’s stated conditions. No total programme fee is stated here. Undergraduate tuition and initial payments must be confirmed for the selected programme with the University of Kyrenia through FranklyEdu.":
+      "Kwa 2026/2027, ada iliyochapishwa ya masomo ya kawaida ya uzamili kwa wanafunzi wa kimataifa wenye ufadhili wa 25% ni €1,272 kwa muhula. Ada iliyochapishwa ya programu ya kawaida ya uzamili inahusisha mihula minne ya kitaaluma, kwa kuzingatia masharti yaliyotajwa na chuo kikuu. Hakuna jumla ya ada ya programu iliyotajwa hapa. Ada ya masomo ya shahada ya kwanza na malipo ya awali lazima zithibitishwe kwa programu iliyochaguliwa na Chuo Kikuu cha Kyrenia kupitia FranklyEdu.",
+    "GAU 2025/2026 — published annual tuition schedule (EUR)":
+      "GAU 2025/2026 — ratiba iliyochapishwa ya ada ya masomo ya mwaka (EUR)",
+    "Annual tuition (2025/2026)": "Ada ya masomo ya mwaka (2025/2026)",
+    "This Frank-supplied published fee schedule is for 2025/2026 only. These figures are not confirmed 2026/2027 rates. Separately from tuition, the supplied schedule lists an additional registration and activity fee of €500 yearly for the listed degree programmes. This charge is not included in the tuition figures; its applicability has not been independently verified for every category. Ask FranklyEdu to confirm current tuition and applicable charges with GAU.":
+      "Ratiba hii ya ada iliyochapishwa na kutolewa na Frank ni ya 2025/2026 pekee. Kiasi hiki si viwango vilivyothibitishwa vya 2026/2027. Kando na ada ya masomo, ratiba iliyotolewa ina ada ya ziada ya usajili na shughuli ya €500 kwa mwaka kwa programu za shahada zilizoorodheshwa. Ada hii haijajumuishwa katika kiasi cha ada ya masomo; matumizi yake kwa kila kundi hayajathibitishwa kwa kujitegemea. Wasiliana na FranklyEdu ili kuthibitisha ada ya sasa ya masomo na ada zinazotumika na GAU.",
+    Business: "Biashara",
+    "Architecture and several other faculties": "Usanifu Majengo na vitivo vingine kadhaa",
+    "Civil Aviation Management": "Usimamizi wa Usafiri wa Anga wa Kiraia",
+    Pilotage: "Uendeshaji wa Ndege",
+    "Master’s programmes": "Programu za uzamili",
+    "PhD programmes": "Programu za uzamivu",
+    "Annual advance-payment fee (75% scholarship)":
+      "Ada ya mwaka ya kulipwa mapema (ufadhili wa 75%)",
+    "EMU 2026/2027 — supplied annual advance-payment fees with a 75% scholarship (USD)":
+      "EMU 2026/2027 — ada za mwaka zilizotolewa za kulipwa mapema kwa ufadhili wa 75% (USD)",
+    "Frank's supplied 2026/2027 fees are for eligible new international students with a 75% scholarship, not a guaranteed award for every applicant. The linked general EMU schedule lists other scholarship tiers and a country-specific 75% tier for Turkmenistan. Confirm eligibility for the supplied 75% fees and your payable amount with EMU through FranklyEdu.":
+      "Ada za 2026/2027 zilizotolewa na Frank ni kwa wanafunzi wapya wa kimataifa wanaostahiki wenye ufadhili wa 75%, si tuzo iliyohakikishwa kwa kila mwombaji. Ratiba ya jumla ya EMU iliyounganishwa ina viwango vingine vya ufadhili na kiwango cha 75% maalumu kwa Turkmenistan. Thibitisha ustahiki wa ada zilizotolewa za ufadhili wa 75% na kiasi chako cha kulipa na EMU kupitia FranklyEdu.",
+    "These Frank-supplied published 2026/2027 annual advance-payment fees in USD apply to eligible new international students with a 75% scholarship. They are not instalment prices or registration deposit amounts. Confirm the applicable faculty or category, scholarship eligibility and payable amount with EMU. The current registration deposit and instalment arrangements must be confirmed with EMU.":
+      "Ada hizi zilizochapishwa za mwaka wa 2026/2027 za kulipwa mapema kwa USD, zilizotolewa na Frank, zinawahusu wanafunzi wapya wa kimataifa wanaostahiki wenye ufadhili wa 75%. Si bei za malipo ya awamu wala kiasi cha amana ya usajili. Thibitisha kitivo au kundi husika, ustahiki wa ufadhili na kiasi cha kulipa na EMU. Amana ya sasa ya usajili na mipango ya malipo ya awamu lazima ithibitishwe na EMU.",
+    "Arts and Sciences": "Sanaa na Sayansi",
+    "Associate degree programmes": "Programu za shahada ya ngazi ya associate",
+    "Programme / category": "Programu / kundi",
+    "Annual tuition after scholarship": "Ada ya masomo ya mwaka baada ya ufadhili",
+    "NEU 2026/2027 — supplied annual tuition after scholarship (EUR)":
+      "NEU 2026/2027 — ada za masomo za mwaka baada ya ufadhili zilizotolewa (EUR)",
+    "The supplied NEU 2026/2027 information states that the standard undergraduate scholarship is up to 50% for international students in most departments, excluding Medicine and Dentistry. Ask FranklyEdu to confirm eligibility and payable fees with the university.":
+      "Taarifa zilizotolewa za NEU 2026/2027 zinaeleza kuwa ufadhili wa kawaida wa shahada ya kwanza ni hadi 50% kwa wanafunzi wa kimataifa katika idara nyingi, isipokuwa Udaktari na Udaktari wa Meno. Wasiliana na FranklyEdu ili kuthibitisha ustahiki na ada zinazopaswa kulipwa na chuo kikuu.",
+    "Additional administrative and other fees may apply. The published total fee for most programmes with €2,800 annual tuition is €3,225 per year; this is distinct from tuition alone and is not a confirmed total for every programme. The initial deposit and payment schedule are unconfirmed. Contact FranklyEdu to confirm these details with the university.":
+      "Ada za ziada za utawala na ada nyingine zinaweza kutumika. Jumla ya ada iliyochapishwa kwa programu nyingi zenye ada ya masomo ya mwaka ya €2,800 ni €3,225 kwa mwaka; hii ni tofauti na ada ya masomo pekee na si jumla iliyothibitishwa kwa kila programu. Amana ya awali na ratiba ya malipo hazijathibitishwa. Wasiliana na FranklyEdu ili kuthibitisha maelezo haya na chuo kikuu.",
+    "International Business": "Biashara ya Kimataifa",
+    "Human Resources Management": "Usimamizi wa Rasilimali Watu",
+    Marketing: "Masoko",
+    "Computer Information Systems": "Mifumo ya Taarifa za Kompyuta",
+    Nursing: "Uuguzi",
+    "Engineering programmes": "Programu za uhandisi",
+    "Dentistry (English)": "Udaktari wa Meno (Kiingereza)",
     "Current programme-specific entry requirements need confirmation from Hof.":
       "Masharti ya sasa ya kujiunga na programu hii yanahitaji kuthibitishwa na Hof.",
     "Hof's general admissions page lists TOEFL iBT 90 or IELTS 6.5 for English-taught programmes and German B2 for German-taught programmes; it does not confirm this programme's specific thresholds.":
@@ -1939,11 +2377,9 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "No confirmed scholarship details are published for this university.":
       "Hakuna maelezo yaliyothibitishwa ya ufadhili yaliyochapishwa kwa chuo hiki.",
     "University scholarship information": "Taarifa za ufadhili za chuo kikuu",
-    "Explore Courses": "Angalia programu",
-    "Apply Through FranklyEdu": "Omba Kupitia FranklyEdu",
-    "Visit University Website": "Tembelea Tovuti ya Chuo",
-    "FranklyEdu provides application guidance and does not directly submit applications to universities. Visit University Website opens the official site in a new tab.":
-      "FranklyEdu hutoa mwongozo wa maombi na haitumi maombi moja kwa moja kwa vyuo vikuu. Tembelea Tovuti ya Chuo hufungua tovuti rasmi katika kichupo kipya.",
+    "View Courses": "Angalia programu",
+    "FranklyEdu provides application guidance and does not directly submit applications to universities.":
+      "FranklyEdu hutoa mwongozo wa maombi na haitumi maombi moja kwa moja kwa vyuo vikuu.",
     "Browse published programmes for this university. Study areas are not individual programme listings; confirm current availability and admission requirements with the institution.":
       "Angalia programu zilizochapishwa kwa chuo hiki. Maeneo ya masomo si orodha ya programu mahususi; thibitisha upatikanaji na masharti ya sasa ya udahili na taasisi.",
     "No verified programme listings yet for this university":
@@ -1960,8 +2396,10 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Architecture: "Usanifu Majengo",
     "Tourism and Hospitality": "Utalii na Ukarimu",
     "Master’s and PhD programmes": "Programu za uzamili na uzamivu",
-    "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.":
-      "CIU inaeleza kuwa wanafunzi wa kimataifa wa shahada ya kwanza hupata ufadhili wa 50% wa ada ya masomo. Ustahiki na ada ya masomo inayopaswa kulipwa lazima vithibitishwe moja kwa moja na CIU kabla ya kutuma maombi au kufanya malipo yoyote.",
+    "CIU offers a 50% international undergraduate tuition scholarship; additional academic scholarships may be available. Exact payable tuition depends on the programme and scholarship. Confirm eligibility and payable tuition with CIU through FranklyEdu before applying or making any payment.":
+      "CIU inatoa ufadhili wa 50% wa ada ya masomo kwa wanafunzi wa kimataifa wa shahada ya kwanza; ufadhili wa ziada wa kitaaluma unaweza kupatikana. Ada halisi ya masomo inayopaswa kulipwa inategemea programu na ufadhili. Thibitisha ustahiki na ada ya masomo inayopaswa kulipwa na CIU kupitia FranklyEdu kabla ya kutuma maombi au kufanya malipo yoyote.",
+    "Confirm the exact initial payment amount using the student's official acceptance letter or invoice. Contact FranklyEdu for guidance on confirming this amount with CIU.":
+      "Thibitisha kiasi halisi cha malipo ya awali kwa kutumia barua rasmi ya kukubaliwa au ankara ya mwanafunzi. Wasiliana na FranklyEdu kwa mwongozo wa kuthibitisha kiasi hiki na CIU.",
     "Refer to the institution's official site for current programmes and admissions information.":
       "Tazama tovuti rasmi ya taasisi kwa taarifa za sasa za programu na udahili.",
     "University site": "Tovuti ya chuo",

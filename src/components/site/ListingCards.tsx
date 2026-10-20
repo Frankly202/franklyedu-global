@@ -113,21 +113,18 @@ export function UniversityCard({
             search={{ university: u.slug }}
             className="btn btn-primary btn-sm"
           >
-            {common.cards.applyThroughFranklyEdu}
+            {common.cards.applyNow}
           </Link>
           <button type="button" onClick={openDetails} className="btn btn-outline-dark btn-sm">
             {common.cards.viewDetails}
           </button>
-          {u.officialUrl ? (
-            <a
-              href={u.officialUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline-dark btn-sm"
-            >
-              {common.cards.officialUniversityInfo}
-            </a>
-          ) : null}
+          <Link
+            to="/courses"
+            search={{ university: u.slug }}
+            className="btn btn-outline-dark btn-sm"
+          >
+            {common.cards.viewCourses}
+          </Link>
           <a
             href={universityEnquiry}
             target="_blank"
@@ -235,15 +232,45 @@ export function UniversityCard({
               <h3 className="text-sm font-semibold text-navy">
                 {education.universities.feeInfoLabel}
               </h3>
+              {u.feeInfo.schedule ? (
+                <table className="mt-2 w-full table-fixed text-left text-sm">
+                  <caption className="mb-2 text-left font-medium">
+                    {u.feeInfo.schedule.caption}
+                  </caption>
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th scope="col" className="w-3/5 break-words py-2 pr-3">
+                        {education.universities.feeProgrammeLabel}
+                      </th>
+                      <th scope="col" className="break-words py-2">
+                        {u.feeInfo.schedule.amountLabel ??
+                          education.universities.annualTuitionLabel}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {u.feeInfo.schedule.rows.map((row) => (
+                      <tr key={row.programme} className="border-b border-border">
+                        <th scope="row" className="break-words py-2 pr-3 font-normal">
+                          {row.programme}
+                        </th>
+                        <td className="py-2 align-top">{row.annualTuition}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : null}
               <p className="mt-1 text-sm leading-relaxed">{u.feeInfo.summary}</p>
-              <a
-                href={u.feeInfo.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 inline-block text-sm font-semibold text-navy underline underline-offset-4"
-              >
-                {education.universities.feeInfoSource}
-              </a>
+              {u.feeInfo.sourceUrl ? (
+                <a
+                  href={u.feeInfo.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-sm font-semibold text-navy underline underline-offset-4"
+                >
+                  {education.universities.feeInfoSource}
+                </a>
+              ) : null}
             </section>
           ) : null}
           <section className="mt-4 rounded-xl border border-border bg-cream p-3">
@@ -253,7 +280,7 @@ export function UniversityCard({
             <p className="mt-1 text-sm leading-relaxed">
               {u.scholarship?.summary ?? education.universities.scholarshipPending}
             </p>
-            {u.scholarship ? (
+            {u.scholarship?.sourceUrl ? (
               <a
                 href={u.scholarship.sourceUrl}
                 target="_blank"
@@ -271,7 +298,7 @@ export function UniversityCard({
               onClick={closeDetails}
               className="btn btn-primary min-h-11"
             >
-              {common.cards.applyThroughFranklyEdu}
+              {common.cards.applyNow}
             </Link>
             <Link
               to="/courses"
@@ -279,18 +306,8 @@ export function UniversityCard({
               onClick={closeDetails}
               className="btn btn-outline-dark min-h-11"
             >
-              {education.universities.exploreCourses}
+              {common.cards.viewCourses}
             </Link>
-            {u.officialUrl ? (
-              <a
-                href={u.officialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline-dark min-h-11"
-              >
-                {common.cards.officialUniversityInfo}
-              </a>
-            ) : null}
             <a
               href={universityEnquiry}
               target="_blank"
@@ -301,7 +318,7 @@ export function UniversityCard({
             </a>
           </div>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            {education.universities.externalApplicationNote}
+            {education.universities.applicationGuidanceNote}
           </p>
         </div>
       </dialog>

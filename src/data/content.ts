@@ -104,8 +104,41 @@ export interface University {
   showOnHome?: boolean;
   studyAreas?: string[];
   studyAreasUrl?: string;
-  scholarship?: { summary: string; sourceUrl: string };
-  feeInfo?: { summary: string; sourceUrl: string };
+  catalogueExamples?: {
+    notice: string;
+    englishGuidance?: string;
+    levelCoverage?: string;
+    sources?: { label: string; url: string }[];
+    levels: {
+      level?: Course["level"];
+      documents?: string;
+      groups: { subject: string; programmes: string[] }[];
+    }[];
+  };
+  scholarship?: { summary: string; sourceUrl?: string };
+  feeInfo?: {
+    summary: string;
+    sourceUrl?: string;
+    costEstimate?: {
+      caption: string;
+      note: string;
+      rows: { expense: string; undergraduate: string; graduate: string }[];
+    };
+    selectedSchedule?: {
+      caption: string;
+      rows: {
+        programme: string;
+        beforeScholarship: string;
+        scholarshipFigure: string;
+        total: string;
+      }[];
+    };
+    schedule?: {
+      caption: string;
+      amountLabel?: string;
+      rows: { programme: string; annualTuition: string }[];
+    };
+  };
 }
 
 export const universities: University[] = [
@@ -124,9 +157,9 @@ export const universities: University[] = [
     name: "Cyprus International University",
     src: "/Uni-Logos/CIU-logo.png",
     summary: "Ask us for current admissions information for this institution.",
-    country: "Cyprus / North Cyprus",
+    country: "Northern Cyprus",
     countrySlug: "cyprus",
-    city: "Nicosia",
+    city: "North Nicosia",
     officialUrl: "https://ciu.edu.tr/en",
     studyAreas: [
       "Business Administration",
@@ -143,8 +176,101 @@ export const universities: University[] = [
     studyAreasUrl: "https://ciu.edu.tr/en/study",
     scholarship: {
       summary:
-        "CIU states that international undergraduate students receive a 50% tuition fee scholarship. Eligibility and payable tuition require confirmation directly with CIU before applying or making any payment.",
+        "CIU offers a 50% international undergraduate tuition scholarship; additional academic scholarships may be available. Exact payable tuition depends on the programme and scholarship. Confirm eligibility and payable tuition with CIU through FranklyEdu before applying or making any payment.",
       sourceUrl: "https://ciu.edu.tr/en/become-student/international/fees-and-scholarships",
+    },
+    feeInfo: {
+      summary:
+        "Tuition varies by programme, scholarship and academic year; use CIU’s tuition calculator on its official website. Confirm the exact initial payment from the student’s official offer letter. Contact FranklyEdu for guidance on confirming these details with CIU.",
+    },
+    catalogueExamples: {
+      notice:
+        "CIU catalogue examples supplied by Frank, not confirmed current programme-level records. Availability, duration, intake, teaching language, programme-specific requirements and fees require confirmation with CIU. These examples are not selectable confirmed courses in the application form.",
+      englishGuidance:
+        "Supplied notes cite IELTS 5.5 or TOEFL iBT 65; some applicants may take an on-campus proficiency exam. These are not confirmed programme-specific thresholds. Reconfirm accepted English evidence and any exam option with CIU.",
+      levels: [
+        {
+          level: "Bachelor's",
+          documents:
+            "Bachelor’s document guidance: application form, secondary certificate (WAEC/NECO/equivalent), passport or accepted ID, English evidence where required, and other requested documents. Confirm the exact list with CIU.",
+          groups: [
+            {
+              subject: "Business & Management",
+              programmes: [
+                "Business Administration",
+                "International Business",
+                "Accounting and Finance",
+                "Marketing",
+                "Human Resource Management",
+                "Economics",
+              ],
+            },
+            {
+              subject: "Engineering & Technology",
+              programmes: [
+                "Computer Engineering",
+                "Software Engineering",
+                "Civil Engineering",
+                "Electrical and Electronic Engineering",
+                "Mechanical Engineering",
+              ],
+            },
+            { subject: "Computer Science & IT", programmes: ["Information Technology"] },
+            {
+              subject: "Health Sciences & Nursing",
+              programmes: [
+                "Nursing",
+                "Pharmacy",
+                "Physiotherapy and Rehabilitation",
+                "Nutrition and Dietetics",
+              ],
+            },
+            {
+              subject: "Social Sciences & Humanities",
+              programmes: ["Psychology", "English Language Teaching"],
+            },
+            {
+              subject: "Law & International Relations",
+              programmes: ["International Relations", "Law"],
+            },
+            {
+              subject: "Architecture & Fine Arts",
+              programmes: ["Architecture", "Interior Architecture", "Graphic Design"],
+            },
+            { subject: "Hospitality & Tourism", programmes: ["Tourism and Hotel Management"] },
+          ],
+        },
+        {
+          level: "Master's",
+          documents:
+            "Master’s document guidance: bachelor’s certificate, transcripts, passport or accepted ID, CV, and English evidence where required. Confirm the exact list with CIU.",
+          groups: [
+            { subject: "Business & Management", programmes: ["MBA", "Finance"] },
+            { subject: "Law & International Relations", programmes: ["International Relations"] },
+            {
+              subject: "Engineering & Technology",
+              programmes: ["Computer Engineering", "Engineering"],
+            },
+            { subject: "Computer Science & IT", programmes: ["Information Technology"] },
+            { subject: "Social Sciences & Humanities", programmes: ["Education", "Psychology"] },
+          ],
+        },
+        {
+          level: "PhD",
+          documents:
+            "PhD document guidance: bachelor’s and master’s qualifications, transcripts, CV, research proposal, and English evidence where required. Confirm the exact list with CIU.",
+          groups: [
+            { subject: "Business & Management", programmes: ["Business Administration"] },
+            { subject: "Engineering & Technology", programmes: ["Engineering"] },
+            { subject: "Computer Science & IT", programmes: ["Information Technology"] },
+            {
+              subject: "Social Sciences & Humanities",
+              programmes: ["Education", "English Language Teaching"],
+            },
+            { subject: "Law & International Relations", programmes: ["International Relations"] },
+          ],
+        },
+      ],
     },
   },
   {
@@ -156,16 +282,159 @@ export const universities: University[] = [
     countrySlug: "cyprus",
     city: "Kyrenia (Girne)",
     officialUrl: "https://kyrenia.edu.tr/?lang=en",
+    studyAreas: ["Aviation", "Business", "Engineering", "Health Sciences", "Postgraduate studies"],
+    scholarship: {
+      summary:
+        "The supplied 2026/2027 regular Master’s tuition for international students is quoted with a 25% scholarship. The university’s stated conditions apply; confirm applicability with the University of Kyrenia through FranklyEdu.",
+    },
+    feeInfo: {
+      summary:
+        "For 2026/2027, the published regular Master’s tuition for international students with a 25% scholarship is €1,272 per semester. The published regular Master’s programme fee covers four academic semesters, subject to the university’s stated conditions. No total programme fee is stated here. Undergraduate tuition and initial payments must be confirmed for the selected programme with the University of Kyrenia through FranklyEdu.",
+    },
   },
   {
     slug: "near-east-university",
     name: "Near East University",
     src: "/Uni-Logos/Near_East_University-logo.svg",
     summary: "Ask us for current admissions information for this institution.",
-    country: "Cyprus / North Cyprus",
+    country: "Northern Cyprus",
     countrySlug: "cyprus",
     city: "Nicosia",
     officialUrl: "https://neu.edu.tr/?lang=en",
+    scholarship: {
+      summary:
+        "The supplied NEU 2026/2027 information states that the standard undergraduate scholarship is up to 50% for international students in most departments, excluding Medicine and Dentistry. Ask FranklyEdu to confirm eligibility and payable fees with the university.",
+    },
+    feeInfo: {
+      summary:
+        "Selected programmes from the supplied NEU 2026/2027 schedule are shown on View Courses, separating annual tuition before scholarship, the listed scholarship figure and total including VAT/administrative fee. Unlisted scholarship figures are not zero; Pharmacy has a special scholarship listed without a tuition figure. Programme availability and language of instruction vary and require confirmation. The initial deposit and payment schedule remain unconfirmed; contact FranklyEdu to confirm payable fees with NEU.",
+      selectedSchedule: {
+        caption: "NEU 2026/2027 — selected programme annual fee examples (EUR)",
+        rows: [
+          {
+            programme: "Business Administration",
+            beforeScholarship: "€5,600",
+            scholarshipFigure: "€2,800",
+            total: "€3,225",
+          },
+          {
+            programme: "International Business",
+            beforeScholarship: "€5,600",
+            scholarshipFigure: "€2,800",
+            total: "€3,225",
+          },
+          {
+            programme: "Computer Engineering",
+            beforeScholarship: "€5,600",
+            scholarshipFigure: "€2,800",
+            total: "€3,225",
+          },
+          {
+            programme: "Software Engineering",
+            beforeScholarship: "€5,600",
+            scholarshipFigure: "€2,800",
+            total: "€3,225",
+          },
+          {
+            programme: "Nursing",
+            beforeScholarship: "€5,600",
+            scholarshipFigure: "€2,800",
+            total: "€3,225",
+          },
+          {
+            programme: "Architecture",
+            beforeScholarship: "€5,600",
+            scholarshipFigure: "€2,800",
+            total: "€3,225",
+          },
+          {
+            programme: "Medicine",
+            beforeScholarship: "€12,600",
+            scholarshipFigure: "No scholarship figure listed",
+            total: "€13,515",
+          },
+          {
+            programme: "Dentistry (English)",
+            beforeScholarship: "€11,600",
+            scholarshipFigure: "No scholarship figure listed",
+            total: "€12,465",
+          },
+          {
+            programme: "Pharmacy",
+            beforeScholarship: "€8,600",
+            scholarshipFigure: "Special scholarship listed; figure not supplied",
+            total: "€4,800",
+          },
+        ],
+      },
+    },
+    catalogueExamples: {
+      notice:
+        "NEU catalogue examples supplied by Frank, not confirmed current programme-level records. Programme availability and language of instruction vary and must be confirmed with NEU. Duration, intake, programme-specific requirements and current fees require confirmation. Named examples have no confirmed level assignment and are shown only when no study-level filter is selected.",
+      levelCoverage:
+        "Supplied level coverage: Associate degree, Bachelor’s, Master’s and PhD. No named Associate degree, Master’s or PhD offerings are confirmed here; no named example is assigned to a level.",
+      levels: [
+        {
+          groups: [
+            {
+              subject: "Business & Management",
+              programmes: [
+                "Business Administration",
+                "International Business",
+                "Economics",
+                "Banking and Finance",
+                "Human Resource Management",
+                "Marketing",
+              ],
+            },
+            {
+              subject: "Law & International Relations",
+              programmes: ["International Relations", "Law"],
+            },
+            {
+              subject: "Computer Science & IT",
+              programmes: [
+                "Computer Engineering",
+                "Software Engineering",
+                "Artificial Intelligence Engineering",
+                "Cyber Security Engineering",
+                "Information Systems Engineering",
+                "Management Information Systems",
+                "Data Analysis Engineering",
+              ],
+            },
+            {
+              subject: "Engineering & Technology",
+              programmes: [
+                "Civil Engineering",
+                "Electrical and Electronic Engineering",
+                "Mechanical Engineering",
+                "Biomedical Engineering",
+                "Industrial Engineering",
+              ],
+            },
+            {
+              subject: "Health Sciences & Nursing",
+              programmes: [
+                "Medicine",
+                "Dentistry",
+                "Pharmacy",
+                "Nursing",
+                "Physiotherapy and Rehabilitation",
+                "Nutrition and Dietetics",
+                "Veterinary Medicine",
+              ],
+            },
+            {
+              subject: "Architecture & Fine Arts",
+              programmes: ["Architecture", "Interior Architecture"],
+            },
+            { subject: "Hospitality & Tourism", programmes: ["Tourism and Hotel Management"] },
+            { subject: "Social Sciences & Humanities", programmes: ["English Language Teaching"] },
+          ],
+        },
+      ],
+    },
   },
   {
     slug: "eastern-mediterranean-university",
@@ -191,15 +460,32 @@ export const universities: University[] = [
     ],
     scholarship: {
       summary:
-        "EMU's 2026/27 schedule shows scholarship-priced tiers of 60%, 65%, and 70% for most faculties, 30%–45% for Medicine and Dentistry, and 75% for Turkmenistan. It does not define individual eligibility; confirm your tier and payable amount with EMU.",
+        "Frank's supplied 2026/2027 fees are for eligible new international students with a 75% scholarship, not a guaranteed award for every applicant. The linked general EMU schedule lists other scholarship tiers and a country-specific 75% tier for Turkmenistan. Confirm eligibility for the supplied 75% fees and your payable amount with EMU through FranklyEdu.",
       sourceUrl:
         "https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1",
     },
     feeInfo: {
       summary:
-        "EMU's official 2026/27 schedule lists annual advance-payment tuition in USD by faculty and scholarship tier. For most faculties, it lists $6,400 at 60%, $5,750 at 65%, and $5,100 at 70%; a separate 75% tier is listed for Turkmenistan. Medicine and Dentistry use 30%–45% tiers in the schedule. Fees include the Student Services Fund, VAT and filing fee; English-preparation books and exams add $250 per semester. Confirm the applicable faculty, award eligibility and payable amount with EMU.",
+        "These Frank-supplied published 2026/2027 annual advance-payment fees in USD apply to eligible new international students with a 75% scholarship. They are not instalment prices or registration deposit amounts. Confirm the applicable faculty or category, scholarship eligibility and payable amount with EMU. The current registration deposit and instalment arrangements must be confirmed with EMU.",
       sourceUrl:
         "https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1",
+      schedule: {
+        caption:
+          "EMU 2026/2027 — supplied annual advance-payment fees with a 75% scholarship (USD)",
+        amountLabel: "Annual advance-payment fee (75% scholarship)",
+        rows: [
+          { programme: "Business and Economics", annualTuition: "$4,450" },
+          { programme: "Arts and Sciences", annualTuition: "$4,450" },
+          { programme: "Communication", annualTuition: "$4,450" },
+          { programme: "Computer and Information Sciences", annualTuition: "$4,450" },
+          { programme: "Architecture", annualTuition: "$4,450" },
+          { programme: "Engineering", annualTuition: "$4,700" },
+          { programme: "Pharmacy", annualTuition: "$5,485" },
+          { programme: "Dentistry", annualTuition: "$10,000" },
+          { programme: "Medicine", annualTuition: "$14,510" },
+          { programme: "Associate degree programmes", annualTuition: "$3,409" },
+        ],
+      },
     },
   },
   {
@@ -211,6 +497,25 @@ export const universities: University[] = [
     countrySlug: "cyprus",
     city: "Kyrenia",
     officialUrl: "https://www.gau.edu.tr/en/",
+    feeInfo: {
+      summary:
+        "This Frank-supplied published fee schedule is for 2025/2026 only. These figures are not confirmed 2026/2027 rates. Separately from tuition, the supplied schedule lists an additional registration and activity fee of €500 yearly for the listed degree programmes. This charge is not included in the tuition figures; its applicability has not been independently verified for every category. Ask FranklyEdu to confirm current tuition and applicable charges with GAU.",
+      schedule: {
+        caption: "GAU 2025/2026 — published annual tuition schedule (EUR)",
+        amountLabel: "Annual tuition (2025/2026)",
+        rows: [
+          { programme: "Business", annualTuition: "€7,700" },
+          { programme: "Architecture and several other faculties", annualTuition: "€8,000" },
+          { programme: "Pharmacy", annualTuition: "€11,000" },
+          { programme: "Medicine", annualTuition: "€13,000" },
+          { programme: "Civil Aviation Management", annualTuition: "€6,500" },
+          { programme: "Pilotage", annualTuition: "€10,000" },
+          { programme: "Associate degree programmes", annualTuition: "€6,500" },
+          { programme: "Master’s programmes", annualTuition: "€8,000" },
+          { programme: "PhD programmes", annualTuition: "€12,500" },
+        ],
+      },
+    },
   },
   {
     slug: "european-university-of-lefke",
@@ -246,6 +551,119 @@ export const universities: University[] = [
       summary:
         "BAU's official international fee page lists a Master's course-registration fee of $600 per course (at least three courses plus a $300 annual social fund paid in advance: $2,100) and a PhD course-registration fee of $1,200 per course (at least two courses plus the fund: $2,700). The page does not identify an academic year. These course-based advance payments are not confirmed acceptance or visa deposits, or full programme costs; the page states that 5% VAT is included. Confirm the intake and payable amount with BAU.",
       sourceUrl: "https://www.baucyprus.edu.tr/tuition-fees",
+    },
+  },
+  {
+    slug: "florida-international-university",
+    name: "Florida International University (FIU)",
+    src: "/Uni-Logos/florida-international-university-logo.png",
+    logoSurface: "dark",
+    summary: "Ask us for current admissions information for this institution.",
+    country: "United States",
+    countrySlug: "united-states",
+    city: "Miami, Florida",
+    officialUrl: "https://www.fiu.edu/",
+    studyAreas: [
+      "Business",
+      "Computing and Engineering",
+      "Health and Life Sciences",
+      "Social Sciences and Humanities",
+    ],
+    studyAreasUrl: "https://www.fiu.edu/academics/degrees-and-programs/",
+    feeInfo: {
+      summary:
+        "FIU’s supplied 2026/2027 non-Florida-resident on-campus cost estimates are shown on View Courses. These are estimates, not guaranteed final costs. F-1/J-1 students generally pay applicable non-Florida-resident rates; additional charges may apply. Confirm deposits, deadlines and financial-documentation requirements directly with FIU; no fixed initial payment is stated.",
+      costEstimate: {
+        caption: "FIU 2026/2027 — supplied non-Florida-resident on-campus estimates (USD)",
+        note: "Expense rows are per semester; estimated annual totals cover fall and spring. The official annual budgets include other allowances, including loan-origination allowances omitted from these supplied rows; not every budget allowance is a charge payable by every student. FIU publishes multiple budgets; confirm the applicable pathway, programme and budget with FIU. These estimates are not scholarship prices or guaranteed invoices.",
+        rows: [
+          { expense: "Tuition — per semester", undergraduate: "$11,376", graduate: "$10,317" },
+          { expense: "Fees — per semester", undergraduate: "$104", graduate: "$199" },
+          { expense: "Books and supplies — per semester", undergraduate: "$675", graduate: "$500" },
+          { expense: "Housing — per semester", undergraduate: "$5,025", graduate: "$5,025" },
+          { expense: "Food — per semester", undergraduate: "$2,595", graduate: "$2,595" },
+          { expense: "Transportation — per semester", undergraduate: "$1,515", graduate: "$1,515" },
+          {
+            expense: "Personal expenses — per semester",
+            undergraduate: "$1,784",
+            graduate: "$1,784",
+          },
+          {
+            expense: "Estimated annual total — fall and spring",
+            undergraduate: "$46,198",
+            graduate: "$44,006",
+          },
+        ],
+      },
+    },
+    catalogueExamples: {
+      notice:
+        "FIU catalogue examples supplied by Frank, not confirmed current degree records. Confirm exact degree titles, availability, teaching language, duration, intake and requirements against FIU’s official degree catalogue. Undergraduate examples are grouped at Bachelor’s level; graduate examples have no confirmed Master’s or doctoral assignment.",
+      levelCoverage:
+        "Supplied levels: Bachelor’s, Master’s and doctoral. Graduate examples appear only without a study-level filter; they are not duplicated as confirmed Master’s or PhD programmes.",
+      sources: [
+        {
+          label: "Official degree catalogue",
+          url: "https://www.fiu.edu/academics/degrees-and-programs/",
+        },
+        {
+          label: "Official cost estimates",
+          url: "https://onestop.fiu.edu/finances/estimate-your-costs/",
+        },
+        {
+          label: "Official international document guidance",
+          url: "https://admissions.fiu.edu/international/submit-documents/",
+        },
+        {
+          label: "Official graduate admissions guidance",
+          url: "https://admissions.fiu.edu/international/graduate-school/",
+        },
+      ],
+      levels: [
+        {
+          level: "Bachelor's",
+          documents:
+            "Bachelor’s document guidance: official secondary-school records and English translations where needed; transfer applicants may need post-secondary transcripts and course-by-course evaluations. Confirm the application, test evidence and immigration documents for your admission pathway with FIU. Requirements vary by pathway and programme.",
+          groups: [
+            {
+              subject: "Business & Management",
+              programmes: [
+                "Accounting",
+                "Finance",
+                "Business Administration",
+                "International Business",
+                "Marketing",
+              ],
+            },
+            { subject: "Computer Science & IT", programmes: ["Computer Science", "IT"] },
+            { subject: "Engineering & Technology", programmes: ["Engineering"] },
+            {
+              subject: "Health Sciences & Nursing",
+              programmes: ["Nursing", "Biological Sciences", "Public Health"],
+            },
+            {
+              subject: "Social Sciences & Humanities",
+              programmes: ["Psychology", "Communication"],
+            },
+            { subject: "Law & International Relations", programmes: ["International Relations"] },
+          ],
+        },
+        {
+          documents:
+            "Master’s and PhD document guidance: official post-secondary transcripts and degree records, with translations and evaluations where required. Departments may request a statement of purpose, recommendation letters, CV and research/writing samples, or a separate application, interview or audition. Confirm English evidence and immigration/financial documents with FIU. Requirements vary by admission pathway and programme; this is not a universal checklist or eligibility guarantee.",
+          groups: [
+            {
+              subject: "Business & Management",
+              programmes: ["Business Administration", "Finance", "Accounting"],
+            },
+            { subject: "Computer Science & IT", programmes: ["Computer Science"] },
+            { subject: "Engineering & Technology", programmes: ["Engineering"] },
+            { subject: "Health Sciences & Nursing", programmes: ["Public Health"] },
+            { subject: "Law & International Relations", programmes: ["International Relations"] },
+            { subject: "Social Sciences & Humanities", programmes: ["Psychology", "Education"] },
+          ],
+        },
+      ],
     },
   },
   {

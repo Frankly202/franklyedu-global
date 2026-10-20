@@ -55,6 +55,29 @@ async function getAvailablePort() {
 async function gotoReady(page, url) {
   const response = await page.goto(url, { waitUntil: "networkidle" });
   await page.locator("main h1").waitFor();
+  assert.equal(
+    await page
+      .locator("a, button")
+      .filter({
+        hasText:
+          /^(Visit University Website|Üniversitenin Web Sitesini Ziyaret Et|Visiter le site de l’université|Tembelea Tovuti ya Chuo|Apply Through FranklyEdu|FranklyEdu ile Başvur|Postuler avec FranklyEdu|Omba Kupitia FranklyEdu)$/,
+      })
+      .count(),
+    0,
+    "Retired university navigation CTAs must not appear on any route, including closed modals.",
+  );
+  for (const section of await page.locator("[data-university-examples]").all()) {
+    const slug = await section.getAttribute("data-university-examples");
+    const apply = section.locator("a.btn-primary");
+    assert.equal(await apply.getAttribute("href"), `/application?university=${slug}`);
+    assert.match(await apply.innerText(), /^(Apply Now|Hemen Başvur|Postuler|Omba sasa)$/);
+    const viewCourses = section.locator(`a[href="/courses?university=${slug}"]`);
+    assert.match(
+      await viewCourses.innerText(),
+      /^(View Courses|Programları Gör|Voir les formations|Angalia programu)$/,
+    );
+    assert.equal(await viewCourses.getAttribute("target"), null);
+  }
   return response;
 }
 
@@ -251,6 +274,7 @@ async function verifyProductionArtifacts() {
     "Uni-Logos/european-university-of-lefke-logo.png",
     "Uni-Logos/kstu-logo.webp",
     "Uni-Logos/bau-cyprus-logo.webp",
+    "Uni-Logos/florida-international-university-logo.png",
     "background/campus-background.png",
     "background/contact-background.png",
     "background/marketplace-background.png",
@@ -289,6 +313,1146 @@ async function verifyProductionArtifacts() {
   );
 }
 
+async function assertEmuFees(dialog, locale) {
+  const table = dialog.getByRole("table");
+  assert.equal(
+    await table.locator("thead th").nth(1).innerText(),
+    {
+      en: "Annual advance-payment fee (75% scholarship)",
+      tr: "Yıllık peşin ücret (%75 burs)",
+      fr: "Frais annuels payables à l’avance (bourse de 75 %)",
+      sw: "Ada ya mwaka ya kulipwa mapema (ufadhili wa 75%)",
+    }[locale],
+  );
+  assert.match(await table.locator("caption").innerText(), /2026\/2027.*75.*USD/);
+  assert.deepEqual(await table.locator("tbody td").allTextContents(), [
+    ...Array(5).fill("$4,450"),
+    "$4,700",
+    "$5,485",
+    "$10,000",
+    "$14,510",
+    "$3,409",
+  ]);
+  const expected = {
+    en: {
+      names: [
+        "Business and Economics",
+        "Arts and Sciences",
+        "Communication",
+        "Computer and Information Sciences",
+        "Architecture",
+        "Engineering",
+        "Pharmacy",
+        "Dentistry",
+        "Medicine",
+        "Associate degree programmes",
+      ],
+      fees: [
+        /annual advance-payment fees in USD/,
+        /eligible new international students/,
+        /not instalment prices or registration deposit amounts/,
+        /current registration deposit and instalment arrangements must be confirmed with EMU/,
+      ],
+      scholarship: [
+        /not a guaranteed award/,
+        /country-specific 75% tier for Turkmenistan/,
+        /Confirm eligibility/,
+      ],
+    },
+    tr: {
+      names: [
+        "İşletme ve Ekonomi",
+        "Fen ve Edebiyat",
+        "İletişim",
+        "Bilgisayar ve Bilgi Bilimleri",
+        "Mimarlık",
+        "Mühendislik",
+        "Eczacılık",
+        "Diş Hekimliği",
+        "Tıp",
+        "Ön lisans programları",
+      ],
+      fees: [
+        /yıllık peşin ücretleri USD/,
+        /uygun yeni uluslararası öğrenciler/,
+        /taksit tutarları veya kayıt depozitosu tutarları değildir/,
+        /Güncel kayıt depozitosu ve taksit düzenlemeleri EMU ile teyit edilmelidir/,
+      ],
+      scholarship: [/garanti edilen bir burs değildir/, /Türkmenistan'a özgü %75/, /uygunluğunuzu/],
+    },
+    fr: {
+      names: [
+        "Commerce et économie",
+        "Arts et sciences",
+        "Communication",
+        "Informatique et sciences de l’information",
+        "Architecture",
+        "Ingénierie",
+        "Pharmacie",
+        "Dentisterie",
+        "Médecine",
+        "Formations de diplôme de cycle court",
+      ],
+      fees: [
+        /payables à l’avance en USD/,
+        /nouveaux étudiants internationaux éligibles/,
+        /ni des montants d’échéances ni des dépôts d’inscription/,
+        /dépôt d’inscription actuel et les modalités de paiement échelonné doivent être confirmés auprès de l’EMU/,
+      ],
+      scholarship: [/sans garantie/, /75 % propre au Turkménistan/, /Confirmez votre éligibilité/],
+    },
+    sw: {
+      names: [
+        "Biashara na Uchumi",
+        "Sanaa na Sayansi",
+        "Mawasiliano",
+        "Sayansi za Kompyuta na Habari",
+        "Usanifu Majengo",
+        "Uhandisi",
+        "Famasia",
+        "Udaktari wa Meno",
+        "Udaktari",
+        "Programu za shahada ya ngazi ya associate",
+      ],
+      fees: [
+        /kulipwa mapema kwa USD/,
+        /wanafunzi wapya wa kimataifa wanaostahiki/,
+        /Si bei za malipo ya awamu wala kiasi cha amana ya usajili/,
+        /Amana ya sasa ya usajili na mipango ya malipo ya awamu lazima ithibitishwe na EMU/,
+      ],
+      scholarship: [
+        /si tuzo iliyohakikishwa/,
+        /75% maalumu kwa Turkmenistan/,
+        /Thibitisha ustahiki/,
+      ],
+    },
+  }[locale];
+  assert.deepEqual(await table.locator("tbody th").allTextContents(), expected.names);
+  const fees = await dialog.locator("section").nth(1).innerText();
+  const scholarship = await dialog.locator("section").last().innerText();
+  for (const pattern of expected.fees) assert.match(fees, pattern);
+  for (const pattern of expected.scholarship) assert.match(scholarship, pattern);
+  assert.match(scholarship, /75\s*%|%75/);
+  assert.doesNotMatch(fees, /\$6,400|\$5,750|\$5,100|\$250/);
+}
+
+async function assertGauFees(dialog, locale) {
+  const table = dialog.getByRole("table");
+  assert.match(await table.locator("caption").innerText(), /2025\/2026.*EUR/);
+  assert.doesNotMatch(await table.innerText(), /2026\/2027|€500/);
+  assert.deepEqual(await table.locator("tbody td").allTextContents(), [
+    "€7,700",
+    "€8,000",
+    "€11,000",
+    "€13,000",
+    "€6,500",
+    "€10,000",
+    "€6,500",
+    "€8,000",
+    "€12,500",
+  ]);
+  const expected = {
+    en: {
+      heading: "Annual tuition (2025/2026)",
+      names: [
+        "Business",
+        "Architecture and several other faculties",
+        "Pharmacy",
+        "Medicine",
+        "Civil Aviation Management",
+        "Pilotage",
+        "Associate degree programmes",
+        "Master’s programmes",
+        "PhD programmes",
+      ],
+      notes: [
+        /for 2025\/2026 only/,
+        /not confirmed 2026\/2027 rates/,
+        /registration and activity fee of €500 yearly for the listed degree programmes/,
+        /not included in the tuition figures/,
+        /not been independently verified for every category/,
+        /confirm current tuition and applicable charges with GAU/,
+      ],
+    },
+    tr: {
+      heading: "Yıllık öğrenim ücreti (2025/2026)",
+      names: [
+        "İşletme",
+        "Mimarlık ve diğer bazı fakülteler",
+        "Eczacılık",
+        "Tıp",
+        "Sivil Havacılık İşletmeciliği",
+        "Pilotaj",
+        "Ön lisans programları",
+        "Yüksek lisans programları",
+        "Doktora programları",
+      ],
+      notes: [
+        /yalnızca 2025\/2026/,
+        /teyit edilmiş 2026\/2027 ücretleri değildir/,
+        /listelenen derece programları için yıllık €500 ek kayıt ve etkinlik ücreti/,
+        /öğrenim ücreti tutarlarına dahil değildir/,
+        /her kategori için geçerliliği bağımsız olarak doğrulanmamıştır/,
+        /GAU ile teyit/,
+      ],
+    },
+    fr: {
+      heading: "Frais de scolarité annuels (2025/2026)",
+      names: [
+        "Commerce",
+        "Architecture et plusieurs autres facultés",
+        "Pharmacie",
+        "Médecine",
+        "Gestion de l’aviation civile",
+        "Pilotage",
+        "Formations de diplôme de cycle court",
+        "Formations de master",
+        "Formations doctorales",
+      ],
+      notes: [
+        /uniquement 2025\/2026/,
+        /pas des tarifs confirmés pour 2026\/2027/,
+        /inscription et d’activités de €500 par an pour les formations diplômantes mentionnées/,
+        /ne sont pas inclus dans les montants de scolarité/,
+        /chaque catégorie n’a pas été vérifiée de manière indépendante/,
+        /confirmer les frais de scolarité actuels/,
+      ],
+    },
+    sw: {
+      heading: "Ada ya masomo ya mwaka (2025/2026)",
+      names: [
+        "Biashara",
+        "Usanifu Majengo na vitivo vingine kadhaa",
+        "Famasia",
+        "Udaktari",
+        "Usimamizi wa Usafiri wa Anga wa Kiraia",
+        "Uendeshaji wa Ndege",
+        "Programu za shahada ya ngazi ya associate",
+        "Programu za uzamili",
+        "Programu za uzamivu",
+      ],
+      notes: [
+        /2025\/2026 pekee/,
+        /si viwango vilivyothibitishwa vya 2026\/2027/,
+        /usajili na shughuli ya €500 kwa mwaka kwa programu za shahada zilizoorodheshwa/,
+        /haijajumuishwa katika kiasi cha ada ya masomo/,
+        /kila kundi hayajathibitishwa kwa kujitegemea/,
+        /kuthibitisha ada ya sasa/,
+      ],
+    },
+  }[locale];
+  assert.equal(await table.locator("thead th").nth(1).innerText(), expected.heading);
+  assert.deepEqual(await table.locator("tbody th").allTextContents(), expected.names);
+  const note = await dialog.locator("section").nth(1).locator("p").innerText();
+  for (const pattern of expected.notes) assert.match(note, pattern);
+  assert.equal(await dialog.locator("section").nth(1).locator("a").count(), 0);
+  assert.doesNotMatch(await dialog.locator("section").last().innerText(), /\d|%/);
+}
+
+async function assertKyreniaFees(dialog, locale) {
+  const expected = {
+    en: {
+      areas: ["Aviation", "Business", "Engineering", "Health Sciences", "Postgraduate studies"],
+      fee: [
+        /2026\/2027/,
+        /regular Master’s tuition for international students/,
+        /25% scholarship/,
+        /€1,272 per semester/,
+        /programme fee covers four academic semesters/,
+        /subject to the university’s stated conditions/,
+        /No total programme fee is stated/,
+        /Undergraduate tuition and initial payments must be confirmed for the selected programme/,
+      ],
+      scholarship: /25% scholarship.*conditions apply.*confirm applicability/s,
+    },
+    tr: {
+      areas: ["Havacılık", "İşletme", "Mühendislik", "Sağlık Bilimleri", "Lisansüstü eğitim"],
+      fee: [
+        /2026\/2027/,
+        /uluslararası öğrencilere/,
+        /%25 burslu/,
+        /dönem başına €1,272/,
+        /program ücreti.*dört akademik dönemi kapsar/,
+        /üniversitenin belirttiği koşullara tabi/,
+        /toplam program ücreti belirtilmemektedir/,
+        /Lisans öğrenim ücreti ve ilk ödemeler, seçilen program.*teyit edilmelidir/,
+      ],
+      scholarship: /%25 burslu.*koşullar geçerlidir.*teyit edin/s,
+    },
+    fr: {
+      areas: [
+        "Aviation",
+        "Commerce",
+        "Ingénierie",
+        "Sciences de la santé",
+        "Études de deuxième et troisième cycles",
+      ],
+      fee: [
+        /2026\/2027/,
+        /master standard pour les étudiants internationaux/,
+        /bourse de 25 %/,
+        /€1,272 par semestre/,
+        /couvrent quatre semestres universitaires/,
+        /sous réserve des conditions/,
+        /Aucun montant total du programme/,
+        /premier cycle et les paiements initiaux doivent être confirmés pour la formation choisie/,
+      ],
+      scholarship: /bourse de 25 %.*conditions.*confirmez leur applicabilité/s,
+    },
+    sw: {
+      areas: [
+        "Usafiri wa Anga",
+        "Biashara",
+        "Uhandisi",
+        "Sayansi za Afya",
+        "Masomo ya uzamili na uzamivu",
+      ],
+      fee: [
+        /2026\/2027/,
+        /uzamili kwa wanafunzi wa kimataifa/,
+        /ufadhili wa 25%/,
+        /€1,272 kwa muhula/,
+        /inahusisha mihula minne ya kitaaluma/,
+        /kwa kuzingatia masharti/,
+        /Hakuna jumla ya ada ya programu/,
+        /shahada ya kwanza na malipo ya awali lazima zithibitishwe kwa programu iliyochaguliwa/,
+      ],
+      scholarship: /ufadhili wa 25%.*Masharti.*thibitisha matumizi yake/s,
+    },
+  }[locale];
+  assert.deepEqual(await dialog.locator("li").allTextContents(), expected.areas);
+  const fee = await dialog.locator("section").nth(1).innerText();
+  for (const pattern of expected.fee) assert.match(fee, pattern);
+  assert.deepEqual(fee.match(/€[\d,]+/g), ["€1,272"]);
+  assert.match(await dialog.locator("section").last().innerText(), expected.scholarship);
+  assert.equal(await dialog.locator("section a, table").count(), 0);
+}
+
+async function assertCiuModal(dialog, locale) {
+  const notes = {
+    en: [
+      /Tuition varies by programme, scholarship and academic year/,
+      /tuition calculator/,
+      /student’s official offer letter/,
+      /North Nicosia, Northern Cyprus/,
+    ],
+    tr: [
+      /programa, bursa ve akademik yıla göre değişir/,
+      /hesaplayıcısını/,
+      /resmî kabul teklif mektubundan/,
+      /Kuzey Lefkoşa, Kuzey Kıbrıs/,
+    ],
+    fr: [
+      /formation, la bourse et l’année universitaire/,
+      /calculateur de frais/,
+      /lettre officielle d’offre d’admission/,
+      /Nicosie-Nord, Chypre du Nord/,
+    ],
+    sw: [
+      /programu, ufadhili na mwaka wa masomo/,
+      /kikokotoo cha ada/,
+      /barua rasmi ya ofa ya udahili/,
+      /Nicosia Kaskazini, Saiprasi ya Kaskazini/,
+    ],
+  }[locale];
+  const text = await dialog.innerText();
+  for (const pattern of notes) assert.match(text, pattern);
+  assert.match(text, /50\s*%|%50/);
+  assert.equal(await dialog.locator("li").count(), 10);
+  assert.doesNotMatch(text, /[€£$]\s*\d|IELTS|TOEFL/);
+}
+
+async function checkCiuCatalogue(page, baseUrl, locale) {
+  const section = page.locator('[data-university-examples="cyprus-international-university"]');
+  const expected = {
+    en: {
+      heading: /Catalogue examples — availability unconfirmed/,
+      sample: "Accounting and Finance",
+      master: "MBA",
+      phd: "English Language Teaching",
+      caveat: /not confirmed current programme-level records/,
+      exam: /not confirmed programme-specific thresholds/,
+      docs: [
+        /secondary certificate.*WAEC\/NECO/,
+        /bachelor’s certificate, transcripts/,
+        /research proposal/,
+      ],
+      payment: /student’s official offer letter/,
+    },
+    tr: {
+      heading: /Katalog örnekleri/,
+      sample: "Muhasebe ve Finans",
+      master: "İşletme Yüksek Lisansı (MBA)",
+      phd: "İngilizce Öğretmenliği",
+      caveat: /teyit edilmiş güncel program kayıtları değildir/,
+      exam: /teyit edilmiş programa özgü eşikler değildir/,
+      docs: [
+        /ortaöğretim diploması.*WAEC\/NECO/,
+        /lisans diploması, transkriptler/,
+        /araştırma önerisi/,
+      ],
+      payment: /resmî kabul teklif mektubundan/,
+    },
+    fr: {
+      heading: /Exemples du catalogue/,
+      sample: "Comptabilité et finance",
+      master: "Master en administration des affaires (MBA)",
+      phd: "Enseignement de l’anglais",
+      caveat: /non des fiches de formations actuelles confirmées/,
+      exam: /seuils ne sont pas confirmés pour chaque formation/,
+      docs: [
+        /diplôme du secondaire.*WAEC\/NECO/,
+        /diplôme de licence, relevés de notes/,
+        /projet de recherche/,
+      ],
+      payment: /lettre officielle d’offre d’admission/,
+    },
+    sw: {
+      heading: /Mifano ya katalogi/,
+      sample: "Uhasibu na Fedha",
+      master: "Uzamili wa Usimamizi wa Biashara (MBA)",
+      phd: "Ufundishaji wa Kiingereza",
+      caveat: /si rekodi za sasa za programu zilizothibitishwa/,
+      exam: /si viwango vilivyothibitishwa kwa kila programu/,
+      docs: [
+        /cheti cha sekondari.*WAEC\/NECO/,
+        /cheti cha shahada ya kwanza, nakala za matokeo/,
+        /pendekezo la utafiti/,
+      ],
+      payment: /barua rasmi ya ofa ya udahili/,
+    },
+  }[locale];
+  assert.match(await section.getByRole("heading", { level: 2 }).innerText(), expected.heading);
+  assert.equal(await section.locator("li").count(), 38);
+  for (const [level, count] of [
+    ["Bachelor's", 24],
+    ["Master's", 8],
+    ["PhD", 6],
+  ]) {
+    assert.equal(await section.locator(`[data-example-level="${level}"] li`).count(), count);
+  }
+  assert.ok((await section.locator("li").allTextContents()).includes(expected.sample));
+  const text = await section.innerText();
+  for (const pattern of [expected.caveat, expected.exam, expected.payment, ...expected.docs])
+    assert.match(text, pattern);
+  assert.match(text, /IELTS 5.5.*TOEFL iBT 65/);
+  assert.match(text, /50\s*%|%50/);
+  assert.doesNotMatch(text, /[€£$]\s*\d/);
+  assert.equal(await section.locator('a[href*="course="]').count(), 0);
+  assert.match(
+    await page.locator('meta[name="description"]').getAttribute("content"),
+    /catalogue|katalog|catalogues|katalogi/,
+  );
+  if (locale === "en") {
+    const names = await section.locator("li").allTextContents();
+    assert.deepEqual(
+      [...new Set(names)].sort(),
+      [
+        "Business Administration",
+        "International Business",
+        "Accounting and Finance",
+        "Marketing",
+        "Human Resource Management",
+        "Economics",
+        "Computer Engineering",
+        "Software Engineering",
+        "Civil Engineering",
+        "Electrical and Electronic Engineering",
+        "Mechanical Engineering",
+        "Information Technology",
+        "Nursing",
+        "Pharmacy",
+        "Physiotherapy and Rehabilitation",
+        "Nutrition and Dietetics",
+        "Psychology",
+        "International Relations",
+        "Law",
+        "English Language Teaching",
+        "Architecture",
+        "Interior Architecture",
+        "Tourism and Hotel Management",
+        "Graphic Design",
+        "MBA",
+        "Engineering",
+        "Finance",
+        "Education",
+      ].sort(),
+    );
+  }
+  const filters = page.locator("main select");
+  await filters.nth(1).selectOption("Master's");
+  assert.equal(await section.locator("li").count(), 8);
+  assert.ok((await section.locator("li").allTextContents()).includes(expected.master));
+  await filters.nth(0).selectOption("Computer Science & IT");
+  assert.equal(await section.locator("li").count(), 1);
+  assert.equal(
+    new URL(page.url()).searchParams.get("university"),
+    "cyprus-international-university",
+  );
+  assert.equal(new URL(page.url()).searchParams.get("level"), "Master's");
+  assert.equal(new URL(page.url()).searchParams.get("subject"), "Computer Science & IT");
+  await page.reload({ waitUntil: "networkidle" });
+  assert.equal(await section.locator("li").count(), 1);
+  await filters.nth(0).selectOption("");
+  await filters.nth(1).selectOption("PhD");
+  assert.equal(await section.locator("li").count(), 6);
+  assert.ok((await section.locator("li").allTextContents()).includes(expected.phd));
+  await filters.nth(1).selectOption("Foundation");
+  assert.equal(await section.locator("li").count(), 0);
+  await filters.nth(1).selectOption("Bachelor's");
+  await filters.nth(0).selectOption("Health Sciences & Nursing");
+  assert.equal(await section.locator("li").count(), 4);
+  await filters.nth(2).selectOption("oth-regensburg");
+  assert.equal(await section.count(), 0);
+  await filters.nth(1).selectOption("Master's");
+  assert.equal(await page.locator("main article.card-light").count(), 1);
+
+  await gotoReady(page, `${baseUrl}/courses`);
+  assert.equal(await page.locator("main article.card-light").count(), 3);
+  assert.equal(await section.locator("li").count(), 38);
+  await page.setViewportSize({ width: 320, height: 844 });
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  for (const level of ["Bachelor's", "Master's", "PhD"]) {
+    await section.locator(`[data-example-level="${level}"]`).scrollIntoViewIfNeeded();
+    assert.ok(await section.locator(`[data-example-level="${level}"]`).isVisible());
+  }
+  await section
+    .locator('a[href="/application?university=cyprus-international-university"]')
+    .click();
+  await page.waitForURL("**/application?university=cyprus-international-university");
+  const form = page.locator("form");
+  await form.locator('input[autocomplete="name"]').fill("CIU Catalogue Test");
+  await form.locator('input[type="email"]').fill("catalogue@example.test");
+  await form.locator('button[type="submit"]').click();
+  assert.equal(await form.locator("select").nth(0).inputValue(), "cyprus");
+  assert.equal(await form.locator("select").nth(1).inputValue(), "cyprus-international-university");
+  assert.equal(await form.locator("select").nth(2).inputValue(), "");
+  assert.equal(
+    await form.locator("select").nth(2).locator('option[value]:not([value=""])').count(),
+    0,
+  );
+  await form.locator("select").nth(3).selectOption("January 2027");
+  await form.locator('button[type="submit"]').click();
+  await form.locator('button[type="submit"]').click();
+  assert.match(await form.innerText(), /Cyprus International University/);
+  await page.route("https://wa.me/**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "handoff intercepted" }),
+  );
+  await form.locator('button[type="submit"]').click();
+  await page.waitForURL("https://wa.me/**");
+  assert.match(new URL(page.url()).searchParams.get("text"), /Cyprus International University/);
+  await page.unroute("https://wa.me/**");
+}
+
+async function assertNeuModal(dialog, locale) {
+  assert.equal(await dialog.getByRole("table").count(), 0);
+  assert.equal(await dialog.locator("[data-selected-fees]").count(), 0);
+  assert.equal(
+    await dialog.locator('a[href="/courses?university=near-east-university"]').count(),
+    1,
+  );
+  const text = await dialog.innerText();
+  assert.match(text, /2026\/2027/);
+  assert.match(text, /50\s*%|%50/);
+  const patterns = {
+    en: [
+      /Unlisted scholarship figures are not zero/,
+      /Pharmacy has a special scholarship listed without a tuition figure/,
+      /availability and language of instruction vary/,
+      /deposit and payment schedule remain unconfirmed/,
+      /excluding Medicine and Dentistry/,
+    ],
+    tr: [
+      /Listelenmeyen burslu tutarlar sıfır değildir/,
+      /Eczacılık.*özel burs/,
+      /eğitim dili değişir/,
+      /depozito ve ödeme takvimi teyit edilmemiştir/,
+      /Tıp ve Diş Hekimliği hariç/,
+    ],
+    fr: [
+      /montants avec bourse non indiqués ne sont pas nuls/,
+      /bourse spéciale.*pharmacie/,
+      /langue d’enseignement varient/,
+      /dépôt initial et l’échéancier restent non confirmés/,
+      /hors médecine et dentisterie/,
+    ],
+    sw: [
+      /Kiasi cha ufadhili kisichoorodheshwa si sifuri/,
+      /Famasia ina ufadhili maalumu/,
+      /lugha ya kufundishia hutofautiana/,
+      /Amana ya awali na ratiba ya malipo bado hazijathibitishwa/,
+      /isipokuwa Udaktari na Udaktari wa Meno/,
+    ],
+  }[locale];
+  for (const pattern of patterns) assert.match(text, pattern);
+}
+
+async function assertNeuCatalogue(section, locale) {
+  assert.equal(await section.locator("li").count(), 31);
+  assert.equal(await section.locator('[data-example-level="unassigned"]').count(), 1);
+  const feeCards = section.locator("[data-fee-programme]");
+  assert.equal(await feeCards.count(), 9);
+  const localized = {
+    en: {
+      names: [
+        "Business Administration",
+        "International Business",
+        "Computer Engineering",
+        "Software Engineering",
+        "Nursing",
+        "Architecture",
+        "Medicine",
+        "Dentistry (English)",
+        "Pharmacy",
+      ],
+      labels: [
+        "Annual tuition before scholarship",
+        "Listed 50% scholarship figure / special scholarship",
+        "Total including VAT/administrative fee",
+      ],
+      missing: "No scholarship figure listed",
+      special: "Special scholarship listed; figure not supplied",
+      sample: "Artificial Intelligence Engineering",
+      level: /No named Associate degree, Master’s or PhD offerings are confirmed/,
+      caveat: /availability and language of instruction vary/,
+    },
+    tr: {
+      names: [
+        "İşletme",
+        "Uluslararası İşletme",
+        "Bilgisayar Mühendisliği",
+        "Yazılım Mühendisliği",
+        "Hemşirelik",
+        "Mimarlık",
+        "Tıp",
+        "Diş Hekimliği (İngilizce)",
+        "Eczacılık",
+      ],
+      labels: [
+        "Burs öncesi yıllık öğrenim ücreti",
+        "Listelenen %50 burslu tutar / özel burs",
+        "KDV/idari ücret dahil toplam",
+      ],
+      missing: "Burslu tutar listelenmemiş",
+      special: "Özel burs listelenmiş; tutar sağlanmamış",
+      sample: "Yapay Zekâ Mühendisliği",
+      level: /isimli ön lisans, yüksek lisans veya doktora programı teyit edilmemektedir/,
+      caveat: /Programların açık olması ve eğitim dili değişir/,
+    },
+    fr: {
+      names: [
+        "Administration des entreprises",
+        "Commerce international",
+        "Génie informatique",
+        "Génie logiciel",
+        "Soins infirmiers",
+        "Architecture",
+        "Médecine",
+        "Dentisterie (en anglais)",
+        "Pharmacie",
+      ],
+      labels: [
+        "Frais de scolarité annuels avant bourse",
+        "Montant indiqué avec bourse de 50 % / bourse spéciale",
+        "Total incluant TVA/frais administratifs",
+      ],
+      missing: "Aucun montant avec bourse indiqué",
+      special: "Bourse spéciale indiquée ; montant non communiqué",
+      sample: "Génie de l’intelligence artificielle",
+      level: /Aucune formation nommée de cycle court, master ou doctorat n’est confirmée/,
+      caveat: /disponibilité et la langue d’enseignement varient/,
+    },
+    sw: {
+      names: [
+        "Usimamizi wa Biashara",
+        "Biashara ya Kimataifa",
+        "Uhandisi wa Kompyuta",
+        "Uhandisi wa Programu",
+        "Uuguzi",
+        "Usanifu Majengo",
+        "Udaktari",
+        "Udaktari wa Meno (Kiingereza)",
+        "Famasia",
+      ],
+      labels: [
+        "Ada ya masomo ya mwaka kabla ya ufadhili",
+        "Kiasi kilichoorodheshwa kwa ufadhili wa 50% / ufadhili maalumu",
+        "Jumla ikijumuisha VAT/ada ya utawala",
+      ],
+      missing: "Hakuna kiasi cha ufadhili kilichoorodheshwa",
+      special: "Ufadhili maalumu umeorodheshwa; kiasi hakijatolewa",
+      sample: "Uhandisi wa Akili Bandia",
+      level: /Hakuna programu zenye majina za associate, uzamili au uzamivu zilizothibitishwa/,
+      caveat: /Upatikanaji wa programu na lugha ya kufundishia hutofautiana/,
+    },
+  }[locale];
+  assert.deepEqual(await feeCards.locator("h4").allTextContents(), localized.names);
+  const amounts = [
+    ...Array.from({ length: 6 }, () => ["€5,600", "€2,800", "€3,225"]),
+    ["€12,600", localized.missing, "€13,515"],
+    ["€11,600", localized.missing, "€12,465"],
+    ["€8,600", localized.special, "€4,800"],
+  ];
+  for (let index = 0; index < 9; index++) {
+    assert.deepEqual(await feeCards.nth(index).locator("dt").allTextContents(), localized.labels);
+    assert.deepEqual(await feeCards.nth(index).locator("dd").allTextContents(), amounts[index]);
+  }
+  assert.match(await section.locator("[data-selected-fees] h3").innerText(), /2026\/2027.*EUR/);
+  assert.ok((await section.locator("li").allTextContents()).includes(localized.sample));
+  assert.match(await section.innerText(), localized.level);
+  assert.match(await section.innerText(), localized.caveat);
+  assert.equal(await section.locator('a[href*="course="]').count(), 0);
+  if (locale === "en") {
+    assert.deepEqual(
+      (await section.locator("li").allTextContents()).sort(),
+      [
+        "Business Administration",
+        "International Business",
+        "International Relations",
+        "Economics",
+        "Banking and Finance",
+        "Human Resource Management",
+        "Marketing",
+        "Computer Engineering",
+        "Software Engineering",
+        "Artificial Intelligence Engineering",
+        "Cyber Security Engineering",
+        "Information Systems Engineering",
+        "Management Information Systems",
+        "Data Analysis Engineering",
+        "Civil Engineering",
+        "Electrical and Electronic Engineering",
+        "Mechanical Engineering",
+        "Biomedical Engineering",
+        "Industrial Engineering",
+        "Medicine",
+        "Dentistry",
+        "Pharmacy",
+        "Nursing",
+        "Physiotherapy and Rehabilitation",
+        "Nutrition and Dietetics",
+        "Architecture",
+        "Interior Architecture",
+        "Law",
+        "Tourism and Hotel Management",
+        "English Language Teaching",
+        "Veterinary Medicine",
+      ].sort(),
+    );
+  }
+}
+
+async function checkNeuCatalogue(page, baseUrl, locale) {
+  const slug = "near-east-university";
+  await gotoReady(page, `${baseUrl}/courses?university=${slug}`);
+  const section = page.locator(`[data-university-examples="${slug}"]`);
+  await assertNeuCatalogue(section, locale);
+  assert.equal(await page.locator("main article.card-light").count(), 0);
+  const filters = page.locator("main select");
+  await filters.nth(0).selectOption("Computer Science & IT");
+  assert.equal(await section.locator("li").count(), 7);
+  assert.equal(new URL(page.url()).searchParams.get("university"), slug);
+  await page.reload({ waitUntil: "networkidle" });
+  assert.equal(await section.locator("li").count(), 7);
+  for (const level of ["Associate degree", "Bachelor's", "Master's", "PhD"]) {
+    await filters.nth(1).selectOption(level);
+    assert.equal(await section.locator("li").count(), 0);
+    assert.equal(await section.locator("[data-fee-programme]").count(), 9);
+  }
+  await filters.nth(0).selectOption("");
+  await filters.nth(1).selectOption("");
+  await assertNeuCatalogue(section, locale);
+  await page.setViewportSize({ width: 320, height: 844 });
+  for (const card of await section.locator("[data-fee-programme]").all()) {
+    await card.scrollIntoViewIfNeeded();
+    assert.ok(await card.isVisible());
+  }
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await section.locator(`a[href="/application?university=${slug}"]`).click();
+  await page.waitForURL(`**/application?university=${slug}`);
+  const form = page.locator("form");
+  await form.locator('input[autocomplete="name"]').fill("NEU Catalogue Test");
+  await form.locator('input[type="email"]').fill("neu@example.test");
+  await form.locator('button[type="submit"]').click();
+  assert.equal(await form.locator("select").nth(1).inputValue(), slug);
+  assert.equal(
+    await form.locator("select").nth(2).locator('option[value]:not([value=""])').count(),
+    0,
+  );
+  await form.locator("select").nth(3).selectOption("January 2027");
+  await form.locator('button[type="submit"]').click();
+  await form.locator('button[type="submit"]').click();
+  await page.route("https://wa.me/**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "handoff intercepted" }),
+  );
+  await form.locator('button[type="submit"]').click();
+  await page.waitForURL("https://wa.me/**");
+  assert.match(new URL(page.url()).searchParams.get("text"), /Near East University/);
+  await page.unroute("https://wa.me/**");
+  await gotoReady(page, `${baseUrl}/courses`);
+  assert.equal(await section.locator("li").count(), 31);
+  assert.equal(
+    await page.locator('[data-university-examples="cyprus-international-university"] li').count(),
+    38,
+  );
+  assert.equal(await page.locator("main article.card-light").count(), 3);
+  await filters.nth(2).selectOption("oth-regensburg");
+  assert.equal(await section.count(), 0);
+  assert.equal(await page.locator("main article.card-light").count(), 1);
+}
+
+async function assertFloridaModal(dialog, locale) {
+  assert.match(await dialog.innerText(), /2026\/2027.*F-1\/J-1/s);
+  const caveats = {
+    en: [
+      /not guaranteed final costs/,
+      /non-Florida-resident rates/,
+      /additional charges may apply/,
+      /deposits, deadlines and financial-documentation/,
+      /no fixed initial payment/,
+    ],
+    tr: [
+      /garanti edilmiş nihai maliyetler değildir/,
+      /Florida dışı ikamet tarifelerini/,
+      /ek ücretler uygulanabilir/,
+      /Depozitoları, son tarihleri ve mali belge/,
+      /sabit ilk ödeme belirtilmemiştir/,
+    ],
+    fr: [
+      /non des coûts finaux garantis/,
+      /non-résidents de Floride/,
+      /frais supplémentaires peuvent s’appliquer/,
+      /dépôts, échéances et justificatifs financiers/,
+      /aucun paiement initial fixe/,
+    ],
+    sw: [
+      /si gharama za mwisho zilizohakikishwa/,
+      /wasio wakazi wa Florida/,
+      /ada za ziada zinaweza kutumika/,
+      /amana, tarehe za mwisho na mahitaji ya hati za fedha/,
+      /hakuna malipo ya awali ya kudumu/,
+    ],
+  }[locale];
+  for (const pattern of caveats) assert.match(await dialog.innerText(), pattern);
+  assert.equal(await dialog.locator("li").count(), 4);
+  const img = dialog.locator("img");
+  await img.evaluate((image) => image.decode());
+  assert.match(await img.getAttribute("src"), /florida-international-university-logo.png/);
+  assert.equal(await img.evaluate((image) => getComputedStyle(image).objectFit), "contain");
+}
+
+async function checkFloridaCatalogue(page, baseUrl, locale) {
+  const slug = "florida-international-university";
+  await gotoReady(page, `${baseUrl}/courses?university=${slug}`);
+  const section = page.locator(`[data-university-examples="${slug}"]`);
+  assert.equal(await section.locator("li").count(), 23);
+  assert.equal(await section.locator('[data-example-level="Bachelor\'s"] li').count(), 14);
+  assert.equal(await section.locator('[data-example-level="unassigned"] li').count(), 9);
+  if (locale === "en") {
+    assert.deepEqual(
+      await section.locator('[data-example-level="Bachelor\'s"] li').allTextContents(),
+      [
+        "Accounting",
+        "Finance",
+        "Business Administration",
+        "International Business",
+        "Marketing",
+        "Computer Science",
+        "IT",
+        "Engineering",
+        "Nursing",
+        "Biological Sciences",
+        "Public Health",
+        "Psychology",
+        "Communication",
+        "International Relations",
+      ],
+    );
+    assert.deepEqual(
+      await section.locator('[data-example-level="unassigned"] li').allTextContents(),
+      [
+        "Business Administration",
+        "Finance",
+        "Accounting",
+        "Computer Science",
+        "Engineering",
+        "Public Health",
+        "International Relations",
+        "Psychology",
+        "Education",
+      ],
+    );
+  }
+  const costs = section.locator("[data-cost-row]");
+  assert.equal(await costs.count(), 8);
+  assert.deepEqual(await costs.locator("dd").allTextContents(), [
+    "$11,376",
+    "$10,317",
+    "$104",
+    "$199",
+    "$675",
+    "$500",
+    "$5,025",
+    "$5,025",
+    "$2,595",
+    "$2,595",
+    "$1,515",
+    "$1,515",
+    "$1,784",
+    "$1,784",
+    "$46,198",
+    "$44,006",
+  ]);
+  const expected = {
+    en: {
+      sample: "Biological Sciences",
+      term: /per semester/,
+      annual: /Estimated annual total — fall and spring/,
+      notes: [
+        /not confirmed current degree records/,
+        /loan-origination allowances omitted/,
+        /not every budget allowance is a charge/,
+        /not scholarship prices or guaranteed invoices/,
+        /Requirements vary by admission pathway and programme/,
+        /Master’s and PhD document guidance/,
+      ],
+    },
+    tr: {
+      sample: "Biyolojik Bilimler",
+      term: /dönem başına/,
+      annual: /Tahmini yıllık toplam — güz ve bahar/,
+      notes: [
+        /teyit edilmiş güncel derece kayıtları değildir/,
+        /kredi kullandırım payları/,
+        /her bütçe kalemi her öğrencinin ödeyeceği bir ücret değildir/,
+        /burslu fiyatlar veya garanti edilmiş faturalar değildir/,
+        /Koşullar başvuru yoluna ve programa göre değişir/,
+        /Yüksek lisans ve doktora belgesi rehberi/,
+      ],
+    },
+    fr: {
+      sample: "Sciences biologiques",
+      term: /par semestre/,
+      annual: /Total annuel estimé — automne et printemps/,
+      notes: [
+        /non des fiches de diplômes actuels confirmés/,
+        /prêt omis des lignes/,
+        /chaque provision n’est pas une somme due par chaque étudiant/,
+        /ni des tarifs avec bourse ni des factures garanties/,
+        /conditions varient selon le parcours et la formation/,
+        /Documents indicatifs pour le master et le doctorat/,
+      ],
+    },
+    sw: {
+      sample: "Sayansi za Biolojia",
+      term: /kwa muhula/,
+      annual: /Jumla ya mwaka iliyokadiriwa — vuli na masika/,
+      notes: [
+        /si rekodi za sasa za shahada zilizothibitishwa/,
+        /kuanzisha mkopo yaliyoachwa/,
+        /si kila kipengele cha bajeti ni ada/,
+        /si bei za ufadhili au ankara zilizohakikishwa/,
+        /Mahitaji hutofautiana kwa njia ya udahili na programu/,
+        /Mwongozo wa hati za uzamili na uzamivu/,
+      ],
+    },
+  }[locale];
+  assert.ok((await section.locator("li").allTextContents()).includes(expected.sample));
+  for (let i = 0; i < 7; i++)
+    assert.match(await costs.nth(i).locator("h4").innerText(), expected.term);
+  assert.match(await costs.last().locator("h4").innerText(), expected.annual);
+  const text = await section.innerText();
+  for (const pattern of expected.notes) assert.match(text, pattern);
+  assert.match(text, /2026\/2027.*USD/s);
+  assert.equal(
+    await section.locator('a[href="https://www.fiu.edu/academics/degrees-and-programs/"]').count(),
+    1,
+  );
+  assert.equal(
+    await section
+      .locator('a[href="https://onestop.fiu.edu/finances/estimate-your-costs/"]')
+      .count(),
+    1,
+  );
+  const filters = page.locator("main select");
+  await filters.nth(1).selectOption("Bachelor's");
+  assert.equal(await section.locator("li").count(), 14);
+  await filters.nth(0).selectOption("Business & Management");
+  assert.equal(await section.locator("li").count(), 5);
+  await page.reload({ waitUntil: "networkidle" });
+  assert.equal(await section.locator("li").count(), 5);
+  assert.equal(new URL(page.url()).searchParams.get("university"), slug);
+  for (const level of ["Master's", "PhD"]) {
+    await filters.nth(1).selectOption(level);
+    assert.equal(await section.locator("li").count(), 0);
+  }
+  await filters.nth(0).selectOption("");
+  await filters.nth(1).selectOption("");
+  await page.setViewportSize({ width: 320, height: 844 });
+  for (const cost of await costs.all()) await cost.scrollIntoViewIfNeeded();
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await section.locator(`a[href="/application?university=${slug}"]`).click();
+  await page.waitForURL(`**/application?university=${slug}`);
+  const form = page.locator("form");
+  await form.locator('input[autocomplete="name"]').fill("Florida Catalogue Test");
+  await form.locator('input[type="email"]').fill("florida@example.test");
+  await form.locator('button[type="submit"]').click();
+  assert.equal(await form.locator("select").nth(0).inputValue(), "united-states");
+  assert.equal(await form.locator("select").nth(1).inputValue(), slug);
+  assert.equal(
+    await form.locator("select").nth(2).locator('option[value]:not([value=""])').count(),
+    0,
+  );
+  await form.locator("select").nth(3).selectOption("January 2027");
+  await form.locator('button[type="submit"]').click();
+  await form.locator('button[type="submit"]').click();
+  await page.route("https://wa.me/**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "intercepted" }),
+  );
+  await form.locator('button[type="submit"]').click();
+  await page.waitForURL("https://wa.me/**");
+  assert.match(new URL(page.url()).searchParams.get("text"), /Florida International University/);
+  await page.unroute("https://wa.me/**");
+  await gotoReady(page, `${baseUrl}/courses`);
+  assert.equal(await section.locator("li").count(), 23);
+  assert.equal(await page.locator("main article.card-light").count(), 3);
+  await filters.nth(2).selectOption("final-international-university");
+  assert.equal(await section.count(), 0);
+}
+
+async function checkUniversityRefinement(page, baseUrl, university) {
+  const { slug, name, officialUrl, assertFees } = university;
+  const source =
+    "https://www.emu.edu.tr/media/assets/files/tuition-fees/2026-2027-newly-registered-international-tuition-fees.pdf?ver=1";
+  for (const [locale, language] of [
+    ["en", "English"],
+    ["tr", "Türkçe"],
+    ["fr", "Français"],
+    ["sw", "Kiswahili"],
+  ]) {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await gotoReady(page, `${baseUrl}/universities`);
+    await selectLanguage(page, language, locale);
+    const card = page.locator("article").filter({
+      has: page.getByRole("heading", { name, exact: true }),
+    });
+    const trigger = card.getByRole("button");
+    if (slug === "florida-international-university") {
+      await page.locator("main select").selectOption("united-states");
+      assert.equal(await page.locator("main article.card-light").count(), 3);
+      assert.equal(
+        await page
+          .getByRole("heading", { name: "Final International University (FIU)", exact: true })
+          .count(),
+        0,
+      );
+      await page.locator("main select").selectOption("");
+      await card.locator("img").evaluate((image) => image.decode());
+      assert.equal(
+        await card.locator("img").getAttribute("src"),
+        "/Uni-Logos/florida-international-university-logo.png",
+      );
+      assert.ok(
+        await card
+          .locator("img")
+          .evaluate(
+            (image) =>
+              Math.abs(image.naturalWidth / image.naturalHeight - 800 / 373) < 0.01 &&
+              getComputedStyle(image).objectFit === "contain",
+          ),
+      );
+      assert.equal(
+        await page
+          .getByRole("heading", { name: "Final International University (FIU)", exact: true })
+          .count(),
+        1,
+      );
+    }
+    await trigger.scrollIntoViewIfNeeded();
+    const original = await scrollState(page);
+    await trigger.click();
+    const dialog = page.getByRole("dialog");
+    await assertFees(dialog, locale);
+    assert.equal(
+      await dialog.locator(`a[href="${source}"]`).count(),
+      slug === "eastern-mediterranean-university" ? 2 : 0,
+    );
+    assert.equal(await page.locator("body").evaluate((body) => body.style.position), "fixed");
+    await dialog.locator("section").nth(1).click();
+    assert.ok(await dialog.isVisible());
+    await page.keyboard.press("Escape");
+    await dialog.waitFor({ state: "hidden" });
+    assert.deepEqual(await scrollState(page), original);
+
+    await page.setViewportSize({ width: 320, height: 844 });
+    await trigger.click();
+    await assertFees(dialog, locale);
+    assert.ok(
+      await dialog.evaluate(
+        (element) =>
+          element.scrollWidth <= element.clientWidth && element.scrollHeight > element.clientHeight,
+      ),
+    );
+    for (const row of await dialog.locator("tbody tr").all()) await row.scrollIntoViewIfNeeded();
+    const applyLabel = { en: "Apply Now", tr: "Hemen Başvur", fr: "Postuler", sw: "Omba sasa" }[
+      locale
+    ];
+    const coursesLabel = {
+      en: "View Courses",
+      tr: "Programları Gör",
+      fr: "Voir les formations",
+      sw: "Angalia programu",
+    }[locale];
+    for (const container of [card, dialog]) {
+      const apply = container.getByRole("link", { name: applyLabel, exact: true });
+      assert.equal(await apply.getAttribute("href"), `/application?university=${slug}`);
+      assert.match(await apply.getAttribute("class"), /\bbtn-primary\b/);
+      const viewCourses = container.getByRole("link", { name: coursesLabel, exact: true });
+      assert.equal(await viewCourses.getAttribute("href"), `/courses?university=${slug}`);
+      assert.equal(await viewCourses.getAttribute("target"), null);
+      assert.equal(await container.locator(`a[href="${officialUrl}"]`).count(), 0);
+    }
+    assert.equal(await dialog.locator('a[href*="wa.me"]').count(), 1);
+    await page.mouse.click(2, 2);
+    await dialog.waitFor({ state: "hidden" });
+    assert.notEqual(await page.locator("body").evaluate((body) => body.style.position), "fixed");
+    await trigger.click();
+    await dialog.getByRole("button").click();
+    await dialog.waitFor({ state: "hidden" });
+    await card.getByRole("link", { name: coursesLabel, exact: true }).click();
+    await page.waitForURL(`**/courses?university=${slug}`);
+    assert.equal(await page.locator("main select").nth(2).inputValue(), slug);
+    await gotoReady(page, `${baseUrl}/universities`);
+    await trigger.click();
+    await dialog.getByRole("link", { name: coursesLabel, exact: true }).click();
+    await page.waitForURL(`**/courses?university=${slug}`);
+    assert.notEqual(await page.locator("body").evaluate((body) => body.style.position), "fixed");
+    await gotoReady(page, `${baseUrl}/universities`);
+    await trigger.click();
+    await dialog.locator(`a[href="/application?university=${slug}"]`).click();
+    await page.waitForURL(`**/application?university=${slug}`);
+    assert.notEqual(await page.locator("body").evaluate((body) => body.style.position), "fixed");
+    const form = page.locator("form");
+    await form.locator('input[autocomplete="name"]').fill("University Prefill Test");
+    await form.locator('input[type="email"]').fill("prefill@example.test");
+    await form.locator('button[type="submit"]').click();
+    assert.equal(
+      await form.locator("select").nth(0).inputValue(),
+      slug === "florida-international-university" ? "united-states" : "cyprus",
+    );
+    assert.equal(await form.locator("select").nth(1).inputValue(), slug);
+    await gotoReady(page, `${baseUrl}/courses?university=${slug}`);
+    assert.equal(await page.locator("main article.card-light").count(), 0);
+    if (slug === "cyprus-international-university") await checkCiuCatalogue(page, baseUrl, locale);
+    if (slug === "near-east-university") await checkNeuCatalogue(page, baseUrl, locale);
+    if (slug === "florida-international-university")
+      await checkFloridaCatalogue(page, baseUrl, locale);
+    console.log(
+      `✓ ${name} supplied fees, caveats, mobile modal, internal CTAs and prefill (${locale})`,
+    );
+  }
+}
+
 async function runSmokeTests() {
   await verifyProductionArtifacts();
 
@@ -316,6 +1480,66 @@ async function runSmokeTests() {
     page.on("console", (message) => {
       if (message.type() === "error") browserErrors.push(message.text());
     });
+
+    if (
+      ["--emu", "--gau", "--kyrenia", "--ciu", "--neu", "--florida"].some((flag) =>
+        process.argv.includes(flag),
+      )
+    ) {
+      const gau = process.argv.includes("--gau");
+      await checkUniversityRefinement(
+        page,
+        baseUrl,
+        process.argv.includes("--florida")
+          ? {
+              slug: "florida-international-university",
+              name: "Florida International University (FIU)",
+              officialUrl: "https://www.fiu.edu/",
+              assertFees: assertFloridaModal,
+            }
+          : process.argv.includes("--neu")
+            ? {
+                slug: "near-east-university",
+                name: "Near East University",
+                officialUrl: "https://neu.edu.tr/?lang=en",
+                assertFees: assertNeuModal,
+              }
+            : process.argv.includes("--ciu")
+              ? {
+                  slug: "cyprus-international-university",
+                  name: "Cyprus International University",
+                  officialUrl: "https://ciu.edu.tr/en",
+                  assertFees: assertCiuModal,
+                }
+              : process.argv.includes("--kyrenia")
+                ? {
+                    slug: "university-of-kyrenia",
+                    name: "University of Kyrenia (Girne Üniversitesi)",
+                    officialUrl: "https://kyrenia.edu.tr/?lang=en",
+                    assertFees: assertKyreniaFees,
+                  }
+                : gau
+                  ? {
+                      slug: "girne-american-university",
+                      name: "Girne American University",
+                      officialUrl: "https://www.gau.edu.tr/en/",
+                      assertFees: assertGauFees,
+                    }
+                  : {
+                      slug: "eastern-mediterranean-university",
+                      name: "Eastern Mediterranean University",
+                      officialUrl: "https://www.emu.edu.tr/en",
+                      assertFees: assertEmuFees,
+                    },
+      );
+      assert.deepEqual(
+        browserErrors,
+        [],
+        "Focused university checks must have zero browser errors.",
+      );
+      console.log("Focused university smoke tests passed.");
+      return;
+    }
 
     console.log("Checking all public routes and route metadata...");
     for (const route of routes) {
@@ -968,6 +2192,7 @@ async function runSmokeTests() {
           logo: "/Uni-Logos/girne-uni-logo.png",
           location: "Kyrenia (Girne)",
           officialUrl: "https://kyrenia.edu.tr/?lang=en",
+          studyAreaCount: 5,
         },
         {
           slug: "near-east-university",
@@ -1017,6 +2242,16 @@ async function runSmokeTests() {
           location: "Nicosia",
           officialUrl: "https://baucyprus.edu.tr/",
           feeSourceUrl: "https://www.baucyprus.edu.tr/tuition-fees",
+        },
+        {
+          slug: "florida-international-university",
+          name: "Florida International University (FIU)",
+          logo: "/Uni-Logos/florida-international-university-logo.png",
+          logoSurface: "navy",
+          logoAspectRatio: 800 / 373,
+          location: "Miami, Florida",
+          studyAreaCount: 4,
+          officialUrl: "https://www.fiu.edu/",
         },
         {
           slug: "university-of-memphis",
@@ -1093,16 +2328,16 @@ async function runSmokeTests() {
       }[locale];
       const closeLabel = { en: "Close", tr: "Kapat", fr: "Fermer", sw: "Funga" }[locale];
       const applyLabel = {
-        en: "Apply Through FranklyEdu",
-        tr: "FranklyEdu ile Başvur",
-        fr: "Postuler avec FranklyEdu",
-        sw: "Omba Kupitia FranklyEdu",
+        en: "Apply Now",
+        tr: "Hemen Başvur",
+        fr: "Postuler",
+        sw: "Omba sasa",
       }[locale];
-      const websiteLabel = {
-        en: "Visit University Website",
-        tr: "Üniversitenin Web Sitesini Ziyaret Et",
-        fr: "Visiter le site de l’université",
-        sw: "Tembelea Tovuti ya Chuo",
+      const coursesLabel = {
+        en: "View Courses",
+        tr: "Programları Gör",
+        fr: "Voir les formations",
+        sw: "Angalia programu",
       }[locale];
       const enquiryLabel = {
         en: "Enquire",
@@ -1126,54 +2361,21 @@ async function runSmokeTests() {
         assert.match(await apply.getAttribute("class"), /\bbtn-primary\b/);
         assert.equal(await apply.getAttribute("target"), null);
         assert.equal(await container.locator("a.btn-primary").count(), 1);
-        const website = container.getByRole("link", { name: websiteLabel, exact: true });
-        assert.equal(await website.getAttribute("href"), university.officialUrl);
-        assert.equal(await website.getAttribute("target"), "_blank");
-        assert.match(await website.getAttribute("rel"), /\bnoopener\b/);
-        assert.match(await website.getAttribute("rel"), /\bnoreferrer\b/);
-        assert.match(await website.getAttribute("class"), /\bbtn-outline-dark\b/);
+        const viewCourses = container.getByRole("link", { name: coursesLabel, exact: true });
+        assert.equal(
+          await viewCourses.getAttribute("href"),
+          `/courses?university=${university.slug}`,
+        );
+        assert.equal(await viewCourses.getAttribute("target"), null);
+        assert.match(await viewCourses.getAttribute("class"), /\bbtn-outline-dark\b/);
+        assert.equal(
+          await container.locator(`a.btn[href="${university.officialUrl}"]`).count(),
+          0,
+          `${locale} ${university.name} must not have an external university navigation CTA.`,
+        );
         const enquiry = container.getByRole("link", { name: enquiryLabel, exact: true });
         assert.match(await enquiry.getAttribute("href"), /^https:\/\/wa\.me\//);
         assert.match(await enquiry.getAttribute("class"), /\bbtn-outline-dark\b/);
-      }
-      async function assertWebsiteTab(container, university) {
-        const website = container.getByRole("link", { name: websiteLabel, exact: true });
-        await website.scrollIntoViewIfNeeded();
-        const originalUrl = page.url();
-        const originalScroll = await scrollState(page);
-        const originalFilter = await page.locator("main select").inputValue();
-        const dialogState = () =>
-          page.locator("dialog[open]").evaluateAll((dialogs) =>
-            dialogs.map((dialog) => ({
-              title: dialog.querySelector("h2")?.textContent,
-              scrollTop: dialog.scrollTop,
-            })),
-          );
-        const originalDialog = await dialogState();
-        // Stub the destination, not the click, so the real new-tab behavior is tested offline.
-        const serveWebsite = (route) =>
-          route.fulfill({
-            status: 200,
-            contentType: "text/html",
-            body: "<title>University</title>",
-          });
-        await page.context().route(university.officialUrl, serveWebsite);
-        try {
-          const [popup] = await Promise.all([page.waitForEvent("popup"), website.click()]);
-          try {
-            await popup.waitForLoadState("domcontentloaded");
-            assert.equal(popup.url(), university.officialUrl);
-            assert.equal(await popup.evaluate(() => window.opener === null), true);
-          } finally {
-            await popup.close();
-          }
-          assert.equal(page.url(), originalUrl);
-          assert.equal(await page.locator("main select").inputValue(), originalFilter);
-          assert.deepEqual(await scrollState(page), originalScroll);
-          assert.deepEqual(await dialogState(), originalDialog);
-        } finally {
-          await page.context().unroute(university.officialUrl, serveWebsite);
-        }
       }
       const summaryText = {
         en: "Ask us for current admissions information for this institution.",
@@ -1182,11 +2384,19 @@ async function runSmokeTests() {
         sw: "Wasiliana nasi kupata taarifa za sasa za udahili katika taasisi hii.",
       }[locale];
       const localizedLocation = (university) =>
-        locale === "tr" && university.location === "Kyrenia (Girne)"
-          ? "Girne (Kyrenia)"
-          : university.location;
+        university.slug === "cyprus-international-university"
+          ? {
+              en: "North Nicosia",
+              tr: "Kuzey Lefkoşa",
+              fr: "Nicosie-Nord",
+              sw: "Nicosia Kaskazini",
+            }[locale]
+          : locale === "tr" && university.location === "Kyrenia (Girne)"
+            ? "Girne (Kyrenia)"
+            : university.location;
 
       for (const name of [
+        "Florida International University (FIU)",
         "Near East University",
         "Eastern Mediterranean University",
         "Girne American University",
@@ -1211,13 +2421,19 @@ async function runSmokeTests() {
           `${locale} homepage must keep ${name} excluded.`,
         );
       }
+      for (const university of expectedUniversities) {
+        const homeCard = page.locator("main article").filter({
+          has: page.getByRole("heading", { name: university.name, exact: true }),
+        });
+        if (await homeCard.count()) await assertUniversityActions(homeCard, university);
+      }
 
       await gotoReady(page, `${baseUrl}/universities`);
       const universityCards = page.locator("main article.card-light");
       assert.equal(
         await universityCards.count(),
-        15,
-        `${locale} directory must show all fifteen universities.`,
+        16,
+        `${locale} directory must show all sixteen universities.`,
       );
       for (const university of expectedUniversities) {
         const card = universityCards.filter({
@@ -1274,7 +2490,10 @@ async function runSmokeTests() {
           .first()
           .waitFor();
         await assertUniversityActions(card, university);
-        await assertWebsiteTab(card, university);
+        await card.getByRole("link", { name: coursesLabel, exact: true }).click();
+        await page.waitForURL(`**/courses?university=${university.slug}`);
+        assert.equal(await page.locator("main select").nth(2).inputValue(), university.slug);
+        await gotoReady(page, `${baseUrl}/universities`);
       }
       await gotoReady(page, `${baseUrl}/countries`);
       assert.equal(
@@ -1286,7 +2505,7 @@ async function runSmokeTests() {
 
       assert.equal(
         await universityCards.getByRole("button", { name: detailLabel }).count(),
-        15,
+        16,
         `${locale} must localize View Details on every card.`,
       );
       const detailsDialog = page.getByRole("dialog");
@@ -1339,11 +2558,10 @@ async function runSmokeTests() {
         );
         await assertUniversityActions(detailsDialog, university);
         assert.ok((await detailsDialog.innerText()).includes(guidanceNote));
-        await assertWebsiteTab(detailsDialog, university);
         assert.equal(
           await detailsDialog.locator('a[href^="/courses?university="]').getAttribute("href"),
           `/courses?university=${university.slug}`,
-          `${locale} Explore Courses must preserve the university filter.`,
+          `${locale} View Courses must preserve the university filter.`,
         );
         assert.equal(
           await detailsDialog.locator("li").count(),
@@ -1353,8 +2571,8 @@ async function runSmokeTests() {
         const modalText = await detailsDialog.innerText();
         assert.doesNotMatch(
           modalText,
-          /\d+\s*(?:semesters?|years?)|Cross-Cultural Nursing Practice|Advanced Nursing Practice \(M|Community Health Nursing \(CHN\)/i,
-          `${locale} modals must not contain invented durations or catalogue programmes.`,
+          /\d+\s*(?:semesters?|years?)\b|Cross-Cultural Nursing Practice|Advanced Nursing Practice \(M|Community Health Nursing \(CHN\)/i,
+          `${locale} ${university.name} modal must not contain invented durations or catalogue programmes.`,
         );
         if (university.feeSourceUrl) {
           const feeSourceLinks = detailsDialog.locator(`a[href="${university.feeSourceUrl}"]`);
@@ -1367,17 +2585,22 @@ async function runSmokeTests() {
             return link.closest("section")?.innerText ?? "";
           });
           assert.ok(feeText.length > 0);
-          if (locale === "en" && university.slug === "eastern-mediterranean-university") {
-            assert.match(feeText, /\$6,400.*\$5,100/s);
-            assert.match(feeText, /annual advance-payment tuition in USD/);
-            assert.match(feeText, /most faculties/);
-            assert.match(feeText, /\$250 per semester/);
+          if (university.slug === "eastern-mediterranean-university") {
+            await assertEmuFees(detailsDialog, locale);
           }
           if (locale === "en" && university.slug === "bahcesehir-cyprus-university") {
             assert.match(feeText, /\$2,100.*\$2,700/s);
             assert.match(feeText, /does not identify an academic year/);
             assert.match(feeText, /not confirmed acceptance or visa deposits/);
           }
+        } else if (university.slug === "florida-international-university") {
+          await assertFloridaModal(detailsDialog, locale);
+        } else if (university.slug === "university-of-kyrenia") {
+          await assertKyreniaFees(detailsDialog, locale);
+        } else if (university.slug === "girne-american-university") {
+          await assertGauFees(detailsDialog, locale);
+        } else if (university.slug === "near-east-university") {
+          await assertNeuModal(detailsDialog, locale);
         } else {
           assert.doesNotMatch(
             modalText,
@@ -1386,13 +2609,6 @@ async function runSmokeTests() {
           );
         }
         if (university.slug === "eastern-mediterranean-university") {
-          const scholarship = await detailsDialog.locator("section").last().innerText();
-          for (const tier of ["60", "65", "70", "30", "45", "75"]) {
-            assert.ok(
-              scholarship.includes(tier),
-              `${locale} EMU scholarship information must preserve the ${tier}% tier.`,
-            );
-          }
           if (locale === "en") {
             assert.deepEqual(await detailsDialog.locator("li").allTextContents(), [
               "Arts & Sciences",
@@ -1417,17 +2633,68 @@ async function runSmokeTests() {
               .count(),
             1,
           );
-          const scholarship = await detailsDialog.locator("section").nth(1).innerText();
+          const scholarship = await detailsDialog.locator("section").last().innerText();
           assert.match(scholarship, /50\s*%|%50/);
-          assert.match(
-            scholarship,
-            {
-              en: /Eligibility and payable tuition require confirmation/,
-              tr: /uygunluk ve ödenecek öğrenim ücreti.*teyit edilmelidir/,
-              fr: /L’éligibilité et les frais de scolarité à payer doivent être confirmés/,
-              sw: /Ustahiki na ada ya masomo inayopaswa kulipwa lazima vithibitishwe/,
-            }[locale],
-          );
+          const ciuChecks = {
+            en: {
+              scholarship: [
+                /international undergraduate tuition scholarship/,
+                /additional academic scholarships may be available/,
+                /Exact payable tuition depends on the programme and scholarship/,
+                /Confirm eligibility and payable tuition with CIU through FranklyEdu/,
+              ],
+              payment: [
+                /exact initial payment/,
+                /student’s official offer letter/,
+                /Contact FranklyEdu/,
+              ],
+            },
+            tr: {
+              scholarship: [
+                /uluslararası lisans öğrencilerine/,
+                /ek akademik burslar da mevcut olabilir/,
+                /Ödenecek kesin öğrenim ücreti programa ve bursa bağlıdır/,
+                /uygunluk koşullarını.*FranklyEdu aracılığıyla CIU ile teyit edin/,
+              ],
+              payment: [
+                /Kesin ilk ödemeyi/,
+                /resmî kabul teklif mektubundan/,
+                /FranklyEdu ile iletişime geçin/,
+              ],
+            },
+            fr: {
+              scholarship: [
+                /premier cycle pour les étudiants internationaux/,
+                /bourses académiques supplémentaires peuvent être disponibles/,
+                /frais de scolarité exacts à payer dépendent de la formation et de la bourse/,
+                /Confirmez l’éligibilité.*CIU par l’intermédiaire de FranklyEdu/,
+              ],
+              payment: [
+                /paiement initial exact/,
+                /lettre officielle d’offre d’admission/,
+                /Contactez FranklyEdu/,
+              ],
+            },
+            sw: {
+              scholarship: [
+                /wanafunzi wa kimataifa wa shahada ya kwanza/,
+                /ufadhili wa ziada wa kitaaluma unaweza kupatikana/,
+                /Ada halisi ya masomo inayopaswa kulipwa inategemea programu na ufadhili/,
+                /Thibitisha ustahiki.*CIU kupitia FranklyEdu/,
+              ],
+              payment: [
+                /malipo halisi ya awali/,
+                /barua rasmi ya ofa ya udahili/,
+                /Wasiliana na FranklyEdu/,
+              ],
+            },
+          }[locale];
+          for (const pattern of ciuChecks.scholarship) assert.match(scholarship, pattern);
+          const paymentSection = detailsDialog.locator("section").nth(1);
+          const payment = await paymentSection.innerText();
+          for (const pattern of ciuChecks.payment) assert.match(payment, pattern);
+          assert.equal(await paymentSection.locator("a, table").count(), 0);
+          assert.doesNotMatch(modalText, /[€£$]\s*\d/);
           if (locale === "en") {
             assert.deepEqual(await detailsDialog.locator("li").allTextContents(), [
               "Business Administration",
@@ -1485,7 +2752,9 @@ async function runSmokeTests() {
         const studyPlan = form.locator("select");
         assert.equal(
           await studyPlan.nth(0).inputValue(),
-          ["university-of-memphis", "pace-university"].includes(university.slug)
+          ["university-of-memphis", "pace-university", "florida-international-university"].includes(
+            university.slug,
+          )
             ? "united-states"
             : university.slug === "university-of-sunderland"
               ? "united-kingdom"
@@ -1529,6 +2798,13 @@ async function runSmokeTests() {
         await detailsDialog.evaluate((dialog) => dialog.scrollWidth <= dialog.clientWidth),
         `${locale} CIU modal must not overflow horizontally at 320px.`,
       );
+      const ciuPayment = detailsDialog.locator("section").nth(1);
+      await ciuPayment.scrollIntoViewIfNeeded();
+      assert.ok(await ciuPayment.isVisible());
+      assert.ok(
+        await detailsDialog.evaluate((dialog) => dialog.scrollHeight > dialog.clientHeight),
+        `${locale} CIU notes must remain internally scrollable at 320px.`,
+      );
       const applyLink = detailsDialog.locator('a[href^="/application?university="]');
       await applyLink.scrollIntoViewIfNeeded();
       assert.ok(
@@ -1539,7 +2815,7 @@ async function runSmokeTests() {
         await applyLink.getAttribute("href"),
         "/application?university=cyprus-international-university",
       );
-      await assertWebsiteTab(
+      await assertUniversityActions(
         detailsDialog,
         expectedUniversities.find(({ slug }) => slug === "cyprus-international-university"),
       );
@@ -1547,6 +2823,25 @@ async function runSmokeTests() {
         await detailsDialog.evaluate((dialog) => dialog.scrollWidth <= dialog.clientWidth),
         `${locale} translated university actions must fit the mobile modal.`,
       );
+      await detailsDialog.getByRole("button", { name: closeLabel }).click();
+      await detailsDialog.waitFor({ state: "hidden" });
+      const neuCard = universityCards.filter({
+        has: page.getByRole("heading", { name: "Near East University", exact: true }),
+      });
+      await neuCard.getByRole("button", { name: detailLabel }).click();
+      await assertNeuModal(detailsDialog, locale);
+      assert.ok(
+        await detailsDialog.evaluate(
+          (dialog) =>
+            dialog.scrollWidth <= dialog.clientWidth && dialog.scrollHeight > dialog.clientHeight,
+        ),
+        `${locale} NEU notes must fit and remain vertically scrollable at 320px.`,
+      );
+      const neu = expectedUniversities.find(({ slug }) => slug === "near-east-university");
+      await assertUniversityActions(detailsDialog, neu);
+      const neuApply = detailsDialog.getByRole("link", { name: applyLabel, exact: true });
+      await neuApply.scrollIntoViewIfNeeded();
+      assert.ok(await neuApply.isVisible());
       await detailsDialog.getByRole("button", { name: closeLabel }).click();
       await detailsDialog.waitFor({ state: "hidden" });
       const emuDetailsButton = universityCards
@@ -1592,9 +2887,14 @@ async function runSmokeTests() {
         assert.equal(
           await page.locator("main article.card-light").count(),
           slug === "oth-regensburg" ? 1 : 0,
-          `${locale} Explore Courses must show only published programmes for that university.`,
+          `${locale} View Courses must show only published programmes for that university.`,
         );
-        if (slug !== "oth-regensburg") {
+        if (["cyprus-international-university", "near-east-university"].includes(slug)) {
+          assert.equal(
+            await page.locator("[data-university-examples] li").count(),
+            slug === "near-east-university" ? 31 : 38,
+          );
+        } else if (slug !== "oth-regensburg") {
           assert.ok(
             (await page.locator("main").innerText()).includes(
               {
@@ -1640,9 +2940,15 @@ async function runSmokeTests() {
       const hofUniversityCard = universityCards.filter({
         has: page.getByRole("heading", { name: hofUniversity.name, exact: true }),
       });
-      await assertWebsiteTab(hofUniversityCard, hofUniversity);
+      await assertUniversityActions(hofUniversityCard, hofUniversity);
+      const filteredDirectoryUrl = page.url();
+      await hofUniversityCard.getByRole("link", { name: coursesLabel, exact: true }).click();
+      await page.waitForURL(`**/courses?university=${hofUniversity.slug}`);
+      await page.goBack();
+      await page.waitForURL(filteredDirectoryUrl);
+      assert.equal(await page.locator("main select").inputValue(), "germany");
       await hofUniversityCard.getByRole("button", { name: detailLabel }).click();
-      await assertWebsiteTab(detailsDialog, hofUniversity);
+      await assertUniversityActions(detailsDialog, hofUniversity);
       assert.equal(await universityCards.count(), 3);
       await detailsDialog.getByRole("button", { name: closeLabel }).click();
       await gotoReady(page, `${baseUrl}/universities`);
@@ -1662,7 +2968,9 @@ async function runSmokeTests() {
       );
 
       for (const unitedStatesUniversity of expectedUniversities.filter(({ slug }) =>
-        ["university-of-memphis", "pace-university"].includes(slug),
+        ["university-of-memphis", "pace-university", "florida-international-university"].includes(
+          slug,
+        ),
       )) {
         applicationSelects = await openApplicationStudyPlan(
           `${baseUrl}/application?university=${unitedStatesUniversity.slug}`,
@@ -1803,10 +3111,10 @@ async function runSmokeTests() {
       assert.equal(
         courseMetaDescription,
         {
-          en: "Browse published programmes with university source links. The current named listings are German nursing Master's programmes; confirm programme availability, fees, and admission requirements with each institution.",
-          tr: "Üniversite kaynak bağlantılarıyla yayımlanan programları inceleyin. Şu anda listelenen isimli programlar Almanya'daki hemşirelik yüksek lisans programlarıdır; program uygunluğunu, ücretleri ve kabul koşullarını her kurumdan teyit edin.",
-          fr: "Consultez les formations publiées et leurs sources universitaires. Les formations nommées actuellement répertoriées sont des masters en sciences infirmières en Allemagne ; confirmez auprès de chaque établissement la disponibilité, les frais et les conditions d’admission.",
-          sw: "Angalia programu zilizochapishwa pamoja na viungo vya vyanzo vya vyuo vikuu. Programu zenye majina zilizoorodheshwa sasa ni programu za uzamili za uuguzi nchini Ujerumani; thibitisha upatikanaji, ada na masharti ya udahili na kila taasisi.",
+          en: "Browse source-linked programme records and clearly labelled university catalogue examples. Confirm current availability, fees and requirements with the university.",
+          tr: "Kaynak bağlantılı program kayıtlarını ve açıkça etiketlenmiş üniversite katalog örneklerini inceleyin. Güncel uygunluğu, ücretleri ve koşulları üniversiteyle teyit edin.",
+          fr: "Consultez les fiches de formations avec leurs sources et les exemples des catalogues universitaires clairement identifiés. Confirmez la disponibilité, les frais et les conditions actuels auprès de l’université.",
+          sw: "Angalia rekodi za programu zenye viungo vya vyanzo na mifano ya katalogi za vyuo vikuu iliyowekwa alama wazi. Thibitisha upatikanaji wa sasa, ada na mahitaji na chuo kikuu.",
         }[locale],
         `${locale} course metadata must use its approved localized description.`,
       );
