@@ -1453,6 +1453,233 @@ async function checkUniversityRefinement(page, baseUrl, university) {
   }
 }
 
+async function checkScholarshipDirectory(page, baseUrl) {
+  const localeOptions = [
+    { code: "en", language: "English" },
+    { code: "tr", language: "Türkçe" },
+    { code: "fr", language: "Français" },
+    { code: "sw", language: "Kiswahili" },
+  ];
+  const labels = {
+    en: {
+      awards: ["International Student Scholarship", "Academic Scholarship"],
+      confirmed: "Confirmed current",
+      official: "Official information; current availability unconfirmed",
+      awaiting: "Awaiting verification",
+      emptyHeading: "No scholarship information matches these filters",
+      clear: "Clear filters",
+      levels: "All study levels",
+      allTypes: "All types",
+      found: "scholarship listings",
+      uokDeadline: "18 September 2026",
+      fiuAmount: "$4,000–$24,000",
+      bursaryType: "Bursary",
+      sunderlandAmount: "£1,000",
+      reviewedDate: "25 October 2026",
+    },
+    tr: {
+      awards: ["Uluslararası Öğrenci Bursu", "Akademik Başarı Bursu"],
+      confirmed: "Güncel olduğu teyit edildi",
+      official: "Resmî bilgi; güncel uygunluk teyit edilmedi",
+      awaiting: "Doğrulama bekliyor",
+      emptyHeading: "Bu filtrelerle eşleşen burs bilgisi yok",
+      clear: "Filtreleri temizle",
+      levels: "Tüm eğitim seviyeleri",
+      allTypes: "Tüm türler",
+      found: "burs kaydı",
+      uokDeadline: "18 Eylül 2026",
+      fiuAmount: "4.000–24.000 ABD doları",
+      bursaryType: "Karşılıksız eğitim desteği",
+      sunderlandAmount: "1.000 £",
+      reviewedDate: "25 Ekim 2026",
+    },
+    fr: {
+      awards: ["Bourse pour étudiants internationaux", "Bourse au mérite académique"],
+      confirmed: "Confirmée en vigueur",
+      official: "Information officielle ; disponibilité actuelle non confirmée",
+      awaiting: "En attente de vérification",
+      emptyHeading: "Aucune information sur les bourses ne correspond à ces filtres",
+      clear: "Effacer les filtres",
+      levels: "Tous les niveaux d’études",
+      allTypes: "Tous les types",
+      found: "fiches de bourses",
+      uokDeadline: "18 septembre 2026",
+      fiuAmount: "4 000 à 24 000 $",
+      bursaryType: "Aide financière non remboursable",
+      sunderlandAmount: "1 000 £",
+      reviewedDate: "25 octobre 2026",
+    },
+    sw: {
+      awards: ["Ufadhili kwa Wanafunzi wa Kimataifa", "Ufadhili wa Mafanikio ya Kitaaluma"],
+      confirmed: "Imethibitishwa kuwa ya sasa",
+      official: "Taarifa rasmi; upatikanaji wa sasa haujathibitishwa",
+      awaiting: "Inasubiri uthibitisho",
+      emptyHeading: "Hakuna taarifa za ufadhili zinazolingana na vichujio hivi",
+      clear: "Futa vichujio",
+      levels: "Ngazi zote za masomo",
+      allTypes: "Aina zote",
+      found: "matangazo ya ufadhili",
+      uokDeadline: "18 Septemba 2026",
+      fiuAmount: "Dola 4,000–24,000",
+      bursaryType: "Ruzuku ya elimu",
+      sunderlandAmount: "£1,000",
+      reviewedDate: "25 Oktoba 2026",
+    },
+  };
+
+  for (const { code, language } of localeOptions) {
+    const copy = labels[code];
+    await gotoReady(page, `${baseUrl}/scholarships`);
+    await selectLanguage(page, language, code);
+    const cards = page.locator("main article[data-scholarship-status]");
+    assert.equal(await cards.count(), 17, `${code} should render all scholarship records.`);
+    assert.equal(
+      await page.locator("main").getByText(copy.found, { exact: false }).count(),
+      1,
+      `${code} should show the scholarship record count.`,
+    );
+    assert.equal(
+      await page.locator("main article[data-scholarship-status='confirmed-current']").count(),
+      2,
+    );
+    assert.equal(
+      await page
+        .locator("main article[data-scholarship-status='official-info-unconfirmed']")
+        .count(),
+      14,
+    );
+    assert.equal(
+      await page.locator("main article[data-scholarship-status='awaiting-verification']").count(),
+      1,
+    );
+    for (const [index, slug] of [
+      "ciu-international-undergraduate-tuition-scholarship",
+      "ciu-undergraduate-academic-merit-scholarship",
+    ].entries()) {
+      const ciuCard = page.locator(`main article[data-scholarship-slug='${slug}']`);
+      assert.equal(await ciuCard.getAttribute("data-scholarship-status"), "confirmed-current");
+      assert.equal(await ciuCard.getAttribute("data-scholarship-source-reviewed-at"), "2026-10-25");
+      assert.ok((await ciuCard.innerText()).includes(copy.awards[index]));
+      assert.ok((await ciuCard.innerText()).includes(copy.reviewedDate));
+      assert.match(await ciuCard.innerText(), new RegExp(copy.confirmed));
+    }
+    for (const card of await cards.all()) {
+      const universitySlug = await card.getAttribute("data-scholarship-university");
+      const apply = card.getByRole("link", {
+        name: { en: "Apply Now", tr: "Hemen Başvur", fr: "Postuler", sw: "Omba sasa" }[code],
+        exact: true,
+      });
+      assert.equal(await apply.getAttribute("href"), `/application?university=${universitySlug}`);
+      assert.match(await apply.getAttribute("class"), /\bbtn-primary\b/);
+      assert.equal(
+        await card.locator('a[href^="https://"]:not([href^="https://wa.me/"])').count(),
+        0,
+        `${code} cards must keep users on FranklyEdu rather than link out to the university scholarship page.`,
+      );
+      const enquiry = card.locator('a[href^="https://wa.me/"]');
+      assert.match(
+        await enquiry.innerText(),
+        /^(Enquire|Bilgi Al|Demander des renseignements|Uliza maelezo)$/,
+      );
+    }
+    const neuCard = page.locator(
+      "main article[data-scholarship-slug='neu-international-undergraduate-scholarship']",
+    );
+    assert.equal(await neuCard.getAttribute("data-scholarship-status"), "awaiting-verification");
+    assert.match(await neuCard.innerText(), new RegExp(copy.awaiting));
+    assert.match(await neuCard.innerText(), /50/);
+    const kyreniaCard = page.locator(
+      "main article[data-scholarship-slug='kyrenia-2026-27-international-graduate-scholarship']",
+    );
+    assert.equal(
+      await kyreniaCard.getAttribute("data-scholarship-status"),
+      "official-info-unconfirmed",
+    );
+    assert.ok((await kyreniaCard.innerText()).includes(copy.uokDeadline));
+    assert.match(await kyreniaCard.innerText(), new RegExp(copy.official));
+    const fiuCard = page.locator(
+      "main article[data-scholarship-slug='fiu-gold-and-blue-scholarship']",
+    );
+    assert.ok((await fiuCard.innerText()).includes(copy.fiuAmount));
+    assert.match(await fiuCard.innerText(), new RegExp(copy.official));
+    const sunderlandCard = page.locator(
+      "main article[data-scholarship-slug='sunderland-journey-award-2028-29']",
+    );
+    assert.equal(
+      await sunderlandCard.getAttribute("data-scholarship-status"),
+      "official-info-unconfirmed",
+    );
+    assert.ok((await sunderlandCard.innerText()).includes(copy.sunderlandAmount));
+    assert.match(await sunderlandCard.innerText(), new RegExp(copy.bursaryType));
+    assert.match(await sunderlandCard.innerText(), /www\.sunderland\.ac\.uk/);
+
+    const filters = page.locator("main select");
+    assert.equal(await filters.count(), 3);
+    await filters.nth(0).selectOption("near-east-university");
+    await filters.nth(1).selectOption("Bachelor's");
+    await filters.nth(2).selectOption("scholarship");
+    assert.equal(
+      await cards.count(),
+      1,
+      `${code} filters should include awaiting-verification records.`,
+    );
+    assert.match(page.url(), /university=near-east-university/);
+    assert.match(page.url(), /level=Bachelor(?:%27|')s/);
+    assert.match(page.url(), /type=scholarship/);
+
+    await filters.nth(0).selectOption("university-of-kyrenia");
+    await filters.nth(1).selectOption("PhD");
+    assert.equal(
+      await cards.count(),
+      1,
+      `${code} multi-level awards should match each supported level.`,
+    );
+    assert.equal(
+      await cards.first().getAttribute("data-scholarship-slug"),
+      "kyrenia-2026-27-international-graduate-scholarship",
+    );
+
+    await filters.nth(0).selectOption("florida-international-university");
+    await filters.nth(1).selectOption("Bachelor's");
+    await filters.nth(2).selectOption("tuition-discount");
+    assert.equal(await cards.count(), 0);
+    await page.getByRole("heading", { name: copy.emptyHeading, exact: true }).waitFor();
+
+    await page.getByRole("link", { name: copy.clear, exact: true }).click();
+    await page.waitForURL("**/scholarships");
+    await filters.nth(0).selectOption("university-of-sunderland");
+    await filters.nth(1).selectOption("");
+    await filters.nth(2).selectOption("bursary");
+    assert.equal(
+      await cards.count(),
+      1,
+      `${code} should filter the separately labelled bursary type.`,
+    );
+
+    await page.getByRole("link", { name: copy.clear, exact: true }).click();
+    await page.waitForURL("**/scholarships");
+    await page.setViewportSize({ width: 320, height: 844 });
+    assert.equal(await cards.count(), 17);
+    assert.ok(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+      `${code} scholarship listing must not overflow at 320px.`,
+    );
+    await gotoReady(page, `${baseUrl}/application?university=cyprus-international-university`);
+    await page.locator('input[autocomplete="name"]').fill("Scholarship Prefill Check");
+    await page.locator('input[type="email"]').fill("scholarship@example.test");
+    await page.locator('form button[type="submit"]').click();
+    assert.equal(await page.locator("form select").nth(0).inputValue(), "cyprus");
+    assert.equal(
+      await page.locator("form select").nth(1).inputValue(),
+      "cyprus-international-university",
+    );
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    console.log(
+      `✓ Scholarship statuses, official details, filters, application prefill and localization (${code})`,
+    );
+  }
+}
+
 async function runSmokeTests() {
   await verifyProductionArtifacts();
 
@@ -1480,6 +1707,17 @@ async function runSmokeTests() {
     page.on("console", (message) => {
       if (message.type() === "error") browserErrors.push(message.text());
     });
+
+    if (process.argv.includes("--scholarships")) {
+      await checkScholarshipDirectory(page, baseUrl);
+      assert.deepEqual(
+        browserErrors,
+        [],
+        "Focused scholarship checks must have zero browser errors.",
+      );
+      console.log("Focused scholarship smoke tests passed.");
+      return;
+    }
 
     if (
       ["--emu", "--gau", "--kyrenia", "--ciu", "--neu", "--florida"].some((flag) =>
@@ -1818,26 +2056,26 @@ async function runSmokeTests() {
       );
 
       await gotoReady(page, `${baseUrl}/scholarships`);
-      const scholarshipCopy = await page.locator("main").innerText();
-      const scholarshipEmptyHeading = {
-        en: "No current scholarship listings",
-        tr: "Güncel burs ilanı yok",
-        fr: "Aucune annonce de bourse actuelle",
-        sw: "Hakuna matangazo ya sasa ya ufadhili",
-      }[locale];
-      const scholarshipNotPublished = {
-        en: "No current scholarship details are published.",
-        tr: "Güncel burs ayrıntıları yayımlanmamıştır.",
-        fr: "Aucun détail actuel sur les bourses n’est publié.",
-        sw: "Hakuna maelezo ya sasa ya ufadhili yaliyochapishwa.",
-      }[locale];
-      assert.ok(
-        scholarshipCopy.includes(scholarshipEmptyHeading),
-        `${locale} scholarship page must identify the empty catalogue.`,
+      const scholarshipCards = page.locator("main article[data-scholarship-status]");
+      assert.equal(await scholarshipCards.count(), 17);
+      assert.equal(
+        await page.locator("main article[data-scholarship-status='confirmed-current']").count(),
+        2,
       );
-      assert.ok(
-        scholarshipCopy.includes(scholarshipNotPublished),
-        `${locale} scholarship page must state that current details are unpublished.`,
+      assert.equal(
+        await page
+          .locator("main article[data-scholarship-status='official-info-unconfirmed']")
+          .count(),
+        14,
+      );
+      assert.equal(
+        await page.locator("main article[data-scholarship-status='awaiting-verification']").count(),
+        1,
+      );
+      assert.equal(
+        await scholarshipCards.locator('a[href^="https://"]:not([href^="https://wa.me/"])').count(),
+        0,
+        `${locale} scholarship cards must not link out to external scholarship pages.`,
       );
     }
 

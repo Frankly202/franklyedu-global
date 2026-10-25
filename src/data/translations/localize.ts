@@ -388,6 +388,136 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "No current scholarship listings": "Güncel burs ilanı yok",
     "Award amounts, eligibility, and deadlines need current confirmation before they can be published.":
       "Burs miktarları, uygunluk koşulları ve son tarihler yayımlanmadan önce güncel olarak teyit edilmelidir.",
+    "Verified university scholarships": "Teyit edilmiş üniversite bursları",
+    "Browse current scholarship opportunities confirmed by official university sources. Awards may reduce tuition only; living costs are identified separately when an official source confirms coverage.":
+      "Üniversitelerin resmî kaynaklarından teyit edilen güncel burs fırsatlarını inceleyin. Burslar yalnızca öğrenim ücretini düşürebilir; yaşam gideri kapsamı yalnızca resmî kaynak doğrularsa ayrıca belirtilir.",
+    "No confirmed scholarships match these filters": "Bu filtrelerle eşleşen teyitli burs yok",
+    "Unconfirmed opportunities are not listed as current awards. Clear the filters or contact us for guidance confirming details with a university.":
+      "Teyit edilmemiş fırsatlar güncel burs olarak listelenmez. Filtreleri temizleyin veya üniversiteyle bilgileri teyit etme konusunda destek için bize ulaşın.",
+    "Clear filters": "Filtreleri temizle",
+    "confirmed opportunities": "teyitli fırsat",
+    "All study levels": "Tüm eğitim seviyeleri",
+    "All types": "Tüm türler",
+    "Award type": "Ödül türü",
+    Scholarship: "Burs",
+    "Tuition discount": "Öğrenim ücreti indirimi",
+    Bursary: "Karşılıksız eğitim desteği",
+    "Coverage basis": "Kapsam",
+    "Tuition fees only; no living-cost coverage is stated.":
+      "Yalnızca öğrenim ücreti; yaşam gideri kapsamı belirtilmemiştir.",
+    "Tuition and living costs, as stated by the source.":
+      "Kaynakta belirtildiği üzere öğrenim ve yaşam giderleri.",
+    "The source does not specify what costs the award covers.":
+      "Kaynak, bursun hangi giderleri karşıladığını belirtmiyor.",
+    Eligibility: "Uygunluk",
+    "No deadline published": "Son tarih yayımlanmamış",
+    "Not confirmed": "Teyit edilmedi",
+    "Not published by the source": "Kaynakta yayımlanmamış",
+    "Not specified by the source": "Kaynakta belirtilmemiş",
+    "Last verified": "Son doğrulama",
+    "Confirmed current": "Güncel olduğu teyit edildi",
+    "Official information; current availability unconfirmed":
+      "Resmî bilgi; güncel uygunluk teyit edilmedi",
+    "Awaiting verification": "Doğrulama bekliyor",
+    "Hello FranklyEdu Global, I have a question about {award} at {university}.":
+      "Merhaba FranklyEdu Global, {university} bünyesindeki {award} hakkında bilgi almak istiyorum.",
+    "International Student Scholarship": "Uluslararası Öğrenci Bursu",
+    "Academic Scholarship": "Akademik Başarı Bursu",
+    "50%–100% of tuition": "Öğrenim ücretinin %50–%100'ü",
+    "CIU states that all international undergraduate students are granted this tuition scholarship. Confirm programme-specific payable tuition and conditions with CIU.":
+      "CIU, tüm uluslararası lisans öğrencilerine bu öğrenim bursunun verildiğini belirtir. Programa özgü ödenecek öğrenim ücretini ve koşulları CIU ile teyit edin.",
+    "Prospective undergraduate students may apply based on academic merit. CIU determines the award; confirm current eligibility and conditions with the university.":
+      "Aday lisans öğrencileri akademik başarıya göre başvurabilir. Ödülü CIU belirler; güncel uygunluk ve koşulları üniversiteyle teyit edin.",
+    "International scholarship information": "Uluslararası burs bilgileri",
+    "University scholarship information": "Üniversite burs bilgileri",
+    "Browse scholarship information published by universities. Each listing is labelled as confirmed current, official information with availability unconfirmed, or awaiting verification. Unconfirmed entries are not offers of an open award.":
+      "Üniversitelerin yayımladığı burs bilgilerini inceleyin. Her kayıt; güncel olduğu teyit edilen, resmî ancak güncel uygunluğu teyit edilmemiş veya doğrulama bekleyen olarak etiketlenir. Teyit edilmemiş kayıtlar açık burs teklifi değildir.",
+    "No scholarship information matches these filters": "Bu filtrelerle eşleşen burs bilgisi yok",
+    "Clear a filter or contact us for help confirming details with a university. Unconfirmed information must not be treated as an open award.":
+      "Bir filtreyi temizleyin veya bilgileri üniversiteyle teyit etmek için destek alın. Teyit edilmemiş bilgiler açık burs teklifi olarak değerlendirilmemelidir.",
+    "scholarship listings": "burs kaydı",
+    "International Undergraduate Scholarship": "Uluslararası Lisans Bursu",
+    "Up to 50% of tuition": "Öğrenim ücretinin %50'sine kadar",
+    "Frank-supplied information says international undergraduates in most departments may receive up to 50%, excluding Medicine and Dentistry. Confirm eligibility and payable tuition with NEU.":
+      "Frank'ın sağladığı bilgiye göre Tıp ve Diş Hekimliği dışındaki çoğu bölümde uluslararası lisans öğrencileri %50'ye kadar burs alabilir. Uygunluğu ve ödenecek ücreti NEU ile teyit edin.",
+    "This detail is awaiting confirmation from NEU; it is not presented as a confirmed current award.":
+      "Bu bilgi NEU'dan teyit bekliyor; güncel olduğu doğrulanmış bir burs olarak sunulmamaktadır.",
+    "International Student Partial Tuition Waiver":
+      "Uluslararası Öğrenci Kısmi Öğrenim Ücreti Muafiyeti",
+    "25% or 50% tuition waiver; individual decisions vary":
+      "%25 veya %50 öğrenim ücreti muafiyeti; bireysel kararlar değişebilir",
+    "EMU says international undergraduate applicants may request consideration during online application; decisions depend on academic performance and programme.":
+      "EMU, uluslararası lisans adaylarının çevrimiçi başvuruda değerlendirme isteyebileceğini; kararın akademik başarı ve programa bağlı olduğunu belirtiyor.",
+    "International Graduate Scholarship — 2026/2027 Fall":
+      "Uluslararası Lisansüstü Bursu — 2026/2027 Güz",
+    "Published for prospective international Master's and PhD applicants; the listed Fall 2026/2027 application period ended on 18 September 2026.":
+      "Uluslararası yüksek lisans ve doktora adayları için yayımlanmıştır; 2026/2027 Güz başvuru dönemi 18 Eylül 2026'da sona ermiştir.",
+    "The published application window has passed. No new or currently open intake has been confirmed.":
+      "Yayımlanan başvuru dönemi sona ermiştir. Yeni veya halen açık bir dönem teyit edilmemiştir.",
+    "18 September 2026": "18 Eylül 2026",
+    "High Honour Scholarship": "Yüksek Onur Bursu",
+    "75% or 100% additional tuition scholarship": "Ek öğrenim ücretinde %75 veya %100 burs",
+    "GAU students with a CGPA of 3.50 or above after their first academic year may apply; awards are subject to availability and university conditions.":
+      "İlk akademik yılından sonra genel not ortalaması en az 3,50 olan GAU öğrencileri başvurabilir; burslar uygunluk ve üniversite koşullarına bağlıdır.",
+    "International Merit-Based Admission Scholarship": "Uluslararası Başarıya Dayalı Kabul Bursu",
+    "International applicants are evaluated on academic performance after completing EUL's online admissions application.":
+      "Uluslararası adaylar, EUL'nin çevrimiçi kabul başvurusunu tamamladıktan sonra akademik başarıya göre değerlendirilir.",
+    "International Low-Income Scholarship": "Uluslararası Düşük Gelirli Öğrenci Bursu",
+    "100% scholarship; programme quota limits apply":
+      "%100 burs; program kontenjanı sınırları geçerlidir",
+    "EUL describes this scheme for international students from low- or lower-middle-income countries, subject to a maximum share of each programme's international student quota.":
+      "EUL bu programı düşük veya alt-orta gelirli ülkelerden gelen uluslararası öğrenciler için tanımlar; her programın uluslararası öğrenci kontenjanında üst sınır uygulanır.",
+    "International Undergraduate Tuition Scholarship Rates":
+      "Uluslararası Lisans Öğrenim Ücreti Burs Oranları",
+    "50%, 75% or 100%; published annual fees vary by programme":
+      "%50, %75 veya %100; yayımlanan yıllık ücretler programa göre değişir",
+    "BAU publishes scholarship-rate tuition figures for international Associate and Bachelor's programmes; individual eligibility and current intake terms require confirmation.":
+      "BAU, uluslararası ön lisans ve lisans programları için burs oranlı öğrenim ücretlerini yayımlar; kişisel uygunluk ve güncel dönem koşulları teyit edilmelidir.",
+    "30%–100%; 50% automatic in most departments, per the official page":
+      "%30–%100; resmî sayfaya göre çoğu bölümde otomatik %50",
+    "The official Final International University page describes scholarship consideration for international students; candidates are assessed individually.":
+      "Final International University'nin resmî sayfası uluslararası öğrenciler için burs değerlendirmesini açıklar; adaylar bireysel değerlendirilir.",
+    "The official page is not dated to a current intake. Confirm current rates and availability with the university.":
+      "Resmî sayfa güncel bir döneme tarihlenmemiştir. Güncel oranları ve uygunluğu üniversiteyle teyit edin.",
+    "Gold and Blue Scholarship": "Gold and Blue Bursu",
+    "$4,000–$24,000 distributed over four years": "Dört yıla yayılan 4.000–24.000 ABD doları",
+    "For entering first-time-in-college students, including eligible international students seeking an F-1 visa; merit consideration is automatic after a complete freshman admission application.":
+      "F-1 vizesi isteyen uygun uluslararası öğrenciler dahil, üniversiteye ilk kez başlayacak öğrenciler içindir; eksiksiz birinci sınıf kabul başvurusundan sonra başarı değerlendirmesi otomatik yapılır.",
+    "16 December 2026": "16 Aralık 2026",
+    "FIU lists this deadline for Early Fall/Fall 2026, but the applicable entry cycle and remaining availability need direct confirmation. Do not assume the award is open.":
+      "FIU bu son tarihi 2026 Erken Güz/Güz dönemi için yayımlar; ancak geçerli kayıt dönemi ve kalan uygunluk doğrudan teyit edilmelidir. Bursun açık olduğunu varsaymayın.",
+    "International Undergraduate Merit Scholarships": "Uluslararası Lisans Başarı Bursları",
+    "For newly admitted, first-time, degree-seeking international students studying on campus with F-1 or J-1 status; continuing students and students receiving other university funding are excluded.":
+      "Kampüste F-1 veya J-1 statüsüyle öğrenim gören, yeni kabul edilmiş ve ilk kez derece programına başlayan uluslararası öğrenciler içindir; devam eden veya başka üniversite desteği alan öğrenciler kapsam dışındadır.",
+    "The current award amounts and applicable admission cycle need confirmation with the University of Memphis.":
+      "Güncel burs tutarları ve geçerli kabul dönemi Memphis Üniversitesi ile teyit edilmelidir.",
+    "International First-Year Merit Scholarship": "Uluslararası Birinci Sınıf Başarı Bursu",
+    "Pace says first-year international applicants are considered for academic merit scholarships during admission review; any award is stated in the acceptance packet.":
+      "Pace, uluslararası birinci sınıf adaylarının kabul incelemesi sırasında başarı bursları için değerlendirildiğini belirtir; varsa burs kabul belgesinde bildirilir.",
+    "Deutschlandstipendium — 2026/2027": "Deutschlandstipendium — 2026/2027",
+    "€300 per month": "Aylık 300 €",
+    "The official 2026/2027 call includes first-year applicants and enrolled Bachelor's and Master's students; nationality-independent eligibility is stated.":
+      "2026/2027 resmî çağrısı birinci sınıf adaylarını ve kayıtlı lisans/yüksek lisans öğrencilerini kapsar; uygunluğun uyruktan bağımsız olduğu belirtilir.",
+    "30 June 2026": "30 Haziran 2026",
+    "The published 2026/2027 application period ended on 30 June 2026; a current application window is not confirmed.":
+      "Yayımlanan 2026/2027 başvuru dönemi 30 Haziran 2026'da sona ermiştir; güncel başvuru dönemi teyit edilmemiştir.",
+    "Journey to Sunderland Award — 2028/2029": "Sunderland Yolculuk Ödülü — 2028/2029",
+    "£1,000": "1.000 £",
+    "For eligible students joining in September 2028 from the colleges listed by Sunderland; no broader eligibility is stated.":
+      "Sunderland tarafından listelenen kolejlerden Eylül 2028'de başlayacak uygun öğrenciler içindir; daha geniş uygunluk koşulları belirtilmemiştir.",
+    "The award is published for September 2028 entry. Confirm application availability and full conditions with Sunderland.":
+      "Ödül Eylül 2028 başlangıcı için yayımlanmıştır. Başvuru uygunluğunu ve tüm koşulları Sunderland ile teyit edin.",
+    "STIBET Scholarship (DAAD)": "STIBET Bursu (DAAD)",
+    "International degree-seeking students from the third semester may apply; awards are made for one semester at a time and may be reapplied for.":
+      "Derece programındaki uluslararası öğrenciler üçüncü dönemden itibaren başvurabilir; burslar dönemlik verilir ve yeniden başvuru yapılabilir.",
+    "The official overview does not publish a current deadline or award amount; confirm current terms with OTH Regensburg.":
+      "Resmî genel bakışta güncel son tarih veya burs tutarı yayımlanmamıştır; güncel koşulları OTH Regensburg ile teyit edin.",
+    "DAAD Prize": "DAAD Ödülü",
+    "€1,000": "1.000 €",
+    "The official OTH page describes the prize for outstanding achievements by international students at German universities.":
+      "OTH'nin resmî sayfası ödülü Almanya üniversitelerindeki uluslararası öğrencilerin üstün başarıları için tanımlar.",
+    "The current OTH selection cycle and detailed eligibility are not stated on the source page.":
+      "Kaynak sayfada güncel OTH seçim dönemi ve ayrıntılı uygunluk koşulları belirtilmemiştir.",
     "How we can help": "Nasıl yardımcı olabiliriz?",
     "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.":
       "Eğitim bilgilerini, gayrimenkul ayrıntılarını veya dijital hizmetleri sorun. Kapsam ve uygunluk her talep için teyit edilir.",
@@ -1432,6 +1562,143 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "No current scholarship listings": "Aucune annonce de bourse actuelle",
     "Award amounts, eligibility, and deadlines need current confirmation before they can be published.":
       "Les montants, critères d’admissibilité et dates limites doivent être confirmés avant publication.",
+    "Verified university scholarships": "Bourses universitaires vérifiées",
+    "Browse current scholarship opportunities confirmed by official university sources. Awards may reduce tuition only; living costs are identified separately when an official source confirms coverage.":
+      "Consultez les bourses actuelles confirmées par les sources officielles des universités. Elles peuvent réduire les frais de scolarité uniquement ; les frais de vie ne sont indiqués comme couverts que si une source officielle le confirme.",
+    "No confirmed scholarships match these filters":
+      "Aucune bourse confirmée ne correspond à ces filtres",
+    "Unconfirmed opportunities are not listed as current awards. Clear the filters or contact us for guidance confirming details with a university.":
+      "Les opportunités non confirmées ne sont pas présentées comme des bourses actuelles. Effacez les filtres ou contactez-nous pour confirmer les détails auprès d’une université.",
+    "Clear filters": "Effacer les filtres",
+    "confirmed opportunities": "opportunités confirmées",
+    "All study levels": "Tous les niveaux d’études",
+    "All types": "Tous les types",
+    "Award type": "Type de bourse",
+    Scholarship: "Bourse",
+    "Tuition discount": "Réduction des frais de scolarité",
+    Bursary: "Aide financière non remboursable",
+    "Coverage basis": "Couverture",
+    "Tuition fees only; no living-cost coverage is stated.":
+      "Frais de scolarité uniquement ; aucune prise en charge des frais de vie n’est indiquée.",
+    "Tuition and living costs, as stated by the source.":
+      "Frais de scolarité et de vie, selon la source.",
+    Eligibility: "Admissibilité",
+    "No deadline published": "Aucune date limite publiée",
+    "Last verified": "Dernière vérification",
+    "Confirmed current": "Confirmée en vigueur",
+    "Hello FranklyEdu Global, I have a question about {award} at {university}.":
+      "Bonjour FranklyEdu Global, j’ai une question sur {award} à {university}.",
+    "International Student Scholarship": "Bourse pour étudiants internationaux",
+    "Academic Scholarship": "Bourse au mérite académique",
+    "50%–100% of tuition": "50 % à 100 % des frais de scolarité",
+    "CIU states that all international undergraduate students are granted this tuition scholarship. Confirm programme-specific payable tuition and conditions with CIU.":
+      "CIU indique que tous les étudiants internationaux de premier cycle bénéficient de cette bourse sur les frais de scolarité. Confirmez auprès de CIU les frais dus et conditions propres à la formation.",
+    "Prospective undergraduate students may apply based on academic merit. CIU determines the award; confirm current eligibility and conditions with the university.":
+      "Les futurs étudiants de premier cycle peuvent candidater selon leur mérite académique. CIU détermine l’attribution ; confirmez les critères et conditions actuels auprès de l’université.",
+    "The source does not specify what costs the award covers.":
+      "La source ne précise pas les frais couverts par la bourse.",
+    "Not confirmed": "Non confirmé",
+    "Not published by the source": "Non publié par la source",
+    "Not specified by the source": "Non précisé par la source",
+    "Official source reference": "Référence de la source officielle",
+    "Official source page reviewed": "Page de la source officielle consultée",
+    "Official information; current availability unconfirmed":
+      "Information officielle ; disponibilité actuelle non confirmée",
+    "Awaiting verification": "En attente de vérification",
+    "Browse scholarship information published by universities. Each listing is labelled as confirmed current, official information with availability unconfirmed, or awaiting verification. Unconfirmed entries are not offers of an open award.":
+      "Consultez les informations sur les bourses publiées par les universités. Chaque fiche indique si l’information est confirmée actuelle, officielle mais sans disponibilité actuelle confirmée, ou en attente de vérification. Les fiches non confirmées ne sont pas des offres ouvertes.",
+    "No scholarship information matches these filters":
+      "Aucune information sur les bourses ne correspond à ces filtres",
+    "Clear a filter or contact us for help confirming details with a university. Unconfirmed information must not be treated as an open award.":
+      "Effacez un filtre ou contactez-nous pour confirmer les informations auprès d’une université. Les informations non confirmées ne doivent pas être considérées comme une offre ouverte.",
+    "scholarship listings": "fiches de bourses",
+    "International Undergraduate Scholarship": "Bourse internationale de premier cycle",
+    "Up to 50% of tuition": "Jusqu’à 50 % des frais de scolarité",
+    "Frank-supplied information says international undergraduates in most departments may receive up to 50%, excluding Medicine and Dentistry. Confirm eligibility and payable tuition with NEU.":
+      "Selon les informations communiquées par Frank, les étudiants internationaux de premier cycle peuvent recevoir jusqu’à 50 % dans la plupart des départements, sauf en médecine et en odontologie. Confirmez l’admissibilité et les frais dus auprès de NEU.",
+    "This detail is awaiting confirmation from NEU; it is not presented as a confirmed current award.":
+      "Cette information doit être confirmée par NEU ; elle n’est pas présentée comme une bourse actuelle confirmée.",
+    "International Student Partial Tuition Waiver":
+      "Exonération partielle des frais pour étudiants internationaux",
+    "25% or 50% tuition waiver; individual decisions vary":
+      "Exonération de 25 % ou 50 % des frais ; les décisions varient selon le dossier",
+    "EMU says international undergraduate applicants may request consideration during online application; decisions depend on academic performance and programme.":
+      "EMU indique que les candidats internationaux de premier cycle peuvent demander à être examinés lors de leur candidature en ligne ; la décision dépend des résultats académiques et de la formation.",
+    "International Graduate Scholarship — 2026/2027 Fall":
+      "Bourse internationale de cycles supérieurs — automne 2026/2027",
+    "Published for prospective international Master's and PhD applicants; the listed Fall 2026/2027 application period ended on 18 September 2026.":
+      "Publiée pour les candidats internationaux en master et doctorat ; la période de candidature pour l’automne 2026/2027 a pris fin le 18 septembre 2026.",
+    "The published application window has passed. No new or currently open intake has been confirmed.":
+      "La période de candidature publiée est terminée. Aucune nouvelle période ni ouverture actuelle n’a été confirmée.",
+    "18 September 2026": "18 septembre 2026",
+    "High Honour Scholarship": "Bourse d’excellence",
+    "75% or 100% additional tuition scholarship":
+      "Bourse complémentaire de 75 % ou 100 % des frais",
+    "GAU students with a CGPA of 3.50 or above after their first academic year may apply; awards are subject to availability and university conditions.":
+      "Les étudiants de GAU ayant une moyenne cumulative d’au moins 3,50 après leur première année peuvent candidater ; les bourses dépendent des disponibilités et des conditions de l’université.",
+    "International Merit-Based Admission Scholarship":
+      "Bourse d’admission internationale au mérite",
+    "International applicants are evaluated on academic performance after completing EUL's online admissions application.":
+      "Les candidats internationaux sont évalués selon leurs résultats académiques après avoir rempli la candidature en ligne de l’EUL.",
+    "International Low-Income Scholarship":
+      "Bourse internationale pour étudiants à faibles revenus",
+    "100% scholarship; programme quota limits apply":
+      "Bourse de 100 % ; quotas par formation applicables",
+    "EUL describes this scheme for international students from low- or lower-middle-income countries, subject to a maximum share of each programme's international student quota.":
+      "L’EUL décrit ce dispositif pour les étudiants internationaux de pays à revenu faible ou intermédiaire inférieur, dans la limite d’une part maximale du quota international de chaque formation.",
+    "International Undergraduate Tuition Scholarship Rates":
+      "Taux de bourse sur les frais de premier cycle pour étudiants internationaux",
+    "50%, 75% or 100%; published annual fees vary by programme":
+      "50 %, 75 % ou 100 % ; les frais annuels publiés varient selon la formation",
+    "BAU publishes scholarship-rate tuition figures for international Associate and Bachelor's programmes; individual eligibility and current intake terms require confirmation.":
+      "BAU publie des frais selon des taux de bourse pour les formations internationales de cycle court et de premier cycle ; l’admissibilité individuelle et les conditions de la rentrée actuelle doivent être confirmées.",
+    "30%–100%; 50% automatic in most departments, per the official page":
+      "30 % à 100 % ; 50 % automatique dans la plupart des départements selon la page officielle",
+    "The official Final International University page describes scholarship consideration for international students; candidates are assessed individually.":
+      "La page officielle de Final International University décrit l’examen des demandes de bourse des étudiants internationaux ; les candidats sont évalués individuellement.",
+    "The official page is not dated to a current intake. Confirm current rates and availability with the university.":
+      "La page officielle n’est pas datée pour une rentrée actuelle. Confirmez les taux et la disponibilité auprès de l’université.",
+    "Gold and Blue Scholarship": "Bourse Gold and Blue",
+    "$4,000–$24,000 distributed over four years": "4 000 à 24 000 $ répartis sur quatre ans",
+    "For entering first-time-in-college students, including eligible international students seeking an F-1 visa; merit consideration is automatic after a complete freshman admission application.":
+      "Pour les étudiants débutant à l’université, y compris les étudiants internationaux admissibles demandant un visa F-1 ; l’examen au mérite est automatique après une candidature complète de première année.",
+    "16 December 2026": "16 décembre 2026",
+    "FIU lists this deadline for Early Fall/Fall 2026, but the applicable entry cycle and remaining availability need direct confirmation. Do not assume the award is open.":
+      "FIU indique cette date limite pour l’automne anticipé/automne 2026, mais la rentrée concernée et la disponibilité restante doivent être confirmées directement. Ne présumez pas que la bourse est ouverte.",
+    "International Undergraduate Merit Scholarships":
+      "Bourses internationales au mérite de premier cycle",
+    "For newly admitted, first-time, degree-seeking international students studying on campus with F-1 or J-1 status; continuing students and students receiving other university funding are excluded.":
+      "Pour les nouveaux étudiants internationaux admis en vue d’un diplôme, étudiant sur campus avec un statut F-1 ou J-1 ; les étudiants déjà inscrits et ceux bénéficiant d’autres financements de l’université sont exclus.",
+    "The current award amounts and applicable admission cycle need confirmation with the University of Memphis.":
+      "Les montants actuels et la rentrée concernée doivent être confirmés auprès de l’Université de Memphis.",
+    "International First-Year Merit Scholarship":
+      "Bourse internationale au mérite de première année",
+    "Pace says first-year international applicants are considered for academic merit scholarships during admission review; any award is stated in the acceptance packet.":
+      "Pace indique que les candidats internationaux de première année sont examinés pour les bourses au mérite lors de l’admission ; toute bourse est indiquée dans la lettre d’admission.",
+    "Deutschlandstipendium — 2026/2027": "Deutschlandstipendium — 2026/2027",
+    "€300 per month": "300 € par mois",
+    "The official 2026/2027 call includes first-year applicants and enrolled Bachelor's and Master's students; nationality-independent eligibility is stated.":
+      "L’appel officiel 2026/2027 concerne les candidats de première année et les étudiants inscrits en licence ou master ; l’admissibilité est indépendante de la nationalité.",
+    "30 June 2026": "30 juin 2026",
+    "The published 2026/2027 application period ended on 30 June 2026; a current application window is not confirmed.":
+      "La période de candidature publiée pour 2026/2027 a pris fin le 30 juin 2026 ; aucune période actuelle n’est confirmée.",
+    "Journey to Sunderland Award — 2028/2029": "Prix Journey to Sunderland — 2028/2029",
+    "£1,000": "1 000 £",
+    "For eligible students joining in September 2028 from the colleges listed by Sunderland; no broader eligibility is stated.":
+      "Pour les étudiants admissibles venant des établissements listés par Sunderland et entrant en septembre 2028 ; aucune autre condition n’est précisée.",
+    "The award is published for September 2028 entry. Confirm application availability and full conditions with Sunderland.":
+      "Le prix est publié pour la rentrée de septembre 2028. Confirmez l’ouverture des candidatures et les conditions complètes auprès de Sunderland.",
+    "STIBET Scholarship (DAAD)": "Bourse STIBET (DAAD)",
+    "International degree-seeking students from the third semester may apply; awards are made for one semester at a time and may be reapplied for.":
+      "Les étudiants internationaux préparant un diplôme peuvent candidater à partir du troisième semestre ; l’aide est attribuée pour un semestre et une nouvelle candidature est possible.",
+    "The official overview does not publish a current deadline or award amount; confirm current terms with OTH Regensburg.":
+      "La présentation officielle ne publie ni date limite ni montant actuels ; confirmez les conditions auprès de l’OTH Regensburg.",
+    "DAAD Prize": "Prix DAAD",
+    "€1,000": "1 000 €",
+    "The official OTH page describes the prize for outstanding achievements by international students at German universities.":
+      "La page officielle de l’OTH décrit ce prix pour les résultats remarquables d’étudiants internationaux dans les universités allemandes.",
+    "The current OTH selection cycle and detailed eligibility are not stated on the source page.":
+      "La période actuelle de sélection de l’OTH et les critères détaillés ne sont pas indiqués sur la page source.",
     "How we can help": "Comment nous pouvons vous aider",
     "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.":
       "Renseignez-vous sur les études, l’immobilier ou les services numériques. Le périmètre et la disponibilité sont confirmés pour chaque demande.",
@@ -2611,6 +2878,142 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "No current scholarship listings": "Hakuna matangazo ya sasa ya ufadhili",
     "Award amounts, eligibility, and deadlines need current confirmation before they can be published.":
       "Kiasi cha ufadhili, ustahiki na tarehe za mwisho vinahitaji uthibitisho wa sasa kabla ya kuchapishwa.",
+    "Verified university scholarships": "Ufadhili wa masomo wa vyuo uliothibitishwa",
+    "Browse current scholarship opportunities confirmed by official university sources. Awards may reduce tuition only; living costs are identified separately when an official source confirms coverage.":
+      "Angalia fursa za sasa za ufadhili zilizothibitishwa na vyanzo rasmi vya vyuo. Zinaweza kupunguza ada ya masomo pekee; gharama za maisha huonyeshwa kuwa zimefunikwa tu chanzo rasmi kinapothibitisha.",
+    "No confirmed scholarships match these filters":
+      "Hakuna ufadhili uliothibitishwa unaolingana na vichujio hivi",
+    "Unconfirmed opportunities are not listed as current awards. Clear the filters or contact us for guidance confirming details with a university.":
+      "Fursa zisizothibitishwa haziorodheshwi kama ufadhili wa sasa. Ondoa vichujio au wasiliana nasi kupata mwongozo wa kuthibitisha maelezo na chuo.",
+    "Clear filters": "Futa vichujio",
+    "confirmed opportunities": "fursa zilizothibitishwa",
+    "All study levels": "Ngazi zote za masomo",
+    "All types": "Aina zote",
+    "Award type": "Aina ya tuzo",
+    Scholarship: "Ufadhili wa masomo",
+    "Tuition discount": "Punguzo la ada ya masomo",
+    Bursary: "Ruzuku ya elimu",
+    "Coverage basis": "Msingi wa malipo",
+    "Tuition fees only; no living-cost coverage is stated.":
+      "Ada ya masomo pekee; hakuna malipo ya gharama za maisha yaliyotajwa.",
+    "Tuition and living costs, as stated by the source.":
+      "Ada ya masomo na gharama za maisha kama ilivyoelezwa na chanzo.",
+    Eligibility: "Ustahiki",
+    "No deadline published": "Hakuna tarehe ya mwisho iliyochapishwa",
+    "Last verified": "Imethibitishwa mara ya mwisho",
+    "Confirmed current": "Imethibitishwa kuwa ya sasa",
+    "Hello FranklyEdu Global, I have a question about {award} at {university}.":
+      "Habari FranklyEdu Global, nina swali kuhusu {award} katika {university}.",
+    "International Student Scholarship": "Ufadhili kwa Wanafunzi wa Kimataifa",
+    "Academic Scholarship": "Ufadhili wa Mafanikio ya Kitaaluma",
+    "50%–100% of tuition": "50%–100% ya ada ya masomo",
+    "CIU states that all international undergraduate students are granted this tuition scholarship. Confirm programme-specific payable tuition and conditions with CIU.":
+      "CIU inasema kuwa wanafunzi wote wa kimataifa wa shahada ya kwanza wanapewa ufadhili huu wa ada ya masomo. Thibitisha ada halisi ya programu na masharti na CIU.",
+    "Prospective undergraduate students may apply based on academic merit. CIU determines the award; confirm current eligibility and conditions with the university.":
+      "Wanafunzi watarajiwa wa shahada ya kwanza wanaweza kutuma maombi kwa kuzingatia ufaulu wa kitaaluma. CIU huamua tuzo; thibitisha ustahiki na masharti ya sasa na chuo.",
+    "The source does not specify what costs the award covers.":
+      "Chanzo hakijabainisha gharama zinazolipiwa na ufadhili huu.",
+    "Not confirmed": "Haijathibitishwa",
+    "Not published by the source": "Haijachapishwa na chanzo",
+    "Not specified by the source": "Haijabainishwa na chanzo",
+    "Official source reference": "Rejea ya chanzo rasmi",
+    "Official source page reviewed": "Ukurasa wa chanzo rasmi umekaguliwa",
+    "Official information; current availability unconfirmed":
+      "Taarifa rasmi; upatikanaji wa sasa haujathibitishwa",
+    "Awaiting verification": "Inasubiri uthibitisho",
+    "Browse scholarship information published by universities. Each listing is labelled as confirmed current, official information with availability unconfirmed, or awaiting verification. Unconfirmed entries are not offers of an open award.":
+      "Angalia taarifa za ufadhili zilizochapishwa na vyuo vikuu. Kila tangazo limewekewa lebo ya kuthibitishwa kuwa ya sasa, taarifa rasmi ambazo upatikanaji wake wa sasa haujathibitishwa, au linalosubiri uthibitisho. Matangazo yasiyothibitishwa si ofa za ufadhili ulio wazi.",
+    "No scholarship information matches these filters":
+      "Hakuna taarifa za ufadhili zinazolingana na vichujio hivi",
+    "Clear a filter or contact us for help confirming details with a university. Unconfirmed information must not be treated as an open award.":
+      "Ondoa kichujio au wasiliana nasi ili kusaidia kuthibitisha maelezo na chuo. Taarifa zisizothibitishwa hazipaswi kuchukuliwa kuwa ofa iliyo wazi.",
+    "scholarship listings": "matangazo ya ufadhili",
+    "International Undergraduate Scholarship": "Ufadhili wa Kimataifa wa Shahada ya Kwanza",
+    "Up to 50% of tuition": "Hadi 50% ya ada ya masomo",
+    "Frank-supplied information says international undergraduates in most departments may receive up to 50%, excluding Medicine and Dentistry. Confirm eligibility and payable tuition with NEU.":
+      "Taarifa kutoka kwa Frank inasema wanafunzi wa kimataifa wa shahada ya kwanza katika idara nyingi wanaweza kupata hadi 50%, isipokuwa Tiba na Udaktari wa Meno. Thibitisha ustahiki na ada ya masomo inayolipwa na NEU.",
+    "This detail is awaiting confirmation from NEU; it is not presented as a confirmed current award.":
+      "Maelezo haya yanasubiri uthibitisho kutoka NEU; hayawasilishwi kama ufadhili wa sasa uliothibitishwa.",
+    "International Student Partial Tuition Waiver":
+      "Msamaha wa Sehemu ya Ada kwa Wanafunzi wa Kimataifa",
+    "25% or 50% tuition waiver; individual decisions vary":
+      "Msamaha wa 25% au 50% ya ada; maamuzi hutofautiana kwa mtu binafsi",
+    "EMU says international undergraduate applicants may request consideration during online application; decisions depend on academic performance and programme.":
+      "EMU inasema waombaji wa kimataifa wa shahada ya kwanza wanaweza kuomba kuzingatiwa wakati wa maombi ya mtandaoni; maamuzi hutegemea ufaulu wa kitaaluma na programu.",
+    "International Graduate Scholarship — 2026/2027 Fall":
+      "Ufadhili wa Kimataifa wa Uzamili — Muhula wa Vuli 2026/2027",
+    "Published for prospective international Master's and PhD applicants; the listed Fall 2026/2027 application period ended on 18 September 2026.":
+      "Umechapishwa kwa waombaji wa kimataifa wa Shahada ya Uzamili na PhD; muda wa maombi wa Muhula wa Vuli 2026/2027 uliisha tarehe 18 Septemba 2026.",
+    "The published application window has passed. No new or currently open intake has been confirmed.":
+      "Muda wa maombi uliochapishwa umepita. Hakuna kipindi kipya au kilicho wazi sasa kilichothibitishwa.",
+    "18 September 2026": "18 Septemba 2026",
+    "High Honour Scholarship": "Ufadhili wa Heshima ya Juu",
+    "75% or 100% additional tuition scholarship": "Ufadhili wa ziada wa 75% au 100% ya ada",
+    "GAU students with a CGPA of 3.50 or above after their first academic year may apply; awards are subject to availability and university conditions.":
+      "Wanafunzi wa GAU wenye wastani wa CGPA wa 3.50 au zaidi baada ya mwaka wao wa kwanza wa masomo wanaweza kutuma maombi; ufadhili hutegemea upatikanaji na masharti ya chuo.",
+    "International Merit-Based Admission Scholarship":
+      "Ufadhili wa Udahili wa Kimataifa kwa Ufaulu",
+    "International applicants are evaluated on academic performance after completing EUL's online admissions application.":
+      "Waombaji wa kimataifa hutathminiwa kwa ufaulu wa kitaaluma baada ya kukamilisha maombi ya udahili ya mtandaoni ya EUL.",
+    "International Low-Income Scholarship":
+      "Ufadhili wa Kimataifa kwa Wanafunzi wa Kipato cha Chini",
+    "100% scholarship; programme quota limits apply":
+      "Ufadhili wa 100%; mipaka ya nafasi za programu inatumika",
+    "EUL describes this scheme for international students from low- or lower-middle-income countries, subject to a maximum share of each programme's international student quota.":
+      "EUL inaeleza mpango huu kwa wanafunzi wa kimataifa kutoka nchi zenye kipato cha chini au cha chini-kati, kwa kuzingatia kiwango cha juu cha nafasi za wanafunzi wa kimataifa kwa kila programu.",
+    "International Undergraduate Tuition Scholarship Rates":
+      "Viwango vya Ufadhili wa Ada ya Shahada ya Kwanza kwa Wanafunzi wa Kimataifa",
+    "50%, 75% or 100%; published annual fees vary by programme":
+      "50%, 75% au 100%; ada za mwaka zilizochapishwa hutofautiana kulingana na programu",
+    "BAU publishes scholarship-rate tuition figures for international Associate and Bachelor's programmes; individual eligibility and current intake terms require confirmation.":
+      "BAU huchapisha ada za masomo zenye viwango vya ufadhili kwa programu za Diploma ya Associate na Shahada ya Kwanza za kimataifa; ustahiki wa mtu binafsi na masharti ya sasa ya udahili yanahitaji kuthibitishwa.",
+    "30%–100%; 50% automatic in most departments, per the official page":
+      "30%–100%; 50% hutolewa moja kwa moja katika idara nyingi kulingana na ukurasa rasmi",
+    "The official Final International University page describes scholarship consideration for international students; candidates are assessed individually.":
+      "Ukurasa rasmi wa Final International University unaeleza tathmini ya ufadhili kwa wanafunzi wa kimataifa; waombaji hutathminiwa mmoja mmoja.",
+    "The official page is not dated to a current intake. Confirm current rates and availability with the university.":
+      "Ukurasa rasmi haujawekewa tarehe ya kipindi cha sasa cha udahili. Thibitisha viwango na upatikanaji wa sasa na chuo.",
+    "Gold and Blue Scholarship": "Ufadhili wa Gold and Blue",
+    "$4,000–$24,000 distributed over four years": "Dola 4,000–24,000 zitakazolipwa kwa miaka minne",
+    "For entering first-time-in-college students, including eligible international students seeking an F-1 visa; merit consideration is automatic after a complete freshman admission application.":
+      "Kwa wanafunzi wanaoanza chuo kwa mara ya kwanza, wakiwemo wanafunzi wa kimataifa wanaostahili wanaotafuta visa ya F-1; tathmini ya ufaulu hufanyika moja kwa moja baada ya maombi kamili ya udahili wa mwaka wa kwanza.",
+    "16 December 2026": "16 Desemba 2026",
+    "FIU lists this deadline for Early Fall/Fall 2026, but the applicable entry cycle and remaining availability need direct confirmation. Do not assume the award is open.":
+      "FIU imeorodhesha tarehe hii ya mwisho kwa Muhula wa Vuli ya Mapema/Vuli 2026, lakini kipindi husika cha kuanza na upatikanaji uliosalia vinahitaji kuthibitishwa moja kwa moja. Usidhani ufadhili uko wazi.",
+    "International Undergraduate Merit Scholarships":
+      "Ufadhili wa Kimataifa wa Shahada ya Kwanza kwa Ufaulu",
+    "For newly admitted, first-time, degree-seeking international students studying on campus with F-1 or J-1 status; continuing students and students receiving other university funding are excluded.":
+      "Kwa wanafunzi wapya wa kimataifa waliokubaliwa wanaotafuta shahada na kusoma chuoni wakiwa na hadhi ya F-1 au J-1; wanafunzi wanaoendelea na wanaopokea ufadhili mwingine wa chuo hawajumuishwi.",
+    "The current award amounts and applicable admission cycle need confirmation with the University of Memphis.":
+      "Kiasi cha sasa cha ufadhili na kipindi husika cha udahili vinahitaji kuthibitishwa na Chuo Kikuu cha Memphis.",
+    "International First-Year Merit Scholarship":
+      "Ufadhili wa Kimataifa wa Mwaka wa Kwanza kwa Ufaulu",
+    "Pace says first-year international applicants are considered for academic merit scholarships during admission review; any award is stated in the acceptance packet.":
+      "Pace inasema waombaji wa kimataifa wa mwaka wa kwanza huzingatiwa kwa ufadhili wa ufaulu wakati wa mapitio ya udahili; ufadhili wowote huandikwa katika barua ya kukubaliwa.",
+    "Deutschlandstipendium — 2026/2027": "Deutschlandstipendium — 2026/2027",
+    "€300 per month": "€300 kwa mwezi",
+    "The official 2026/2027 call includes first-year applicants and enrolled Bachelor's and Master's students; nationality-independent eligibility is stated.":
+      "Tangazo rasmi la 2026/2027 linajumuisha waombaji wa mwaka wa kwanza na wanafunzi waliosajiliwa wa Shahada ya Kwanza na Uzamili; ustahiki umeelezwa kuwa hautegemei uraia.",
+    "30 June 2026": "30 Juni 2026",
+    "The published 2026/2027 application period ended on 30 June 2026; a current application window is not confirmed.":
+      "Kipindi cha maombi cha 2026/2027 kilichochapishwa kiliisha tarehe 30 Juni 2026; kipindi cha sasa cha maombi hakijathibitishwa.",
+    "Journey to Sunderland Award — 2028/2029": "Tuzo ya Safari ya Sunderland — 2028/2029",
+    "£1,000": "£1,000",
+    "For eligible students joining in September 2028 from the colleges listed by Sunderland; no broader eligibility is stated.":
+      "Kwa wanafunzi wanaostahili wanaojiunga Septemba 2028 kutoka vyuo vilivyoorodheshwa na Sunderland; ustahiki mpana zaidi haujatajwa.",
+    "The award is published for September 2028 entry. Confirm application availability and full conditions with Sunderland.":
+      "Tuzo imechapishwa kwa wanafunzi wanaoanza Septemba 2028. Thibitisha upatikanaji wa maombi na masharti kamili na Sunderland.",
+    "STIBET Scholarship (DAAD)": "Ufadhili wa STIBET (DAAD)",
+    "International degree-seeking students from the third semester may apply; awards are made for one semester at a time and may be reapplied for.":
+      "Wanafunzi wa kimataifa wanaotafuta shahada wanaweza kutuma maombi kuanzia muhula wa tatu; ufadhili hutolewa kwa muhula mmoja na maombi yanaweza kufanywa tena.",
+    "The official overview does not publish a current deadline or award amount; confirm current terms with OTH Regensburg.":
+      "Muhtasari rasmi haujachapisha tarehe ya mwisho au kiasi cha sasa cha ufadhili; thibitisha masharti ya sasa na OTH Regensburg.",
+    "DAAD Prize": "Tuzo ya DAAD",
+    "€1,000": "€1,000",
+    "The official OTH page describes the prize for outstanding achievements by international students at German universities.":
+      "Ukurasa rasmi wa OTH unaeleza tuzo hii kwa mafanikio ya kipekee ya wanafunzi wa kimataifa katika vyuo vikuu vya Ujerumani.",
+    "The current OTH selection cycle and detailed eligibility are not stated on the source page.":
+      "Kipindi cha sasa cha uteuzi wa OTH na masharti ya kina ya ustahiki hayajaelezwa kwenye ukurasa wa chanzo.",
     "How we can help": "Jinsi tunavyoweza kusaidia",
     "Ask about study information, property details, or digital services. Scope and availability are confirmed per enquiry.":
       "Ulizia taarifa za masomo, maelezo ya mali au huduma za kidijitali. Wigo na upatikanaji huthibitishwa kwa kila ombi.",

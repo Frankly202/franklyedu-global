@@ -34,7 +34,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/scholarships": {
       title: "Scholarships",
       description:
-        "No current scholarship details are published. Contact us to ask about information confirmed by the institution.",
+        "Browse university scholarship information by verification status. Unconfirmed listings are not offers of open awards; confirm current terms with each institution.",
     },
     "/services": {
       title: "Student Services",
@@ -110,7 +110,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/scholarships": {
       title: "Burslar",
       description:
-        "Güncel burs bilgisi yayımlanmamıştır. Kurum tarafından teyit edilen ayrıntıları sormak için bize ulaşın.",
+        "Üniversite burs bilgilerini doğrulama durumuna göre inceleyin. Teyit edilmemiş kayıtlar açık burs teklifi değildir; güncel koşulları her kurumla teyit edin.",
     },
     "/services": {
       title: "Öğrenci Hizmetleri",
@@ -186,7 +186,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/scholarships": {
       title: "Bourses",
       description:
-        "Aucune information actuelle sur les bourses n’est publiée. Contactez-nous pour demander des détails confirmés par l’établissement.",
+        "Consultez les informations sur les bourses par statut de vérification. Les fiches non confirmées ne sont pas des offres ouvertes ; confirmez les conditions actuelles auprès de chaque établissement.",
     },
     "/services": {
       title: "Services étudiants",
@@ -264,7 +264,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/scholarships": {
       title: "Ufadhili wa masomo",
       description:
-        "Hakuna taarifa za sasa za ufadhili zilizochapishwa. Wasiliana nasi kuuliza kuhusu maelezo yaliyothibitishwa na taasisi.",
+        "Angalia taarifa za ufadhili wa vyuo kulingana na hali ya uthibitisho. Matangazo yasiyothibitishwa si ofa zilizo wazi; thibitisha masharti ya sasa na kila taasisi.",
     },
     "/services": {
       title: "Huduma za wanafunzi",

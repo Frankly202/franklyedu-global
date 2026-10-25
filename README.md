@@ -156,7 +156,7 @@ the availability of third-party sites. This is not a unit-test suite or a comple
 | `/universities`      | 16 universities with local logos, locations, details modals, and a `country` query filter.                                                                                                              |
 | `/courses`           | Three source-linked German nursing master's records; separate CIU (38), NEU (31) and Florida International University (23) catalogue examples, with existing query filters and distinct fee/cost notes. |
 | `/countries`         | Ten destination entries with contact links; listing a destination does not establish a recruitment relationship.                                                                                        |
-| `/scholarships`      | Empty-state enquiry page: the standalone scholarship listing array is currently empty.                                                                                                                  |
+| `/scholarships`      | Officially verified current university scholarship opportunities, filtered by university, study level, and award type; unconfirmed entries stay unpublished.                                            |
 | `/services`          | Study/admissions enquiries, property information, and digital-service enquiries.                                                                                                                        |
 | `/marketplace`       | Links to accommodation/property sections and an empty inventory state; no checkout.                                                                                                                     |
 | `/accommodation`     | Empty-state enquiry page; no accommodation inventory or booking flow is published.                                                                                                                      |
@@ -192,6 +192,27 @@ and mock student data remain in the source but are not an available account/dash
 - The document step lists requested documents but does not upload or transmit files. The final action
   opens WhatsApp with the selected study details for the user to review and send. FranklyEdu provides
   guidance and does not directly submit applications to universities.
+
+### Scholarship directory
+
+The static scholarship catalogue distinguishes three statuses: confirmed current, official
+scholarship information with current availability unconfirmed, and awaiting verification. Only CIU's
+international undergraduate tuition scholarship and academic tuition scholarship are currently
+labelled confirmed current. The directory also includes sourced information for EMU, University of
+Kyrenia, GAU, EUL, BAU Cyprus, Final International University, FIU, the University of Memphis,
+Pace, Hof, Sunderland, and OTH Regensburg; stale or intake-unclear details are explicitly not
+presented as open awards. Sunderland's separately categorized 2028/2029 bursary is not treated as
+a tuition scholarship. NEU's supplied undergraduate scholarship claim is marked awaiting official
+verification. KSTU and EHS Dresden have no supported incoming scholarship listing from the official
+information reviewed. No award amounts, coverage, deadlines, or eligibility are inferred where a
+source does not provide them.
+Full source URLs are retained internally; cards display source hostnames as non-clickable
+references, keeping users on FranklyEdu while they review details and contact us directly.
+
+University, study-level, and award-type filters preserve query parameters. Each record displays its
+status and only shows amounts, coverage, eligibility, deadlines, and source-review dates when
+supported. Universities without verified award details remain unlisted. Run `bun run build` before
+`bun run test:smoke --scholarships` for focused EN/TR/FR/SW checks.
 
 ### Content verification boundaries
 
@@ -235,8 +256,14 @@ or scholarship claims were added.
 The data identifies FIU as the only confirmed recruitment relationship. Other directory entries and
 application-guidance actions must not be described as confirmed partnerships.
 
-CIU and EMU have source-linked scholarship notes in their university details even though the
-standalone Scholarships page has no listings. CIU's Frank-supplied notes describe the 50%
+CIU and EMU have source-linked scholarship notes in their university details. The scholarship
+directory contains two CIU opportunities confirmed against its [official fees and scholarships
+page](https://ciu.edu.tr/en/become-student/international/fees-and-scholarships), checked on
+2026-10-25: the 50% international undergraduate tuition scholarship and the 50%-100% academic
+tuition scholarship. Both are tuition-only; the source does not state living-cost coverage or
+deadlines. Confirm individual payable tuition and current conditions with CIU. The directory does
+not present EMU's older deadline, FIU's schedule with cycle ambiguity, or other unverified notes as
+open opportunities. CIU's Frank-supplied notes describe the 50%
 international undergraduate tuition scholarship, possible additional academic scholarships, and
 programme-/scholarship-dependent payable tuition. Its exact initial payment must be confirmed using
 the student's official offer letter; no CIU prices or individual Course records are

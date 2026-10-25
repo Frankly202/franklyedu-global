@@ -64,14 +64,37 @@ export interface EducationTranslation {
     eyebrow: string;
     title: string;
     subtitle: string;
-    emptyHeading: string;
-    emptyDesc: string;
-    contactBtn: string;
+    noMatchingHeading: string;
+    noMatchingDesc: string;
+    clearBtn: string;
+    foundCount: string;
+    universityLabel: string;
+    allUniversities: string;
+    allLevels: string;
+    allTypes: string;
+    typeLabel: string;
+    scholarshipType: string;
+    tuitionDiscountType: string;
+    bursaryType: string;
     amountLabel: string;
     levelLabel: string;
+    coverageLabel: string;
+    tuitionOnly: string;
+    tuitionAndLiving: string;
+    coverageUnspecified: string;
+    eligibilityLabel: string;
     deadlineLabel: string;
-    applySupport: string;
-    checkEligibility: string;
+    deadlineNotPublished: string;
+    deadlineUnconfirmed: string;
+    amountNotPublished: string;
+    levelUnspecified: string;
+    sourceLabel: string;
+    verifiedLabel: string;
+    sourceReviewedLabel: string;
+    confirmedCurrent: string;
+    officialInfoUnconfirmed: string;
+    awaitingVerification: string;
+    enquiryMessageTemplate: string;
   };
   services: {
     eyebrow: string;
@@ -154,18 +177,42 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
     },
     scholarships: {
       eyebrow: "Scholarships",
-      title: "Scholarship information",
+      title: "University scholarship information",
       subtitle:
-        "No current scholarship details are published. Contact us to ask about information confirmed by the institution.",
-      emptyHeading: "No current scholarship listings",
-      emptyDesc:
-        "Award amounts, eligibility, and deadlines need current confirmation before they can be published.",
-      contactBtn: "Contact us",
+        "Browse scholarship information published by universities. Each listing is labelled as confirmed current, official information with availability unconfirmed, or awaiting verification. Unconfirmed entries are not offers of an open award.",
+      noMatchingHeading: "No scholarship information matches these filters",
+      noMatchingDesc:
+        "Clear a filter or contact us for help confirming details with a university. Unconfirmed information must not be treated as an open award.",
+      clearBtn: "Clear filters",
+      foundCount: "scholarship listings",
+      universityLabel: "University",
+      allUniversities: "All universities",
+      allLevels: "All study levels",
+      allTypes: "All types",
+      typeLabel: "Award type",
+      scholarshipType: "Scholarship",
+      tuitionDiscountType: "Tuition discount",
+      bursaryType: "Bursary",
       amountLabel: "Amount",
-      levelLabel: "Level",
+      levelLabel: "Study level",
+      coverageLabel: "Coverage basis",
+      tuitionOnly: "Tuition fees only; no living-cost coverage is stated.",
+      tuitionAndLiving: "Tuition and living costs, as stated by the source.",
+      coverageUnspecified: "The source does not specify what costs the award covers.",
+      eligibilityLabel: "Eligibility",
       deadlineLabel: "Deadline",
-      applySupport: "Apply with support",
-      checkEligibility: "Check eligibility",
+      deadlineNotPublished: "No deadline published",
+      deadlineUnconfirmed: "Not confirmed",
+      amountNotPublished: "Not published by the source",
+      levelUnspecified: "Not specified by the source",
+      sourceLabel: "Official source reference",
+      verifiedLabel: "Last verified",
+      sourceReviewedLabel: "Official source page reviewed",
+      confirmedCurrent: "Confirmed current",
+      officialInfoUnconfirmed: "Official information; current availability unconfirmed",
+      awaitingVerification: "Awaiting verification",
+      enquiryMessageTemplate:
+        "Hello FranklyEdu Global, I have a question about {award} at {university}.",
     },
     services: {
       eyebrow: "Student support",
@@ -247,18 +294,42 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
     },
     scholarships: {
       eyebrow: "Burs Olanakları",
-      title: "Burs bilgileri",
+      title: "Üniversite burs bilgileri",
       subtitle:
-        "Güncel burs ayrıntıları yayımlanmamıştır. Kurum tarafından teyit edilen bilgileri sormak için bizimle iletişime geçin.",
-      emptyHeading: "Güncel burs ilanı yok",
-      emptyDesc:
-        "Ödül miktarı, uygunluk koşulları ve son tarihler yayımlanmadan önce güncel olarak teyit edilmelidir.",
-      contactBtn: "Bize ulaşın",
+        "Üniversitelerin yayımladığı burs bilgilerini inceleyin. Her kayıt; güncel olduğu teyit edilen, resmî ancak güncel uygunluğu teyit edilmemiş veya doğrulama bekleyen olarak etiketlenir. Teyit edilmemiş kayıtlar açık burs teklifi değildir.",
+      noMatchingHeading: "Bu filtrelerle eşleşen burs bilgisi yok",
+      noMatchingDesc:
+        "Bir filtreyi temizleyin veya bilgileri üniversiteyle teyit etmek için destek alın. Teyit edilmemiş bilgiler açık burs teklifi olarak değerlendirilmemelidir.",
+      clearBtn: "Filtreleri temizle",
+      foundCount: "burs kaydı",
+      universityLabel: "Üniversite",
+      allUniversities: "Tüm üniversiteler",
+      allLevels: "Tüm eğitim seviyeleri",
+      allTypes: "Tüm türler",
+      typeLabel: "Ödül türü",
+      scholarshipType: "Burs",
+      tuitionDiscountType: "Öğrenim ücreti indirimi",
+      bursaryType: "Karşılıksız eğitim desteği",
       amountLabel: "Miktar",
-      levelLabel: "Seviye",
+      levelLabel: "Eğitim seviyesi",
+      coverageLabel: "Kapsam",
+      tuitionOnly: "Yalnızca öğrenim ücreti; yaşam gideri kapsamı belirtilmemiştir.",
+      tuitionAndLiving: "Kaynakta belirtildiği üzere öğrenim ve yaşam giderleri.",
+      coverageUnspecified: "Kaynak, bursun hangi giderleri karşıladığını belirtmiyor.",
+      eligibilityLabel: "Uygunluk",
       deadlineLabel: "Son Tarih",
-      applySupport: "Danışmanlıkla Başvur",
-      checkEligibility: "Uygunluğu Sorgula",
+      deadlineNotPublished: "Son tarih yayımlanmamış",
+      deadlineUnconfirmed: "Teyit edilmedi",
+      amountNotPublished: "Kaynakta yayımlanmamış",
+      levelUnspecified: "Kaynakta belirtilmemiş",
+      sourceLabel: "Resmî kaynak referansı",
+      verifiedLabel: "Son doğrulama",
+      sourceReviewedLabel: "Resmî kaynak sayfası inceleme tarihi",
+      confirmedCurrent: "Güncel olduğu teyit edildi",
+      officialInfoUnconfirmed: "Resmî bilgi; güncel uygunluk teyit edilmedi",
+      awaitingVerification: "Doğrulama bekliyor",
+      enquiryMessageTemplate:
+        "Merhaba FranklyEdu Global, {university} bünyesindeki {award} hakkında bilgi almak istiyorum.",
     },
     services: {
       eyebrow: "Öğrenci Desteği",

@@ -72,6 +72,20 @@
 
 ### Phase 3: Content, Data & Imagery
 
+**Scholarship directory (2026-10-25)**: Expanded the static directory to distinguish confirmed-current
+awards, official scholarship information with current availability unconfirmed, and claims awaiting
+verification. The two CIU undergraduate tuition awards remain the only confirmed-current records.
+Added sourced, clearly qualified information for EMU, University of Kyrenia, GAU, EUL, BAU Cyprus,
+Final International University, FIU, Memphis, Pace, Hof, Sunderland, and OTH Regensburg. Sunderland's
+2028/2029 bursary is categorized separately from tuition scholarships. The NEU claim supplied by
+Frank is labelled awaiting official verification; KSTU and EHS Dresden have no supported incoming
+scholarship listing from the official information reviewed. Expired or intake-unclear items are not
+presented as open; unknown amounts, coverage, levels, and deadlines remain omitted or explicitly
+unspecified. University, study-level, and award-type filters and EN/TR/FR/SW status labels are
+retained. Full source URLs stay internal; cards display non-clickable source hostnames. Focused
+smoke tests cover status counts, source-link absence, record detail, filters, application prefills,
+empty states, coverage distinctions, mobile layout, and all four locales.
+
 **University navigation and CTA refinement (2026-10-19)**: Supersedes earlier website-tab CTA
 behaviour below. University cards, modals and catalogue-examples sections use primary Apply Now
 and secondary View Courses with the university slug. Removed university-website navigation CTAs,

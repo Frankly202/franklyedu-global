@@ -847,16 +847,282 @@ export const courses: Course[] = [
 
 export interface Scholarship {
   slug: string;
-  name: string;
-  provider: string;
-  country: string;
-  amount: string;
-  level: string;
-  deadline: string;
-  summary: string;
+  universitySlug: string;
+  awardName: string;
+  type: "scholarship" | "tuition-discount" | "bursary";
+  coverageBasis: "tuition-only" | "tuition-and-living-costs" | "unspecified";
+  amount?: string;
+  levels: (Course["level"] | "Associate degree")[];
+  eligibility: string;
+  deadline?: string;
+  officialSource?: string;
+  sourceReviewedAt?: string;
+  statusNote?: string;
+  currentStatus: "confirmed-current" | "official-info-unconfirmed" | "awaiting-verification";
 }
 
-export const scholarships: Scholarship[] = [];
+export const scholarships: Scholarship[] = [
+  {
+    slug: "ciu-international-undergraduate-tuition-scholarship",
+    universitySlug: "cyprus-international-university",
+    awardName: "International Student Scholarship",
+    type: "scholarship",
+    coverageBasis: "tuition-only",
+    amount: "50%",
+    levels: ["Bachelor's"],
+    eligibility:
+      "CIU states that all international undergraduate students are granted this tuition scholarship. Confirm programme-specific payable tuition and conditions with CIU.",
+    officialSource: "https://ciu.edu.tr/en/become-student/international/fees-and-scholarships",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "confirmed-current",
+  },
+  {
+    slug: "ciu-undergraduate-academic-merit-scholarship",
+    universitySlug: "cyprus-international-university",
+    awardName: "Academic Scholarship",
+    type: "scholarship",
+    coverageBasis: "tuition-only",
+    amount: "50%–100% of tuition",
+    levels: ["Bachelor's"],
+    eligibility:
+      "Prospective undergraduate students may apply based on academic merit. CIU determines the award; confirm current eligibility and conditions with the university.",
+    officialSource: "https://ciu.edu.tr/en/become-student/international/fees-and-scholarships",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "confirmed-current",
+  },
+  {
+    slug: "neu-international-undergraduate-scholarship",
+    universitySlug: "near-east-university",
+    awardName: "International Undergraduate Scholarship",
+    type: "scholarship",
+    coverageBasis: "tuition-only",
+    amount: "Up to 50% of tuition",
+    levels: ["Bachelor's"],
+    eligibility:
+      "Frank-supplied information says international undergraduates in most departments may receive up to 50%, excluding Medicine and Dentistry. Confirm eligibility and payable tuition with NEU.",
+    officialSource: "https://neu.edu.tr/students/scholarships/?lang=en",
+    statusNote:
+      "This detail is awaiting confirmation from NEU; it is not presented as a confirmed current award.",
+    currentStatus: "awaiting-verification",
+  },
+  {
+    slug: "emu-international-student-partial-tuition-waiver",
+    universitySlug: "eastern-mediterranean-university",
+    awardName: "International Student Partial Tuition Waiver",
+    type: "tuition-discount",
+    coverageBasis: "tuition-only",
+    amount: "25% or 50% tuition waiver; individual decisions vary",
+    levels: ["Bachelor's"],
+    eligibility:
+      "EMU says international undergraduate applicants may request consideration during online application; decisions depend on academic performance and programme.",
+    officialSource: "https://io.emu.edu.tr/en/students/prospective-students/scholarships",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "kyrenia-2026-27-international-graduate-scholarship",
+    universitySlug: "university-of-kyrenia",
+    awardName: "International Graduate Scholarship — 2026/2027 Fall",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    levels: ["Master's", "PhD"],
+    eligibility:
+      "Published for prospective international Master's and PhD applicants; the listed Fall 2026/2027 application period ended on 18 September 2026.",
+    deadline: "18 September 2026",
+    officialSource: "https://aday.kyrenia.edu.tr/scholarships/?lang=en",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The published application window has passed. No new or currently open intake has been confirmed.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "gau-high-honour-scholarship",
+    universitySlug: "girne-american-university",
+    awardName: "High Honour Scholarship",
+    type: "scholarship",
+    coverageBasis: "tuition-only",
+    amount: "75% or 100% additional tuition scholarship",
+    levels: [],
+    eligibility:
+      "GAU students with a CGPA of 3.50 or above after their first academic year may apply; awards are subject to availability and university conditions.",
+    officialSource: "https://www.gau.edu.tr/en/prospective/page/financial-aid-and-scholarships",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "eul-international-merit-admission-scholarship",
+    universitySlug: "european-university-of-lefke",
+    awardName: "International Merit-Based Admission Scholarship",
+    type: "scholarship",
+    coverageBasis: "tuition-only",
+    amount: "50%–100% of tuition",
+    levels: [],
+    eligibility:
+      "International applicants are evaluated on academic performance after completing EUL's online admissions application.",
+    officialSource:
+      "https://www.eul.edu.tr/en/student-affairs/scholarships-and-tuition-fee-reductions/scholarships-and-tuition-fees/",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "eul-international-low-income-scholarship",
+    universitySlug: "european-university-of-lefke",
+    awardName: "International Low-Income Scholarship",
+    type: "scholarship",
+    coverageBasis: "tuition-and-living-costs",
+    amount: "100% scholarship; programme quota limits apply",
+    levels: [],
+    eligibility:
+      "EUL describes this scheme for international students from low- or lower-middle-income countries, subject to a maximum share of each programme's international student quota.",
+    officialSource:
+      "https://www.eul.edu.tr/en/student-affairs/scholarships-and-tuition-fee-reductions/scholarships-and-tuition-fees/",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "bau-international-undergraduate-scholarship-rates",
+    universitySlug: "bahcesehir-cyprus-university",
+    awardName: "International Undergraduate Tuition Scholarship Rates",
+    type: "tuition-discount",
+    coverageBasis: "tuition-only",
+    amount: "50%, 75% or 100%; published annual fees vary by programme",
+    levels: ["Associate degree", "Bachelor's"],
+    eligibility:
+      "BAU publishes scholarship-rate tuition figures for international Associate and Bachelor's programmes; individual eligibility and current intake terms require confirmation.",
+    officialSource: "https://baucyprus.edu.tr/tuition-fees/",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "final-international-student-scholarship",
+    universitySlug: "final-international-university",
+    awardName: "International Student Scholarship",
+    type: "tuition-discount",
+    coverageBasis: "tuition-only",
+    amount: "30%–100%; 50% automatic in most departments, per the official page",
+    levels: [],
+    eligibility:
+      "The official Final International University page describes scholarship consideration for international students; candidates are assessed individually.",
+    officialSource: "https://newstudents.final.edu.tr/438-scholarship-and-placement-examination",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The official page is not dated to a current intake. Confirm current rates and availability with the university.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "fiu-gold-and-blue-scholarship",
+    universitySlug: "florida-international-university",
+    awardName: "Gold and Blue Scholarship",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    amount: "$4,000–$24,000 distributed over four years",
+    levels: ["Bachelor's"],
+    eligibility:
+      "For entering first-time-in-college students, including eligible international students seeking an F-1 visa; merit consideration is automatic after a complete freshman admission application.",
+    deadline: "16 December 2026",
+    officialSource: "https://admissions.fiu.edu/cost-and-aid/scholarships/",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "FIU lists this deadline for Early Fall/Fall 2026, but the applicable entry cycle and remaining availability need direct confirmation. Do not assume the award is open.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "memphis-international-undergraduate-merit-scholarship",
+    universitySlug: "university-of-memphis",
+    awardName: "International Undergraduate Merit Scholarships",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    levels: ["Bachelor's"],
+    eligibility:
+      "For newly admitted, first-time, degree-seeking international students studying on campus with F-1 or J-1 status; continuing students and students receiving other university funding are excluded.",
+    officialSource: "https://www.memphis.edu/scholarships/international_students/",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The current award amounts and applicable admission cycle need confirmation with the University of Memphis.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "pace-international-first-year-merit-scholarship",
+    universitySlug: "pace-university",
+    awardName: "International First-Year Merit Scholarship",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    levels: ["Bachelor's"],
+    eligibility:
+      "Pace says first-year international applicants are considered for academic merit scholarships during admission review; any award is stated in the acceptance packet.",
+    officialSource:
+      "https://www.pace.edu/iss/legal-and-financial-resources/financial-aid-international-students",
+    sourceReviewedAt: "2026-10-25",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "hof-deutschlandstipendium-2026-27",
+    universitySlug: "hof-university-of-applied-sciences",
+    awardName: "Deutschlandstipendium — 2026/2027",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    amount: "€300 per month",
+    levels: ["Bachelor's", "Master's"],
+    eligibility:
+      "The official 2026/2027 call includes first-year applicants and enrolled Bachelor's and Master's students; nationality-independent eligibility is stated.",
+    deadline: "30 June 2026",
+    officialSource:
+      "https://www.hof-university.com/fileadmin/user_upload/studienfoerderung/Ausschreibung_Hof_2026_27_engl.pdf",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The published 2026/2027 application period ended on 30 June 2026; a current application window is not confirmed.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "sunderland-journey-award-2028-29",
+    universitySlug: "university-of-sunderland",
+    awardName: "Journey to Sunderland Award — 2028/2029",
+    type: "bursary",
+    coverageBasis: "unspecified",
+    amount: "£1,000",
+    levels: [],
+    eligibility:
+      "For eligible students joining in September 2028 from the colleges listed by Sunderland; no broader eligibility is stated.",
+    officialSource: "https://www.sunderland.ac.uk/scholarships-and-bursaries/",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The award is published for September 2028 entry. Confirm application availability and full conditions with Sunderland.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "oth-stibet-scholarship",
+    universitySlug: "oth-regensburg",
+    awardName: "STIBET Scholarship (DAAD)",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    levels: [],
+    eligibility:
+      "International degree-seeking students from the third semester may apply; awards are made for one semester at a time and may be reapplied for.",
+    officialSource:
+      "https://www.oth-regensburg.de/en/study/international-office/studying-in-regensburg/international-students/studies-and-everyday-life/student-financing",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The official overview does not publish a current deadline or award amount; confirm current terms with OTH Regensburg.",
+    currentStatus: "official-info-unconfirmed",
+  },
+  {
+    slug: "oth-daad-prize",
+    universitySlug: "oth-regensburg",
+    awardName: "DAAD Prize",
+    type: "scholarship",
+    coverageBasis: "unspecified",
+    amount: "€1,000",
+    levels: [],
+    eligibility:
+      "The official OTH page describes the prize for outstanding achievements by international students at German universities.",
+    officialSource:
+      "https://www.oth-regensburg.de/en/study/international-office/studying-in-regensburg/international-students/studies-and-everyday-life/student-financing",
+    sourceReviewedAt: "2026-10-25",
+    statusNote:
+      "The current OTH selection cycle and detailed eligibility are not stated on the source page.",
+    currentStatus: "official-info-unconfirmed",
+  },
+];
 
 export interface SupportService {
   slug: string;
