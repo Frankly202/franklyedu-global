@@ -58,6 +58,8 @@ export interface EducationTranslation {
     eyebrow: string;
     title: string;
     subtitle: string;
+    cardDescription: string;
+    viewUniversities: string;
     askAboutOptions: string;
   };
   scholarships: {
@@ -170,9 +172,12 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
     },
     countries: {
       eyebrow: "Study destinations",
-      title: "Destinations to ask about.",
+      title: "Choose where you want to study.",
       subtitle:
-        "Browse the destinations listed here. Contact us to ask about current study options; programmes, fees, and dates are not listed until confirmed.",
+        "Explore the destinations in our directory. View listed universities or contact us to confirm current study options.",
+      cardDescription:
+        "Browse listed universities for this destination. Contact us to confirm current options.",
+      viewUniversities: "View Universities",
       askAboutOptions: "Ask about options",
     },
     scholarships: {
@@ -287,9 +292,12 @@ export const educationTranslations: Record<"en" | "tr", EducationTranslation> = 
     },
     countries: {
       eyebrow: "Eğitim ülkeleri",
-      title: "Bilgi alabileceğiniz destinasyonlar.",
+      title: "Eğitim almak istediğiniz yeri seçin.",
       subtitle:
-        "Listelenen ülkelere göz atın. Güncel eğitim seçeneklerini sormak için bizimle iletişime geçin; program, ücret ve tarihler teyit edilmeden yayımlanmaz.",
+        "Rehberimizdeki destinasyonları inceleyin. Listelenen üniversiteleri görüntüleyin veya güncel eğitim seçeneklerini teyit etmek için bize ulaşın.",
+      cardDescription:
+        "Bu destinasyonda listelenen üniversitelere göz atın. Güncel seçenekleri teyit etmek için bize ulaşın.",
+      viewUniversities: "Üniversiteleri Görüntüle",
       askAboutOptions: "Seçenekleri sorun",
     },
     scholarships: {

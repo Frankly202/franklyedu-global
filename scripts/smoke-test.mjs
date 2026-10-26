@@ -191,6 +191,137 @@ async function selectLanguage(page, languageName, expectedLocale) {
   assert.equal(await trigger.getAttribute("aria-expanded"), "false");
 }
 
+async function checkCountriesDirectory(page, baseUrl) {
+  const locales = [
+    {
+      code: "en",
+      language: "English",
+      view: "View Universities",
+      ask: "Ask about options",
+      description:
+        "Browse listed universities for this destination. Contact us to confirm current options.",
+      emptyHeading: "Inquire for this destination",
+    },
+    {
+      code: "tr",
+      language: "Türkçe",
+      view: "Üniversiteleri Görüntüle",
+      ask: "Seçenekleri sorun",
+      description:
+        "Bu destinasyonda listelenen üniversitelere göz atın. Güncel seçenekleri teyit etmek için bize ulaşın.",
+      emptyHeading: "Bu ülke için doğrudan danışın",
+    },
+    {
+      code: "fr",
+      language: "Français",
+      view: "Voir les universités",
+      ask: "Demander des renseignements",
+      description:
+        "Consultez les universités répertoriées pour cette destination. Contactez-nous pour confirmer les possibilités actuelles.",
+      emptyHeading: "Renseignez-vous sur cette destination",
+    },
+    {
+      code: "sw",
+      language: "Kiswahili",
+      view: "Tazama Vyuo Vikuu",
+      ask: "Ulizia chaguo",
+      description:
+        "Vinjari vyuo vilivyoorodheshwa kwa eneo hili. Wasiliana nasi kuthibitisha chaguo za sasa.",
+      emptyHeading: "Uliza kuhusu nchi hii",
+    },
+  ];
+  const destinations = [
+    { slug: "cyprus", flags: 2, universities: 9 },
+    { slug: "united-kingdom", flags: 1, universities: 1 },
+    { slug: "canada", flags: 1, universities: 0 },
+    { slug: "germany", flags: 1, universities: 3 },
+    { slug: "poland", flags: 1, universities: 0 },
+    { slug: "finland", flags: 1, universities: 0 },
+    { slug: "netherlands", flags: 1, universities: 0 },
+    { slug: "australia", flags: 1, universities: 0 },
+    { slug: "china", flags: 1, universities: 0 },
+    { slug: "united-states", flags: 1, universities: 3 },
+  ];
+  const flagAssets = [
+    "/flags/cyprus.svg",
+    "/flags/northern-cyprus.svg",
+    "/flags/united-kingdom.svg",
+    "/flags/canada.svg",
+    "/flags/germany.svg",
+    "/flags/poland.svg",
+    "/flags/finland.svg",
+    "/flags/netherlands.svg",
+    "/flags/australia.svg",
+    "/flags/china.svg",
+    "/flags/united-states.svg",
+  ];
+
+  for (const locale of locales) {
+    await gotoReady(page, `${baseUrl}/countries`);
+    if (locale.code !== "en") await selectLanguage(page, locale.language, locale.code);
+    const cards = page.locator("main article[id]");
+    assert.equal(await cards.count(), 10, `${locale.code} should render all ten destinations.`);
+    for (const destination of destinations) {
+      const card = page.locator(`main article#${destination.slug}`);
+      assert.equal(await card.locator("div[aria-hidden='true'] img").count(), destination.flags);
+      assert.ok((await card.innerText()).includes(locale.description));
+      const universitiesLink = card.getByRole("link", { name: locale.view, exact: true });
+      assert.equal(
+        await universitiesLink.getAttribute("href"),
+        `/universities?country=${destination.slug}`,
+      );
+      assert.equal(
+        await card.getByRole("link", { name: locale.ask, exact: true }).getAttribute("href"),
+        "/contact",
+      );
+    }
+    assert.equal(await page.locator("main article#cyprus img").count(), 2);
+
+    for (const flag of flagAssets) {
+      const response = await page.request.get(`${new URL(page.url()).origin}${flag}`);
+      assert.equal(response.status(), 200, `${locale.code} ${flag} must be served locally.`);
+      assert.match(response.headers()["content-type"] ?? "", /image\/svg\+xml/);
+    }
+
+    if (locale.code === "en") {
+      for (const destination of destinations) {
+        const card = page.locator(`main article#${destination.slug}`);
+        await card.getByRole("link", { name: locale.view, exact: true }).click();
+        await page.waitForURL(
+          (url) =>
+            url.pathname === "/universities" &&
+            url.searchParams.get("country") === destination.slug,
+        );
+        assert.equal(await page.locator("main select").inputValue(), destination.slug);
+        assert.equal(
+          await page.locator("main article.card-light").count(),
+          destination.universities,
+        );
+        if (destination.universities === 0) {
+          await page.getByRole("heading", { name: locale.emptyHeading, exact: true }).waitFor();
+          assert.equal(
+            await page
+              .locator("main")
+              .getByRole("link", { name: "Contact", exact: true })
+              .getAttribute("href"),
+            "/contact",
+          );
+        }
+        await gotoReady(page, `${baseUrl}/countries`);
+      }
+    }
+
+    await page.setViewportSize({ width: 320, height: 844 });
+    assert.ok(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+      `${locale.code} country cards must not overflow at 320px.`,
+    );
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  }
+  await gotoReady(page, `${baseUrl}/countries`);
+  await selectLanguage(page, "English", "en");
+}
+
 async function startDevServer() {
   const port = await getAvailablePort();
   const server = await createViteServer({
@@ -1719,6 +1850,13 @@ async function runSmokeTests() {
       return;
     }
 
+    if (process.argv.includes("--countries")) {
+      await checkCountriesDirectory(page, baseUrl);
+      assert.deepEqual(browserErrors, [], "Focused country checks must have zero browser errors.");
+      console.log("Focused country smoke tests passed.");
+      return;
+    }
+
     if (
       ["--emu", "--gau", "--kyrenia", "--ciu", "--neu", "--florida"].some((flag) =>
         process.argv.includes(flag),
@@ -2078,6 +2216,9 @@ async function runSmokeTests() {
         `${locale} scholarship cards must not link out to external scholarship pages.`,
       );
     }
+
+    console.log("Checking the destination directory in each supported locale...");
+    await checkCountriesDirectory(page, baseUrl);
 
     console.log("Checking all routes in each supported locale...");
     const englishMetadata = new Map();

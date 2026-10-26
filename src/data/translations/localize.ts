@@ -1557,6 +1557,12 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Browse the destinations listed here. Contact us to ask about current study options; programmes, fees, and dates are not listed until confirmed.":
       "Consultez les destinations présentées ici. Contactez-nous pour connaître les études possibles ; les formations, frais et dates ne sont publiés qu’après confirmation.",
     "Ask about options": "Demander des renseignements",
+    "Choose where you want to study.": "Choisissez où vous souhaitez étudier.",
+    "Explore the destinations in our directory. View listed universities or contact us to confirm current study options.":
+      "Explorez les destinations de notre répertoire. Consultez les universités répertoriées ou contactez-nous pour confirmer les possibilités d’études actuelles.",
+    "Browse listed universities for this destination. Contact us to confirm current options.":
+      "Consultez les universités répertoriées pour cette destination. Contactez-nous pour confirmer les possibilités actuelles.",
+    "View Universities": "Voir les universités",
     "No current scholarship details are published. Contact us to ask about information confirmed by the institution.":
       "Aucun détail actuel sur les bourses n’est publié. Contactez-nous pour demander des informations confirmées par l’établissement.",
     "No current scholarship listings": "Aucune annonce de bourse actuelle",
@@ -2873,6 +2879,12 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     "Browse the destinations listed here. Contact us to ask about current study options; programmes, fees, and dates are not listed until confirmed.":
       "Vinjari nchi zilizoorodheshwa hapa. Wasiliana nasi kuulizia chaguo za sasa za masomo; programu, ada na tarehe haziorodheshwi hadi zithibitishwe.",
     "Ask about options": "Ulizia chaguo",
+    "Choose where you want to study.": "Chagua mahali unapopenda kusoma.",
+    "Explore the destinations in our directory. View listed universities or contact us to confirm current study options.":
+      "Chunguza maeneo yaliyo kwenye orodha yetu. Tazama vyuo vilivyoorodheshwa au wasiliana nasi kuthibitisha chaguo za sasa za masomo.",
+    "Browse listed universities for this destination. Contact us to confirm current options.":
+      "Vinjari vyuo vilivyoorodheshwa kwa eneo hili. Wasiliana nasi kuthibitisha chaguo za sasa.",
+    "View Universities": "Tazama Vyuo Vikuu",
     "No current scholarship details are published. Contact us to ask about information confirmed by the institution.":
       "Hakuna maelezo ya sasa ya ufadhili yaliyochapishwa. Wasiliana nasi kuulizia taarifa zilizothibitishwa na taasisi.",
     "No current scholarship listings": "Hakuna matangazo ya sasa ya ufadhili",

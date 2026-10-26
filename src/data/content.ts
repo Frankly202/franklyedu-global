@@ -23,6 +23,7 @@ export interface Destination {
   slug: string;
   name: string;
   region: string;
+  flagAssets: string[];
 }
 
 export const destinations: Destination[] = [
@@ -30,51 +31,61 @@ export const destinations: Destination[] = [
     slug: "cyprus",
     name: "Cyprus / North Cyprus",
     region: "Europe / Mediterranean",
+    flagAssets: ["/flags/cyprus.svg", "/flags/northern-cyprus.svg"],
   },
   {
     slug: "united-kingdom",
     name: "United Kingdom",
     region: "Europe",
+    flagAssets: ["/flags/united-kingdom.svg"],
   },
   {
     slug: "canada",
     name: "Canada",
     region: "North America",
+    flagAssets: ["/flags/canada.svg"],
   },
   {
     slug: "germany",
     name: "Germany",
     region: "Europe",
+    flagAssets: ["/flags/germany.svg"],
   },
   {
     slug: "poland",
     name: "Poland",
     region: "Europe",
+    flagAssets: ["/flags/poland.svg"],
   },
   {
     slug: "finland",
     name: "Finland",
     region: "Europe / Nordic",
+    flagAssets: ["/flags/finland.svg"],
   },
   {
     slug: "netherlands",
     name: "Netherlands",
     region: "Europe",
+    flagAssets: ["/flags/netherlands.svg"],
   },
   {
     slug: "australia",
     name: "Australia",
     region: "Oceania",
+    flagAssets: ["/flags/australia.svg"],
   },
   {
     slug: "china",
     name: "China",
     region: "Asia",
+    flagAssets: ["/flags/china.svg"],
   },
   {
     slug: "united-states",
     name: "United States",
     region: "North America",
+    flagAssets: ["/flags/united-states.svg"],
   },
 ];
 
