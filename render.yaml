@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: franklyedu-referral-api
+    runtime: node
+    # Pin Bun for workspace installation; the API itself builds and runs on Node.js.
+    buildCommand: npm install --global bun@1.4.0 && bun install --frozen-lockfile && bun run build:api
+    startCommand: node apps/api/dist/src/server.js
+    healthCheckPath: /health/live
+    buildFilter:
+      paths:
+        - apps/api/**
+        - package.json
+        - bun.lock
+        - bunfig.toml
+        - render.yaml
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22.22.3
+      - key: WEB_ORIGINS
+        value: https://franklyedu.com
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false

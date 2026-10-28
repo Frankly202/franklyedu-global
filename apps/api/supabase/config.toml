@@ -1,0 +1,22 @@
+project_id = "franklyedu-referral-api"
+
+[api]
+enabled = true
+port = 55431
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 100
+
+[db]
+port = 55432
+shadow_port = 55430
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173"]
+jwt_expiry = 3600
+enable_signup = true
+
+[edge_runtime]
+enabled = false

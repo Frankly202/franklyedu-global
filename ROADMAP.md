@@ -23,6 +23,11 @@
 
 ## Implementation Phases
 
+**Monorepo migration (2026-10-28)**: Repository converted to a Bun workspace: the website is
+`apps/web` (history preserved via renames) and the Student Referral Programme API is `apps/api`.
+Validation commands in this roadmap now run from `apps/web` (or via root `*:web` scripts). No
+business logic, schema or authentication changed; see the root [README](./README.md).
+
 ### Phase 1: Brand Assets & Visual Foundation
 
 - **Status**: `DONE`

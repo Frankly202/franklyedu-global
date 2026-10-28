@@ -33,4 +33,16 @@ dist-ssr
 *.sln
 *.sw?
 property-source/
-docs/
+# Local business documents stay untracked; only explicitly allowed docs are tracked.
+docs/*
+!docs/student-referral-programme-roadmap.md
+
+# Secrets and local service state (placeholders only in *.example files)
+.env
+.env.*
+!.env.example
+.supabase/
+coverage/
+supabase/.temp/
+supabase/.branches/
+.vercel
