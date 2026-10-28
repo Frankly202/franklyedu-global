@@ -3,7 +3,7 @@ services:
     name: franklyedu-referral-api
     runtime: node
     # Pin Bun for workspace installation; the API itself builds and runs on Node.js.
-    buildCommand: npm install --global bun@1.4.0 && bun install --frozen-lockfile && bun run build:api
+    buildCommand: npm exec --yes --package=bun@1.4.0 -- bun install --frozen-lockfile && npm exec --yes --package=bun@1.4.0 -- bun run build:api
     startCommand: node apps/api/dist/src/server.js
     healthCheckPath: /health/live
     buildFilter:
