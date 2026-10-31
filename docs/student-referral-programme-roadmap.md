@@ -147,3 +147,46 @@ Do not connect payment gateways or university admission systems.
   participant Playwright tests, full `bun run test:smoke`, `git diff --check`.
 - Verify target-host configuration and deployed health checks without exposing credentials or
   personal data.
+
+## Local audit-history foundation — 2026-10-31
+
+- Implemented the audit foundation in local migrations
+  `202610310001_referral_audit_foundation.sql` and
+  `202610310002_audit_reviewer_immutability.sql`. Both are recorded as applied to the local
+  Supabase database. The second migration was added after the first had already been applied
+  locally, so the first migration remains unchanged and reviewer-field protection is a forward
+  migration. No production database or hosting configuration was touched.
+- Database triggers record referral creation and admission-status changes, participant role
+  changes, participant/referral consent and withdrawal, automated/admin duplicate flags and
+  reviews, reward qualification decisions, and payment recording. Admission status history and
+  its audit event are written in the same transaction as the status change.
+- Actor IDs are checked against `auth.uid()`; administrator actions also require the existing
+  administrator role. Automated duplicate flags have no user actor. Audit context is limited to
+  operation-relevant fields and excludes referral names and contact details. Duplicate review
+  actor/time fields cannot be rewritten after review.
+- The audit table has RLS enabled and direct table privileges are revoked from browser roles and
+  `service_role`; trigger writer functions are not directly executable by those roles. Update,
+  delete, and truncate are denied to `service_role` for audit events; sensitive source records
+  also have narrowed update grants or append-only protections.
+- Local database validation passed: `cd apps/api && supabase test db --local` (58 pgTAP assertions:
+  34 audit and 24 foundation). The tests cover event generation, actor attribution, rollback,
+  browser/service-role restrictions, post-review tampering, and update/delete/TRUNCATE protection.
+  API validation passed: `bun run test:api` (13/13), `bun run lint:api`, and `bun run typecheck:api`.
+- The API still has no authenticated referral-write routes. The database fails closed when actor
+  identity is missing or mismatched; any future write integration must derive actor context from
+  validated authentication and must not accept client-supplied actor IDs. This foundation does
+  not authorize future workflows or production data collection.
+- **Phase 1 remains PENDING; Phase 2 remains NOT STARTED.** Production schema/integration
+  verification and student-data privacy approvals remain outstanding. Do not apply these local
+  migrations to production until the roadmap's production review and approval gates are satisfied.
+
+## Phase gates — 2026-10-31
+
+- Keep Phase 1 **PENDING**. Vercel Production verification is explicitly deferred until Abraham
+  authorizes it tomorrow (2026-11-01); it is not verified or waived. Other previously identified
+  production schema/configuration and privacy-policy checks also remain gates unless independently
+  completed with evidence.
+- Phase 2 remains **NOT STARTED**. Its roadmap dependencies (verified Phase 1 API/database and
+  production integration, approved origins/session design, and approved student-data privacy
+  policy) are not satisfied. No public Join/Login or participant-data/authentication implementation
+  is permitted yet. Reassess the first Phase 2 increment only after those gates are resolved.

@@ -105,6 +105,7 @@ values ('00000000-0000-4000-8000-000000000001');
 insert into public.referral_participants (user_id, role)
 values ('00000000-0000-4000-8000-000000000002', 'admin');
 
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000001', true);
 insert into public.referrals (
   id,
   referrer_id,
@@ -139,6 +140,7 @@ select extensions.throws_ok(
   'a participant cannot qualify their own reward'
 );
 
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000002', true);
 select extensions.lives_ok(
   $$
     insert into public.referral_reward_qualifications (
@@ -167,6 +169,7 @@ select extensions.throws_ok(
   'a participant cannot record a reward payment'
 );
 
+select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000002', true);
 select extensions.lives_ok(
   $$
     insert into public.referral_reward_payments (
