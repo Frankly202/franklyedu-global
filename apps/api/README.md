@@ -3,8 +3,9 @@
 Independent Express API project for the Student Referral Programme, now the `apps/api` workspace of
 the FranklyEdu monorepo. It is intended for Render, with Supabase Auth and PostgreSQL. The Vercel
 frontend (`apps/web`) remains a separately deployed project.
-This Phase 1 foundation does not implement registration, login/session endpoints, referral
-submission, participant dashboards, or admin workflows.
+The local Phase 2 foundation verifies existing-user sessions and provides an audited, on-demand
+participant bootstrap. Public registration, referral submissions, participant data dashboards, and
+admin workflows remain disabled/unimplemented.
 
 ## Current foundation
 
@@ -12,15 +13,22 @@ submission, participant dashboards, or admin workflows.
   generic error responses, and request logs that omit URLs, headers, bodies, and personal data.
 - `/health/live` checks process liveness. `/health/ready` calls the database health RPC and reports
   only ready/unavailable.
-- Supabase Auth is the selected identity provider. The planned API boundary validates Supabase
-  access tokens server-side and will use secure HttpOnly cookies for browser sessions. Authentication
-  endpoints, cookie issuance/rotation, CSRF defenses, and account recovery are Phase 2 work.
+- `GET /auth/session` validates Supabase access tokens server-side. `POST /participant/bootstrap`
+  verifies the bearer token, invokes the database-owned bootstrap using the same user JWT, and
+  verifies the resulting row through participant-owner RLS. Its response is no-store. The BFF owns
+  browser sessions with Secure/HttpOnly/SameSite cookies and
+  CSRF checks; public registration, referral submissions, and participant data collection are not
+  enabled.
 - PostgreSQL migrations define participant roles, unique referral codes/references, referral
   attribution and prospective-student details, admission status history, consent records, duplicate
   review flags, fixed €170 reward qualification, separate payment records, and audit events.
 - RLS is enabled. Authenticated database users have owner-scoped read policies only; browser writes
   are revoked. Admin and participant authorization for service-role API operations must be enforced
   in the API before any data endpoints are added.
+- `bootstrap_referral_participant()` is executable only by `authenticated`, derives its actor from
+  `auth.uid()`, assigns only the default participant role, and writes a minimal audit event in the
+  same transaction. The API does not use its service-role key for this operation. Production
+  deployment of this local migration remains gated on Phase 1 verification.
 
 ## Local setup
 
@@ -75,6 +83,7 @@ confirmation workflow must be implemented and audited in a later phase.
 | `PORT`                      | Render-provided listener port; defaults to `3000` locally.                                                                                                         |
 | `NODE_ENV`                  | Runtime environment.                                                                                                                                               |
 | `SUPABASE_URL`              | Supabase project URL.                                                                                                                                              |
+| `SUPABASE_ANON_KEY`         | Public Supabase key used with a verified participant JWT for user-scoped RLS operations. It cannot replace the bearer token or assign actor identity.              |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only database access key. Store only in Render's secret environment configuration. Never use in frontend code or logs.                                      |
 | `WEB_ORIGINS`               | Comma-separated exact browser origins allowed by CORS. Wildcards are rejected. Render's blueprint defaults to `https://franklyedu.com`; add only approved origins. |
 

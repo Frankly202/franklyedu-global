@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 
 import { createApiApp } from "./app.js";
+import { createAccessTokenVerifier } from "./auth.js";
+import { createParticipantBootstrap } from "./participant.js";
 import { loadConfig } from "./config.js";
 
 try {
@@ -21,10 +23,20 @@ try {
   const app = createApiApp({
     allowedOrigins: config.allowedOrigins,
     checkDatabase: async () => {
-      const { data, error } = await databaseClient.rpc("referral_api_health_check");
+      const { data, error } = await databaseClient.rpc(
+        "referral_api_health_check",
+      );
       if (error) return false;
       return data === true;
     },
+    verifyAccessToken: createAccessTokenVerifier(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseServiceRoleKey,
+    ),
+    bootstrapParticipant: createParticipantBootstrap(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseAnonKey,
+    ),
     log: (entry) => {
       const serialized = JSON.stringify(entry);
       if (entry["event"] === "http_error") console.error(serialized);

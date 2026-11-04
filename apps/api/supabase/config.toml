@@ -14,9 +14,13 @@ shadow_port = 55430
 [auth]
 enabled = true
 site_url = "http://localhost:5173"
-additional_redirect_urls = ["http://localhost:5173"]
+additional_redirect_urls = ["http://localhost:5173", "http://localhost:5173/referrals/recovery/callback"]
 jwt_expiry = 3600
 enable_signup = true
+
+[auth.email.template.recovery]
+subject = "Reset your FranklyEdu local test account password"
+content_path = "./supabase/templates/recovery.html"
 
 [edge_runtime]
 enabled = false

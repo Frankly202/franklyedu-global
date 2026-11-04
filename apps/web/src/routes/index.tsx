@@ -7,7 +7,17 @@ import { images, whatsappLink } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 import { useTranslations } from "@/data/translations";
 import { localizeText, localizeTree } from "@/data/translations/localize";
-import { GraduationCap, Building2, Palette, Check, ArrowRight, MessageCircle } from "lucide-react";
+import {
+  GraduationCap,
+  Building2,
+  Palette,
+  Check,
+  ArrowRight,
+  MessageCircle,
+  UsersRound,
+  Pause,
+  Play,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -21,7 +31,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const navigate = useNavigate();
-  const { locale, home: t } = useTranslations();
+  const { locale, home: t, referral } = useTranslations();
   const localizedDestinations = localizeTree(locale, destinations);
   const localizedUniversities = localizeTree(
     locale,
@@ -30,11 +40,12 @@ function Index() {
   const localizedProperties = localizeTree(locale, realEstateListings);
 
   const [country, setCountry] = useState("");
+  const [referralAnnouncementPaused, setReferralAnnouncementPaused] = useState(false);
 
   return (
     <>
       {/* 1. Multi-Pillar Hero */}
-      <section className="relative overflow-hidden bg-navy text-white">
+      <section data-home-hero className="relative overflow-hidden bg-navy text-white">
         {/* Subtle Background Watermark */}
         <div
           aria-hidden="true"
@@ -89,6 +100,31 @@ function Index() {
                 </a>
               </div>
 
+              <Link
+                to="/referrals"
+                data-home-referral-ribbon
+                className="group flex min-h-20 items-center gap-3 rounded-2xl border border-sky-contrast/35 bg-white/10 p-4 text-left shadow-sm transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-contrast sm:gap-4 sm:p-5"
+              >
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-sky-contrast text-navy sm:h-12 sm:w-12">
+                  <UsersRound aria-hidden="true" className="h-6 w-6" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-xs font-bold tracking-wide text-sky-contrast uppercase">
+                    {referral.homePromo.eyebrow}
+                  </span>
+                  <span className="mt-1 block text-sm leading-snug font-semibold text-white sm:text-base">
+                    {referral.homePromo.title}
+                  </span>
+                  <span className="mt-1 block text-xs leading-relaxed text-navy-muted sm:text-sm">
+                    {referral.homePromo.description}
+                  </span>
+                </span>
+                <ArrowRight
+                  aria-hidden="true"
+                  className="h-5 w-5 shrink-0 text-sky-contrast transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+                />
+              </Link>
+
               {/* Interactive Search Filter Box */}
               <form
                 className="mt-6 grid gap-3 rounded-2xl border-2 border-cream bg-white p-4 text-navy shadow-panel sm:grid-cols-[1fr_auto] sm:items-end"
@@ -124,9 +160,65 @@ function Index() {
             </div>
 
             {/* Right Column: Brand image and enquiry information */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5" data-home-hero-image-column>
+              <div
+                data-referral-marquee
+                data-paused={referralAnnouncementPaused}
+                className="mb-4 flex min-w-0 items-center gap-3 overflow-hidden rounded-xl border border-sky-contrast/25 bg-white px-3 py-2.5 text-navy shadow-sm sm:mb-5"
+              >
+                <Link
+                  to="/referrals"
+                  data-referral-marquee-link
+                  aria-label={`${referral.homePromo.title}. ${referral.homePromo.cta}`}
+                  className="min-w-0 flex-1 overflow-hidden rounded-md text-sm font-semibold text-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  <span className="referral-marquee-track" aria-hidden="true">
+                    {[0, 1].map((copy) => (
+                      <span
+                        key={copy}
+                        className="flex shrink-0 items-center gap-8 pr-8 whitespace-nowrap"
+                        data-referral-marquee-copy={copy}
+                      >
+                        <span>{referral.homePromo.title}</span>
+                        <span aria-hidden="true" className="text-sky">
+                          •
+                        </span>
+                        <span>{referral.homePromo.description}</span>
+                        <span aria-hidden="true" className="text-sky">
+                          •
+                        </span>
+                      </span>
+                    ))}
+                  </span>
+                </Link>
+                <button
+                  type="button"
+                  data-referral-marquee-control
+                  aria-label={
+                    referralAnnouncementPaused
+                      ? referral.homePromo.resume
+                      : referral.homePromo.pause
+                  }
+                  onClick={() => setReferralAnnouncementPaused((paused) => !paused)}
+                  className="referral-marquee-controls inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-xs font-semibold text-navy transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  {referralAnnouncementPaused ? (
+                    <Play aria-hidden="true" className="h-3.5 w-3.5" />
+                  ) : (
+                    <Pause aria-hidden="true" className="h-3.5 w-3.5" />
+                  )}
+                  <span className="sr-only sm:not-sr-only">
+                    {referralAnnouncementPaused
+                      ? referral.homePromo.resume
+                      : referral.homePromo.pause}
+                  </span>
+                </button>
+              </div>
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-white/20 bg-navy-soft shadow-panel">
+                <div
+                  data-home-hero-image
+                  className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-white/20 bg-navy-soft shadow-panel"
+                >
                   <img
                     src={images.hero}
                     srcSet={`${images.heroMobile} 768w, ${images.hero} ${images.heroWidth}w`}
@@ -155,6 +247,34 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <Section className="border-b border-border bg-white py-10 sm:py-14">
+        <div
+          data-home-referral-section
+          className="grid items-center gap-6 rounded-3xl bg-cream p-5 sm:p-8 lg:grid-cols-[1fr_auto] lg:gap-10 lg:p-10"
+        >
+          <div className="max-w-3xl">
+            <p className="eyebrow text-sky">{referral.homePromo.eyebrow}</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+              {referral.homePromo.title}
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {referral.homePromo.description}
+            </p>
+            <p className="mt-4 inline-flex max-w-full items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-3 py-2 text-xs leading-relaxed font-semibold text-amber-950 sm:text-sm">
+              <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+              {referral.homePromo.status}
+            </p>
+          </div>
+          <Link
+            to="/referrals"
+            className="btn btn-primary min-h-12 w-full justify-center gap-2 sm:w-auto"
+          >
+            {referral.homePromo.cta}
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+      </Section>
 
       {/* 2. Services Section (4 Pillars) */}
       <Section className="py-14 sm:py-20">

@@ -14,9 +14,12 @@ export function parseLocalSupabaseStatus(output) {
   }
 
   const apiUrl = values["API_URL"];
+  const anonKey = values["ANON_KEY"];
   const serviceRoleKey = values["SERVICE_ROLE_KEY"];
-  if (!apiUrl || !serviceRoleKey) {
-    throw new Error("Local Supabase status is missing the local API URL or service key.");
+  if (!apiUrl || !anonKey || !serviceRoleKey) {
+    throw new Error(
+      "Local Supabase status is missing the local API URL or required keys.",
+    );
   }
 
   let parsedUrl;
@@ -26,13 +29,16 @@ export function parseLocalSupabaseStatus(output) {
     throw new Error("Local Supabase returned an invalid API URL.");
   }
 
-  const localHost = ["localhost", "127.0.0.1", "::1"].includes(parsedUrl.hostname);
+  const localHost = ["localhost", "127.0.0.1", "::1"].includes(
+    parsedUrl.hostname,
+  );
   if (parsedUrl.protocol !== "http:" || !localHost) {
     throw new Error("Local development requires a loopback Supabase API URL.");
   }
 
   return {
     SUPABASE_URL: parsedUrl.origin,
+    SUPABASE_ANON_KEY: anonKey,
     SUPABASE_SERVICE_ROLE_KEY: serviceRoleKey,
   };
 }
@@ -58,7 +64,9 @@ function getLocalSupabaseConfig() {
       throw new Error("Supabase CLI is required for local API development.");
     }
     if (start.status !== 0) {
-      throw new Error("Could not start local Supabase; check the CLI and Docker status.");
+      throw new Error(
+        "Could not start local Supabase; check the CLI and Docker status.",
+      );
     }
 
     status = runSupabase(["status", "--output", "env"]);
@@ -103,16 +111,23 @@ function startApi() {
   });
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (
+  process.argv[1] &&
+  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
   try {
     if (process.argv.includes("--supabase-start")) {
       getLocalSupabaseConfig();
-      console.info("Local Supabase is ready; generated credentials were not printed.");
+      console.info(
+        "Local Supabase is ready; generated credentials were not printed.",
+      );
     } else {
       startApi();
     }
   } catch (error) {
-    console.error(error instanceof Error ? error.message : "Local API startup failed.");
+    console.error(
+      error instanceof Error ? error.message : "Local API startup failed.",
+    );
     process.exitCode = 1;
   }
 }

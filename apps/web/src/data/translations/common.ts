@@ -5,6 +5,7 @@ export interface CommonTranslation {
     countries: string;
     scholarships: string;
     services: string;
+    referrals: string;
     marketplace: string;
     about: string;
     contact: string;
@@ -33,6 +34,7 @@ export interface CommonTranslation {
     realEstateDesc: string;
     aboutDesc: string;
     contactDesc: string;
+    referralsDesc: string;
   };
   footer: {
     tagline: string;
@@ -107,6 +109,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       countries: "Countries",
       scholarships: "Scholarships",
       services: "Services",
+      referrals: "Referral Programme",
       marketplace: "Marketplace",
       about: "About",
       contact: "Contact",
@@ -135,6 +138,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       realEstateDesc: "Ask about the property listing shown on this site",
       aboutDesc: "Our approach and contact information",
       contactDesc: "Send us a WhatsApp or email enquiry",
+      referralsDesc: "Programme information; participation is not yet open",
     },
     footer: {
       tagline: "Information on study options, property listings, and digital services.",
@@ -212,6 +216,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       countries: "Ülkeler",
       scholarships: "Burslar",
       services: "Hizmetler",
+      referrals: "Öğrenci Tavsiye Programı",
       marketplace: "Pazar Yeri",
       about: "Hakkımızda",
       contact: "İletişim",
@@ -240,6 +245,7 @@ export const commonTranslations: Record<"en" | "tr", CommonTranslation> = {
       realEstateDesc: "Bu sitedeki gayrimenkul ilanını sorun",
       aboutDesc: "Yaklaşımımız ve iletişim bilgilerimiz",
       contactDesc: "WhatsApp veya e-posta ile bize ulaşın",
+      referralsDesc: "Program bilgileri; katılım henüz açık değil",
     },
     footer: {
       tagline: "Eğitim seçenekleri, gayrimenkul ilanları ve dijital hizmetler hakkında bilgi.",

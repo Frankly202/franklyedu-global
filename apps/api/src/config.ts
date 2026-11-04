@@ -3,6 +3,7 @@ export interface ApiConfig {
   port: number;
   supabaseUrl: URL;
   supabaseServiceRoleKey: string;
+  supabaseAnonKey: string;
   allowedOrigins: Set<string>;
 }
 
@@ -19,7 +20,9 @@ function parseOriginList(value: string): Set<string> {
     .filter(Boolean);
 
   if (origins.length === 0 || origins.includes("*")) {
-    throw new Error("WEB_ORIGINS must contain explicit origins and cannot include a wildcard.");
+    throw new Error(
+      "WEB_ORIGINS must contain explicit origins and cannot include a wildcard.",
+    );
   }
 
   return new Set(
@@ -34,8 +37,13 @@ function parseOriginList(value: string): Set<string> {
       const localHttp =
         parsed.protocol === "http:" &&
         (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1");
-      if ((!localHttp && parsed.protocol !== "https:") || parsed.origin !== origin) {
-        throw new Error("WEB_ORIGINS entries must be HTTPS origins (except local development).");
+      if (
+        (!localHttp && parsed.protocol !== "https:") ||
+        parsed.origin !== origin
+      ) {
+        throw new Error(
+          "WEB_ORIGINS entries must be HTTPS origins (except local development).",
+        );
       }
       return parsed.origin;
     }),
@@ -51,9 +59,16 @@ function parseSupabaseUrl(value: string): URL {
   }
 
   const localHttp =
-    url.protocol === "http:" && (url.hostname === "localhost" || url.hostname === "127.0.0.1");
-  if ((!localHttp && url.protocol !== "https:") || url.username || url.password) {
-    throw new Error("SUPABASE_URL must use HTTPS and must not contain embedded credentials.");
+    url.protocol === "http:" &&
+    (url.hostname === "localhost" || url.hostname === "127.0.0.1");
+  if (
+    (!localHttp && url.protocol !== "https:") ||
+    url.username ||
+    url.password
+  ) {
+    throw new Error(
+      "SUPABASE_URL must use HTTPS and must not contain embedded credentials.",
+    );
   }
   return url;
 }
@@ -69,6 +84,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
     port,
     supabaseUrl: parseSupabaseUrl(requiredValue(env, "SUPABASE_URL")),
     supabaseServiceRoleKey: requiredValue(env, "SUPABASE_SERVICE_ROLE_KEY"),
+    supabaseAnonKey: requiredValue(env, "SUPABASE_ANON_KEY"),
     allowedOrigins: parseOriginList(requiredValue(env, "WEB_ORIGINS")),
   };
 }

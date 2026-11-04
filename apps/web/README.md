@@ -49,6 +49,21 @@ bun run dev --host 127.0.0.1 --port 5173
 
 No `.env` file, API key, database, or external account is required to run the website locally.
 
+### Local account recovery testing
+
+Recovery request/reset pages are available at `/referrals/recovery` and
+`/referrals/recovery/reset`. Email dispatch and password updates are deliberately disabled
+in production, with hosted Supabase configuration, or outside the approved local origin.
+The approved local callback is **`http://localhost:5173/referrals/recovery/callback`**;
+`127.0.0.1` is not an interchangeable callback origin.
+
+With local Supabase running and authorization to create a temporary test account, run
+`bun run test:recovery:local` inside `apps/web`. This tests the local Mailpit email, one-time
+recovery link, password update, CSRF, cookie cleanup and failure states, then removes only
+its own account/email. It overrides configuration in its process, not `.env` files.
+The runner needs an available IPv4 port 5173 and closes its own listener afterward.
+Never use production accounts or enable public recovery from this local test evidence.
+
 The [Bun configuration](./bunfig.toml) sets a 24-hour minimum release age for package installation.
 Keep the committed lockfile; do not switch package managers or regenerate dependencies just to
 start the project.

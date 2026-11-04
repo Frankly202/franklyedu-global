@@ -7,6 +7,7 @@ import { createServer as createViteServer } from "vite";
 const routes = [
   "/",
   "/about",
+  "/contact",
   "/courses",
   "/universities",
   "/countries",
@@ -15,12 +16,11 @@ const routes = [
   "/marketplace",
   "/accommodation",
   "/real-estate",
-  "/contact",
   "/application",
   "/real-estate/sarcon-87-renovated-villa-north-cyprus",
 ];
 
-const retiredRoutes = ["/student", "/login", "/signup"];
+const retiredRoutes = ["/student"];
 const pageHeroBackgrounds = {
   "/universities": { name: "campus", asset: "/background/campus-background.png" },
   "/courses": { name: "campus", asset: "/background/campus-background.png" },
@@ -326,6 +326,7 @@ async function startDevServer() {
   const port = await getAvailablePort();
   const server = await createViteServer({
     configFile: "./vite.config.ts",
+    envDir: false,
     server: { host: "127.0.0.1", port, strictPort: true },
   });
   const baseUrl = `http://127.0.0.1:${port}`;
@@ -1817,6 +1818,10 @@ async function runSmokeTests() {
   let server;
   let baseUrl = process.env.BASE_URL;
   if (!baseUrl) {
+    // Public-page smoke tests must not inherit a developer's hosted Auth credentials.
+    // Real Auth checks use the loopback-only test:auth:local runner instead.
+    process.env["SUPABASE_URL"] = "";
+    process.env["SUPABASE_ANON_KEY"] = "";
     ({ server, baseUrl } = await startDevServer());
   }
 
@@ -1998,6 +2003,460 @@ async function runSmokeTests() {
         `${route} must not render an account form or preview dashboard.`,
       );
     }
+    console.log("Checking referral pages are localized and do not collect data...");
+    const referralPageCopy = {
+      en: {
+        language: "English",
+        join: "Check participation status",
+        login: "Log in",
+        title: {
+          "/referrals": "Student Referral Programme",
+          "/login": "Login",
+          "/signup": "Registration is not available yet",
+        },
+        status: "Programme rules and the collection notice are awaiting final approval.",
+        marqueeTitle: "Explore a more connected study journey",
+      },
+      tr: {
+        language: "Türkçe",
+        join: "Katılım durumunu kontrol edin",
+        login: "Giriş yap",
+        title: {
+          "/referrals": "Öğrenci Tavsiye Programı",
+          "/login": "Giriş yap",
+          "/signup": "Kayıt henüz kullanılamıyor",
+        },
+        status: "Program kuralları ve veri toplama bildirimi son onayı bekliyor.",
+        marqueeTitle: "Daha bağlantılı bir eğitim yolculuğunu keşfedin",
+      },
+      fr: {
+        language: "Français",
+        join: "Vérifier le statut de participation",
+        login: "Se connecter",
+        title: {
+          "/referrals": "Programme de recommandation d’étudiants",
+          "/login": "Connexion",
+          "/signup": "Les inscriptions ne sont pas encore ouvertes",
+        },
+        status:
+          "Le règlement du programme et la notice de collecte attendent leur approbation finale.",
+        marqueeTitle: "Découvrez un parcours d’études plus connecté",
+      },
+      sw: {
+        language: "Kiswahili",
+        join: "Angalia hali ya ushiriki",
+        login: "Ingia",
+        title: {
+          "/referrals": "Mpango wa Rufaa wa Wanafunzi",
+          "/login": "Ingia",
+          "/signup": "Usajili bado haupatikani",
+        },
+        status: "Kanuni za mpango na notisi ya ukusanyaji taarifa zinasubiri idhini ya mwisho.",
+        marqueeTitle: "Gundua safari ya masomo yenye muunganiko zaidi",
+      },
+    };
+    for (const [locale, copy] of Object.entries(referralPageCopy)) {
+      await gotoReady(page, `${baseUrl}/`);
+      await selectLanguage(page, copy.language, locale);
+      for (const route of ["/referrals", "/login", "/signup"]) {
+        await gotoReady(page, `${baseUrl}${route}`);
+        assert.equal(await page.locator("html").getAttribute("lang"), locale);
+        assert.equal(await page.locator("main h1").innerText(), copy.title[route]);
+        if (route === "/login") {
+          assert.equal(await page.locator("main form").count(), 1);
+          assert.equal(await page.locator('main input[type="email"]').count(), 1);
+          assert.equal(await page.locator('main input[type="password"]').count(), 1);
+          assert.equal(await page.locator("main input[name]").count(), 2);
+        } else if (route === "/signup") {
+          assert.equal(await page.locator("main input").count(), 3);
+          assert.equal(
+            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
+            0,
+          );
+          assert.equal(await page.locator("main fieldset[disabled]").count(), 1);
+        } else {
+          assert.equal(await page.locator("main form, main input").count(), 0);
+        }
+        assert.match(
+          (await page.locator('meta[name="robots"]').getAttribute("content")) ?? "",
+          /noindex/,
+        );
+        if (route === "/referrals") {
+          assert.ok((await page.locator("main").innerText()).includes(copy.status));
+          assert.equal(await page.locator("[data-referral-journey] li").count(), 3);
+          assert.equal(await page.locator("[data-referral-faq] details").count(), 5);
+          assert.equal(await page.locator("main form, main input").count(), 0);
+          assert.equal(
+            await page.getByRole("link", { name: copy.join }).getAttribute("href"),
+            "/signup",
+          );
+          assert.equal(
+            await page.getByRole("link", { name: copy.login }).getAttribute("href"),
+            "/login",
+          );
+        }
+      }
+    }
+    console.log(
+      "Checking the homepage referral promotion and public landing page across locales...",
+    );
+    const referralNavLabels = {
+      en: "Referral Programme",
+      tr: "Öğrenci Tavsiye Programı",
+      fr: "Programme de recommandation",
+      sw: "Mpango wa Rufaa ya Wanafunzi",
+    };
+    for (const [locale, copy] of Object.entries(referralPageCopy)) {
+      await gotoReady(page, `${baseUrl}/`);
+      await selectLanguage(page, copy.language, locale);
+      for (const width of [375, 768, 1280, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        await gotoReady(page, `${baseUrl}/`);
+        assert.equal(await page.locator("html").getAttribute("lang"), locale);
+        assert.equal(
+          await page.locator("[data-home-referral-ribbon]").getAttribute("href"),
+          "/referrals",
+        );
+        assert.equal(
+          await page.locator("[data-home-referral-section] a.btn-primary").getAttribute("href"),
+          "/referrals",
+        );
+        const marquee = page.locator("[data-referral-marquee]");
+        const marqueeLink = marquee.locator("[data-referral-marquee-link]");
+        assert.equal(await marquee.count(), 1);
+        assert.equal(
+          await page.locator("[data-home-referral-section] [data-referral-marquee]").count(),
+          0,
+          "The old post-hero ticker placement must remain empty.",
+        );
+        assert.equal(
+          await marquee.evaluate(
+            (ticker) =>
+              ticker.parentElement?.matches("[data-home-hero-image-column]") &&
+              ticker.nextElementSibling?.querySelector("[data-home-hero-image]") !== null,
+          ),
+          true,
+          `${locale} referral ticker must be above the hero image.`,
+        );
+        assert.equal(await marqueeLink.getAttribute("href"), "/referrals");
+        assert.ok(
+          (await marqueeLink.getAttribute("aria-label"))?.includes(
+            referralPageCopy[locale].marqueeTitle,
+          ),
+          `${locale} referral ticker must have one accessible link name.`,
+        );
+        assert.equal(
+          await marquee.locator(".referral-marquee-track").getAttribute("aria-hidden"),
+          "true",
+        );
+        assert.equal(await marquee.locator("[data-referral-marquee-copy]").count(), 2);
+        assert.ok(
+          await page
+            .locator("[data-home-referral-section]")
+            .innerText()
+            .then((text) =>
+              text.includes(
+                {
+                  en: "Programme details are being finalized",
+                  tr: "Program ayrıntıları tamamlanıyor",
+                  fr: "Les détails du programme sont en cours de finalisation",
+                  sw: "Maelezo ya mpango yanakamilishwa",
+                }[locale],
+              ),
+            ),
+        );
+        const sectionOrder = await page
+          .locator("[data-home-referral-section]")
+          .evaluate((element) => {
+            const section = element.closest("section");
+            return section?.previousElementSibling?.matches("[data-home-hero]") ?? false;
+          });
+        assert.equal(
+          sectionOrder,
+          true,
+          "Homepage referral section must immediately follow the hero.",
+        );
+        const viewportState = await page.evaluate(() => ({
+          width: document.documentElement.clientWidth,
+          scrollWidth: document.documentElement.scrollWidth,
+        }));
+        assert.ok(viewportState.scrollWidth <= viewportState.width);
+
+        if (width >= 1280) {
+          assert.equal(await page.locator('header nav a[href="/contact"]').count(), 1);
+          const desktopReferral = page.getByRole("link", {
+            name: referralNavLabels[locale],
+            exact: true,
+          });
+          assert.ok(await desktopReferral.isVisible());
+          await desktopReferral.click();
+          assert.equal(new URL(page.url()).pathname, "/referrals");
+        } else {
+          await page
+            .getByRole("button", { name: /Open menu|Menüyü aç|Ouvrir le menu|Fungua menyu/ })
+            .click();
+          assert.equal(await page.locator('#mobile-navigation a[href="/contact"]').count(), 1);
+          const mobileReferral = page.locator("#mobile-navigation").getByRole("link", {
+            name: referralNavLabels[locale],
+          });
+          assert.ok(await mobileReferral.isVisible());
+          await mobileReferral.click();
+          assert.equal(new URL(page.url()).pathname, "/referrals");
+        }
+        if (width === 375) {
+          await gotoReady(page, `${baseUrl}/`);
+          const pauseControl = page.locator("[data-referral-marquee-control]");
+          await pauseControl.click();
+          assert.equal(await marquee.getAttribute("data-paused"), "true");
+          assert.equal(
+            await marquee
+              .locator(".referral-marquee-track")
+              .evaluate((track) => getComputedStyle(track).animationPlayState),
+            "paused",
+          );
+          await pauseControl.focus();
+          await page.keyboard.press("Enter");
+          assert.equal(await marquee.getAttribute("data-paused"), "false");
+          assert.equal(
+            await pauseControl.getAttribute("aria-label"),
+            {
+              en: "Pause announcement",
+              tr: "Duyuruyu duraklat",
+              fr: "Mettre l’annonce en pause",
+              sw: "Sitisha tangazo",
+            }[locale],
+          );
+        }
+      }
+
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await gotoReady(page, `${baseUrl}/`);
+      assert.equal(
+        await page
+          .locator("[data-referral-marquee] .referral-marquee-track")
+          .evaluate((track) => getComputedStyle(track).animationName),
+        "none",
+        `${locale} reduced-motion ticker must be static.`,
+      );
+      assert.equal(
+        await page
+          .locator('[data-referral-marquee-copy="1"]')
+          .evaluate((copy) => getComputedStyle(copy).display),
+        "none",
+        `${locale} reduced-motion ticker must not display the duplicate copy.`,
+      );
+      assert.equal(
+        await page
+          .locator("[data-referral-marquee-control]")
+          .evaluate((control) => getComputedStyle(control).display),
+        "none",
+        `${locale} reduced-motion ticker must not expose a nonfunctional pause control.`,
+      );
+      assert.ok(await page.locator('[data-referral-marquee-copy="0"]').isVisible());
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+
+      await page.setViewportSize({ width: 375, height: 812 });
+      await gotoReady(page, `${baseUrl}/referrals`);
+      assert.equal(await page.locator("[data-referral-journey] li").count(), 3);
+      assert.equal(await page.locator("[data-referral-faq] details").count(), 5);
+      assert.equal(await page.locator("main form, main input").count(), 0);
+      const firstFaq = page.locator("[data-referral-faq] summary").first();
+      await firstFaq.focus();
+      await page.keyboard.press("Enter");
+      assert.equal(
+        await page
+          .locator("[data-referral-faq] details")
+          .first()
+          .evaluate((element) => element.open),
+        true,
+      );
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+        ),
+      );
+    }
+
+    console.log("Checking password visibility and responsive referral/auth layouts...");
+    await gotoReady(page, `${baseUrl}/`);
+    await selectLanguage(page, "English", "en");
+    await gotoReady(page, `${baseUrl}/login`);
+    const passwordInput = page.locator("#referral-login-password");
+    await passwordInput.fill("preserve-this-password");
+    await passwordInput.focus();
+    await page.keyboard.press("Tab");
+    const showPasswordButton = page.getByRole("button", { name: "Show password" });
+    assert.ok(await showPasswordButton.evaluate((element) => element === document.activeElement));
+    await page.keyboard.press("Enter");
+    assert.equal(await passwordInput.getAttribute("type"), "text");
+    assert.equal(await passwordInput.inputValue(), "preserve-this-password");
+    const hidePasswordButton = page.getByRole("button", { name: "Hide password" });
+    assert.equal(await hidePasswordButton.getAttribute("aria-pressed"), "true");
+    await page.keyboard.press("Space");
+    assert.equal(await passwordInput.getAttribute("type"), "password");
+    assert.equal(await passwordInput.inputValue(), "preserve-this-password");
+    assert.equal(await showPasswordButton.getAttribute("aria-pressed"), "false");
+
+    for (const viewport of [
+      { width: 375, height: 812, name: "mobile" },
+      { width: 768, height: 1024, name: "tablet" },
+      { width: 1440, height: 1000, name: "desktop" },
+    ]) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      for (const route of ["/referrals", "/login", "/signup"]) {
+        await gotoReady(page, `${baseUrl}${route}`);
+        const layout = await page.evaluate(() => {
+          const panel = document.querySelector("[data-referral-panel]");
+          const heading = document.querySelector("main h1");
+          const panelRect = panel?.getBoundingClientRect();
+          const headingRect = heading?.getBoundingClientRect();
+          return {
+            viewportWidth: document.documentElement.clientWidth,
+            documentWidth: document.documentElement.scrollWidth,
+            panelLeft: panelRect?.left ?? null,
+            panelRight: panelRect?.right ?? null,
+            headingLeft: headingRect?.left ?? null,
+            headingRight: headingRect?.right ?? null,
+          };
+        });
+        assert.ok(
+          layout.documentWidth <= layout.viewportWidth,
+          `${viewport.name} ${route} must not overflow horizontally.`,
+        );
+        assert.ok(layout.panelLeft !== null && layout.panelLeft >= 0);
+        assert.ok(layout.panelRight !== null && layout.panelRight <= viewport.width);
+        assert.ok(layout.headingLeft !== null && layout.headingLeft >= 0);
+        assert.ok(layout.headingRight !== null && layout.headingRight <= viewport.width);
+        for (const action of await page
+          .locator("[data-referral-panel] a, [data-referral-panel] button")
+          .all()) {
+          const rect = await action.boundingBox();
+          assert.ok(rect && rect.x >= 0 && rect.x + rect.width <= viewport.width);
+        }
+
+        if (route === "/login") {
+          for (const field of ["#referral-login-email", "#referral-login-password"]) {
+            const rect = await page.locator(field).boundingBox();
+            assert.ok(rect && rect.x >= 0 && rect.x + rect.width <= viewport.width);
+          }
+          assert.ok(await page.getByRole("button", { name: "Show password" }).isVisible());
+          assert.ok(await page.getByRole("button", { name: "Log in" }).isVisible());
+        } else if (route === "/referrals") {
+          assert.ok(
+            await page.getByRole("link", { name: "Check participation status" }).isVisible(),
+          );
+          assert.ok(await page.getByRole("link", { name: "Log in" }).isVisible());
+        } else {
+          assert.equal(
+            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
+            0,
+          );
+          assert.ok(
+            await page.getByRole("link", { name: "Return to the referral programme" }).isVisible(),
+          );
+        }
+      }
+    }
+
+    console.log("Checking localized recovery screens remain gated and responsive...");
+    for (const [locale, language, requestTitle, resetTitle] of [
+      ["en", "English", "Recover your account", "Reset your password"],
+      ["tr", "Türkçe", "Hesabınızı kurtarın", "Şifrenizi sıfırlayın"],
+      ["fr", "Français", "Récupérer votre compte", "Réinitialiser votre mot de passe"],
+      ["sw", "Kiswahili", "Rejesha akaunti yako", "Weka upya nenosiri"],
+    ]) {
+      await gotoReady(page, `${baseUrl}/`);
+      await selectLanguage(page, language, locale);
+      for (const width of [375, 768, 1440]) {
+        await page.setViewportSize({ width, height: 1000 });
+        for (const [route, title, fields] of [
+          ["/referrals/recovery", requestTitle, 1],
+          ["/referrals/recovery/reset", resetTitle, 2],
+          [
+            "/participant",
+            {
+              en: "Participant account",
+              tr: "Katılımcı hesabı",
+              fr: "Compte participant",
+              sw: "Akaunti ya mshiriki",
+            }[locale],
+            0,
+          ],
+        ]) {
+          await gotoReady(page, `${baseUrl}${route}`);
+          assert.equal(await page.locator("main h1").innerText(), title);
+          assert.equal(await page.locator("html").getAttribute("lang"), locale);
+          assert.equal(await page.locator("main input").count(), fields);
+          assert.equal(
+            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
+            0,
+          );
+          if (route === "/participant") {
+            const unavailable = {
+              en: "The participant account is temporarily unavailable. Please try again later.",
+              tr: "Katılımcı hesabı geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+              fr: "Le compte participant est temporairement indisponible. Veuillez réessayer plus tard.",
+              sw: "Akaunti ya mshiriki haipatikani kwa sasa. Tafadhali jaribu tena baadaye.",
+            }[locale];
+            assert.equal(await page.getByRole("alert").innerText(), unavailable);
+          }
+          assert.ok(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+            ),
+          );
+          for (const field of await page
+            .locator(
+              "[data-referral-panel] input, [data-referral-panel] button, [data-referral-panel] a",
+            )
+            .all()) {
+            const rect = await field.boundingBox();
+            assert.ok(rect && rect.x >= 0 && rect.x + rect.width <= width);
+          }
+        }
+      }
+    }
+    await gotoReady(page, `${baseUrl}/`);
+    await selectLanguage(page, "English", "en");
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await gotoReady(page, `${baseUrl}/referrals/recovery/callback?type=recovery`);
+    assert.ok(page.url().endsWith("/referrals/recovery/reset?status=invalid"));
+    assert.equal(await page.locator("main input").count(), 0);
+
+    console.log("Checking referral login is CSRF-protected and collects no student details...");
+    await gotoReady(page, `${baseUrl}/login`);
+    await page.locator('main input[name="email"]').fill("csrf-check@example.invalid");
+    await page.locator('main input[name="password"]').fill("not-a-real-password");
+    let serverFunctionRequestPromise;
+    page.on("request", (request) => {
+      if (request.method() === "POST" && new URL(request.url()).origin === baseUrl) {
+        serverFunctionRequestPromise = request.allHeaders().then((headers) => ({
+          url: request.url(),
+          body: request.postData(),
+          headers,
+        }));
+      }
+    });
+    const sameOriginResponsePromise = page.waitForResponse(
+      (response) =>
+        response.request().method() === "POST" && new URL(response.url()).origin === baseUrl,
+    );
+    await page.locator('main form button[type="submit"]').click();
+    const sameOriginResponse = await sameOriginResponsePromise;
+    assert.equal(sameOriginResponse.status(), 200);
+    assert.ok(serverFunctionRequestPromise);
+    const serverFunctionRequest = await serverFunctionRequestPromise;
+    const csrfHeaders = { ...serverFunctionRequest.headers };
+    delete csrfHeaders["host"];
+    delete csrfHeaders["content-length"];
+    delete csrfHeaders["cookie"];
+    delete csrfHeaders["sec-fetch-site"];
+    csrfHeaders["origin"] = "https://cross-site.invalid";
+    const csrfResponse = await page.request.post(serverFunctionRequest.url, {
+      data: serverFunctionRequest.body,
+      headers: csrfHeaders,
+    });
+    assert.equal(csrfResponse.status(), 403, "Cross-origin login mutations must be rejected.");
     await gotoReady(page, `${baseUrl}/application`);
     for (const route of retiredRoutes) {
       const redirected = await page.evaluate(
@@ -2030,6 +2489,7 @@ async function runSmokeTests() {
       );
     }
     await gotoReady(page, `${baseUrl}/`);
+    await selectLanguage(page, "English", "en");
     assert.equal(
       await page.locator('a[href="/student"], a[href="/login"], a[href="/signup"]').count(),
       0,
@@ -2454,6 +2914,7 @@ async function runSmokeTests() {
       ["Courses", "/courses"],
       ["Countries", "/countries"],
       ["Scholarships", "/scholarships"],
+      ["Referral Programme", "/referrals"],
       ["Services", "/services"],
       ["Marketplace", "/marketplace"],
       ["About", "/about"],

@@ -325,6 +325,34 @@
   animation: mobile-drawer-enter 180ms ease-out both;
 }
 
+@keyframes referral-marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.referral-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: referral-marquee-scroll 32s linear infinite;
+}
+
+[data-referral-marquee][data-paused="true"] .referral-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .referral-marquee-track {
+    animation: none;
+    transform: none;
+  }
+
+  [data-referral-marquee-copy="1"],
+  .referral-marquee-controls {
+    display: none;
+  }
+}
+
 .page-hero-image,
 .page-hero-overlay {
   position: absolute;

@@ -1421,6 +1421,9 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Countries: "Pays",
     Scholarships: "Bourses",
     Services: "Services",
+    "Referral Programme": "Programme de recommandation",
+    "Programme information; participation is not yet open":
+      "Informations sur le programme ; la participation n’est pas encore ouverte",
     Marketplace: "Marché",
     About: "À propos",
     Contact: "Contact",
@@ -2744,6 +2747,9 @@ const phrases: Partial<Record<Exclude<Locale, "en">, Record<string, string>>> = 
     Countries: "Nchi",
     Scholarships: "Ufadhili wa masomo",
     Services: "Huduma",
+    "Referral Programme": "Mpango wa Rufaa ya Wanafunzi",
+    "Programme information; participation is not yet open":
+      "Taarifa za mpango; ushiriki bado haujafunguliwa",
     Marketplace: "Soko",
     About: "Kuhusu",
     Contact: "Mawasiliano",

@@ -4,6 +4,7 @@ import { homeTranslations, type HomeTranslation } from "./home";
 import { educationTranslations, type EducationTranslation } from "./education";
 import { marketplaceTranslations, type MarketplaceTranslation } from "./marketplace";
 import { portalTranslations, type PortalTranslation } from "./portal";
+import { referralTranslations, type ReferralTranslation } from "./referral";
 import { companyTranslations, type CompanyTranslation } from "./company";
 import { localizeTree } from "./localize";
 
@@ -13,6 +14,7 @@ export interface Translations {
   education: EducationTranslation;
   marketplace: MarketplaceTranslation;
   portal: PortalTranslation;
+  referral: ReferralTranslation;
   company: CompanyTranslation;
 }
 
@@ -23,6 +25,7 @@ export const translations: Record<Locale, Translations> = {
     education: educationTranslations.en,
     marketplace: marketplaceTranslations.en,
     portal: portalTranslations.en,
+    referral: referralTranslations.en,
     company: companyTranslations.en,
   },
   tr: {
@@ -31,6 +34,7 @@ export const translations: Record<Locale, Translations> = {
     education: educationTranslations.tr,
     marketplace: marketplaceTranslations.tr,
     portal: portalTranslations.tr,
+    referral: referralTranslations.tr,
     company: companyTranslations.tr,
   },
   fr: {
@@ -39,6 +43,7 @@ export const translations: Record<Locale, Translations> = {
     education: localizeTree("fr", educationTranslations.en),
     marketplace: localizeTree("fr", marketplaceTranslations.en),
     portal: localizeTree("fr", portalTranslations.en),
+    referral: referralTranslations.fr,
     company: localizeTree("fr", companyTranslations.en),
   },
   sw: {
@@ -47,6 +52,7 @@ export const translations: Record<Locale, Translations> = {
     education: localizeTree("sw", educationTranslations.en),
     marketplace: localizeTree("sw", marketplaceTranslations.en),
     portal: localizeTree("sw", portalTranslations.en),
+    referral: referralTranslations.sw,
     company: localizeTree("sw", companyTranslations.en),
   },
 };
@@ -63,6 +69,7 @@ export function useTranslations() {
     education: translations[locale].education,
     marketplace: translations[locale].marketplace,
     portal: translations[locale].portal,
+    referral: translations[locale].referral,
     company: translations[locale].company,
   };
 }
@@ -72,4 +79,5 @@ export * from "./home";
 export * from "./education";
 export * from "./marketplace";
 export * from "./portal";
+export * from "./referral";
 export * from "./company";

@@ -7,6 +7,7 @@ const baseEnvironment = {
   NODE_ENV: "test",
   PORT: "3000",
   SUPABASE_URL: "https://example-project.supabase.co",
+  SUPABASE_ANON_KEY: "test-only-anon-placeholder",
   SUPABASE_SERVICE_ROLE_KEY: "test-only-placeholder",
   WEB_ORIGINS: "https://franklyedu.com,http://localhost:5173",
 };
@@ -27,7 +28,8 @@ test("configuration rejects wildcard origins", () => {
 
 test("configuration rejects non-HTTPS non-local origins", () => {
   assert.throws(
-    () => loadConfig({ ...baseEnvironment, WEB_ORIGINS: "http://franklyedu.com" }),
+    () =>
+      loadConfig({ ...baseEnvironment, WEB_ORIGINS: "http://franklyedu.com" }),
     /must be HTTPS origins/,
   );
 });
@@ -40,5 +42,14 @@ test("configuration rejects Supabase URLs containing credentials", () => {
         SUPABASE_URL: "https://user:password@example-project.supabase.co",
       }),
     /must not contain embedded credentials/,
+  );
+});
+
+test("configuration requires the public Supabase key for user-scoped RLS requests", () => {
+  const withoutAnonKey = { ...baseEnvironment };
+  delete withoutAnonKey.SUPABASE_ANON_KEY;
+  assert.throws(
+    () => loadConfig(withoutAnonKey),
+    /Missing required configuration: SUPABASE_ANON_KEY/,
   );
 });

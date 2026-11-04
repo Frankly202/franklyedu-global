@@ -235,6 +235,7 @@ export function Navbar() {
     { label: common.nav.courses, to: "/courses" as const },
     { label: common.nav.countries, to: "/countries" as const },
     { label: common.nav.scholarships, to: "/scholarships" as const },
+    { label: common.nav.referrals, to: "/referrals" as const },
     { label: common.nav.services, to: "/services" as const },
     { label: common.nav.marketplace, to: "/marketplace" as const },
     { label: common.nav.about, to: "/about" as const },
@@ -265,6 +266,11 @@ export function Navbar() {
           label: common.nav.scholarships,
           to: "/scholarships" as const,
           desc: common.mobileDrawer.scholarshipsDesc,
+        },
+        {
+          label: common.nav.referrals,
+          to: "/referrals" as const,
+          desc: common.mobileDrawer.referralsDesc,
         },
       ],
     },
@@ -312,19 +318,19 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 relative border-b border-border bg-white text-foreground shadow-xs">
-      <div className="container-site relative z-10 flex h-16 items-center justify-between md:h-18 gap-3 lg:gap-4">
+      <div className="container-site relative z-10 flex h-16 items-center justify-between gap-3 md:h-18 lg:gap-4 xl:gap-2">
         <Logo />
 
         {/* Desktop Navigation */}
         <nav
-          className="hidden shrink-0 items-center gap-1 xl:flex"
+          className="hidden shrink-0 items-center gap-0 xl:flex 2xl:gap-1"
           aria-label={common.nav.mainNavigationLabel}
         >
           {desktopNavItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-md px-2.5 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-primary xl:text-sm"
+              className="rounded-md px-2 py-2 text-xs font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-primary"
               activeProps={{
                 className: "bg-primary !text-primary-foreground font-semibold shadow-xs",
               }}

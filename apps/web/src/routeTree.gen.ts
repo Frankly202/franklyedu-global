@@ -18,13 +18,18 @@ import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as ParticipantRouteImport } from './routes/participant'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
+import { Route as ReferralsRouteImport } from './routes/referrals'
 import { Route as ScholarshipsRouteImport } from './routes/scholarships'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as UniversitiesRouteImport } from './routes/universities'
 import { Route as RealEstateSlugRouteImport } from './routes/real-estate_.$slug'
+import { Route as ReferralsRecoveryRouteImport } from './routes/referrals_.recovery'
+import { Route as ReferralsRecoveryCallbackRouteImport } from './routes/referrals_.recovery_.callback'
+import { Route as ReferralsRecoveryResetRouteImport } from './routes/referrals_.recovery_.reset'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -71,9 +76,19 @@ const MarketplaceRoute = MarketplaceRouteImport.update({
   path: '/marketplace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParticipantRoute = ParticipantRouteImport.update({
+  id: '/participant',
+  path: '/participant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RealEstateRoute = RealEstateRouteImport.update({
   id: '/real-estate',
   path: '/real-estate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferralsRoute = ReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScholarshipsRoute = ScholarshipsRouteImport.update({
@@ -106,6 +121,22 @@ const RealEstateSlugRoute = RealEstateSlugRouteImport.update({
   path: '/real-estate/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReferralsRecoveryRoute = ReferralsRecoveryRouteImport.update({
+  id: '/referrals_/recovery',
+  path: '/referrals/recovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferralsRecoveryCallbackRoute =
+  ReferralsRecoveryCallbackRouteImport.update({
+    id: '/referrals_/recovery_/callback',
+    path: '/referrals/recovery/callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ReferralsRecoveryResetRoute = ReferralsRecoveryResetRouteImport.update({
+  id: '/referrals_/recovery_/reset',
+  path: '/referrals/recovery/reset',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -117,13 +148,18 @@ export interface FileRoutesByFullPath {
   '/courses': typeof CoursesRoute
   '/login': typeof LoginRoute
   '/marketplace': typeof MarketplaceRoute
+  '/participant': typeof ParticipantRoute
   '/real-estate': typeof RealEstateRoute
+  '/referrals': typeof ReferralsRoute
   '/scholarships': typeof ScholarshipsRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/student': typeof StudentRoute
   '/universities': typeof UniversitiesRoute
   '/real-estate/$slug': typeof RealEstateSlugRoute
+  '/referrals/recovery': typeof ReferralsRecoveryRoute
+  '/referrals/recovery/callback': typeof ReferralsRecoveryCallbackRoute
+  '/referrals/recovery/reset': typeof ReferralsRecoveryResetRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -135,13 +171,18 @@ export interface FileRoutesByTo {
   '/courses': typeof CoursesRoute
   '/login': typeof LoginRoute
   '/marketplace': typeof MarketplaceRoute
+  '/participant': typeof ParticipantRoute
   '/real-estate': typeof RealEstateRoute
+  '/referrals': typeof ReferralsRoute
   '/scholarships': typeof ScholarshipsRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/student': typeof StudentRoute
   '/universities': typeof UniversitiesRoute
   '/real-estate/$slug': typeof RealEstateSlugRoute
+  '/referrals/recovery': typeof ReferralsRecoveryRoute
+  '/referrals/recovery/callback': typeof ReferralsRecoveryCallbackRoute
+  '/referrals/recovery/reset': typeof ReferralsRecoveryResetRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -154,13 +195,18 @@ export interface FileRoutesById {
   '/courses': typeof CoursesRoute
   '/login': typeof LoginRoute
   '/marketplace': typeof MarketplaceRoute
+  '/participant': typeof ParticipantRoute
   '/real-estate': typeof RealEstateRoute
+  '/referrals': typeof ReferralsRoute
   '/scholarships': typeof ScholarshipsRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/student': typeof StudentRoute
   '/universities': typeof UniversitiesRoute
   '/real-estate_/$slug': typeof RealEstateSlugRoute
+  '/referrals_/recovery': typeof ReferralsRecoveryRoute
+  '/referrals_/recovery_/callback': typeof ReferralsRecoveryCallbackRoute
+  '/referrals_/recovery_/reset': typeof ReferralsRecoveryResetRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -174,13 +220,18 @@ export interface FileRouteTypes {
     | '/courses'
     | '/login'
     | '/marketplace'
+    | '/participant'
     | '/real-estate'
+    | '/referrals'
     | '/scholarships'
     | '/services'
     | '/signup'
     | '/student'
     | '/universities'
     | '/real-estate/$slug'
+    | '/referrals/recovery'
+    | '/referrals/recovery/callback'
+    | '/referrals/recovery/reset'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -192,13 +243,18 @@ export interface FileRouteTypes {
     | '/courses'
     | '/login'
     | '/marketplace'
+    | '/participant'
     | '/real-estate'
+    | '/referrals'
     | '/scholarships'
     | '/services'
     | '/signup'
     | '/student'
     | '/universities'
     | '/real-estate/$slug'
+    | '/referrals/recovery'
+    | '/referrals/recovery/callback'
+    | '/referrals/recovery/reset'
   id:
     | '__root__'
     | '/'
@@ -210,13 +266,18 @@ export interface FileRouteTypes {
     | '/courses'
     | '/login'
     | '/marketplace'
+    | '/participant'
     | '/real-estate'
+    | '/referrals'
     | '/scholarships'
     | '/services'
     | '/signup'
     | '/student'
     | '/universities'
     | '/real-estate_/$slug'
+    | '/referrals_/recovery'
+    | '/referrals_/recovery_/callback'
+    | '/referrals_/recovery_/reset'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -229,13 +290,18 @@ export interface RootRouteChildren {
   CoursesRoute: typeof CoursesRoute
   LoginRoute: typeof LoginRoute
   MarketplaceRoute: typeof MarketplaceRoute
+  ParticipantRoute: typeof ParticipantRoute
   RealEstateRoute: typeof RealEstateRoute
+  ReferralsRoute: typeof ReferralsRoute
   ScholarshipsRoute: typeof ScholarshipsRoute
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   StudentRoute: typeof StudentRoute
   UniversitiesRoute: typeof UniversitiesRoute
   RealEstateSlugRoute: typeof RealEstateSlugRoute
+  ReferralsRecoveryRoute: typeof ReferralsRecoveryRoute
+  ReferralsRecoveryCallbackRoute: typeof ReferralsRecoveryCallbackRoute
+  ReferralsRecoveryResetRoute: typeof ReferralsRecoveryResetRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -303,11 +369,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketplaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/participant': {
+      id: '/participant'
+      path: '/participant'
+      fullPath: '/participant'
+      preLoaderRoute: typeof ParticipantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/real-estate': {
       id: '/real-estate'
       path: '/real-estate'
       fullPath: '/real-estate'
       preLoaderRoute: typeof RealEstateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referrals': {
+      id: '/referrals'
+      path: '/referrals'
+      fullPath: '/referrals'
+      preLoaderRoute: typeof ReferralsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/scholarships': {
@@ -352,6 +432,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RealEstateSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/referrals_/recovery': {
+      id: '/referrals_/recovery'
+      path: '/referrals/recovery'
+      fullPath: '/referrals/recovery'
+      preLoaderRoute: typeof ReferralsRecoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referrals_/recovery_/callback': {
+      id: '/referrals_/recovery_/callback'
+      path: '/referrals/recovery/callback'
+      fullPath: '/referrals/recovery/callback'
+      preLoaderRoute: typeof ReferralsRecoveryCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referrals_/recovery_/reset': {
+      id: '/referrals_/recovery_/reset'
+      path: '/referrals/recovery/reset'
+      fullPath: '/referrals/recovery/reset'
+      preLoaderRoute: typeof ReferralsRecoveryResetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -365,13 +466,18 @@ const rootRouteChildren: RootRouteChildren = {
   CoursesRoute: CoursesRoute,
   LoginRoute: LoginRoute,
   MarketplaceRoute: MarketplaceRoute,
+  ParticipantRoute: ParticipantRoute,
   RealEstateRoute: RealEstateRoute,
+  ReferralsRoute: ReferralsRoute,
   ScholarshipsRoute: ScholarshipsRoute,
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   StudentRoute: StudentRoute,
   UniversitiesRoute: UniversitiesRoute,
   RealEstateSlugRoute: RealEstateSlugRoute,
+  ReferralsRecoveryRoute: ReferralsRecoveryRoute,
+  ReferralsRecoveryCallbackRoute: ReferralsRecoveryCallbackRoute,
+  ReferralsRecoveryResetRoute: ReferralsRecoveryResetRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

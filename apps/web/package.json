@@ -4,16 +4,21 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "node --env-file-if-exists=.env ./node_modules/vite/bin/vite.js dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
-    "test:smoke": "bun scripts/smoke-test.mjs"
+    "test:smoke": "bun scripts/smoke-test.mjs",
+    "test:auth:local": "bun run --cwd ../api build && bun scripts/auth-test.mjs",
+    "test:recovery:local": "bun scripts/recovery-test.mjs",
+    "test:unit": "bun test src/lib/*.test.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.57.0",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query": "^5.101.1",
     "@tanstack/react-router": "1.170.41",
