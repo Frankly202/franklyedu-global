@@ -2068,12 +2068,16 @@ async function runSmokeTests() {
           assert.equal(await page.locator('main input[type="password"]').count(), 1);
           assert.equal(await page.locator("main input[name]").count(), 2);
         } else if (route === "/signup") {
-          assert.equal(await page.locator("main input").count(), 3);
-          assert.equal(
-            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
-            0,
+          assert.equal(await page.locator("main form, main input").count(), 0);
+          assert.equal(await page.locator("[data-referral-registration-closed]").count(), 1);
+          assert.ok(await page.getByRole("link", { name: copy.login }).isVisible());
+          assert.ok(
+            await page
+              .getByRole("link", {
+                name: /Return to the referral programme|Tavsiye programına dön|Retour au programme de recommandation|Rudi kwenye mpango wa rufaa/,
+              })
+              .isVisible(),
           );
-          assert.equal(await page.locator("main fieldset[disabled]").count(), 1);
         } else {
           assert.equal(await page.locator("main form, main input").count(), 0);
         }
@@ -2109,7 +2113,7 @@ async function runSmokeTests() {
     for (const [locale, copy] of Object.entries(referralPageCopy)) {
       await gotoReady(page, `${baseUrl}/`);
       await selectLanguage(page, copy.language, locale);
-      for (const width of [375, 768, 1280, 1440]) {
+      for (const width of [375, 768, 1024, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         await gotoReady(page, `${baseUrl}/`);
         assert.equal(await page.locator("html").getAttribute("lang"), locale);
@@ -2367,11 +2371,11 @@ async function runSmokeTests() {
     ]) {
       await gotoReady(page, `${baseUrl}/`);
       await selectLanguage(page, language, locale);
-      for (const width of [375, 768, 1440]) {
+      for (const width of [375, 768, 1024, 1440]) {
         await page.setViewportSize({ width, height: 1000 });
         for (const [route, title, fields] of [
-          ["/referrals/recovery", requestTitle, 1],
-          ["/referrals/recovery/reset", resetTitle, 2],
+          ["/referrals/recovery", requestTitle, 0],
+          ["/referrals/recovery/reset", resetTitle, 0],
           [
             "/participant",
             {
@@ -2397,10 +2401,7 @@ async function runSmokeTests() {
           assert.equal(await page.locator("main h1").innerText(), title);
           assert.equal(await page.locator("html").getAttribute("lang"), locale);
           assert.equal(await page.locator("main input").count(), fields);
-          assert.equal(
-            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
-            0,
-          );
+          assert.equal(await page.locator("main form, main input").count(), 0);
           if (route === "/participant") {
             const unavailable = {
               en: "The participant account is temporarily unavailable. Please try again later.",
@@ -2408,7 +2409,8 @@ async function runSmokeTests() {
               fr: "Le compte participant est temporairement indisponible. Veuillez réessayer plus tard.",
               sw: "Akaunti ya mshiriki haipatikani kwa sasa. Tafadhali jaribu tena baadaye.",
             }[locale];
-            assert.equal(await page.getByRole("alert").innerText(), unavailable);
+            assert.equal(await page.locator('[role="alert"] > p').innerText(), unavailable);
+            assert.ok(await page.locator('a[href="/login"]').isVisible());
           }
           if (route === "/participant/refer") {
             assert.equal(await page.locator("main form").count(), 0);
@@ -2471,6 +2473,7 @@ async function runSmokeTests() {
       headers: csrfHeaders,
     });
     assert.equal(csrfResponse.status(), 403, "Cross-origin login mutations must be rejected.");
+      { width: 1024, height: 900, name: "small desktop" },
     await gotoReady(page, `${baseUrl}/application`);
     for (const route of retiredRoutes) {
       const redirected = await page.evaluate(
@@ -2512,6 +2515,9 @@ async function runSmokeTests() {
     const footerCopy = await page.locator("footer").innerText();
     assert.ok(
       footerCopy.includes("Lefkoşa, North Cyprus"),
+          const email = page.locator("#referral-login-email");
+          await email.fill("not-an-email");
+          assert.equal(await email.evaluate((field) => field.validity.typeMismatch), true);
       "The desktop footer must display the shortened contact address.",
     );
     assert.doesNotMatch(
@@ -2530,6 +2536,33 @@ async function runSmokeTests() {
       0,
       "The mobile menu must not link to retired student or account routes.",
     );
+    const referralRouteTitles = {
+      en: {
+        "/referrals/recovery": "Recover a Referral Programme Account | Frankedu Global",
+        "/referrals/recovery/reset": "Reset a Referral Programme Password | Frankedu Global",
+        "/participant": "Participant Dashboard | Frankedu Global",
+        "/participant/refer": "Refer a Student | Frankedu Global",
+      },
+      tr: {
+        "/referrals/recovery": "Tavsiye Programı Hesabını Kurtarın | Frankedu Global",
+        "/referrals/recovery/reset": "Tavsiye Programı Şifresini Sıfırlayın | Frankedu Global",
+        "/participant": "Katılımcı Paneli | Frankedu Global",
+        "/participant/refer": "Bir Öğrenciyi Tavsiye Edin | Frankedu Global",
+      },
+      fr: {
+        "/referrals/recovery": "Récupérer un compte de recommandation | Frankedu Global",
+        "/referrals/recovery/reset":
+          "Réinitialiser un mot de passe de recommandation | Frankedu Global",
+        "/participant": "Tableau de bord participant | Frankedu Global",
+        "/participant/refer": "Recommander un étudiant | Frankedu Global",
+      },
+      sw: {
+        "/referrals/recovery": "Rejesha akaunti ya mpango wa rufaa | Frankedu Global",
+        "/referrals/recovery/reset": "Weka upya nenosiri la mpango wa rufaa | Frankedu Global",
+        "/participant": "Dashibodi ya mshiriki | Frankedu Global",
+        "/participant/refer": "Mrejelee mwanafunzi | Frankedu Global",
+      },
+    };
     assert.ok(
       (await mobileNavigation.innerText()).includes("Lefkoşa, North Cyprus"),
       "The mobile menu must display the shortened contact address.",
@@ -2567,6 +2600,7 @@ async function runSmokeTests() {
       );
       assert.doesNotMatch(
         aboutCopy,
+          assert.equal(await page.title(), referralRouteTitles[locale][route]);
         /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit|verified advisory|doğrulanmış danışmanlık/i,
         `${locale} About page must not expose unapproved legal or tax claims.`,
       );
@@ -2584,6 +2618,16 @@ async function runSmokeTests() {
         `${locale} footer must not expose unapproved legal or tax claims.`,
       );
       assert.ok(
+            assert.ok(await page.locator("[data-referral-login-fallback]").isVisible());
+            assert.equal(
+              await page.locator('main [role="alert"]').innerText(),
+              {
+                en: "Referral submissions are unavailable on this page right now. Do not submit student details here.",
+                tr: "Tavsiye gönderimleri şu anda bu sayfada kullanılamıyor. Buradan öğrenci bilgisi göndermeyin.",
+                fr: "Les recommandations ne sont pas disponibles sur cette page actuellement. N’envoyez pas d’informations sur un étudiant ici.",
+                sw: "Uwasilishaji wa rufaa haupatikani kwenye ukurasa huu kwa sasa. Usitume taarifa za mwanafunzi hapa.",
+              }[locale],
+            );
         aboutCopy.includes("Lefkoşa, North Cyprus"),
         `${locale} About page must show the shortened address.`,
       );

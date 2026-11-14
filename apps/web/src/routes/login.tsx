@@ -8,7 +8,7 @@ export const Route = createFileRoute("/login")({
   head: () =>
     pageMeta(
       "Referral Programme Login",
-      "Login for the FranklyEdu Global Student Referral Programme is not yet available.",
+      "Sign in with an existing account for the FranklyEdu Global Student Referral Programme. Registration remains unavailable.",
       { path: "/login", noindex: true },
     ),
   component: LoginPage,

@@ -114,7 +114,6 @@ export interface ReferralTranslation {
   registration: {
     preview: string;
     confirmPassword: string;
-    submit: string;
   };
   landing: {
     eyebrow: string;
@@ -275,10 +274,10 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         startCta: "Refer a student",
         title: "Refer a student",
         description:
-          "Enter the student's contact details only after reviewing the notice and consent text below.",
+          "Only submit after an approved information notice and consent text are displayed below. Do not send student details until then.",
         loading: "Checking whether referral submissions are available…",
         unavailable:
-          "The referral submission service is temporarily unavailable. Please try again later.",
+          "Referral submissions are unavailable on this page right now. Do not submit student details here.",
         studentName: "Student's full name",
         studentEmail: "Student's email address",
         studentPhone: "Student's phone number (optional)",
@@ -307,8 +306,7 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
       title: "Recover your account",
       resetTitle: "Reset your password",
       description: "Recover access to an existing account. Registration remains unavailable.",
-      disabled:
-        "Account recovery is not available here yet. Only approved local testing is enabled.",
+      disabled: "Password recovery is not available on this page yet.",
       sent: "If recovery is available for this account, instructions will be sent. Check your email.",
       success: "Your password has been updated. Log in with your new password.",
       invalid: "This recovery link is invalid or expired. Request a new link.",
@@ -320,9 +318,8 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
     },
     registration: {
       preview:
-        "Registration preview only. These fields are disabled while the collection notice awaits approval. No account or student information is submitted.",
+        "Registration is currently closed while programme rules and the collection notice await final approval. This page does not collect participant or student information.",
       confirmPassword: "Confirm password",
-      submit: "Create account — not available yet",
     },
     landing: {
       eyebrow: "FranklyEdu Global",
@@ -487,10 +484,10 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         startCta: "Bir öğrenciyi tavsiye edin",
         title: "Bir öğrenciyi tavsiye edin",
         description:
-          "Öğrencinin iletişim bilgilerini yalnızca aşağıdaki bildirim ve izin metnini inceledikten sonra girin.",
+          "Yalnızca onaylı bilgilendirme bildirimi ve rıza metni aşağıda gösterildiğinde gönderim yapın. O zamana kadar öğrenci bilgisi göndermeyin.",
         loading: "Tavsiye gönderimlerinin kullanılabilirliği kontrol ediliyor…",
         unavailable:
-          "Tavsiye gönderim hizmeti geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+          "Tavsiye gönderimleri şu anda bu sayfada kullanılamıyor. Buradan öğrenci bilgisi göndermeyin.",
         studentName: "Öğrencinin tam adı",
         studentEmail: "Öğrencinin e-posta adresi",
         studentPhone: "Öğrencinin telefon numarası (isteğe bağlı)",
@@ -519,7 +516,7 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
       title: "Hesabınızı kurtarın",
       resetTitle: "Şifrenizi sıfırlayın",
       description: "Mevcut bir hesaba erişimi kurtarın. Kayıt hâlâ kullanılamaz.",
-      disabled: "Hesap kurtarma burada henüz kullanılamıyor. Yalnızca onaylı yerel testler etkin.",
+      disabled: "Şifre kurtarma bu sayfada henüz kullanılamıyor.",
       sent: "Bu hesap için kurtarma kullanılabiliyorsa talimatlar gönderilecektir. E-postanızı kontrol edin.",
       success: "Şifreniz güncellendi. Yeni şifrenizle giriş yapın.",
       invalid: "Bu kurtarma bağlantısı geçersiz veya süresi dolmuş. Yeni bir bağlantı isteyin.",
@@ -531,9 +528,8 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
     },
     registration: {
       preview:
-        "Yalnızca kayıt önizlemesi. Veri toplama bildirimi onay beklerken bu alanlar devre dışıdır. Hesap veya öğrenci bilgisi gönderilmez.",
+        "Program kuralları ve veri toplama bildirimi son onayı beklerken kayıt şu anda kapalıdır. Bu sayfada katılımcı veya öğrenci bilgisi toplanmaz.",
       confirmPassword: "Şifreyi doğrula",
-      submit: "Hesap oluştur — henüz kullanılamıyor",
     },
     landing: {
       eyebrow: "FranklyEdu Global",
@@ -700,10 +696,10 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         startCta: "Recommander un étudiant",
         title: "Recommander un étudiant",
         description:
-          "Saisissez les coordonnées de l’étudiant uniquement après avoir lu la notice et le texte de consentement ci-dessous.",
+          "N’envoyez une recommandation que lorsque la notice d’information et le texte de consentement approuvés sont affichés ci-dessous. N’envoyez pas de renseignements sur un étudiant d’ici là.",
         loading: "Vérification de la disponibilité des recommandations…",
         unavailable:
-          "Le service de recommandation est temporairement indisponible. Veuillez réessayer plus tard.",
+          "Les recommandations ne sont pas disponibles sur cette page actuellement. N’envoyez pas d’informations sur un étudiant ici.",
         studentName: "Nom complet de l’étudiant",
         studentEmail: "Adresse e-mail de l’étudiant",
         studentPhone: "Téléphone de l’étudiant (facultatif)",
@@ -735,8 +731,7 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
       resetTitle: "Réinitialiser votre mot de passe",
       description:
         "Récupérez l’accès à un compte existant. Les inscriptions restent indisponibles.",
-      disabled:
-        "La récupération n’est pas encore disponible ici. Seuls les tests locaux approuvés sont activés.",
+      disabled: "La récupération du mot de passe n’est pas encore disponible sur cette page.",
       sent: "Si la récupération est disponible pour ce compte, des instructions seront envoyées. Consultez votre e-mail.",
       success: "Votre mot de passe a été modifié. Connectez-vous avec le nouveau mot de passe.",
       invalid: "Ce lien est invalide ou a expiré. Demandez un nouveau lien.",
@@ -749,9 +744,8 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
     },
     registration: {
       preview:
-        "Aperçu de l’inscription uniquement. Ces champs sont désactivés en attendant l’approbation de la notice de collecte. Aucune information de compte ou d’étudiant n’est envoyée.",
+        "Les inscriptions sont actuellement fermées dans l’attente de l’approbation finale du règlement du programme et de la notice de collecte. Cette page ne recueille aucune information sur les participants ni sur les étudiants.",
       confirmPassword: "Confirmer le mot de passe",
-      submit: "Créer un compte — pas encore disponible",
     },
     landing: {
       eyebrow: "FranklyEdu Global",
@@ -916,10 +910,10 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         startCta: "Mrejelee mwanafunzi",
         title: "Mrejelee mwanafunzi",
         description:
-          "Weka maelezo ya mawasiliano ya mwanafunzi baada tu ya kusoma notisi na maandishi ya ridhaa hapa chini.",
+          "Tuma rufaa tu wakati notisi ya taarifa na maandishi ya ridhaa yaliyoidhinishwa yanaonyeshwa hapa chini. Usitume taarifa za mwanafunzi kabla ya hapo.",
         loading: "Inakagua kama uwasilishaji wa rufaa unapatikana…",
         unavailable:
-          "Huduma ya uwasilishaji wa rufaa haipatikani kwa muda. Tafadhali jaribu tena baadaye.",
+          "Uwasilishaji wa rufaa haupatikani kwenye ukurasa huu kwa sasa. Usitume taarifa za mwanafunzi hapa.",
         studentName: "Jina kamili la mwanafunzi",
         studentEmail: "Anwani ya barua pepe ya mwanafunzi",
         studentPhone: "Nambari ya simu ya mwanafunzi (si lazima)",
@@ -949,8 +943,7 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
       title: "Rejesha akaunti yako",
       resetTitle: "Weka upya nenosiri",
       description: "Rejesha ufikiaji wa akaunti iliyopo. Usajili bado haupatikani.",
-      disabled:
-        "Urejeshaji wa akaunti bado haupatikani hapa. Majaribio ya ndani yaliyoidhinishwa pekee yamewezeshwa.",
+      disabled: "Urejeshaji wa nenosiri bado haupatikani kwenye ukurasa huu.",
       sent: "Ikiwa urejeshaji unapatikana kwa akaunti hii, maelekezo yatatumwa. Angalia barua pepe yako.",
       success: "Nenosiri lako limebadilishwa. Ingia kwa nenosiri jipya.",
       invalid: "Kiungo hiki si halali au kimeisha muda. Omba kiungo kipya.",
@@ -963,9 +956,8 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
     },
     registration: {
       preview:
-        "Hakikisho la usajili tu. Sehemu hizi zimezimwa wakati notisi ya ukusanyaji inasubiri idhini. Hakuna taarifa za akaunti au mwanafunzi zinazotumwa.",
+        "Usajili umefungwa kwa sasa huku kanuni za mpango na notisi ya ukusanyaji zikisubiri idhini ya mwisho. Ukurasa huu haukusanyi taarifa za washiriki au wanafunzi.",
       confirmPassword: "Thibitisha nenosiri",
-      submit: "Fungua akaunti — bado haipatikani",
     },
     landing: {
       eyebrow: "FranklyEdu Global",

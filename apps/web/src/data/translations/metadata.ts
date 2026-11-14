@@ -77,7 +77,24 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/login": {
       title: "Referral Programme Login",
       description:
-        "Login for the FranklyEdu Global Student Referral Programme is not yet available.",
+        "Sign in with an existing account for the FranklyEdu Global Student Referral Programme. Registration remains unavailable.",
+    },
+    "/referrals/recovery": {
+      title: "Recover a Referral Programme Account | Frankedu Global",
+      description: "Password recovery for existing programme accounts is not available yet.",
+    },
+    "/referrals/recovery/reset": {
+      title: "Reset a Referral Programme Password | Frankedu Global",
+      description: "Password reset for referral programme accounts is not available yet.",
+    },
+    "/participant": {
+      title: "Participant Dashboard | Frankedu Global",
+      description: "Protected participant overview for referral programme accounts.",
+    },
+    "/participant/refer": {
+      title: "Refer a Student | Frankedu Global",
+      description:
+        "Protected referral submission page. Student-information collection remains unavailable.",
     },
     "/signup": {
       title: "Referral Programme Registration",
@@ -154,10 +171,28 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/student": {
       title: "Öğrenci Paneli",
       description: "Başvurularınızı, kayıtlı üniversitelerinizi ve belge listenizi görüntüleyin.",
+    "/referrals/recovery": {
+      title: "Tavsiye Programı Hesabını Kurtarın | Frankedu Global",
+      description: "Mevcut program hesapları için şifre kurtarma henüz kullanılamıyor.",
+    },
+    "/referrals/recovery/reset": {
+      title: "Tavsiye Programı Şifresini Sıfırlayın | Frankedu Global",
+      description: "Tavsiye programı hesapları için şifre sıfırlama henüz kullanılamıyor.",
+    },
+    "/participant": {
+      title: "Katılımcı Paneli | Frankedu Global",
+      description: "Tavsiye programı hesapları için korumalı katılımcı özeti.",
+    },
+    "/participant/refer": {
+      title: "Bir Öğrenciyi Tavsiye Edin | Frankedu Global",
+      description:
+        "Korumalı tavsiye gönderim sayfası. Öğrenci bilgisi toplama henüz kullanılamıyor.",
+    },
     },
     "/login": {
       title: "Tavsiye Programı Girişi",
-      description: "FranklyEdu Global Öğrenci Tavsiye Programı girişi henüz kullanılamıyor.",
+      description:
+        "FranklyEdu Global Öğrenci Tavsiye Programı için mevcut hesabınızla giriş yapın. Yeni kayıtlar hâlâ kullanılamıyor.",
     },
     "/signup": {
       title: "Tavsiye Programı Kaydı",
@@ -232,6 +267,25 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       title: "Programme de recommandation d’étudiants | Frankedu Global",
       description:
         "Informations sur le programme de recommandation d’étudiants FranklyEdu Global ; les inscriptions ne sont pas encore ouvertes.",
+    "/referrals/recovery": {
+      title: "Récupérer un compte de recommandation | Frankedu Global",
+      description:
+        "La récupération des comptes existants du programme n’est pas encore disponible.",
+    },
+    "/referrals/recovery/reset": {
+      title: "Réinitialiser un mot de passe de recommandation | Frankedu Global",
+      description:
+        "La réinitialisation des mots de passe du programme n’est pas encore disponible.",
+    },
+    "/participant": {
+      title: "Tableau de bord participant | Frankedu Global",
+      description: "Vue participant protégée pour les comptes du programme de recommandation.",
+    },
+    "/participant/refer": {
+      title: "Recommander un étudiant | Frankedu Global",
+      description:
+        "Page protégée de recommandation. La collecte d’informations sur les étudiants reste indisponible.",
+    },
     },
     "/student": {
       title: "Espace étudiant",
@@ -240,7 +294,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/login": {
       title: "Connexion au programme de recommandation",
       description:
-        "La connexion au programme de recommandation d’étudiants FranklyEdu Global n’est pas encore disponible.",
+        "Connectez-vous avec un compte existant au programme de recommandation FranklyEdu Global. Les inscriptions restent indisponibles.",
     },
     "/signup": {
       title: "Inscription au programme de recommandation",
@@ -310,6 +364,23 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     },
     "/application": {
       title: "Anza maombi yako",
+    "/referrals/recovery": {
+      title: "Rejesha akaunti ya mpango wa rufaa | Frankedu Global",
+      description: "Urejeshaji wa akaunti zilizopo za mpango bado haupatikani.",
+    },
+    "/referrals/recovery/reset": {
+      title: "Weka upya nenosiri la mpango wa rufaa | Frankedu Global",
+      description: "Uwekaji upya wa nenosiri la akaunti za mpango bado haupatikani.",
+    },
+    "/participant": {
+      title: "Dashibodi ya mshiriki | Frankedu Global",
+      description: "Muhtasari salama wa mshiriki kwa akaunti za mpango wa rufaa.",
+    },
+    "/participant/refer": {
+      title: "Mrejelee mwanafunzi | Frankedu Global",
+      description:
+        "Ukurasa salama wa kutuma rufaa. Ukusanyaji wa taarifa za wanafunzi bado haupatikani.",
+    },
       description: "Fomu ya hatua kwa hatua ya kuomba chuo na programu uliyochagua.",
     },
     "/referrals": {
@@ -324,7 +395,7 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/login": {
       title: "Kuingia kwenye mpango wa rufaa",
       description:
-        "Kuingia kwenye Mpango wa Rufaa wa Wanafunzi wa FranklyEdu Global bado hakupatikani.",
+        "Ingia kwa kutumia akaunti iliyopo ya Mpango wa Rufaa wa Wanafunzi wa FranklyEdu Global. Usajili bado haupatikani.",
     },
     "/signup": {
       title: "Usajili wa mpango wa rufaa",

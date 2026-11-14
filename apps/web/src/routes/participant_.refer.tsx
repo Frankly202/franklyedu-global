@@ -285,12 +285,23 @@ function ReferStudentPage() {
               </form>
             </>
           )}
-          <Link
-            to="/participant"
-            className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold text-navy underline underline-offset-4"
-          >
-            {referral.participant.submission.backToDashboard}
-          </Link>
+          <div className="mt-6 grid gap-2 border-t border-border pt-5 text-sm font-semibold sm:flex sm:flex-wrap">
+            {(policyState === "unavailable" || authState === "unavailable") && (
+              <Link
+                to="/login"
+                data-referral-login-fallback
+                className="inline-flex min-h-11 items-center text-navy underline underline-offset-4"
+              >
+                {referral.landing.login}
+              </Link>
+            )}
+            <Link
+              to="/participant"
+              className="inline-flex min-h-11 items-center text-navy underline underline-offset-4"
+            >
+              {referral.participant.submission.backToDashboard}
+            </Link>
+          </div>
         </div>
       </Section>
     </>

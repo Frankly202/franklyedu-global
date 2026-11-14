@@ -275,9 +275,18 @@ function ParticipantPage() {
               </section>
             </div>
           ) : (
-            <p role="alert" className="text-sm leading-relaxed text-muted-foreground">
-              {referral.participant.unavailable}
-            </p>
+            <div
+              role="alert"
+              className="rounded-2xl border border-amber-300 bg-amber-50 p-5 text-amber-950"
+            >
+              <p className="text-sm leading-relaxed">{referral.participant.unavailable}</p>
+              <Link
+                to="/login"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-4"
+              >
+                {referral.landing.login}
+              </Link>
+            </div>
           )}
         </div>
       </Section>
