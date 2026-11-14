@@ -12,9 +12,9 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
         "Ask Frankedu Global about study information, property listings, and digital services.",
     },
     "/about": {
-      title: "About",
+      title: "About and Contact",
       description:
-        "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.",
+        "Learn about Frankedu Global and contact us about study information, property listings, or digital services.",
     },
     "/courses": {
       title: "Courses",
@@ -55,11 +55,6 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       title: "Property Information",
       description: "View a property listing and contact us to ask about current details.",
     },
-    "/contact": {
-      title: "Contact",
-      description:
-        "Contact Frankedu Global by WhatsApp or email about study information, property listings, or digital services.",
-    },
     "/application": {
       title: "Start Your Application",
       description:
@@ -79,6 +74,11 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       description:
         "Sign in with an existing account for the FranklyEdu Global Student Referral Programme. Registration remains unavailable.",
     },
+    "/signup": {
+      title: "Referral Programme Registration",
+      description:
+        "Registration for the FranklyEdu Global Student Referral Programme is not yet available.",
+    },
     "/referrals/recovery": {
       title: "Recover a Referral Programme Account | Frankedu Global",
       description: "Password recovery for existing programme accounts is not available yet.",
@@ -96,11 +96,6 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       description:
         "Protected referral submission page. Student-information collection remains unavailable.",
     },
-    "/signup": {
-      title: "Referral Programme Registration",
-      description:
-        "Registration for the FranklyEdu Global Student Referral Programme is not yet available.",
-    },
     property: {
       title: "Property Listing | Frankedu Global",
       description: "View property details and contact Frankedu Global for further information.",
@@ -113,9 +108,9 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
         "Frankedu Global ile eğitim bilgileri, gayrimenkul ilanları ve dijital hizmetler hakkında görüşün.",
     },
     "/about": {
-      title: "Hakkımızda",
+      title: "Hakkımızda ve İletişim",
       description:
-        "Frankedu Global eğitim seçenekleri, gayrimenkul ve dijital hizmetler hakkında bilgi paylaşır. Güncel seçenekleri sormak için bize ulaşın.",
+        "Frankedu Global hakkında bilgi alın; eğitim, gayrimenkul ve dijital hizmetler için bizimle iletişime geçin.",
     },
     "/courses": {
       title: "Programlar",
@@ -155,11 +150,6 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       title: "Gayrimenkul Bilgileri",
       description: "Bir gayrimenkul ilanını görüntüleyin ve güncel ayrıntıları sorun.",
     },
-    "/contact": {
-      title: "İletişim",
-      description:
-        "Eğitim bilgileri, gayrimenkul ilanları veya dijital hizmetler hakkında Frankedu Global'e WhatsApp ya da e-posta ile ulaşın.",
-    },
     "/application": {
       title: "Başvurunuzu Başlatın",
       description: "Seçtiğiniz üniversite ve program için adım adım başvuru formu.",
@@ -171,6 +161,16 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/student": {
       title: "Öğrenci Paneli",
       description: "Başvurularınızı, kayıtlı üniversitelerinizi ve belge listenizi görüntüleyin.",
+    },
+    "/login": {
+      title: "Tavsiye Programı Girişi",
+      description:
+        "FranklyEdu Global Öğrenci Tavsiye Programı için mevcut hesabınızla giriş yapın. Yeni kayıtlar hâlâ kullanılamıyor.",
+    },
+    "/signup": {
+      title: "Tavsiye Programı Kaydı",
+      description: "FranklyEdu Global Öğrenci Tavsiye Programı kaydı henüz kullanılamıyor.",
+    },
     "/referrals/recovery": {
       title: "Tavsiye Programı Hesabını Kurtarın | Frankedu Global",
       description: "Mevcut program hesapları için şifre kurtarma henüz kullanılamıyor.",
@@ -188,16 +188,6 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       description:
         "Korumalı tavsiye gönderim sayfası. Öğrenci bilgisi toplama henüz kullanılamıyor.",
     },
-    },
-    "/login": {
-      title: "Tavsiye Programı Girişi",
-      description:
-        "FranklyEdu Global Öğrenci Tavsiye Programı için mevcut hesabınızla giriş yapın. Yeni kayıtlar hâlâ kullanılamıyor.",
-    },
-    "/signup": {
-      title: "Tavsiye Programı Kaydı",
-      description: "FranklyEdu Global Öğrenci Tavsiye Programı kaydı henüz kullanılamıyor.",
-    },
     property: {
       title: "Gayrimenkul İlanı | Frankedu Global",
       description: "Gayrimenkul ayrıntılarını inceleyin ve bilgi için Frankedu Global'e ulaşın.",
@@ -210,9 +200,9 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
         "Contactez Frankedu Global pour parler d’informations sur les études, d’annonces immobilières et de services numériques.",
     },
     "/about": {
-      title: "À propos",
+      title: "À propos et contact",
       description:
-        "Frankedu Global partage des informations sur les études, l’immobilier et les services numériques. Contactez-nous pour connaître les options actuelles.",
+        "Découvrez Frankedu Global et contactez-nous au sujet des études, des annonces immobilières ou des services numériques.",
     },
     "/courses": {
       title: "Formations",
@@ -254,11 +244,6 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       description:
         "Consultez une annonce immobilière et contactez-nous pour connaître les détails actuels.",
     },
-    "/contact": {
-      title: "Contact",
-      description:
-        "Contactez Frankedu Global sur WhatsApp ou par e-mail au sujet des études, des annonces immobilières ou des services numériques.",
-    },
     "/application": {
       title: "Commencer votre candidature",
       description: "Un formulaire guidé pour votre université et votre formation.",
@@ -267,6 +252,21 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       title: "Programme de recommandation d’étudiants | Frankedu Global",
       description:
         "Informations sur le programme de recommandation d’étudiants FranklyEdu Global ; les inscriptions ne sont pas encore ouvertes.",
+    },
+    "/student": {
+      title: "Espace étudiant",
+      description: "Suivez vos candidatures, universités enregistrées et documents à préparer.",
+    },
+    "/login": {
+      title: "Connexion au programme de recommandation",
+      description:
+        "Connectez-vous avec un compte existant au programme de recommandation FranklyEdu Global. Les inscriptions restent indisponibles.",
+    },
+    "/signup": {
+      title: "Inscription au programme de recommandation",
+      description:
+        "L’inscription au programme de recommandation d’étudiants FranklyEdu Global n’est pas encore disponible.",
+    },
     "/referrals/recovery": {
       title: "Récupérer un compte de recommandation | Frankedu Global",
       description:
@@ -286,21 +286,6 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       description:
         "Page protégée de recommandation. La collecte d’informations sur les étudiants reste indisponible.",
     },
-    },
-    "/student": {
-      title: "Espace étudiant",
-      description: "Suivez vos candidatures, universités enregistrées et documents à préparer.",
-    },
-    "/login": {
-      title: "Connexion au programme de recommandation",
-      description:
-        "Connectez-vous avec un compte existant au programme de recommandation FranklyEdu Global. Les inscriptions restent indisponibles.",
-    },
-    "/signup": {
-      title: "Inscription au programme de recommandation",
-      description:
-        "L’inscription au programme de recommandation d’étudiants FranklyEdu Global n’est pas encore disponible.",
-    },
     property: {
       title: "Annonce immobilière | Frankedu Global",
       description:
@@ -314,9 +299,9 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
         "Wasiliana na Frankedu Global kuhusu masomo, matangazo ya mali na huduma za kidijitali.",
     },
     "/about": {
-      title: "Kuhusu",
+      title: "Kuhusu na Mawasiliano",
       description:
-        "Frankedu Global hushiriki taarifa kuhusu masomo, mali na huduma za kidijitali. Wasiliana nasi kuuliza chaguo zilizopo sasa.",
+        "Fahamu kuhusu Frankedu Global na uwasiliane nasi kuhusu masomo, matangazo ya mali au huduma za kidijitali.",
     },
     "/courses": {
       title: "Programu za masomo",
@@ -357,30 +342,8 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
       title: "Taarifa za Mali",
       description: "Tazama tangazo la mali na uwasiliane nasi kuuliza kuhusu maelezo ya sasa.",
     },
-    "/contact": {
-      title: "Mawasiliano",
-      description:
-        "Wasiliana na Frankedu Global kupitia WhatsApp au barua pepe kuhusu masomo, matangazo ya mali au huduma za kidijitali.",
-    },
     "/application": {
       title: "Anza maombi yako",
-    "/referrals/recovery": {
-      title: "Rejesha akaunti ya mpango wa rufaa | Frankedu Global",
-      description: "Urejeshaji wa akaunti zilizopo za mpango bado haupatikani.",
-    },
-    "/referrals/recovery/reset": {
-      title: "Weka upya nenosiri la mpango wa rufaa | Frankedu Global",
-      description: "Uwekaji upya wa nenosiri la akaunti za mpango bado haupatikani.",
-    },
-    "/participant": {
-      title: "Dashibodi ya mshiriki | Frankedu Global",
-      description: "Muhtasari salama wa mshiriki kwa akaunti za mpango wa rufaa.",
-    },
-    "/participant/refer": {
-      title: "Mrejelee mwanafunzi | Frankedu Global",
-      description:
-        "Ukurasa salama wa kutuma rufaa. Ukusanyaji wa taarifa za wanafunzi bado haupatikani.",
-    },
       description: "Fomu ya hatua kwa hatua ya kuomba chuo na programu uliyochagua.",
     },
     "/referrals": {
@@ -400,6 +363,23 @@ const metadata: Record<Locale, Record<string, RouteMetadata>> = {
     "/signup": {
       title: "Usajili wa mpango wa rufaa",
       description: "Usajili wa Mpango wa Rufaa wa Wanafunzi wa FranklyEdu Global bado haupatikani.",
+    },
+    "/referrals/recovery": {
+      title: "Rejesha akaunti ya mpango wa rufaa | Frankedu Global",
+      description: "Urejeshaji wa akaunti zilizopo za mpango bado haupatikani.",
+    },
+    "/referrals/recovery/reset": {
+      title: "Weka upya nenosiri la mpango wa rufaa | Frankedu Global",
+      description: "Uwekaji upya wa nenosiri la akaunti za mpango bado haupatikani.",
+    },
+    "/participant": {
+      title: "Dashibodi ya mshiriki | Frankedu Global",
+      description: "Muhtasari salama wa mshiriki kwa akaunti za mpango wa rufaa.",
+    },
+    "/participant/refer": {
+      title: "Mrejelee mwanafunzi | Frankedu Global",
+      description:
+        "Ukurasa salama wa kutuma rufaa. Ukusanyaji wa taarifa za wanafunzi bado haupatikani.",
     },
     property: {
       title: "Tangazo la mali | Frankedu Global",

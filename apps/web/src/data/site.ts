@@ -88,7 +88,6 @@ export const mainNav: NavItem[] = [
   { label: "Services", to: "/services" },
   { label: "Marketplace", to: "/marketplace" },
   { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
 ];
 
 export const footerNav: { title: string; items: NavItem[] }[] = [

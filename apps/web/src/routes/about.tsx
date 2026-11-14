@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, Section, SectionHeading } from "@/components/site/Section";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
 import { aboutContent } from "@/data/content";
-import { brand, whatsappLink } from "@/data/site";
+import { brand, contact, whatsappLink } from "@/data/site";
 import { useTranslations } from "@/data/translations";
 import { localizeText, localizeTree } from "@/data/translations/localize";
 import { pageMeta } from "@/lib/seo";
@@ -12,8 +12,8 @@ import { Building2, MapPin, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () =>
     pageMeta(
-      "About",
-      "Frankedu Global shares information about study options, property, and digital services. Contact us to ask what is currently available.",
+      "About and Contact",
+      "Learn about Frankedu Global and contact us about study information, property listings, or digital services.",
       { path: "/about" },
     ),
   component: AboutPage,
@@ -32,7 +32,7 @@ function AboutPage() {
         title={company.about.title}
         subtitle={content.mission}
       >
-        <Link to="/contact" className="btn btn-light">
+        <Link to="/about" hash="contact" className="btn btn-light">
           {company.about.getInTouch}
         </Link>
       </PageHero>
@@ -117,7 +117,7 @@ function AboutPage() {
                 <MessageCircle className="mr-1.5 h-4 w-4" />
                 {company.about.whatsappBtn}
               </a>
-              <Link to="/contact" className="btn btn-outline-dark">
+              <Link to="/about" hash="contact" className="btn btn-outline-dark">
                 {company.about.contactOfficeBtn}
               </Link>
             </div>
@@ -158,6 +158,150 @@ function AboutPage() {
           </div>
         </Section>
       )}
+
+      <Section id="contact" className="scroll-mt-24 bg-white">
+        <SectionHeading
+          eyebrow={company.contact.eyebrow}
+          title={company.contact.title}
+          subtitle={company.contact.subtitle}
+          align="left"
+        />
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr]">
+          <div className="space-y-4">
+            <div className="card-navy p-6">
+              <p className="eyebrow text-sky-contrast">WhatsApp</p>
+              <p className="mt-2 font-display text-xl font-bold">{contact.phone}</p>
+              {contact.hours ? (
+                <p className="mt-1 text-xs text-navy-muted">{contact.hours}</p>
+              ) : null}
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-light mt-4"
+              >
+                {company.contact.whatsappCard.button}
+              </a>
+            </div>
+            <div className="card-light p-6 text-sm">
+              <p className="eyebrow text-sky">{company.contact.officeCard.emailLabel}</p>
+              <a href={`mailto:${contact.email}`} className="mt-1 block font-medium">
+                {contact.email}
+              </a>
+              <p className="eyebrow mt-4 text-sky">{company.contact.officeCard.officeLabel}</p>
+              <p className="mt-1">{contact.address}</p>
+              <p className="eyebrow mt-4 text-sky">{company.contact.officeCard.socialLabel}</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {contact.social.tiktok && (
+                  <a
+                    href={contact.social.tiktok}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-11 items-center rounded bg-muted px-2.5 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
+                  >
+                    TikTok
+                  </a>
+                )}
+                {contact.social.facebook && (
+                  <a
+                    href={contact.social.facebook}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-11 items-center rounded bg-muted px-2.5 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
+                  >
+                    Facebook
+                  </a>
+                )}
+                {contact.social.instagram && (
+                  <a
+                    href={contact.social.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-11 items-center rounded bg-muted px-2.5 text-xs font-medium text-navy transition-colors hover:bg-navy hover:text-white"
+                  >
+                    Instagram
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <form
+            className="card-light grid gap-4 p-6 text-sm font-medium sm:grid-cols-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const values = new FormData(e.currentTarget);
+              const body = [
+                `${company.contact.form.fullNamePlaceholder}: ${values.get("fullName")}`,
+                `${company.contact.form.emailPlaceholder}: ${values.get("email")}`,
+                `${company.contact.form.phonePlaceholder}: ${values.get("phone") || "—"}`,
+                `${company.contact.form.destinationPlaceholder}: ${values.get("destination") || "—"}`,
+                "",
+                String(values.get("message") ?? ""),
+              ].join("\n");
+              window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
+                company.contact.emailSubject,
+              )}&body=${encodeURIComponent(body)}`;
+            }}
+          >
+            <label className="grid gap-1">
+              {company.contact.form.fullNamePlaceholder}
+              <input
+                className="field"
+                name="fullName"
+                autoComplete="name"
+                placeholder={company.contact.form.fullNamePlaceholder}
+                required
+              />
+            </label>
+            <label className="grid gap-1">
+              {company.contact.form.emailPlaceholder}
+              <input
+                className="field"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder={company.contact.form.emailPlaceholder}
+                required
+              />
+            </label>
+            <label className="grid gap-1">
+              {company.contact.form.phonePlaceholder}
+              <input
+                className="field"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                placeholder={company.contact.form.phonePlaceholder}
+              />
+            </label>
+            <label className="grid gap-1">
+              {company.contact.form.destinationPlaceholder}
+              <input
+                className="field"
+                name="destination"
+                placeholder={company.contact.form.destinationPlaceholder}
+              />
+            </label>
+            <label className="grid gap-1 sm:col-span-2">
+              {company.contact.form.messagePlaceholder}
+              <textarea
+                className="field"
+                name="message"
+                rows={5}
+                placeholder={company.contact.form.messagePlaceholder}
+                required
+              />
+            </label>
+            <p className="text-xs text-muted-foreground sm:col-span-2">
+              {company.contact.form.emailNotice}
+            </p>
+            <button type="submit" className="btn btn-primary sm:col-span-2">
+              {company.contact.form.emailSubmitBtn}
+            </button>
+          </form>
+        </div>
+      </Section>
 
       <WhatsAppCta />
     </>

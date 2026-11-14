@@ -199,8 +199,10 @@ and mock student data remain in the source but are not an available account/dash
   fee breakdowns. Universities without records or examples get a specific
   empty state rather than invented course listings.
 - Details modals contain study areas and source-linked fee/scholarship summaries where supplied.
-  Individual programme records remain in Courses. Modal scrolling, Close/Escape/backdrop dismissal,
-  focus return, and body-scroll restoration are handled in the shared university component.
+  Individual programme records remain in Courses. Opening a modal locks background scrolling and
+  preserves the page position while the dialog scrolls internally, including on touch devices.
+  Backdrop clicks, Close, and Escape dismiss it; clicks inside do not. Closing or unmounting restores
+  the original body/root styles and page position, with focus returned to the opener.
 - The application route also accepts `?course=<slug>`, resolves known records, and rejects a course
   prefill that conflicts with an explicitly selected university. Not every course card links to this
   route: the current course cards offer programme enquiries and official sources.

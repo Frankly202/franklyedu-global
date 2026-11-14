@@ -7,7 +7,6 @@ import { createServer as createViteServer } from "vite";
 const routes = [
   "/",
   "/about",
-  "/contact",
   "/courses",
   "/universities",
   "/countries",
@@ -25,7 +24,6 @@ const pageHeroBackgrounds = {
   "/universities": { name: "campus", asset: "/background/campus-background.png" },
   "/courses": { name: "campus", asset: "/background/campus-background.png" },
   "/scholarships": { name: "campus", asset: "/background/campus-background.png" },
-  "/contact": { name: "contact", asset: "/background/contact-background.png" },
   "/about": { name: "contact", asset: "/background/contact-background.png" },
   "/services": { name: "contact", asset: "/background/contact-background.png" },
   "/marketplace": { name: "marketplace", asset: "/background/marketplace-background.png" },
@@ -1862,6 +1860,137 @@ async function runSmokeTests() {
       return;
     }
 
+    if (process.argv.includes("--referral-contact")) {
+      const languages = {
+        en: "English",
+        tr: "Türkçe",
+        fr: "Français",
+        sw: "Kiswahili",
+      };
+      for (const [locale, language] of Object.entries(languages)) {
+        await gotoReady(page, `${baseUrl}/`);
+        await selectLanguage(page, language, locale);
+        for (const width of [375, 768, 1024, 1280, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await gotoReady(page, `${baseUrl}/`);
+          assert.equal(
+            await page.locator("[data-home-referral-ribbon]").getAttribute("href"),
+            "/referrals",
+          );
+          assert.equal(
+            await page.locator("[data-referral-marquee-link]").getAttribute("href"),
+            "/referrals",
+          );
+          assert.equal(await page.locator("[data-referral-marquee]").count(), 1);
+          assert.equal(
+            await page.locator("[data-home-referral-section] [data-referral-marquee]").count(),
+            0,
+          );
+          assert.equal(
+            await page
+              .locator("[data-referral-marquee]")
+              .evaluate(
+                (ticker) =>
+                  ticker.parentElement?.matches("[data-home-hero-image-column]") &&
+                  ticker.nextElementSibling?.querySelector("[data-home-hero-image]") !== null,
+              ),
+            true,
+            `${locale} ticker must sit directly above the hero image.`,
+          );
+          assert.equal(
+            await page
+              .locator("[data-home-hero-image]")
+              .evaluate(
+                (image) =>
+                  image.getBoundingClientRect().top >
+                  document.querySelector("[data-referral-marquee]").getBoundingClientRect().bottom,
+              ),
+            true,
+            `${locale} ticker must not overlap the hero image at ${width}px.`,
+          );
+          assert.equal(
+            await page.locator("[data-home-referral-section]").evaluate((element) => {
+              const section = element.closest("section");
+              return section?.previousElementSibling?.matches("[data-home-hero]") ?? false;
+            }),
+            true,
+          );
+          assert.ok(
+            await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+            `${locale} referral promotion must not overflow at ${width}px.`,
+          );
+          assert.equal(
+            await page.locator('nav[aria-label="Main navigation"] a[href="/contact"]').count(),
+            0,
+          );
+          if (width < 1280) {
+            await page
+              .getByRole("button", {
+                name: /Open menu|Menüyü aç|Ouvrir le menu|Fungua menyu/,
+              })
+              .click();
+            assert.equal(
+              await page.locator('#mobile-navigation a[href="/about"]').count(),
+              1,
+              `${locale} mobile navigation must retain About.`,
+            );
+            assert.equal(await page.locator('#mobile-navigation a[href="/contact"]').count(), 0);
+          }
+        }
+
+        await page.emulateMedia({ reducedMotion: "reduce" });
+        await gotoReady(page, `${baseUrl}/`);
+        assert.equal(
+          await page
+            .locator(".referral-marquee-track")
+            .evaluate((track) => getComputedStyle(track).animationName),
+          "none",
+        );
+        assert.equal(
+          await page
+            .locator("[data-referral-marquee-control]")
+            .evaluate((control) => getComputedStyle(control).display),
+          "none",
+        );
+        await page.emulateMedia({ reducedMotion: "no-preference" });
+
+        const redirect = await page.request.get(`${baseUrl}/contact`, { maxRedirects: 0 });
+        assert.ok(redirect.status() >= 300 && redirect.status() < 400);
+        const target = new URL(redirect.headers().location, baseUrl);
+        assert.equal(target.pathname, "/about");
+        assert.equal(target.hash, "#contact");
+        await gotoReady(page, `${baseUrl}/contact`);
+        await page.waitForURL((url) => url.pathname === "/about" && url.hash === "#contact");
+        assert.ok(await page.locator("#contact").isVisible());
+        assert.equal(await page.locator('footer a[href="/contact"]').count(), 1);
+        await page.locator('footer a[href="/contact"]').click();
+        await page.waitForURL((url) => url.pathname === "/about" && url.hash === "#contact");
+        assert.equal(await page.locator("#contact form").count(), 1);
+        assert.equal(await page.locator("#contact a[href^='mailto:']").count(), 1);
+        assert.equal(await page.locator("#contact a[href^='https://wa.me/']").count(), 1);
+        assert.equal(await page.locator("#contact a[href*='tiktok.com']").count(), 1);
+        assert.equal(await page.locator("#contact a[href*='facebook.com']").count(), 1);
+        assert.equal(await page.locator("#contact a[href*='instagram.com']").count(), 1);
+        assert.match(
+          await page.locator('header nav a[href="/about"]').first().getAttribute("class"),
+          /bg-primary/,
+        );
+        const contactForm = page.locator("#contact form");
+        assert.equal(await contactForm.evaluate((form) => form.checkValidity()), false);
+        await contactForm.locator('[name="fullName"]').fill("Smoke Test");
+        await contactForm.locator('[name="email"]').fill("smoke@example.com");
+        await contactForm.locator('[name="message"]').fill("Smoke test inquiry");
+        assert.equal(await contactForm.evaluate((form) => form.checkValidity()), true);
+      }
+      assert.deepEqual(
+        browserErrors,
+        [],
+        "Focused referral/contact checks must have zero browser errors.",
+      );
+      console.log("Focused referral promotion, navigation, and contact smoke tests passed.");
+      return;
+    }
+
     if (
       ["--emu", "--gau", "--kyrenia", "--ciu", "--neu", "--florida"].some((flag) =>
         process.argv.includes(flag),
@@ -1978,6 +2107,29 @@ async function runSmokeTests() {
       assert.equal(robotsMeta, null, `Route ${route} must remain indexable.`);
     }
     console.log(`✓ ${routes.length} public routes render with SEO metadata`);
+
+    console.log("Checking the legacy Contact route redirects to the About contact section...");
+    const contactRedirect = await page.request.get(`${baseUrl}/contact`, {
+      maxRedirects: 0,
+    });
+    assert.ok(
+      contactRedirect.status() >= 300 && contactRedirect.status() < 400,
+      "/contact must return a redirect response.",
+    );
+    const contactRedirectTarget = new URL(contactRedirect.headers().location, baseUrl);
+    assert.equal(contactRedirectTarget.pathname, "/about");
+    assert.equal(contactRedirectTarget.hash, "#contact");
+    await gotoReady(page, `${baseUrl}/contact`);
+    await page.waitForURL((url) => url.pathname === "/about" && url.hash === "#contact");
+    const contactSection = page.locator("#contact");
+    await contactSection.waitFor();
+    assert.ok(
+      await contactSection.evaluate((section) => section.getBoundingClientRect().top < 140),
+      "The compatibility redirect must scroll the Contact section into view.",
+    );
+    assert.equal(await page.locator('footer a[href="/contact"]').count(), 1);
+    await page.locator('footer a[href="/contact"]').click();
+    await page.waitForURL((url) => url.pathname === "/about" && url.hash === "#contact");
 
     console.log("Checking retired account and preview routes...");
     for (const route of retiredRoutes) {
@@ -2185,9 +2337,24 @@ async function runSmokeTests() {
           scrollWidth: document.documentElement.scrollWidth,
         }));
         assert.ok(viewportState.scrollWidth <= viewportState.width);
+        assert.equal(
+          await marquee.evaluate((ticker) => {
+            const heroImage = document.querySelector("[data-home-hero-image]");
+            return (
+              heroImage !== null &&
+              ticker.getBoundingClientRect().bottom <= heroImage.getBoundingClientRect().top
+            );
+          }),
+          true,
+          `${locale} referral ticker must not overlap the hero image at ${width}px.`,
+        );
 
         if (width >= 1280) {
-          assert.equal(await page.locator('header nav a[href="/contact"]').count(), 1);
+          assert.equal(
+            await page.locator('nav[aria-label="Main navigation"] a[href="/contact"]').count(),
+            0,
+            "The desktop navigation must not contain a separate Contact item.",
+          );
           const desktopReferral = page.getByRole("link", {
             name: referralNavLabels[locale],
             exact: true,
@@ -2199,7 +2366,11 @@ async function runSmokeTests() {
           await page
             .getByRole("button", { name: /Open menu|Menüyü aç|Ouvrir le menu|Fungua menyu/ })
             .click();
-          assert.equal(await page.locator('#mobile-navigation a[href="/contact"]').count(), 1);
+          assert.equal(
+            await page.locator('#mobile-navigation a[href="/contact"]').count(),
+            0,
+            "The mobile navigation must not contain a separate Contact item.",
+          );
           const mobileReferral = page.locator("#mobile-navigation").getByRole("link", {
             name: referralNavLabels[locale],
           });
@@ -2304,6 +2475,7 @@ async function runSmokeTests() {
     for (const viewport of [
       { width: 375, height: 812, name: "mobile" },
       { width: 768, height: 1024, name: "tablet" },
+      { width: 1024, height: 900, name: "small desktop" },
       { width: 1440, height: 1000, name: "desktop" },
     ]) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
@@ -2345,16 +2517,16 @@ async function runSmokeTests() {
           }
           assert.ok(await page.getByRole("button", { name: "Show password" }).isVisible());
           assert.ok(await page.getByRole("button", { name: "Log in" }).isVisible());
+          const email = page.locator("#referral-login-email");
+          await email.fill("not-an-email");
+          assert.equal(await email.evaluate((field) => field.validity.typeMismatch), true);
         } else if (route === "/referrals") {
           assert.ok(
             await page.getByRole("link", { name: "Check participation status" }).isVisible(),
           );
           assert.ok(await page.getByRole("link", { name: "Log in" }).isVisible());
         } else {
-          assert.equal(
-            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
-            0,
-          );
+          assert.equal(await page.locator("main form, main input").count(), 0);
           assert.ok(
             await page.getByRole("link", { name: "Return to the referral programme" }).isVisible(),
           );
@@ -2363,6 +2535,33 @@ async function runSmokeTests() {
     }
 
     console.log("Checking localized recovery screens remain gated and responsive...");
+    const referralRouteTitles = {
+      en: {
+        "/referrals/recovery": "Recover a Referral Programme Account | Frankedu Global",
+        "/referrals/recovery/reset": "Reset a Referral Programme Password | Frankedu Global",
+        "/participant": "Participant Dashboard | Frankedu Global",
+        "/participant/refer": "Refer a Student | Frankedu Global",
+      },
+      tr: {
+        "/referrals/recovery": "Tavsiye Programı Hesabını Kurtarın | Frankedu Global",
+        "/referrals/recovery/reset": "Tavsiye Programı Şifresini Sıfırlayın | Frankedu Global",
+        "/participant": "Katılımcı Paneli | Frankedu Global",
+        "/participant/refer": "Bir Öğrenciyi Tavsiye Edin | Frankedu Global",
+      },
+      fr: {
+        "/referrals/recovery": "Récupérer un compte de recommandation | Frankedu Global",
+        "/referrals/recovery/reset":
+          "Réinitialiser un mot de passe de recommandation | Frankedu Global",
+        "/participant": "Tableau de bord participant | Frankedu Global",
+        "/participant/refer": "Recommander un étudiant | Frankedu Global",
+      },
+      sw: {
+        "/referrals/recovery": "Rejesha akaunti ya mpango wa rufaa | Frankedu Global",
+        "/referrals/recovery/reset": "Weka upya nenosiri la mpango wa rufaa | Frankedu Global",
+        "/participant": "Dashibodi ya mshiriki | Frankedu Global",
+        "/participant/refer": "Mrejelee mwanafunzi | Frankedu Global",
+      },
+    };
     for (const [locale, language, requestTitle, resetTitle] of [
       ["en", "English", "Recover your account", "Reset your password"],
       ["tr", "Türkçe", "Hesabınızı kurtarın", "Şifrenizi sıfırlayın"],
@@ -2400,8 +2599,12 @@ async function runSmokeTests() {
           await gotoReady(page, `${baseUrl}${route}`);
           assert.equal(await page.locator("main h1").innerText(), title);
           assert.equal(await page.locator("html").getAttribute("lang"), locale);
+          assert.equal(await page.title(), referralRouteTitles[locale][route]);
           assert.equal(await page.locator("main input").count(), fields);
-          assert.equal(await page.locator("main form, main input").count(), 0);
+          assert.equal(
+            await page.locator("main input:enabled, main button[type=submit]:enabled").count(),
+            0,
+          );
           if (route === "/participant") {
             const unavailable = {
               en: "The participant account is temporarily unavailable. Please try again later.",
@@ -2415,6 +2618,16 @@ async function runSmokeTests() {
           if (route === "/participant/refer") {
             assert.equal(await page.locator("main form").count(), 0);
             assert.equal(await page.locator("main input").count(), 0);
+            assert.ok(await page.locator("[data-referral-login-fallback]").isVisible());
+            assert.equal(
+              await page.locator('main [role="alert"]').innerText(),
+              {
+                en: "Referral submissions are unavailable on this page right now. Do not submit student details here.",
+                tr: "Tavsiye gönderimleri şu anda bu sayfada kullanılamıyor. Buradan öğrenci bilgisi göndermeyin.",
+                fr: "Les recommandations ne sont pas disponibles sur cette page actuellement. N’envoyez pas d’informations sur un étudiant ici.",
+                sw: "Uwasilishaji wa rufaa haupatikani kwenye ukurasa huu kwa sasa. Usitume taarifa za mwanafunzi hapa.",
+              }[locale],
+            );
           }
           assert.ok(
             await page.evaluate(
@@ -2473,7 +2686,6 @@ async function runSmokeTests() {
       headers: csrfHeaders,
     });
     assert.equal(csrfResponse.status(), 403, "Cross-origin login mutations must be rejected.");
-      { width: 1024, height: 900, name: "small desktop" },
     await gotoReady(page, `${baseUrl}/application`);
     for (const route of retiredRoutes) {
       const redirected = await page.evaluate(
@@ -2515,9 +2727,6 @@ async function runSmokeTests() {
     const footerCopy = await page.locator("footer").innerText();
     assert.ok(
       footerCopy.includes("Lefkoşa, North Cyprus"),
-          const email = page.locator("#referral-login-email");
-          await email.fill("not-an-email");
-          assert.equal(await email.evaluate((field) => field.validity.typeMismatch), true);
       "The desktop footer must display the shortened contact address.",
     );
     assert.doesNotMatch(
@@ -2536,33 +2745,6 @@ async function runSmokeTests() {
       0,
       "The mobile menu must not link to retired student or account routes.",
     );
-    const referralRouteTitles = {
-      en: {
-        "/referrals/recovery": "Recover a Referral Programme Account | Frankedu Global",
-        "/referrals/recovery/reset": "Reset a Referral Programme Password | Frankedu Global",
-        "/participant": "Participant Dashboard | Frankedu Global",
-        "/participant/refer": "Refer a Student | Frankedu Global",
-      },
-      tr: {
-        "/referrals/recovery": "Tavsiye Programı Hesabını Kurtarın | Frankedu Global",
-        "/referrals/recovery/reset": "Tavsiye Programı Şifresini Sıfırlayın | Frankedu Global",
-        "/participant": "Katılımcı Paneli | Frankedu Global",
-        "/participant/refer": "Bir Öğrenciyi Tavsiye Edin | Frankedu Global",
-      },
-      fr: {
-        "/referrals/recovery": "Récupérer un compte de recommandation | Frankedu Global",
-        "/referrals/recovery/reset":
-          "Réinitialiser un mot de passe de recommandation | Frankedu Global",
-        "/participant": "Tableau de bord participant | Frankedu Global",
-        "/participant/refer": "Recommander un étudiant | Frankedu Global",
-      },
-      sw: {
-        "/referrals/recovery": "Rejesha akaunti ya mpango wa rufaa | Frankedu Global",
-        "/referrals/recovery/reset": "Weka upya nenosiri la mpango wa rufaa | Frankedu Global",
-        "/participant": "Dashibodi ya mshiriki | Frankedu Global",
-        "/participant/refer": "Mrejelee mwanafunzi | Frankedu Global",
-      },
-    };
     assert.ok(
       (await mobileNavigation.innerText()).includes("Lefkoşa, North Cyprus"),
       "The mobile menu must display the shortened contact address.",
@@ -2600,7 +2782,6 @@ async function runSmokeTests() {
       );
       assert.doesNotMatch(
         aboutCopy,
-          assert.equal(await page.title(), referralRouteTitles[locale][route]);
         /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit|verified advisory|doğrulanmış danışmanlık/i,
         `${locale} About page must not expose unapproved legal or tax claims.`,
       );
@@ -2618,16 +2799,6 @@ async function runSmokeTests() {
         `${locale} footer must not expose unapproved legal or tax claims.`,
       );
       assert.ok(
-            assert.ok(await page.locator("[data-referral-login-fallback]").isVisible());
-            assert.equal(
-              await page.locator('main [role="alert"]').innerText(),
-              {
-                en: "Referral submissions are unavailable on this page right now. Do not submit student details here.",
-                tr: "Tavsiye gönderimleri şu anda bu sayfada kullanılamıyor. Buradan öğrenci bilgisi göndermeyin.",
-                fr: "Les recommandations ne sont pas disponibles sur cette page actuellement. N’envoyez pas d’informations sur un étudiant ici.",
-                sw: "Uwasilishaji wa rufaa haupatikani kwenye ukurasa huu kwa sasa. Usitume taarifa za mwanafunzi hapa.",
-              }[locale],
-            );
         aboutCopy.includes("Lefkoşa, North Cyprus"),
         `${locale} About page must show the shortened address.`,
       );
@@ -2662,19 +2833,27 @@ async function runSmokeTests() {
 
       await gotoReady(page, `${baseUrl}/contact`);
       const contactCopy = await page.locator("main").innerText();
+      assert.equal(new URL(page.url()).pathname, "/about");
+      assert.equal(new URL(page.url()).hash, "#contact");
+      assert.equal(await page.locator("#contact form").count(), 1);
+      assert.equal(await page.locator("#contact a[href^='mailto:']").count(), 1);
+      assert.equal(await page.locator("#contact a[href^='https://wa.me/']").count(), 1);
+      assert.equal(await page.locator("#contact a[href*='tiktok.com']").count(), 1);
+      assert.equal(await page.locator("#contact a[href*='facebook.com']").count(), 1);
+      assert.equal(await page.locator("#contact a[href*='instagram.com']").count(), 1);
       assert.ok(
         contactCopy.includes("Lefkoşa, North Cyprus"),
-        `${locale} Contact page must show the shortened address.`,
+        `${locale} About contact section must show the shortened address.`,
       );
       assert.doesNotMatch(
         contactCopy,
         /Regal Residence|Küçük Kaymaklı/,
-        `${locale} Contact page must omit the removed address details.`,
+        `${locale} About contact section must omit the removed address details.`,
       );
       assert.doesNotMatch(
         contactCopy,
         /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit/i,
-        `${locale} Contact page must not expose unapproved legal or tax claims.`,
+        `${locale} About contact section must not expose unapproved legal or tax claims.`,
       );
       const contactDescription = await page
         .locator('meta[name="description"]')
@@ -2682,19 +2861,19 @@ async function runSmokeTests() {
       assert.doesNotMatch(
         contactDescription ?? "",
         /registered office|headquarters|tax clearance|registration number|reported revenue|assessable profit/i,
-        `${locale} Contact SEO description must not expose unapproved legal or tax claims.`,
+        `${locale} merged About/Contact SEO description must not expose unapproved legal or tax claims.`,
       );
       await page.setViewportSize({ width: 390, height: 844 });
       await gotoReady(page, `${baseUrl}/contact`);
       const mobileContactCopy = await page.locator("main").innerText();
       assert.ok(
         mobileContactCopy.includes("Lefkoşa, North Cyprus"),
-        `${locale} mobile Contact page must show the shortened address.`,
+        `${locale} mobile About contact section must show the shortened address.`,
       );
       assert.doesNotMatch(
         mobileContactCopy,
         /Regal Residence|Küçük Kaymaklı/,
-        `${locale} mobile Contact page must omit the removed address details.`,
+        `${locale} mobile About contact section must omit the removed address details.`,
       );
       await page.setViewportSize({ width: 1440, height: 1000 });
 
@@ -2972,16 +3151,19 @@ async function runSmokeTests() {
       ["Courses", "/courses"],
       ["Countries", "/countries"],
       ["Scholarships", "/scholarships"],
-      ["Referral Programme", "/referrals"],
       ["Services", "/services"],
       ["Marketplace", "/marketplace"],
       ["About", "/about"],
-      ["Contact", "/contact"],
     ]) {
       await desktopNav.getByRole("link", { name: label }).click();
       await page.waitForFunction((pathname) => window.location.pathname === pathname, route);
       await page.locator("main h1").waitFor();
     }
+    assert.equal(
+      await desktopNav.locator('a[href="/contact"]').count(),
+      0,
+      "The desktop navigation must not expose a separate Contact item.",
+    );
 
     await gotoReady(page, `${baseUrl}/`);
     await desktopNav.getByRole("link", { name: "Universities" }).click();
@@ -4198,7 +4380,9 @@ async function runSmokeTests() {
       await page.unroute("https://wa.me/**");
 
       await gotoReady(page, `${baseUrl}/contact`);
-      const contactForm = page.locator("form").last();
+      assert.equal(new URL(page.url()).pathname, "/about");
+      assert.equal(new URL(page.url()).hash, "#contact");
+      const contactForm = page.locator("#contact form");
       assert.equal(await contactForm.evaluate((form) => form.checkValidity()), false);
       await contactForm.locator('[name="fullName"]').fill("Smoke Test");
       await contactForm.locator('[name="email"]').fill("smoke@example.com");
@@ -4312,10 +4496,20 @@ async function runSmokeTests() {
       await touchPage.waitForURL("**/universities?country=united-states");
       await touchPage.waitForFunction(() => document.body.style.position !== "fixed");
       assert.equal(await touchPage.locator("dialog[open]").count(), 0);
+      await touchPage.waitForFunction(() => window.scrollY === 0);
+      const { y: routeScrollY, ...restoredStylesAndX } = await scrollState(touchPage);
+      const originalStylesAndX = Object.fromEntries(
+        Object.entries(originalScroll).filter(([key]) => key !== "y"),
+      );
       assert.deepEqual(
-        await scrollState(touchPage),
-        originalScroll,
-        "Unmount must restore prior styles, priorities, and position.",
+        restoredStylesAndX,
+        originalStylesAndX,
+        "Unmount must restore prior styles, priorities, and horizontal position.",
+      );
+      assert.equal(
+        routeScrollY,
+        0,
+        "Filtering universities must complete its route-level scroll reset after modal unmount.",
       );
       await touchSession.detach();
     } finally {

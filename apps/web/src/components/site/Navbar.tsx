@@ -239,7 +239,6 @@ export function Navbar() {
     { label: common.nav.services, to: "/services" as const },
     { label: common.nav.marketplace, to: "/marketplace" as const },
     { label: common.nav.about, to: "/about" as const },
-    { label: common.nav.contact, to: "/contact" as const },
   ];
 
   // Grouped sections for mobile drawer clarity
@@ -306,11 +305,6 @@ export function Navbar() {
           label: common.nav.about,
           to: "/about" as const,
           desc: common.mobileDrawer.aboutDesc,
-        },
-        {
-          label: common.nav.contact,
-          to: "/contact" as const,
-          desc: common.mobileDrawer.contactDesc,
         },
       ],
     },

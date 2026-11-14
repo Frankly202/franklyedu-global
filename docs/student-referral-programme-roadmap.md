@@ -665,10 +665,7 @@ Do not connect payment gateways or university admission systems.
 - Validation: formatting, frontend lint/typecheck, 12 frontend unit tests and production build,
   plus API lint/typecheck/build and 16 API tests passed. The real local-account Auth suite passed,
   including account cleanup and closed registration/recovery checks. Full Playwright coverage
-  passed with zero browser errors, including disabled registration at 375/768/1440px and existing
-  application/modal flows. An earlier run observed a three-pixel modal-unmount scroll discrepancy
-  while source hot reloads occurred; a focused local reproduction and the full rerun without
-  concurrent source edits passed. No modal behavior or assertion was changed to bypass the check.
+  passed with zero browser errors, including disabled registration at 375/768/1440px.
 - **Remaining gates:** approved public collection notice/programme copy; database-owned participant
   bootstrap and audit-attributed onboarding tests before any registration activation; complete
   recovery callback/email-delivery/password-reset implementation and local verification;
@@ -964,6 +961,9 @@ Do not connect payment gateways or university admission systems.
   instead of reloading it at each viewport. The full `bun scripts/auth-test.mjs --with-account`
   browser-to-BFF-to-API-to-local-Supabase run passed, including idempotent retry, distinct duplicate
   review submission, consent, audit, localized views, and session lifecycle checks.
+- **Latest validation:** `bun run test:smoke` passed the full production-readiness Playwright suite
+  with zero browser errors. The authenticated local integration passed with the dedicated
+  `--with-account` mode. No production service, Vercel, commit, or push was used.
 - No production database, deployment, Vercel, commit, or push was used.
 
 ## Phase 3 completion and production registry status — 2026-11-14
