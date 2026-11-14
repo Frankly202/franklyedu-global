@@ -9,7 +9,15 @@ import { chromium } from "playwright";
 import { createServer as createViteServer } from "vite";
 import { createApiApp } from "../../api/dist/src/app.js";
 import { createAccessTokenVerifier } from "../../api/dist/src/auth.js";
-import { createParticipantBootstrap } from "../../api/dist/src/participant.js";
+import {
+  createParticipantBootstrap,
+  createParticipantReferralCode,
+  createParticipantOverview,
+  createParticipantReferrals,
+  createParticipantRewards,
+  createParticipantReferralSubmissionPolicy,
+  createParticipantReferralSubmission,
+} from "../../api/dist/src/participant.js";
 
 function queryLocalDatabase(sql) {
   const result = spawnSync("supabase", ["db", "query", "--local", "--output-format", "json", sql], {
@@ -53,6 +61,65 @@ function queryLocalDatabaseRows(sql) {
   return Array.isArray(result) ? result : (result.rows ?? result.result ?? []);
 }
 
+function prepareLocalSubmissionPolicyFixtures() {
+  const copy = {
+    en: {
+      notice: "Synthetic local-test notice only; not approved for real data collection.",
+      consent: "Synthetic local-test consent only; not approved for real data collection.",
+    },
+    tr: {
+      notice: "Yalnızca sentetik yerel test bildirimi; gerçek veri toplama için onaylı değildir.",
+      consent: "Yalnızca sentetik yerel test onayı; gerçek veri toplama için onaylı değildir.",
+    },
+    fr: {
+      notice:
+        "Notice synthétique de test local uniquement ; non approuvée pour la collecte réelle.",
+      consent:
+        "Consentement synthétique de test local uniquement ; non approuvé pour la collecte réelle.",
+    },
+    sw: {
+      notice:
+        "Notisi ya majaribio ya ndani pekee; haijaidhinishwa kwa ukusanyaji halisi wa taarifa.",
+      consent:
+        "Ridhaa ya majaribio ya ndani pekee; haijaidhinishwa kwa ukusanyaji halisi wa taarifa.",
+    },
+  };
+  const activePolicies = queryLocalDatabaseRows(
+    "select locale, policy_version from public.referral_submission_policies where is_active;",
+  );
+  const locales = Object.keys(copy);
+  const testLocales = [];
+
+  for (const locale of locales) {
+    const active = activePolicies.find((policy) => policy.locale === locale);
+    if (active && active.policy_version !== "local-test-fixture-only") continue;
+    if (active) {
+      testLocales.push(locale);
+      continue;
+    }
+
+    const localized = copy[locale];
+    queryLocalDatabase(
+      `insert into public.referral_submission_policies
+         (locale, policy_version, notice_text, consent_text, is_active)
+       values (
+         '${locale}',
+         'local-test-fixture-only',
+         '${localized.notice.replaceAll("'", "''")}',
+         '${localized.consent.replaceAll("'", "''")}',
+         true
+       )
+       on conflict (locale, policy_version) do update
+         set notice_text = excluded.notice_text,
+             consent_text = excluded.consent_text,
+           is_active = true
+       returning locale;`,
+    );
+    testLocales.push(locale);
+  }
+  return testLocales;
+}
+
 async function selectLanguage(page, language, locale) {
   const trigger = page.getByRole("button", {
     name: /Select language|Dil seçin|Choisir la langue|Chagua lugha/,
@@ -69,6 +136,9 @@ let browser;
 let web;
 let api;
 let testAccount;
+let participantReferralFixture;
+let participantRewardFixture;
+let localSubmissionPolicyLocales = [];
 const bootstrappedActors = [];
 let config;
 const originalFetch = globalThis.fetch;
@@ -124,6 +194,27 @@ try {
         await createParticipantBootstrap(config.url, config.anonKey)(token, verifiedUserId);
         bootstrappedActors.push(verifiedUserId);
       },
+      getParticipantOverview: createParticipantOverview(config.url, config.anonKey),
+      getParticipantReferralCode: createParticipantReferralCode(config.url, config.anonKey),
+      getParticipantReferrals: async (token, verifiedUserId) => {
+        if (participantReferralFixture) {
+          assert.equal(verifiedUserId, testAccount);
+          return participantReferralFixture;
+        }
+        return createParticipantReferrals(config.url, config.anonKey)(token, verifiedUserId);
+      },
+      getParticipantRewards: async (token, verifiedUserId) => {
+        if (participantRewardFixture) {
+          assert.equal(verifiedUserId, testAccount);
+          return participantRewardFixture;
+        }
+        return createParticipantRewards(config.url, config.anonKey)(token, verifiedUserId);
+      },
+      getParticipantReferralSubmissionPolicy: createParticipantReferralSubmissionPolicy(
+        config.url,
+        config.anonKey,
+      ),
+      submitParticipantReferral: createParticipantReferralSubmission(config.url, config.anonKey),
     }),
   );
   api.listen(0, "127.0.0.1");
@@ -214,6 +305,11 @@ try {
        from auth.users u
        join public.referral_participants p on p.user_id = u.id
        where u.email like 'referral-test-%@example.invalid'
+         and not exists (
+           select 1
+           from public.referrals referral
+           where referral.referrer_id = p.user_id
+         )
        order by u.created_at asc
        limit 1;`,
     );
@@ -295,34 +391,412 @@ try {
     );
     await page.goto(`${webOrigin}/participant`, { waitUntil: "networkidle" });
     assert.equal(new URL(page.url()).pathname, "/participant");
-    assert.equal(await page.getByRole("status").innerText(), "Your participant account is ready.");
+    assert.equal(await page.getByRole("status").first().innerText(), "Account access: Verified");
+    assert.equal(await page.locator("[data-referral-panel] article").count(), 2);
+    const referralLinkPanel = page.locator("[data-participant-referral-link]");
+    const referralCode = await referralLinkPanel.locator("code").innerText();
+    assert.match(referralCode, /^[A-F0-9]{32}$/);
     assert.equal(
-      await page.locator("[data-referral-panel] article, [data-referral-panel] form").count(),
-      0,
+      await referralLinkPanel.locator("a").getAttribute("href"),
+      `https://franklyedu.com/referrals?ref=${referralCode}`,
     );
-    for (const [locale, language, title, ready] of [
-      ["en", "English", "Participant account", "Your participant account is ready."],
-      ["tr", "Türkçe", "Katılımcı hesabı", "Katılımcı hesabınız hazır."],
-      ["fr", "Français", "Compte participant", "Votre compte participant est prêt."],
-      ["sw", "Kiswahili", "Akaunti ya mshiriki", "Akaunti yako ya mshiriki iko tayari."],
+    assert.match(
+      await referralLinkPanel.innerText(),
+      /Check this protected area for current submission availability\./,
+    );
+    const referralsPanel = page.locator("[data-participant-referrals]");
+    assert.equal(await referralsPanel.locator("li").count(), 0);
+    assert.match(
+      await referralsPanel.innerText(),
+      /There are no referrals recorded for your account\./,
+    );
+    assert.equal(
+      await page
+        .locator("[data-referral-panel]")
+        .innerText()
+        .then((text) => text.includes("No referrals are recorded for this account yet.")),
+      true,
+    );
+    for (const [
+      locale,
+      language,
+      title,
+      accessStatus,
+      empty,
+      linkNotice,
+      referralsTitle,
+      referralsEmpty,
+      rewardsTitle,
+      rewardsEmpty,
+    ] of [
+      [
+        "en",
+        "English",
+        "Participant dashboard",
+        "Account access: Verified",
+        "No referrals are recorded for this account yet.",
+        "Check this protected area for current submission availability.",
+        "My referrals",
+        "There are no referrals recorded for your account.",
+        "My rewards",
+        "There are no reward qualification records for your account.",
+      ],
+      [
+        "tr",
+        "Türkçe",
+        "Katılımcı paneli",
+        "Hesap erişimi: Doğrulandı",
+        "Bu hesap için henüz tavsiye kaydı yok.",
+        "Gönderim durumunu bu korumalı alandan kontrol edin.",
+        "Tavsiyelerim",
+        "Hesabınız için kayıtlı tavsiye bulunmuyor.",
+        "Ödüllerim",
+        "Hesabınız için ödül yeterlilik kaydı bulunmuyor.",
+      ],
+      [
+        "fr",
+        "Français",
+        "Tableau de bord participant",
+        "Accès au compte: Vérifié",
+        "Aucune recommandation n’est encore enregistrée pour ce compte.",
+        "Consultez cet espace sécurisé pour vérifier si les envois sont disponibles.",
+        "Mes recommandations",
+        "Aucune recommandation n’est enregistrée pour votre compte.",
+        "Mes récompenses",
+        "Aucune décision d’admissibilité à une récompense n’est enregistrée pour votre compte.",
+      ],
+      [
+        "sw",
+        "Kiswahili",
+        "Dashibodi ya mshiriki",
+        "Ufikiaji wa akaunti: Imethibitishwa",
+        "Hakuna rufaa zilizorekodiwa kwa akaunti hii bado.",
+        "Angalia eneo hili lililolindwa ili kujua kama uwasilishaji unapatikana.",
+        "Rufaa zangu",
+        "Hakuna rufaa zilizorekodiwa kwa akaunti yako.",
+        "Zawadi zangu",
+        "Hakuna rekodi za ustahiki wa zawadi kwenye akaunti yako.",
+      ],
     ]) {
       await selectLanguage(page, language, locale);
+      await page.goto(`${webOrigin}/participant`, { waitUntil: "networkidle" });
       for (const width of [375, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
-        await page.goto(`${webOrigin}/participant`, { waitUntil: "networkidle" });
         assert.equal(await page.locator("main h1").innerText(), title);
-        assert.equal(await page.getByRole("status").innerText(), ready);
-        assert.equal(
-          await page.locator("[data-referral-panel] article, [data-referral-panel] form").count(),
-          0,
+        assert.equal(await page.getByRole("status").first().innerText(), accessStatus);
+        const panelText = await page.locator("[data-referral-panel]").innerText();
+        assert.ok(panelText.includes(empty));
+        assert.ok(panelText.includes(linkNotice));
+        const referralsText = await page.locator("[data-participant-referrals]").innerText();
+        assert.ok(referralsText.includes(referralsTitle));
+        assert.ok(referralsText.includes(referralsEmpty));
+        assert.equal(await page.locator("[data-participant-referrals] li").count(), 0);
+        const rewardsText = await page.locator("[data-participant-rewards]").innerText();
+        assert.ok(rewardsText.includes(rewardsTitle));
+        assert.ok(rewardsText.includes(rewardsEmpty));
+        assert.equal(await page.locator("[data-participant-rewards] li").count(), 0);
+        assert.ok(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+          ),
         );
+        for (const card of await page.locator("[data-referral-panel] article").all()) {
+          const rect = await card.boundingBox();
+          assert.ok(rect && rect.x >= 0 && rect.x + rect.width <= width);
+        }
+        const linkRect = await page.locator("[data-participant-referral-link]").boundingBox();
+        assert.ok(linkRect && linkRect.x >= 0 && linkRect.x + linkRect.width <= width);
+      }
+    }
+    participantReferralFixture = [
+      {
+        reference: "FE-0123456789ABCDEF01234567",
+        status: "application_in_progress",
+        createdAt: "2026-11-12T10:30:00.000Z",
+      },
+    ];
+    for (const [language, locale, localizedStatus] of [
+      ["English", "en", "Application in progress"],
+      ["Türkçe", "tr", "Başvuru devam ediyor"],
+      ["Français", "fr", "Candidature en cours"],
+      ["Kiswahili", "sw", "Maombi yanaendelea"],
+    ]) {
+      await selectLanguage(page, language, locale);
+      await page.goto(`${webOrigin}/participant`, { waitUntil: "networkidle" });
+      const referralsPanel = page.locator("[data-participant-referrals]");
+      assert.equal(await referralsPanel.locator("li").count(), 1);
+      assert.ok((await referralsPanel.innerText()).includes("FE-0123456789ABCDEF01234567"));
+      assert.ok((await referralsPanel.innerText()).includes(localizedStatus));
+      assert.equal(
+        await referralsPanel.locator("time").getAttribute("datetime"),
+        "2026-11-12T10:30:00.000Z",
+      );
+      const referralsText = await referralsPanel.innerText();
+      assert.equal(referralsText.includes("Student Example"), false);
+      assert.equal(referralsText.includes("student@example.test"), false);
+    }
+    participantReferralFixture = undefined;
+    participantRewardFixture = [
+      {
+        reference: "FE-1123456789ABCDEF01234567",
+        decision: "qualified",
+        amount: 170,
+        currency: "EUR",
+        createdAt: "2026-11-11T09:00:00.000Z",
+        reviewedAt: "2026-11-12T09:00:00.000Z",
+        payment: {
+          amount: 170,
+          currency: "EUR",
+          paidAt: "2026-11-13T09:00:00.000Z",
+        },
+      },
+      {
+        reference: "FE-0123456789ABCDEF01234567",
+        decision: "pending",
+        amount: 170,
+        currency: "EUR",
+        createdAt: "2026-11-10T09:00:00.000Z",
+        reviewedAt: null,
+        payment: null,
+      },
+    ];
+    for (const [language, locale, qualifiedLabel, pendingLabel] of [
+      ["English", "en", "Qualified", "Pending review"],
+      ["Türkçe", "tr", "Uygun bulundu", "İnceleme bekliyor"],
+      ["Français", "fr", "Admissible", "En attente d’examen"],
+      ["Kiswahili", "sw", "Imestahili", "Inasubiri kukaguliwa"],
+    ]) {
+      await selectLanguage(page, language, locale);
+      await page.goto(`${webOrigin}/participant`, { waitUntil: "networkidle" });
+      const rewardsPanel = page.locator("[data-participant-rewards]");
+      const cards = rewardsPanel.locator("li");
+      const formattedQualifiedAmount = new Intl.NumberFormat(
+        { en: "en-GB", tr: "tr-TR", fr: "fr-FR", sw: "sw-KE" }[locale],
+        { style: "currency", currency: "EUR" },
+      ).format(170);
+      assert.equal(await cards.count(), 2);
+      assert.ok((await cards.nth(0).innerText()).includes("FE-1123456789ABCDEF01234567"));
+      assert.ok((await cards.nth(0).innerText()).includes(qualifiedLabel));
+      assert.ok((await cards.nth(0).innerText()).includes(formattedQualifiedAmount));
+      assert.ok((await cards.nth(1).innerText()).includes("FE-0123456789ABCDEF01234567"));
+      assert.ok((await cards.nth(1).innerText()).includes(pendingLabel));
+      assert.equal((await cards.nth(1).innerText()).includes(formattedQualifiedAmount), false);
+      assert.equal(
+        await cards.nth(0).locator("time").last().getAttribute("datetime"),
+        "2026-11-13T09:00:00.000Z",
+      );
+      const rewardsText = await rewardsPanel.innerText();
+      assert.equal(rewardsText.includes("internal_reference"), false);
+      assert.equal(rewardsText.includes("recorded_by"), false);
+      assert.equal(await rewardsPanel.getByRole("button").count(), 0);
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+        ),
+      );
+    }
+    participantRewardFixture = undefined;
+
+    localSubmissionPolicyLocales = prepareLocalSubmissionPolicyFixtures();
+    const submissionLocales = [
+      ["English", "en", "Student's full name", "Submit referral"],
+      ["Türkçe", "tr", "Öğrencinin tam adı", "Tavsiyeyi gönder"],
+      ["Français", "fr", "Nom complet de l’étudiant", "Envoyer la recommandation"],
+      ["Kiswahili", "sw", "Jina kamili la mwanafunzi", "Wasilisha rufaa"],
+    ];
+    const testStudentEmail = `integration-student-${testAccount.slice(0, 8)}@example.test`;
+    const testStudentName = "Synthetic Integration Student";
+    await page.addInitScript(() => {
+      Object.defineProperty(globalThis.crypto, "randomUUID", {
+        configurable: true,
+        value: () =>
+          sessionStorage.getItem("referral-test-idempotency-key") ??
+          "00000000-0000-4000-8000-000000000311",
+      });
+    });
+    await page.evaluate(() => {
+      sessionStorage.setItem(
+        "referral-test-idempotency-key",
+        "00000000-0000-4000-8000-000000000311",
+      );
+    });
+
+    let firstReferralReference;
+    for (const [language, locale, nameLabel, submitLabel] of submissionLocales) {
+      await selectLanguage(page, language, locale);
+      await page.setViewportSize({ width: 375, height: 900 });
+      const submissionPageResponse = await page.goto(`${webOrigin}/participant/refer`, {
+        waitUntil: "networkidle",
+      });
+      const submissionPageRoot = page.locator("[data-referral-submission]");
+      if ((await submissionPageRoot.count()) !== 1) {
+        console.error(
+          JSON.stringify({
+            event: "local_referral_submission_page_missing",
+            status: submissionPageResponse?.status() ?? null,
+            path: new URL(page.url()).pathname,
+            loginFormVisible: (await page.locator("main form").count()) === 1,
+          }),
+        );
+      }
+      const form = page.locator("[data-referral-submission] form");
+      await page.waitForFunction(() => {
+        const root = document.querySelector("[data-referral-submission]");
+        return Boolean(
+          root?.querySelector("form, [data-referral-submission-closed], [role=alert]"),
+        );
+      });
+      if ((await form.count()) !== 1) {
+        const policyState = (await page.locator("[data-referral-submission-closed]").count())
+          ? "closed"
+          : (await page.locator("[data-referral-submission] [role=alert]").count())
+            ? "unavailable"
+            : "unexpected";
+        console.error(
+          JSON.stringify({
+            event: "local_referral_submission_policy_unavailable",
+            policyState,
+          }),
+        );
+        assert.equal(await form.count(), 1);
+      }
+      for (const width of [375, 768, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        assert.equal(await form.locator('input[name="studentName"]').count(), 1);
+        assert.equal(await form.locator('input[name="studentEmail"]').count(), 1);
+        assert.equal(await form.locator('input[name="studentPhone"]').count(), 1);
+        assert.equal(await form.getByLabel(nameLabel).count(), 1);
         assert.ok(
           await page.evaluate(
             () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
           ),
         );
       }
+
+      if (locale === "en") {
+        await page.setViewportSize({ width: 375, height: 900 });
+        await form.locator('input[name="studentName"]').fill(testStudentName);
+        await form.locator('input[name="studentEmail"]').fill(testStudentEmail);
+        await form.getByRole("checkbox").check();
+        await form.getByRole("button", { name: submitLabel }).click();
+        const success = page.locator("[data-referral-submission-success]");
+        await success.waitFor();
+        firstReferralReference = await success.locator("dd").first().innerText();
+        assert.match(firstReferralReference, /^FE-[A-F0-9]{24}$/);
+        assert.equal((await success.innerText()).includes(testStudentEmail), false);
+
+        await page.evaluate(() => {
+          sessionStorage.setItem(
+            "referral-test-idempotency-key",
+            "00000000-0000-4000-8000-000000000311",
+          );
+        });
+        await page.goto(`${webOrigin}/participant/refer`, { waitUntil: "networkidle" });
+        const retryForm = page.locator("[data-referral-submission] form");
+        await retryForm.waitFor();
+        await retryForm.locator('input[name="studentName"]').fill(testStudentName);
+        await retryForm.locator('input[name="studentEmail"]').fill(testStudentEmail);
+        await retryForm.getByRole("checkbox").check();
+        await retryForm.getByRole("button", { name: submitLabel }).click();
+        await page.locator("[data-referral-submission-success]").waitFor();
+        const retryCounts = queryLocalDatabaseRows(
+          `select
+               (select count(*)::integer from public.referrals
+                where referrer_id = '${testAccount}'
+                  and referred_student_email_normalized = lower('${testStudentEmail}')) as referral_count,
+               (select count(*)::integer from public.referral_duplicate_review_flags flag
+                join public.referrals referral on referral.id = flag.referral_id
+                where referral.referrer_id = '${testAccount}'
+                  and referral.referred_student_email_normalized = lower('${testStudentEmail}')
+                  and flag.flag_source = 'automated_check') as duplicate_flag_count;`,
+        )[0];
+        assert.equal(retryCounts?.referral_count, 1);
+        assert.equal(retryCounts?.duplicate_flag_count, 0);
+        assert.equal(
+          await page.locator("[data-referral-submission-success] dd").first().innerText(),
+          firstReferralReference,
+        );
+
+        await page.evaluate(() => {
+          sessionStorage.setItem(
+            "referral-test-idempotency-key",
+            "00000000-0000-4000-8000-000000000312",
+          );
+        });
+        await page.goto(`${webOrigin}/participant/refer`, { waitUntil: "networkidle" });
+        const duplicateForm = page.locator("[data-referral-submission] form");
+        await duplicateForm.waitFor();
+        await duplicateForm.locator('input[name="studentName"]').fill(testStudentName);
+        await duplicateForm.locator('input[name="studentEmail"]').fill(testStudentEmail);
+        await duplicateForm.getByRole("checkbox").check();
+        await duplicateForm.getByRole("button", { name: submitLabel }).click();
+        await page
+          .getByRole("heading", {
+            name: /flagged for additional review|ek inceleme için işaretlendi|signalée pour un examen complémentaire|ukaguzi wa ziada/,
+          })
+          .waitFor();
+        const duplicateReference = await page
+          .locator("[data-referral-submission-success] dd")
+          .first()
+          .innerText();
+        assert.match(duplicateReference, /^FE-[A-F0-9]{24}$/);
+        assert.notEqual(duplicateReference, firstReferralReference);
+        const duplicateCounts = queryLocalDatabaseRows(
+          `select
+              (select count(*)::integer from public.referrals
+               where referrer_id = '${testAccount}'
+                 and referred_student_email_normalized = lower('${testStudentEmail}')) as referral_count,
+              (select count(*)::integer from public.referral_duplicate_review_flags flag
+               join public.referrals referral on referral.id = flag.referral_id
+               where referral.referrer_id = '${testAccount}'
+                 and referral.referred_student_email_normalized = lower('${testStudentEmail}')
+                 and flag.flag_source = 'automated_check') as duplicate_flag_count;`,
+        )[0];
+        assert.equal(duplicateCounts?.referral_count, 2);
+        assert.equal(duplicateCounts?.duplicate_flag_count, 1);
+      }
     }
+
+    const submissionAuditRows = queryLocalDatabaseRows(
+      `select
+         (select count(*)::integer
+          from public.referrals
+          where referrer_id = '${testAccount}'
+            and referred_student_email_normalized = lower('${testStudentEmail}')) as referral_count,
+         (select count(*)::integer
+          from public.referral_consents consent
+          join public.referrals referral on referral.id = consent.referral_id
+          where referral.referrer_id = '${testAccount}'
+            and referral.referred_student_email_normalized = lower('${testStudentEmail}')
+            and consent.consented_by = '${testAccount}') as consent_count,
+         (select count(*)::integer
+          from public.referral_submission_idempotency idempotency
+          join public.referrals referral on referral.id = idempotency.referral_id
+          where idempotency.participant_id = '${testAccount}'
+            and referral.referred_student_email_normalized = lower('${testStudentEmail}')) as idempotency_count,
+         (select count(*)::integer
+          from public.referral_duplicate_review_flags flag
+          join public.referrals referral on referral.id = flag.referral_id
+          where referral.referrer_id = '${testAccount}'
+            and referral.referred_student_email_normalized = lower('${testStudentEmail}')
+            and flag.flag_source = 'automated_check') as duplicate_flag_count,
+         (select count(*)::integer
+          from public.referral_audit_events event
+          join public.referrals referral on referral.id::text = event.entity_id
+          where referral.referrer_id = '${testAccount}'
+            and referral.referred_student_email_normalized = lower('${testStudentEmail}')
+            and event.actor_user_id = '${testAccount}'
+            and event.event_type in ('referral.created', 'referral.consent_recorded')) as audit_count;`,
+    )[0];
+    assert.equal(submissionAuditRows?.referral_count, 2);
+    assert.equal(submissionAuditRows?.consent_count, 2);
+    assert.equal(submissionAuditRows?.idempotency_count, 2);
+    assert.equal(submissionAuditRows?.duplicate_flag_count, 1);
+    assert.equal(submissionAuditRows?.audit_count, 4);
+    console.log(
+      "PASS: browser → BFF → API → local Supabase submission, idempotency, duplicate review, and audit.",
+    );
+
     assert.ok(bootstrappedActors.length > 0);
     assert.ok(bootstrappedActors.every((actor) => actor === testAccount));
     assert.match(testAccount, /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
@@ -338,7 +812,7 @@ try {
       : (auditResult.rows ?? auditResult.result ?? []);
     assert.equal(auditRows[0]?.event_count, 1);
     console.log(
-      "PASS: localized browser → BFF → API → local Supabase participant bootstrap and audit event.",
+      "PASS: localized, responsive browser → BFF → API → local Supabase dashboard and bootstrap audit event.",
     );
     await selectLanguage(page, "English", "en");
     await page.goto(`${webOrigin}/login`, { waitUntil: "networkidle" });
@@ -574,6 +1048,22 @@ try {
       console.error("Dedicated local test account cleanup failed.");
       process.exitCode = 1;
     } else console.log("PASS: only the temporary dedicated local Auth account was removed.");
+  }
+  if (config && localSubmissionPolicyLocales.length > 0) {
+    try {
+      const locales = localSubmissionPolicyLocales.map((locale) => `'${locale}'`).join(", ");
+      queryLocalDatabase(
+        `update public.referral_submission_policies
+         set is_active = false
+         where policy_version = 'local-test-fixture-only'
+           and locale in (${locales})
+         returning locale;`,
+      );
+      console.log("PASS: local synthetic submission policies were deactivated.");
+    } catch {
+      console.error("Local synthetic referral policy cleanup failed.");
+      process.exitCode = 1;
+    }
   }
   globalThis.fetch = originalFetch;
 }

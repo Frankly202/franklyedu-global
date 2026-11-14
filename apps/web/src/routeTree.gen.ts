@@ -26,6 +26,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as UniversitiesRouteImport } from './routes/universities'
+import { Route as ParticipantReferRouteImport } from './routes/participant_.refer'
 import { Route as RealEstateSlugRouteImport } from './routes/real-estate_.$slug'
 import { Route as ReferralsRecoveryRouteImport } from './routes/referrals_.recovery'
 import { Route as ReferralsRecoveryCallbackRouteImport } from './routes/referrals_.recovery_.callback'
@@ -116,6 +117,11 @@ const UniversitiesRoute = UniversitiesRouteImport.update({
   path: '/universities',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParticipantReferRoute = ParticipantReferRouteImport.update({
+  id: '/participant_/refer',
+  path: '/participant/refer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RealEstateSlugRoute = RealEstateSlugRouteImport.update({
   id: '/real-estate_/$slug',
   path: '/real-estate/$slug',
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/student': typeof StudentRoute
   '/universities': typeof UniversitiesRoute
+  '/participant/refer': typeof ParticipantReferRoute
   '/real-estate/$slug': typeof RealEstateSlugRoute
   '/referrals/recovery': typeof ReferralsRecoveryRoute
   '/referrals/recovery/callback': typeof ReferralsRecoveryCallbackRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/student': typeof StudentRoute
   '/universities': typeof UniversitiesRoute
+  '/participant/refer': typeof ParticipantReferRoute
   '/real-estate/$slug': typeof RealEstateSlugRoute
   '/referrals/recovery': typeof ReferralsRecoveryRoute
   '/referrals/recovery/callback': typeof ReferralsRecoveryCallbackRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/student': typeof StudentRoute
   '/universities': typeof UniversitiesRoute
+  '/participant_/refer': typeof ParticipantReferRoute
   '/real-estate_/$slug': typeof RealEstateSlugRoute
   '/referrals_/recovery': typeof ReferralsRecoveryRoute
   '/referrals_/recovery_/callback': typeof ReferralsRecoveryCallbackRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/student'
     | '/universities'
+    | '/participant/refer'
     | '/real-estate/$slug'
     | '/referrals/recovery'
     | '/referrals/recovery/callback'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/student'
     | '/universities'
+    | '/participant/refer'
     | '/real-estate/$slug'
     | '/referrals/recovery'
     | '/referrals/recovery/callback'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/student'
     | '/universities'
+    | '/participant_/refer'
     | '/real-estate_/$slug'
     | '/referrals_/recovery'
     | '/referrals_/recovery_/callback'
@@ -298,6 +310,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   StudentRoute: typeof StudentRoute
   UniversitiesRoute: typeof UniversitiesRoute
+  ParticipantReferRoute: typeof ParticipantReferRoute
   RealEstateSlugRoute: typeof RealEstateSlugRoute
   ReferralsRecoveryRoute: typeof ReferralsRecoveryRoute
   ReferralsRecoveryCallbackRoute: typeof ReferralsRecoveryCallbackRoute
@@ -425,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UniversitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/participant_/refer': {
+      id: '/participant_/refer'
+      path: '/participant/refer'
+      fullPath: '/participant/refer'
+      preLoaderRoute: typeof ParticipantReferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/real-estate_/$slug': {
       id: '/real-estate_/$slug'
       path: '/real-estate/$slug'
@@ -474,6 +494,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   StudentRoute: StudentRoute,
   UniversitiesRoute: UniversitiesRoute,
+  ParticipantReferRoute: ParticipantReferRoute,
   RealEstateSlugRoute: RealEstateSlugRoute,
   ReferralsRecoveryRoute: ReferralsRecoveryRoute,
   ReferralsRecoveryCallbackRoute: ReferralsRecoveryCallbackRoute,

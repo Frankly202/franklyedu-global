@@ -243,3 +243,268 @@ test("session endpoint throttles repeated verification requests", async () => {
     },
   );
 });
+
+test("participant overview uses only the verified actor and returns no-store metrics", async () => {
+  const calls = [];
+  await withServer(
+    {
+      getParticipantOverview: async (token, actorId) => {
+        calls.push({ token, actorId });
+        return {
+          accountStatus: "verified",
+          totalReferrals: 3,
+          enrolledReferrals: 1,
+        };
+      },
+    },
+    async (baseUrl) => {
+      const missing = await fetch(`${baseUrl}/participant/overview`);
+      assert.equal(missing.status, 401);
+
+      const invalid = await fetch(`${baseUrl}/participant/overview`, {
+        headers: { authorization: "Bearer invalid-token" },
+      });
+      assert.equal(invalid.status, 401);
+      assert.equal(calls.length, 0);
+
+      const verified = await fetch(
+        `${baseUrl}/participant/overview?userId=attacker-controlled`,
+        {
+          headers: {
+            authorization: "Bearer verified-token",
+            "x-user-id": "attacker-controlled",
+          },
+        },
+      );
+      assert.equal(verified.status, 200);
+      assert.equal(verified.headers.get("cache-control"), "no-store");
+      assert.deepEqual(await verified.json(), {
+        accountStatus: "verified",
+        totalReferrals: 3,
+        enrolledReferrals: 1,
+      });
+      assert.deepEqual(calls, [
+        { token: "verified-token", actorId: verifiedUserId },
+      ]);
+    },
+  );
+});
+
+test("participant overview failures are generic and do not expose database details", async () => {
+  await withServer(
+    {
+      getParticipantOverview: async () => {
+        throw new Error("private participant query detail");
+      },
+    },
+    async (baseUrl) => {
+      const response = await fetch(`${baseUrl}/participant/overview`, {
+        headers: { authorization: "Bearer verified-token" },
+      });
+      assert.equal(response.status, 503);
+      assert.deepEqual(await response.json(), {
+        error: "Participant service is unavailable.",
+      });
+    },
+  );
+});
+
+test("participant referral link uses only the verified actor and returns no-store code", async () => {
+  const calls = [];
+  await withServer(
+    {
+      getParticipantReferralCode: async (token, actorId) => {
+        calls.push({ token, actorId });
+        return { referralCode: "0123456789ABCDEF0123456789ABCDEF" };
+      },
+    },
+    async (baseUrl) => {
+      const missing = await fetch(`${baseUrl}/participant/referral-link`);
+      assert.equal(missing.status, 401);
+
+      const invalid = await fetch(`${baseUrl}/participant/referral-link`, {
+        headers: { authorization: "Bearer invalid-token" },
+      });
+      assert.equal(invalid.status, 401);
+      assert.equal(calls.length, 0);
+
+      const verified = await fetch(
+        `${baseUrl}/participant/referral-link?userId=attacker-controlled`,
+        {
+          headers: {
+            authorization: "Bearer verified-token",
+            "x-user-id": "attacker-controlled",
+          },
+        },
+      );
+      assert.equal(verified.status, 200);
+      assert.equal(verified.headers.get("cache-control"), "no-store");
+      assert.deepEqual(await verified.json(), {
+        referralCode: "0123456789ABCDEF0123456789ABCDEF",
+      });
+      assert.deepEqual(calls, [
+        { token: "verified-token", actorId: verifiedUserId },
+      ]);
+    },
+  );
+});
+
+test("participant referral link failures are generic and do not expose provider details", async () => {
+  await withServer(
+    {
+      getParticipantReferralCode: async () => {
+        throw new Error("private participant query detail");
+      },
+    },
+    async (baseUrl) => {
+      const response = await fetch(`${baseUrl}/participant/referral-link`, {
+        headers: { authorization: "Bearer verified-token" },
+      });
+      assert.equal(response.status, 503);
+      assert.deepEqual(await response.json(), {
+        error: "Participant service is unavailable.",
+      });
+    },
+  );
+});
+
+test("participant referrals require a verified actor and return only read-only records", async () => {
+  const calls = [];
+  await withServer(
+    {
+      getParticipantReferrals: async (token, actorId) => {
+        calls.push({ token, actorId });
+        return [
+          {
+            reference: "FE-0123456789ABCDEF01234567",
+            status: "application_in_progress",
+            createdAt: "2026-11-12T10:30:00.000Z",
+          },
+        ];
+      },
+    },
+    async (baseUrl) => {
+      const missing = await fetch(`${baseUrl}/participant/referrals`);
+      assert.equal(missing.status, 401);
+
+      const invalid = await fetch(`${baseUrl}/participant/referrals`, {
+        headers: { authorization: "Bearer invalid-token" },
+      });
+      assert.equal(invalid.status, 401);
+      assert.equal(calls.length, 0);
+
+      const verified = await fetch(
+        `${baseUrl}/participant/referrals?userId=attacker-controlled`,
+        {
+          headers: {
+            authorization: "Bearer verified-token",
+            "x-user-id": "attacker-controlled",
+          },
+        },
+      );
+      assert.equal(verified.status, 200);
+      assert.equal(verified.headers.get("cache-control"), "no-store");
+      assert.deepEqual(await verified.json(), {
+        referrals: [
+          {
+            reference: "FE-0123456789ABCDEF01234567",
+            status: "application_in_progress",
+            createdAt: "2026-11-12T10:30:00.000Z",
+          },
+        ],
+      });
+      assert.deepEqual(calls, [
+        { token: "verified-token", actorId: verifiedUserId },
+      ]);
+    },
+  );
+});
+
+test("participant referrals failures are generic and do not expose provider details", async () => {
+  await withServer(
+    {
+      getParticipantReferrals: async () => {
+        throw new Error("private participant referral query detail");
+      },
+    },
+    async (baseUrl) => {
+      const response = await fetch(`${baseUrl}/participant/referrals`, {
+        headers: { authorization: "Bearer verified-token" },
+      });
+      assert.equal(response.status, 503);
+      assert.deepEqual(await response.json(), {
+        error: "Participant service is unavailable.",
+      });
+    },
+  );
+});
+
+test("participant rewards require verified identity and return only persisted records", async () => {
+  const calls = [];
+  const reward = {
+    reference: "FE-0123456789ABCDEF01234567",
+    decision: "qualified",
+    amount: 170,
+    currency: "EUR",
+    createdAt: "2026-11-12T10:30:00.000Z",
+    reviewedAt: "2026-11-13T10:30:00.000Z",
+    payment: {
+      amount: 170,
+      currency: "EUR",
+      paidAt: "2026-11-14T10:30:00.000Z",
+    },
+  };
+  await withServer(
+    {
+      getParticipantRewards: async (token, actorId) => {
+        calls.push({ token, actorId });
+        return [reward];
+      },
+    },
+    async (baseUrl) => {
+      const missing = await fetch(`${baseUrl}/participant/rewards`);
+      assert.equal(missing.status, 401);
+
+      const invalid = await fetch(`${baseUrl}/participant/rewards`, {
+        headers: { authorization: "Bearer invalid-token" },
+      });
+      assert.equal(invalid.status, 401);
+      assert.equal(calls.length, 0);
+
+      const verified = await fetch(
+        `${baseUrl}/participant/rewards?userId=attacker-controlled&amount=0.01&status=paid`,
+        {
+          headers: {
+            authorization: "Bearer verified-token",
+            "x-user-id": "attacker-controlled",
+          },
+        },
+      );
+      assert.equal(verified.status, 200);
+      assert.equal(verified.headers.get("cache-control"), "no-store");
+      assert.deepEqual(await verified.json(), { rewards: [reward] });
+      assert.deepEqual(calls, [
+        { token: "verified-token", actorId: verifiedUserId },
+      ]);
+    },
+  );
+});
+
+test("participant reward failures are generic and do not expose provider details", async () => {
+  await withServer(
+    {
+      getParticipantRewards: async () => {
+        throw new Error("private reward/payment query detail");
+      },
+    },
+    async (baseUrl) => {
+      const response = await fetch(`${baseUrl}/participant/rewards`, {
+        headers: { authorization: "Bearer verified-token" },
+      });
+      assert.equal(response.status, 503);
+      assert.deepEqual(await response.json(), {
+        error: "Participant service is unavailable.",
+      });
+    },
+  );
+});

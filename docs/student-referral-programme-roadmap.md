@@ -17,7 +17,25 @@ PostgreSQL. The database is the source of truth; WhatsApp is optional communicat
 - Implement one approved phase at a time. After a phase is completed and validated, update this
   roadmap with its outcome, then remove this temporary file before starting the next phase.
 
-## Current status — 2026-10-31
+## Current status — 2026-11-14
+
+- **Phase 1: PENDING.** The five referral migrations have been applied and their post-application
+  history was verified, but production integration and privacy gates remain. Public registration
+  and student-data collection must stay disabled.
+- **Phase 2: locally implemented; production activation pending.** Public information and the local
+  authentication foundation exist; signup and hosted authentication remain disabled pending Phase 1
+  and privacy decisions. `/student` still redirects to `/application`.
+- **Phase 3: LOCALLY IMPLEMENTED AND VALIDATED.** Increments 1–5 provide the protected participant
+  dashboard, referral link, My Referrals, My Rewards, and Refer a Student submission. Completion
+  evidence is recorded at the end of this roadmap.
+- A read-only production query found no referral-policy records for EN, TR, FR, or SW and no active
+  policies. The table has no separate approval-status field; consent wording and privacy/retention
+  approvals remain outstanding.
+- Production Render/Vercel checks and the remaining privacy/access/retention approvals are still
+  Phase 1 gates. A later CLI history refresh was blocked by temporary database-role authentication;
+  the successful post-application history result and the refresh error are recorded below.
+
+## Status snapshot — 2026-10-31
 
 - **Phase 1: PENDING.** Do not mark complete until the intended production Supabase project's
   migration/schema state is safely verified, deployed Render and Vercel integration checks pass,
@@ -787,6 +805,38 @@ Do not connect payment gateways or university admission systems.
   Participant bootstrap exists only in local code/database; do not apply its migration to
   production. These operations remain disabled.
 
+## Phase 3 increment 1 — protected read-only participant dashboard — 2026-11-03
+
+- Rechecked the existing participant schema and bootstrap/API/BFF foundation before implementation.
+  The participant table has no business account-status column, so the dashboard does not invent an
+  active/inactive state: it reports verified access only after the API validates the Supabase
+  bearer token and RLS returns the matching participant row.
+- Added `GET /participant/overview`. It validates the access token itself, then uses that same
+  user JWT with the anon key to read the participant row and issue RLS-scoped exact counts for
+  referrals and enrolled referrals. The verified actor ID comes only from token verification and
+  is applied as an owner filter. Responses contain only verified access and persisted counts,
+  exclude participant IDs, referral codes, and student details, and are no-store. No migration or
+  database function was needed; existing owner RLS policies are reused.
+- The protected `/participant` BFF flow validates the cookie-backed session, invokes the existing
+  idempotent audited bootstrap, then requests the overview through the API. The responsive
+  dashboard has EN/TR/FR/SW copy, loading/error/empty states, and persisted overview counts only.
+  It adds no referral forms, submissions, reward qualification, or student-information collection.
+- Focused API coverage checks verified-actor propagation, spoofed identity rejection, owner filters,
+  RLS-hidden participant rejection, persisted counts, no-store responses, and generic failures.
+  A local browser integration test traverses browser → BFF → API → local Supabase, then verifies
+  the actor-attributed `participant.account_bootstrapped` audit event through the local database.
+  Local-only Auth test accounts are retained because append-only audit events reference their actors
+  with restrictive foreign keys; random test passwords are not persisted. The test reuses an
+  existing fixture on later runs. No hosted service was accessed.
+- Validation: API lint/typecheck/build and **25 API tests** passed; frontend lint/typecheck/build
+  and **16 unit tests** passed; the local authenticated browser-to-database/audit integration
+  passed, including EN/TR/FR/SW dashboard rendering at 375/768/1440px; full localized responsive
+  Playwright smoke passed with zero browser errors; repository-wide lint/typecheck/build,
+  targeted Prettier checks, and `git diff --check` passed.
+- Phase 1 remains **PENDING**, including production schema/configuration and Render/Vercel
+  verification. Vercel was not accessed. Public registration, student data, referral submissions,
+  and rewards remain disabled. No production migration, deployment, branch change, commit, or push.
+
 ## Public programme promotion increment — 2026-11-03
 
 - Added a static, accessible referral ribbon within the homepage hero and a dedicated promotional
@@ -813,3 +863,140 @@ Do not connect payment gateways or university admission systems.
   and 1440px. Prettier checks and `git diff --check` passed.
 - Phase 1 remains **PENDING**. Vercel access remains pending and was not attempted; no production
   configuration, database, or deployment was accessed. No branch change, commit, or push.
+
+## Phase 3 increment 2 — protected participant referral link — 2026-11-03
+
+- Added authenticated `GET /participant/referral-link`. It independently verifies the bearer
+  token, derives the actor from that verification, queries only that actor's `referral_code`
+  through the anon-key/user-JWT client, and relies on the existing participant self-RLS policy.
+  The response is no-store and contains only the generated code; missing ownership or malformed
+  codes fail closed without exposing provider details.
+- The protected dashboard now obtains the code through its BFF/API path and presents the unique
+  code plus a canonical `/referrals?ref=...` programme-information link in EN/TR/FR/SW. The UI
+  states that the destination is informational and referral submission/code attribution are not
+  active. The public route does not consume the code, and no submission or student-data flow was
+  enabled.
+- Added API authorization, spoofing, ownership-filter, malformed-code, generic-error, and no-store
+  coverage. Extended the local browser integration to assert the displayed code/link and localized
+  responsive rendering. No schema change or migration was required; referral codes are generated
+  by the existing database default.
+- Validation: API lint/typecheck/build and **29 API tests** passed; frontend lint/typecheck/build
+  and **16 unit tests** passed; the full responsive Playwright smoke suite passed with zero browser
+  errors; targeted Prettier checks and `git diff --check` passed. The local authenticated browser
+  integration could not run because the local Supabase instance is stopped; no database was
+  started or changed.
+
+## Phase 3 increment 3 — protected read-only My Referrals — 2026-11-14
+
+- Added authenticated `GET /participant/referrals`. It verifies the bearer token and derives the
+  actor from that verification, confirms the RLS-owned participant row, and queries referrals
+  filtered by the verified `referrer_id`. The database selection and API response contain only
+  the referral reference, admission status, and creation timestamp; student details are neither
+  selected nor serialized. Responses are no-store, and invalid or unavailable records fail closed.
+- The protected dashboard BFF requests and validates this response, then displays a read-only
+  list with localized status labels and dates in EN/TR/FR/SW. It includes a localized empty state
+  and does not add submission, edit, or student-information collection functionality.
+- Focused API tests cover missing/invalid auth, actor spoofing, owner filters, safe field selection,
+  database-row field stripping, invalid status/owner failure, generic errors, and no-store.
+  The local browser integration asserts the empty-state UI, translations, and responsive layout;
+  its authenticated database-backed run requires the local Supabase instance to be available.
+  No migration or database change was made.
+- Validation: API lint/typecheck/build and **33 API tests** passed; frontend lint/typecheck/build
+  and **16 unit tests** passed; full responsive Playwright smoke passed with zero browser errors;
+  targeted Prettier checks and `git diff --check` passed. The local authenticated browser
+  integration was not run because it requires the local Supabase service; no database was started
+  or changed.
+
+## Phase 3 increment 4 — protected read-only My Rewards — 2026-11-14
+
+- Inspected the existing qualification/payment schema and policies before implementation. The
+  qualification table persists the decision, reward amount/currency, creation time, and review
+  time; the payment table persists amount/currency and paid time. Authenticated users have
+  SELECT-only grants. Qualification RLS is scoped through the owning referral, and payment RLS
+  follows qualification → referral ownership. No schema change was needed.
+- Added authenticated `GET /participant/rewards`, which verifies the bearer token and uses the
+  verified actor with the anon-key/user-JWT client. It queries only the actor's referral IDs,
+  owner-scoped qualification records, and related payment records under RLS. The no-store response
+  includes reference, persisted decision/amount/currency/dates and (only if present) recorded
+  payment amount/currency/date. Reviewer identities, internal payment references, and student
+  details are not selected or serialized.
+- The protected dashboard BFF validates the response and displays localized read-only reward
+  records in EN/TR/FR/SW. It shows an amount only for a persisted `qualified` decision, and
+  payment details only when a payment row exists. There are no controls or API paths to qualify,
+  grant, or mark rewards paid, and no client-supplied values are accepted.
+- Focused API tests cover missing/invalid authentication, spoofed identity, RLS/user-JWT queries,
+  owner filters, database-field stripping, inconsistent records, generic errors, and no-store.
+  The local browser integration adds localized empty and populated UI assertions; it requires the
+  local Supabase service and was not run. No database or production migration was changed.
+- Validation: API lint/typecheck/build and **37 API tests** passed; frontend lint/typecheck/build
+  and **16 unit tests** passed; full responsive Playwright smoke passed with zero browser errors;
+  targeted Prettier checks and `git diff --check` passed. The local authenticated browser
+  integration was not run because it requires local Supabase; it was not started or changed.
+
+## Phase 3 increment 5 — protected Refer a Student submission — 2026-11-14
+
+- Added the protected, localized `/participant/refer` workflow and dashboard entry point, using
+  the existing cookie-authenticated TanStack Start BFF → Express API → Supabase user-JWT/RLS path.
+  The participant actor and referral attribution are derived server-side. The form validates and
+  normalizes student details, captures the active locale and policy version with explicit consent,
+  and returns only the generated reference, status, date, and review-required indicator.
+- Added local schema support for an empty-by-default localized policy registry,
+  participant-scoped idempotency, ownership constraints, normalized-email duplicate review flags,
+  and atomic submission/consent/idempotency/audit RPC behavior. Same-key/same-payload retries
+  return the original reference; a new key with matching normalized email creates a distinct
+  submission and review flag. RLS, no-store responses, PII-minimal audit events, and API
+  submission throttling are retained. Express keeps a process-local IP limiter; the forward
+  migration adds a participant-scoped database limit that also applies to direct authenticated RPC
+  calls.
+- **Collection remains gated.** No approved production notice/consent text or version was seeded.
+  The local browser test installs only synthetic, explicitly unapproved policy fixtures and
+  deactivates them during cleanup. Public registration and collection therefore remain unavailable
+  until the localized notice, consent wording/version, and remaining privacy/retention approvals
+  are supplied.
+- Fixed the audit pgTAP assertion to scope its actor check to the duplicate flag created by that
+  test fixture, and added explicit control-character rejection coverage without a lint suppression.
+- Validation on local code/database: API lint, typecheck, build, and **47 API tests passed**;
+  frontend lint, typecheck, build, and **19 unit tests passed**; Prettier checks passed. The local
+  migration list includes `202611140001`; the new forward migration was applied locally. All
+  **103 pgTAP tests across 4 files passed**.
+- Resolved the local authenticated E2E rate-limit exhaustion without changing API limits or
+  authentication: localized dashboard and referral-form responsive checks now resize the same page
+  instead of reloading it at each viewport. The full `bun scripts/auth-test.mjs --with-account`
+  browser-to-BFF-to-API-to-local-Supabase run passed, including idempotent retry, distinct duplicate
+  review submission, consent, audit, localized views, and session lifecycle checks.
+- No production database, deployment, Vercel, commit, or push was used.
+
+## Phase 3 completion and production registry status — 2026-11-14
+
+- Phase 3 increments 1–5 are locally implemented and validated: protected participant overview,
+  referral link, My Referrals, My Rewards, and Refer a Student. The final validation results for
+  this completion are recorded below.
+- Production project `cycqebrgtwptjhupkoir` had all five referral migrations recorded as applied
+  in the successful post-application migration-history check:
+  `202610270001_referral_foundation.sql`,
+  `202610310001_referral_audit_foundation.sql`,
+  `202610310002_audit_reviewer_immutability.sql`,
+  `202611020001_referral_participant_bootstrap.sql`, and
+  `202611030001_referral_submission.sql`. The foundation migration was already applied and was not
+  reapplied.
+- A read-only production query selected only locale, policy version, active status, and counts.
+  It found **0 records and 0 active records** for each of EN, TR, FR, and SW. No policy text or
+  participant data was queried. The registry schema has no separate approval-status field.
+- A subsequent `supabase migration list --linked` refresh failed with
+  `FATAL: password authentication failed for user "cli_login_postgres" (SQLSTATE 28P01)`.
+  This did not alter the earlier successful post-application history result; current history
+  could not be refreshed in that CLI session.
+- Added `202611140001_referral_submission_rate_limit.sql` as a local forward migration after review
+  found the API-only throttle could be bypassed by direct authenticated RPC calls. It adds a
+  participant-scoped database limit and is applied only to the local development database. It has
+  **not** been applied to production; the five previously verified production migrations remain
+  unchanged. Apply and verify this forward migration in the normal reviewed production process
+  before enabling submissions.
+- **Phase 1 remains PENDING.** The empty production consent-policy registry, unapproved localized
+  notice/consent wording, and remaining production integration/privacy gates keep public
+  registration and student-data collection disabled.
+- **Final local validation passed:** `bun run lint`, `bun run typecheck`, `bun run build`, and
+  `bun run test` (full Playwright smoke with zero browser errors and API suite); all **47 API
+  tests**, **19 frontend unit tests**, the authenticated `bun scripts/auth-test.mjs --with-account`
+  browser-to-local-database flow, and **103 pgTAP assertions across 4 files**. Targeted Prettier
+  checks and `git diff --check` passed.

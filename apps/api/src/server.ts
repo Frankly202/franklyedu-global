@@ -2,7 +2,15 @@ import { createClient } from "@supabase/supabase-js";
 
 import { createApiApp } from "./app.js";
 import { createAccessTokenVerifier } from "./auth.js";
-import { createParticipantBootstrap } from "./participant.js";
+import {
+  createParticipantBootstrap,
+  createParticipantReferralCode,
+  createParticipantOverview,
+  createParticipantReferrals,
+  createParticipantRewards,
+  createParticipantReferralSubmissionPolicy,
+  createParticipantReferralSubmission,
+} from "./participant.js";
 import { loadConfig } from "./config.js";
 
 try {
@@ -34,6 +42,31 @@ try {
       config.supabaseServiceRoleKey,
     ),
     bootstrapParticipant: createParticipantBootstrap(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseAnonKey,
+    ),
+    getParticipantOverview: createParticipantOverview(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseAnonKey,
+    ),
+    getParticipantReferralCode: createParticipantReferralCode(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseAnonKey,
+    ),
+    getParticipantReferrals: createParticipantReferrals(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseAnonKey,
+    ),
+    getParticipantRewards: createParticipantRewards(
+      config.supabaseUrl.href.replace(/\/$/, ""),
+      config.supabaseAnonKey,
+    ),
+    getParticipantReferralSubmissionPolicy:
+      createParticipantReferralSubmissionPolicy(
+        config.supabaseUrl.href.replace(/\/$/, ""),
+        config.supabaseAnonKey,
+      ),
+    submitParticipantReferral: createParticipantReferralSubmission(
       config.supabaseUrl.href.replace(/\/$/, ""),
       config.supabaseAnonKey,
     ),

@@ -8,6 +8,10 @@ import {
   validateReferralRegistration,
 } from "./referral-auth-validation";
 import { validateRecoveryEmail } from "./referral-recovery-validation";
+import {
+  validateReferralSubmission,
+  validateReferralSubmissionLocale,
+} from "./referral-submission-validation";
 
 function reportAuthFailure(
   stage: string,
@@ -34,9 +38,7 @@ export const getReferralAuthState = createServerFn({ method: "GET" }).handler(as
   }
 });
 
-export const getParticipantFoundation = createServerFn({
-  method: "POST",
-}).handler(async () => {
+export const getParticipantFoundation = createServerFn({ method: "POST" }).handler(async () => {
   try {
     const { loadParticipantFoundation } = await import("./referral-auth.server");
     return await loadParticipantFoundation();
@@ -45,6 +47,40 @@ export const getParticipantFoundation = createServerFn({
     return "unavailable" as const;
   }
 });
+
+export const getParticipantDashboard = createServerFn({ method: "POST" }).handler(async () => {
+  try {
+    const { loadParticipantDashboard } = await import("./referral-auth.server");
+    return await loadParticipantDashboard();
+  } catch (error) {
+    reportAuthFailure("participant_dashboard", error, "api");
+    return "unavailable" as const;
+  }
+});
+
+export const getParticipantReferralSubmissionPolicy = createServerFn({ method: "POST" })
+  .validator(validateReferralSubmissionLocale)
+  .handler(async ({ data }) => {
+    try {
+      const { loadParticipantReferralSubmissionPolicy } = await import("./referral-auth.server");
+      return await loadParticipantReferralSubmissionPolicy(data);
+    } catch (error) {
+      reportAuthFailure("participant_referral_policy", error, "api");
+      return "unavailable" as const;
+    }
+  });
+
+export const submitParticipantReferral = createServerFn({ method: "POST" })
+  .validator(validateReferralSubmission)
+  .handler(async ({ data }) => {
+    try {
+      const { submitParticipantReferral: submit } = await import("./referral-auth.server");
+      return await submit(data);
+    } catch (error) {
+      reportAuthFailure("participant_referral_submission", error, "api");
+      return { status: "unavailable" } as const;
+    }
+  });
 
 export const logInReferral = createServerFn({ method: "POST" })
   .validator(validateReferralLoginCredentials)

@@ -30,8 +30,72 @@ export interface ReferralTranslation {
   participant: {
     title: string;
     subtitle: string;
-    ready: string;
+    loading: string;
+    accountStatus: string;
+    verified: string;
+    totalReferrals: string;
+    enrolledReferrals: string;
+    empty: string;
     unavailable: string;
+    referralLinkTitle: string;
+    referralLinkDescription: string;
+    referralCodeLabel: string;
+    referralLinkNotice: string;
+    myReferralsTitle: string;
+    myReferralsEmpty: string;
+    referralReferenceLabel: string;
+    referralStatusLabel: string;
+    referralDateLabel: string;
+    referralStatuses: {
+      submitted: string;
+      contacted: string;
+      applicationInProgress: string;
+      enrolled: string;
+      notEligible: string;
+      withdrawn: string;
+    };
+    myRewardsTitle: string;
+    myRewardsDescription: string;
+    myRewardsEmpty: string;
+    rewardDecisionLabel: string;
+    rewardAmountLabel: string;
+    rewardCreatedDateLabel: string;
+    rewardReviewedDateLabel: string;
+    rewardPaymentLabel: string;
+    rewardPaymentDateLabel: string;
+    rewardPaymentNotRecorded: string;
+    rewardDecisions: {
+      pending: string;
+      qualified: string;
+      ineligible: string;
+    };
+    submission: {
+      startTitle: string;
+      startDescription: string;
+      startCta: string;
+      title: string;
+      description: string;
+      loading: string;
+      unavailable: string;
+      studentName: string;
+      studentEmail: string;
+      studentPhone: string;
+      noticeHeading: string;
+      consentHeading: string;
+      submit: string;
+      submitting: string;
+      validationError: string;
+      successTitle: string;
+      successDescription: string;
+      reviewTitle: string;
+      referenceLabel: string;
+      dateLabel: string;
+      policyChanged: string;
+      idempotencyConflict: string;
+      rateLimited: string;
+      signedOut: string;
+      backToDashboard: string;
+    };
   };
   recovery: {
     title: string;
@@ -161,10 +225,83 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         "This page does not collect participant or student information. Do not submit personal details until an approved collection notice and process are published.",
     },
     participant: {
-      title: "Participant account",
-      subtitle: "Protected access to your participant account.",
-      ready: "Your participant account is ready.",
+      title: "Participant dashboard",
+      subtitle: "A private overview from records linked to your verified account.",
+      loading: "Loading your participant overview…",
+      accountStatus: "Account access",
+      verified: "Verified",
+      totalReferrals: "Referrals recorded",
+      enrolledReferrals: "Enrolled",
+      empty: "No referrals are recorded for this account yet.",
       unavailable: "The participant account is temporarily unavailable. Please try again later.",
+      referralLinkTitle: "My referral link",
+      referralLinkDescription: "Your unique programme link is generated for your verified account.",
+      referralCodeLabel: "Your referral code",
+      referralLinkNotice:
+        "The public link opens programme information. Check this protected area for current submission availability.",
+      myReferralsTitle: "My referrals",
+      myReferralsEmpty: "There are no referrals recorded for your account.",
+      referralReferenceLabel: "Reference",
+      referralStatusLabel: "Status",
+      referralDateLabel: "Recorded",
+      referralStatuses: {
+        submitted: "Submitted",
+        contacted: "Contacted",
+        applicationInProgress: "Application in progress",
+        enrolled: "Enrolled",
+        notEligible: "Not eligible",
+        withdrawn: "Withdrawn",
+      },
+      myRewardsTitle: "My rewards",
+      myRewardsDescription:
+        "This view shows persisted qualification and payment records only. You cannot change decisions or payment status here.",
+      myRewardsEmpty: "There are no reward qualification records for your account.",
+      rewardDecisionLabel: "Decision",
+      rewardAmountLabel: "Qualified reward amount",
+      rewardCreatedDateLabel: "Record created",
+      rewardReviewedDateLabel: "Decision reviewed",
+      rewardPaymentLabel: "Payment record",
+      rewardPaymentDateLabel: "Paid on",
+      rewardPaymentNotRecorded: "No payment record exists.",
+      rewardDecisions: {
+        pending: "Pending review",
+        qualified: "Qualified",
+        ineligible: "Ineligible",
+      },
+      submission: {
+        startTitle: "Refer a student",
+        startDescription:
+          "Submit a referral through the secure participant area when an approved localized notice is available.",
+        startCta: "Refer a student",
+        title: "Refer a student",
+        description:
+          "Enter the student's contact details only after reviewing the notice and consent text below.",
+        loading: "Checking whether referral submissions are available…",
+        unavailable:
+          "The referral submission service is temporarily unavailable. Please try again later.",
+        studentName: "Student's full name",
+        studentEmail: "Student's email address",
+        studentPhone: "Student's phone number (optional)",
+        noticeHeading: "Information notice",
+        consentHeading: "Consent",
+        submit: "Submit referral",
+        submitting: "Submitting securely…",
+        validationError: "Check the student details and consent, then try again.",
+        successTitle: "Referral received",
+        successDescription:
+          "Your referral has been recorded. You can view its reference and status in My Referrals.",
+        reviewTitle:
+          "The referral was received and flagged for additional review. This is not a decision about eligibility.",
+        referenceLabel: "Referral reference",
+        dateLabel: "Recorded",
+        policyChanged:
+          "The notice changed before submission. Reload this page and review the current notice.",
+        idempotencyConflict:
+          "This retry key was already used with different details. Review your entry and submit again.",
+        rateLimited: "Too many submissions were attempted. Please wait before trying again.",
+        signedOut: "Your session has ended. Log in again to continue.",
+        backToDashboard: "Back to participant dashboard",
+      },
     },
     recovery: {
       title: "Recover your account",
@@ -298,11 +435,85 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         "Bu sayfa katılımcı veya öğrenci bilgisi toplamaz. Onaylı bir veri toplama bildirimi ve süreç yayımlanana kadar kişisel bilgi göndermeyin.",
     },
     participant: {
-      title: "Katılımcı hesabı",
-      subtitle: "Katılımcı hesabınıza korumalı erişim.",
-      ready: "Katılımcı hesabınız hazır.",
+      title: "Katılımcı paneli",
+      subtitle: "Doğrulanmış hesabınızla ilişkilendirilmiş kayıtlara özel genel bakış.",
+      loading: "Katılımcı genel bakışınız yükleniyor…",
+      accountStatus: "Hesap erişimi",
+      verified: "Doğrulandı",
+      totalReferrals: "Kaydedilen tavsiyeler",
+      enrolledReferrals: "Kayıt olanlar",
+      empty: "Bu hesap için henüz tavsiye kaydı yok.",
       unavailable:
         "Katılımcı hesabı geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+      referralLinkTitle: "Tavsiye bağlantım",
+      referralLinkDescription:
+        "Benzersiz program bağlantınız doğrulanmış hesabınız için oluşturulmuştur.",
+      referralCodeLabel: "Tavsiye kodunuz",
+      referralLinkNotice:
+        "Herkese açık bağlantı program bilgilerini açar. Gönderim durumunu bu korumalı alandan kontrol edin.",
+      myReferralsTitle: "Tavsiyelerim",
+      myReferralsEmpty: "Hesabınız için kayıtlı tavsiye bulunmuyor.",
+      referralReferenceLabel: "Referans",
+      referralStatusLabel: "Durum",
+      referralDateLabel: "Kayıt tarihi",
+      referralStatuses: {
+        submitted: "Gönderildi",
+        contacted: "İletişime geçildi",
+        applicationInProgress: "Başvuru devam ediyor",
+        enrolled: "Kayıt oldu",
+        notEligible: "Uygun değil",
+        withdrawn: "Geri çekildi",
+      },
+      myRewardsTitle: "Ödüllerim",
+      myRewardsDescription:
+        "Bu görünüm yalnızca kaydedilmiş yeterlilik ve ödeme kayıtlarını gösterir. Buradan kararları veya ödeme durumunu değiştiremezsiniz.",
+      myRewardsEmpty: "Hesabınız için ödül yeterlilik kaydı bulunmuyor.",
+      rewardDecisionLabel: "Karar",
+      rewardAmountLabel: "Yeterli bulunan ödül tutarı",
+      rewardCreatedDateLabel: "Kayıt oluşturuldu",
+      rewardReviewedDateLabel: "Karar incelendi",
+      rewardPaymentLabel: "Ödeme kaydı",
+      rewardPaymentDateLabel: "Ödeme tarihi",
+      rewardPaymentNotRecorded: "Ödeme kaydı bulunmuyor.",
+      rewardDecisions: {
+        pending: "İnceleme bekliyor",
+        qualified: "Uygun bulundu",
+        ineligible: "Uygun değil",
+      },
+      submission: {
+        startTitle: "Bir öğrenciyi tavsiye edin",
+        startDescription:
+          "Onaylı ve yerelleştirilmiş bir bildirim mevcut olduğunda güvenli katılımcı alanından tavsiye gönderin.",
+        startCta: "Bir öğrenciyi tavsiye edin",
+        title: "Bir öğrenciyi tavsiye edin",
+        description:
+          "Öğrencinin iletişim bilgilerini yalnızca aşağıdaki bildirim ve izin metnini inceledikten sonra girin.",
+        loading: "Tavsiye gönderimlerinin kullanılabilirliği kontrol ediliyor…",
+        unavailable:
+          "Tavsiye gönderim hizmeti geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+        studentName: "Öğrencinin tam adı",
+        studentEmail: "Öğrencinin e-posta adresi",
+        studentPhone: "Öğrencinin telefon numarası (isteğe bağlı)",
+        noticeHeading: "Bilgilendirme metni",
+        consentHeading: "Onay",
+        submit: "Tavsiyeyi gönder",
+        submitting: "Güvenli şekilde gönderiliyor…",
+        validationError: "Öğrenci bilgilerini ve onayı kontrol edip tekrar deneyin.",
+        successTitle: "Tavsiye alındı",
+        successDescription:
+          "Tavsiyeniz kaydedildi. Referansını ve durumunu Tavsiyelerim bölümünde görebilirsiniz.",
+        reviewTitle:
+          "Tavsiye alındı ve ek inceleme için işaretlendi. Bu, uygunluk hakkında bir karar değildir.",
+        referenceLabel: "Tavsiye referansı",
+        dateLabel: "Kayıt tarihi",
+        policyChanged:
+          "Gönderimden önce bildirim değişti. Bu sayfayı yenileyip güncel bildirimi inceleyin.",
+        idempotencyConflict:
+          "Bu yeniden deneme anahtarı farklı bilgilerle zaten kullanıldı. Bilgilerinizi gözden geçirip tekrar gönderin.",
+        rateLimited: "Çok fazla gönderim denendi. Lütfen tekrar denemeden önce bekleyin.",
+        signedOut: "Oturumunuz sona erdi. Devam etmek için yeniden giriş yapın.",
+        backToDashboard: "Katılımcı paneline dön",
+      },
     },
     recovery: {
       title: "Hesabınızı kurtarın",
@@ -436,11 +647,88 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         "Cette page ne recueille aucune information sur les participants ou les étudiants. N’envoyez pas de renseignements personnels avant la publication d’une notice et d’un processus de collecte approuvés.",
     },
     participant: {
-      title: "Compte participant",
-      subtitle: "Accès protégé à votre compte participant.",
-      ready: "Votre compte participant est prêt.",
+      title: "Tableau de bord participant",
+      subtitle: "Un aperçu privé des enregistrements associés à votre compte vérifié.",
+      loading: "Chargement de votre aperçu participant…",
+      accountStatus: "Accès au compte",
+      verified: "Vérifié",
+      totalReferrals: "Recommandations enregistrées",
+      enrolledReferrals: "Inscrits",
+      empty: "Aucune recommandation n’est encore enregistrée pour ce compte.",
       unavailable:
         "Le compte participant est temporairement indisponible. Veuillez réessayer plus tard.",
+      referralLinkTitle: "Mon lien de recommandation",
+      referralLinkDescription:
+        "Votre lien unique vers le programme est généré pour votre compte vérifié.",
+      referralCodeLabel: "Votre code de recommandation",
+      referralLinkNotice:
+        "Le lien public ouvre les informations du programme. Consultez cet espace sécurisé pour vérifier si les envois sont disponibles.",
+      myReferralsTitle: "Mes recommandations",
+      myReferralsEmpty: "Aucune recommandation n’est enregistrée pour votre compte.",
+      referralReferenceLabel: "Référence",
+      referralStatusLabel: "Statut",
+      referralDateLabel: "Enregistrée le",
+      referralStatuses: {
+        submitted: "Soumise",
+        contacted: "Contacté",
+        applicationInProgress: "Candidature en cours",
+        enrolled: "Inscrit",
+        notEligible: "Non admissible",
+        withdrawn: "Retirée",
+      },
+      myRewardsTitle: "Mes récompenses",
+      myRewardsDescription:
+        "Cette vue affiche uniquement les décisions d’admissibilité et paiements enregistrés. Vous ne pouvez pas modifier les décisions ni les paiements ici.",
+      myRewardsEmpty:
+        "Aucune décision d’admissibilité à une récompense n’est enregistrée pour votre compte.",
+      rewardDecisionLabel: "Décision",
+      rewardAmountLabel: "Montant de la récompense admissible",
+      rewardCreatedDateLabel: "Enregistrement créé",
+      rewardReviewedDateLabel: "Décision examinée",
+      rewardPaymentLabel: "Enregistrement de paiement",
+      rewardPaymentDateLabel: "Payé le",
+      rewardPaymentNotRecorded: "Aucun paiement n’est enregistré.",
+      rewardDecisions: {
+        pending: "En attente d’examen",
+        qualified: "Admissible",
+        ineligible: "Non admissible",
+      },
+      submission: {
+        startTitle: "Recommander un étudiant",
+        startDescription:
+          "Envoyez une recommandation dans l’espace participant sécurisé lorsqu’une notice approuvée et localisée est disponible.",
+        startCta: "Recommander un étudiant",
+        title: "Recommander un étudiant",
+        description:
+          "Saisissez les coordonnées de l’étudiant uniquement après avoir lu la notice et le texte de consentement ci-dessous.",
+        loading: "Vérification de la disponibilité des recommandations…",
+        unavailable:
+          "Le service de recommandation est temporairement indisponible. Veuillez réessayer plus tard.",
+        studentName: "Nom complet de l’étudiant",
+        studentEmail: "Adresse e-mail de l’étudiant",
+        studentPhone: "Téléphone de l’étudiant (facultatif)",
+        noticeHeading: "Notice d’information",
+        consentHeading: "Consentement",
+        submit: "Envoyer la recommandation",
+        submitting: "Envoi sécurisé…",
+        validationError:
+          "Vérifiez les coordonnées de l’étudiant et le consentement, puis réessayez.",
+        successTitle: "Recommandation reçue",
+        successDescription:
+          "Votre recommandation a été enregistrée. Consultez sa référence et son statut dans Mes recommandations.",
+        reviewTitle:
+          "La recommandation a été reçue et signalée pour un examen complémentaire. Cela ne constitue pas une décision d’admissibilité.",
+        referenceLabel: "Référence de recommandation",
+        dateLabel: "Enregistrée le",
+        policyChanged:
+          "La notice a changé avant l’envoi. Rechargez cette page et consultez la notice actuelle.",
+        idempotencyConflict:
+          "Cette clé de nouvelle tentative a déjà été utilisée avec des informations différentes. Vérifiez votre saisie et réessayez.",
+        rateLimited:
+          "Trop de tentatives d’envoi ont été effectuées. Veuillez patienter avant de réessayer.",
+        signedOut: "Votre session a expiré. Reconnectez-vous pour continuer.",
+        backToDashboard: "Retour au tableau de bord participant",
+      },
     },
     recovery: {
       title: "Récupérer votre compte",
@@ -576,10 +864,86 @@ export const referralTranslations: Record<Locale, ReferralTranslation> = {
         "Ukurasa huu haukusanyi taarifa za washiriki au wanafunzi. Usitume taarifa binafsi kabla notisi na utaratibu ulioidhinishwa wa ukusanyaji haujachapishwa.",
     },
     participant: {
-      title: "Akaunti ya mshiriki",
-      subtitle: "Ufikiaji salama wa akaunti yako ya mshiriki.",
-      ready: "Akaunti yako ya mshiriki iko tayari.",
+      title: "Dashibodi ya mshiriki",
+      subtitle:
+        "Muhtasari wa faragha kutoka kwenye rekodi zinazohusishwa na akaunti yako iliyothibitishwa.",
+      loading: "Inapakia muhtasari wa mshiriki…",
+      accountStatus: "Ufikiaji wa akaunti",
+      verified: "Imethibitishwa",
+      totalReferrals: "Rufaa zilizorekodiwa",
+      enrolledReferrals: "Waliojiandikisha",
+      empty: "Hakuna rufaa zilizorekodiwa kwa akaunti hii bado.",
       unavailable: "Akaunti ya mshiriki haipatikani kwa sasa. Tafadhali jaribu tena baadaye.",
+      referralLinkTitle: "Kiungo changu cha rufaa",
+      referralLinkDescription:
+        "Kiungo chako cha kipekee cha programu kimetengenezwa kwa akaunti yako iliyothibitishwa.",
+      referralCodeLabel: "Msimbo wako wa rufaa",
+      referralLinkNotice:
+        "Kiungo cha umma kinafungua taarifa za mpango. Angalia eneo hili lililolindwa ili kujua kama uwasilishaji unapatikana.",
+      myReferralsTitle: "Rufaa zangu",
+      myReferralsEmpty: "Hakuna rufaa zilizorekodiwa kwa akaunti yako.",
+      referralReferenceLabel: "Rejeleo",
+      referralStatusLabel: "Hali",
+      referralDateLabel: "Tarehe iliyorekodiwa",
+      referralStatuses: {
+        submitted: "Imewasilishwa",
+        contacted: "Mawasiliano yamefanywa",
+        applicationInProgress: "Maombi yanaendelea",
+        enrolled: "Amejiandikisha",
+        notEligible: "Hastahili",
+        withdrawn: "Imeondolewa",
+      },
+      myRewardsTitle: "Zawadi zangu",
+      myRewardsDescription:
+        "Mwonekano huu unaonyesha rekodi zilizohifadhiwa za ustahiki na malipo pekee. Huwezi kubadilisha maamuzi au hali ya malipo hapa.",
+      myRewardsEmpty: "Hakuna rekodi za ustahiki wa zawadi kwenye akaunti yako.",
+      rewardDecisionLabel: "Uamuzi",
+      rewardAmountLabel: "Kiasi cha zawadi iliyostahili",
+      rewardCreatedDateLabel: "Rekodi imeundwa",
+      rewardReviewedDateLabel: "Uamuzi umekaguliwa",
+      rewardPaymentLabel: "Rekodi ya malipo",
+      rewardPaymentDateLabel: "Imelipwa tarehe",
+      rewardPaymentNotRecorded: "Hakuna rekodi ya malipo.",
+      rewardDecisions: {
+        pending: "Inasubiri kukaguliwa",
+        qualified: "Imestahili",
+        ineligible: "Haistahili",
+      },
+      submission: {
+        startTitle: "Mrejelee mwanafunzi",
+        startDescription:
+          "Tuma rufaa kupitia eneo salama la mshiriki wakati notisi iliyoidhinishwa na kutafsiriwa inapatikana.",
+        startCta: "Mrejelee mwanafunzi",
+        title: "Mrejelee mwanafunzi",
+        description:
+          "Weka maelezo ya mawasiliano ya mwanafunzi baada tu ya kusoma notisi na maandishi ya ridhaa hapa chini.",
+        loading: "Inakagua kama uwasilishaji wa rufaa unapatikana…",
+        unavailable:
+          "Huduma ya uwasilishaji wa rufaa haipatikani kwa muda. Tafadhali jaribu tena baadaye.",
+        studentName: "Jina kamili la mwanafunzi",
+        studentEmail: "Anwani ya barua pepe ya mwanafunzi",
+        studentPhone: "Nambari ya simu ya mwanafunzi (si lazima)",
+        noticeHeading: "Notisi ya taarifa",
+        consentHeading: "Ridhaa",
+        submit: "Wasilisha rufaa",
+        submitting: "Inawasilisha kwa usalama…",
+        validationError: "Kagua maelezo ya mwanafunzi na ridhaa, kisha ujaribu tena.",
+        successTitle: "Rufaa imepokelewa",
+        successDescription:
+          "Rufaa yako imerekodiwa. Unaweza kuona rejeleo na hali yake kwenye Rufaa Zangu.",
+        reviewTitle:
+          "Rufaa imepokelewa na kuwekewa alama ya ukaguzi wa ziada. Huu si uamuzi kuhusu kustahiki.",
+        referenceLabel: "Rejeleo la rufaa",
+        dateLabel: "Tarehe iliyorekodiwa",
+        policyChanged:
+          "Notisi ilibadilika kabla ya uwasilishaji. Pakia upya ukurasa huu na usome notisi ya sasa.",
+        idempotencyConflict:
+          "Ufunguo huu wa kujaribu tena tayari ulitumika na maelezo tofauti. Kagua ulichoingiza na utume tena.",
+        rateLimited:
+          "Majaribio mengi ya uwasilishaji yamefanywa. Tafadhali subiri kabla ya kujaribu tena.",
+        signedOut: "Kipindi chako kimeisha. Ingia tena ili kuendelea.",
+        backToDashboard: "Rudi kwenye dashibodi ya mshiriki",
+      },
     },
     recovery: {
       title: "Rejesha akaunti yako",

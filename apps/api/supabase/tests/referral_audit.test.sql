@@ -108,7 +108,7 @@ select extensions.throws_ok(
     select '00000000-0000-4000-8000-000000000102', referral_code, 'Spoofed', 'spoofed@example.test'
     from public.referral_participants where user_id = '00000000-0000-4000-8000-000000000102'$$,
   '42501',
-  'Referral actor must match the authenticated referrer.',
+  'Referral attribution does not match the authenticated participant.',
   'a caller cannot attribute referral creation to another participant'
 );
 
@@ -231,7 +231,14 @@ reset role;
 select extensions.is(
   (select actor_user_id::text from public.referral_audit_events
    where event_type = 'duplicate.flagged_automatically'
-     and entity_type = 'duplicate_review'),
+     and entity_type = 'duplicate_review'
+     and entity_id = (
+       select id::text
+       from public.referral_duplicate_review_flags
+       where referral_id = '00000000-0000-4000-8000-000000000104'
+         and candidate_referral_id = '00000000-0000-4000-8000-000000000105'
+         and flag_source = 'automated_check'
+     )),
   null,
   'automated duplicate flags have no fabricated user actor'
 );

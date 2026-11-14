@@ -15,8 +15,10 @@ admin workflows remain disabled/unimplemented.
   only ready/unavailable.
 - `GET /auth/session` validates Supabase access tokens server-side. `POST /participant/bootstrap`
   verifies the bearer token, invokes the database-owned bootstrap using the same user JWT, and
-  verifies the resulting row through participant-owner RLS. Its response is no-store. The BFF owns
-  browser sessions with Secure/HttpOnly/SameSite cookies and
+  verifies the resulting row through participant-owner RLS. `GET /participant/overview` uses that
+  verified JWT for owner-scoped participant and referral counts; it returns only verified account
+  access plus persisted referral/enrolment totals, never participant IDs or student details. Both
+  responses are no-store. The BFF owns browser sessions with Secure/HttpOnly/SameSite cookies and
   CSRF checks; public registration, referral submissions, and participant data collection are not
   enabled.
 - PostgreSQL migrations define participant roles, unique referral codes/references, referral

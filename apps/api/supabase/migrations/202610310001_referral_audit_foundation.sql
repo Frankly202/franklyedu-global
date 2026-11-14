@@ -320,6 +320,7 @@ create trigger referral_audit_duplicate_flag_insert
 
 create trigger referral_audit_duplicate_flag_review
   after update of review_status
+  on public.referral_duplicate_review_flags
   for each row
   when (old.review_status is distinct from new.review_status)
   execute function public.audit_duplicate_review_flag();

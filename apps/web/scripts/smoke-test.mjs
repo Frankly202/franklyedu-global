@@ -2375,10 +2375,20 @@ async function runSmokeTests() {
           [
             "/participant",
             {
-              en: "Participant account",
-              tr: "Katılımcı hesabı",
-              fr: "Compte participant",
-              sw: "Akaunti ya mshiriki",
+              en: "Participant dashboard",
+              tr: "Katılımcı paneli",
+              fr: "Tableau de bord participant",
+              sw: "Dashibodi ya mshiriki",
+            }[locale],
+            0,
+          ],
+          [
+            "/participant/refer",
+            {
+              en: "Refer a student",
+              tr: "Bir öğrenciyi tavsiye edin",
+              fr: "Recommander un étudiant",
+              sw: "Mrejelee mwanafunzi",
             }[locale],
             0,
           ],
@@ -2399,6 +2409,10 @@ async function runSmokeTests() {
               sw: "Akaunti ya mshiriki haipatikani kwa sasa. Tafadhali jaribu tena baadaye.",
             }[locale];
             assert.equal(await page.getByRole("alert").innerText(), unavailable);
+          }
+          if (route === "/participant/refer") {
+            assert.equal(await page.locator("main form").count(), 0);
+            assert.equal(await page.locator("main input").count(), 0);
           }
           assert.ok(
             await page.evaluate(
